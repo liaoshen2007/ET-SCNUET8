@@ -22,6 +22,9 @@
             
         }
         
+        /// <summary>
+        /// 程序入口 {CodeLoader IStaticMethod 调用}
+        /// </summary>
         public static void Start()
         {
             StartAsync().Coroutine();

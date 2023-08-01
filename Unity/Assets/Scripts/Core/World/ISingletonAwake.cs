@@ -5,17 +5,17 @@
         void Awake();
     }
     
-    public interface ISingletonAwake<A>
+    public interface ISingletonAwake<in A>
     {
         void Awake(A a);
     }
     
-    public interface ISingletonAwake<A, B>
+    public interface ISingletonAwake<in A, in B>
     {
         void Awake(A a, B b);
     }
     
-    public interface ISingletonAwake<A, B, C>
+    public interface ISingletonAwake<in A, in B, in C>
     {
         void Awake(A a, B b, C c);
     }
