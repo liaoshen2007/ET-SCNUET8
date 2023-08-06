@@ -17,15 +17,15 @@ namespace ET
             Entry.Init();
             
             Init init = new();
-            init.Start();
+            Init.Start();
             
             while (true)
             {
                 Thread.Sleep(1);
                 try
                 {
-                    init.Update();
-                    init.LateUpdate();
+                    Init.Update();
+                    Init.LateUpdate();
                 }
                 catch (Exception e)
                 {

@@ -1,0 +1,16 @@
+{"dict": [
+[1000, {"_t":"Numeric","_id":1000,"Addition":1,"BaseValue":0,"Name":"移动速度","Desc":"移动速度","Fight":100}],
+[1001, {"_t":"Numeric","_id":1001,"Addition":1,"BaseValue":0,"Name":"最大血量","Desc":"最大血量","Fight":100}],
+[1002, {"_t":"Numeric","_id":1002,"Addition":1,"BaseValue":0,"Name":"AOI","Desc":"AOI","Fight":100}],
+[1003, {"_t":"Numeric","_id":1003,"Addition":1,"BaseValue":0,"Name":"攻击","Desc":"攻击","Fight":100}],
+[1004, {"_t":"Numeric","_id":1004,"Addition":1,"BaseValue":0,"Name":"防御","Desc":"防御","Fight":100}],
+[3001, {"_t":"Numeric","_id":3001,"Addition":0,"BaseValue":0,"Name":"力量","Desc":"力量","Fight":111}],
+[3002, {"_t":"Numeric","_id":3002,"Addition":0,"BaseValue":0,"Name":"体力","Desc":"体力","Fight":111}],
+[3003, {"_t":"Numeric","_id":3003,"Addition":0,"BaseValue":0,"Name":"敏捷","Desc":"敏捷","Fight":111}],
+[3004, {"_t":"Numeric","_id":3004,"Addition":0,"BaseValue":0,"Name":"精神","Desc":"精神","Fight":111}],
+[3005, {"_t":"Numeric","_id":3005,"Addition":0,"BaseValue":0,"Name":"属性点","Desc":"属性点","Fight":111}],
+[3006, {"_t":"Numeric","_id":3006,"Addition":0,"BaseValue":0,"Name":"等级","Desc":"等级","Fight":111}],
+[3007, {"_t":"Numeric","_id":3007,"Addition":0,"BaseValue":0,"Name":"金币","Desc":"金币","Fight":111}],
+[3008, {"_t":"Numeric","_id":3008,"Addition":0,"BaseValue":0,"Name":"经验","Desc":"经验","Fight":111}],
+[3009, {"_t":"Numeric","_id":3009,"Addition":0,"BaseValue":0,"Name":"血量","Desc":"血量","Fight":111}],
+]}

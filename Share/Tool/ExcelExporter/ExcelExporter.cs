@@ -61,12 +61,13 @@ namespace ET
 
         private const string CSClassDir = "../Unity/Assets/Scripts/Model/Generate/ClientServer/Config";
 
-        private const string excelDir = "../Unity/Assets/Config/Excel/";
+        private const string excelDir = "../Excel/";
 
         private const string jsonDir = "../Config/Json/{0}/{1}";
 
         private const string clientProtoDir = "../Unity/Assets/Bundles/Config";
         private const string serverProtoDir = "../Config/Excel/{0}/{1}";
+        private const string numericPath = "../Unity/Assets/Scripts/Model/Share/Module/Numeric/NumericType.cs";
         private static Assembly[] configAssemblies = new Assembly[3];
 
         private static Dictionary<string, Table> tables = new Dictionary<string, Table>();
@@ -191,6 +192,8 @@ namespace ET
                 FileHelper.CopyDirectory("../Config/Excel/c", clientProtoDir);
                 
                 Log.Console("Export Excel Sucess!");
+                ExportNumeric();
+                Log.Console("Export Numeric Sucess!");
             }
             catch (Exception e)
             {
@@ -607,6 +610,77 @@ namespace ET
 
             using FileStream file = File.Create(path);
             file.Write(final.ToBson());
+        }
+        
+                /// <summary>
+        /// 到处属性类型
+        /// </summary>
+        private static void ExportNumeric()
+        {
+            static void AppendDesc(string desc, StringBuilder stringBuilder)
+            {
+                if (!desc.IsNullOrEmpty())
+                {
+                    stringBuilder.Append("\t\t/// <summary>\n");
+                    stringBuilder.AppendFormat($"\t\t/// {desc}\n");
+                    stringBuilder.Append("\t\t/// </summary>\n");
+                }
+            }
+
+            var path = Path.GetFullPath(excelDir + "/Numeric.xlsx");
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            ExcelPackage p = GetPackage(Path.GetFullPath(path));
+            template = File.ReadAllText("Numeric.txt");
+            var sb = new StringBuilder();
+            string format = "\t\tpublic const int {0} = {1};\n";
+            string format2 = "\t\tpublic const int {0}{1} = {2} * 10 + {3};\n";
+            foreach (ExcelWorksheet worksheet in p.Workbook.Worksheets)
+            {
+                if (worksheet.Name.StartsWith("#"))
+                {
+                    continue;
+                }
+
+                for (int row = 6; row <= worksheet.Dimension.End.Row; ++row)
+                {
+                    var fieldType = worksheet.Cells[5, 3].Text.Trim();
+                    var v = Convert(fieldType, worksheet.Cells[row, 3].Text.Trim());
+                    if (v.IsNullOrEmpty() || v == "0")
+                    {
+                        continue;
+                    }
+
+                    var desc = worksheet.Cells[row, 4].Text.Trim();
+                    var t = Convert(fieldType, worksheet.Cells[row, 5].Text.Trim());
+                    var addition = Convert(fieldType, worksheet.Cells[row, 6].Text.Trim());
+                    if (addition == "0")
+                    {
+                        AppendDesc(desc, sb);
+                        sb.AppendFormat(format, t, v);
+                        sb.AppendLine();
+                    }
+                    else
+                    {
+                        AppendDesc(desc, sb);
+                        sb.AppendFormat(format, t, v);
+                        sb.AppendFormat(format2, t, "Base", t, 1);
+                        sb.AppendFormat(format2, t, "Add", t, 2);
+                        sb.AppendFormat(format2, t, "Pct", t, 3);
+                        sb.AppendFormat(format2, t, "FinalAdd", t, 4);
+                        sb.AppendFormat(format2, t, "FinalPct", t, 5);
+                        sb.AppendLine();
+                    }
+                }
+            }
+
+            using FileStream txt = new FileStream(numericPath, FileMode.Create);
+            using StreamWriter sw = new StreamWriter(txt);
+            var result = template.Replace("(fields)", sb.ToString());
+            sw.Write(result);
         }
     }
 }

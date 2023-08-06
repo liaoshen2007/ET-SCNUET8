@@ -100,5 +100,10 @@ namespace ET
 			argStr += "]";
 			return argStr;
 		}
+		
+		public static bool IsNullOrEmpty(this string str)
+		{
+			return string.IsNullOrEmpty(str);
+		}
 	}
 }

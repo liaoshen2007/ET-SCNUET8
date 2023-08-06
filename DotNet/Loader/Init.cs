@@ -6,7 +6,7 @@ namespace ET
 {
 	public class Init
 	{
-		public void Start()
+		public static void Start()
 		{
 			try
 			{
@@ -30,13 +30,13 @@ namespace ET
 			}
 		}
 
-		public void Update()
+		public static void Update()
 		{
 			TimeInfo.Instance.Update();
 			FiberManager.Instance.Update();
 		}
 
-		public void LateUpdate()
+		public static void LateUpdate()
 		{
 			FiberManager.Instance.LateUpdate();
 		}
