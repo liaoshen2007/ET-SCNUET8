@@ -4,20 +4,15 @@ package ET;
 //ResponseType G2C_Match
 message C2G_Match // ISessionRequest
 {
-	int32 RpcId = 1;
 }
 
 message G2C_Match // ISessionResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 // 匹配成功，通知客户端切换场景
 message Match2G_NotifyMatchSuccess // IMessage
 {
-	int32 RpcId = 1;
 	// 房间的ActorId
 	ActorId ActorId = 2;
 }

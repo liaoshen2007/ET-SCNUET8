@@ -3,7 +3,9 @@ using MemoryPack;
 using System.Collections.Generic;
 namespace ET
 {
-// 请求匹配
+	/// <summary>
+	/// 请求匹配
+	/// </summary>
 	[ResponseType(nameof(Match2G_Match))]
 	[Message(LockStepInner.G2Match_Match)]
 	[MemoryPackable]
@@ -14,7 +16,7 @@ namespace ET
 			return !isFromPool? new G2Match_Match() : ObjectPool.Instance.Fetch(typeof(G2Match_Match)) as G2Match_Match; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -40,13 +42,13 @@ namespace ET
 			return !isFromPool? new Match2G_Match() : ObjectPool.Instance.Fetch(typeof(Match2G_Match)) as Match2G_Match; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 
@@ -71,7 +73,7 @@ namespace ET
 			return !isFromPool? new Match2Map_GetRoom() : ObjectPool.Instance.Fetch(typeof(Match2Map_GetRoom)) as Match2Map_GetRoom; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -97,16 +99,18 @@ namespace ET
 			return !isFromPool? new Map2Match_GetRoom() : ObjectPool.Instance.Fetch(typeof(Map2Match_GetRoom)) as Map2Match_GetRoom; 
 		}
 
-		[MemoryPackOrder(0)]
+	/// <summary>
+	/// 房间的ActorId
+	/// </summary>
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
-// 房间的ActorId
 		[MemoryPackOrder(3)]
 		public ActorId ActorId { get; set; }
 
@@ -133,7 +137,7 @@ namespace ET
 			return !isFromPool? new G2Room_Reconnect() : ObjectPool.Instance.Fetch(typeof(G2Room_Reconnect)) as G2Room_Reconnect; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -159,13 +163,13 @@ namespace ET
 			return !isFromPool? new Room2G_Reconnect() : ObjectPool.Instance.Fetch(typeof(Room2G_Reconnect)) as Room2G_Reconnect; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -202,7 +206,7 @@ namespace ET
 			return !isFromPool? new RoomManager2Room_Init() : ObjectPool.Instance.Fetch(typeof(RoomManager2Room_Init)) as RoomManager2Room_Init; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -228,13 +232,13 @@ namespace ET
 			return !isFromPool? new Room2RoomManager_Init() : ObjectPool.Instance.Fetch(typeof(Room2RoomManager_Init)) as Room2RoomManager_Init; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 

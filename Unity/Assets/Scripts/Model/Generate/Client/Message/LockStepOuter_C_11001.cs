@@ -13,7 +13,7 @@ namespace ET
 			return !isFromPool? new C2G_Match() : ObjectPool.Instance.Fetch(typeof(C2G_Match)) as C2G_Match; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -35,13 +35,13 @@ namespace ET
 			return !isFromPool? new G2C_Match() : ObjectPool.Instance.Fetch(typeof(G2C_Match)) as G2C_Match; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 
@@ -56,7 +56,9 @@ namespace ET
 
 	}
 
-// 匹配成功，通知客户端切换场景
+	/// <summary>
+	/// 匹配成功，通知客户端切换场景
+	/// </summary>
 	[Message(LockStepOuter.Match2G_NotifyMatchSuccess)]
 	[MemoryPackable]
 	public partial class Match2G_NotifyMatchSuccess: MessageObject, IMessage
@@ -66,17 +68,15 @@ namespace ET
 			return !isFromPool? new Match2G_NotifyMatchSuccess() : ObjectPool.Instance.Fetch(typeof(Match2G_NotifyMatchSuccess)) as Match2G_NotifyMatchSuccess; 
 		}
 
-		[MemoryPackOrder(0)]
-		public int RpcId { get; set; }
-
-// 房间的ActorId
+	/// <summary>
+	/// 房间的ActorId
+	/// </summary>
 		[MemoryPackOrder(1)]
 		public ActorId ActorId { get; set; }
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
-			this.RpcId = default;
 			this.ActorId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -84,7 +84,9 @@ namespace ET
 
 	}
 
-// 客户端通知房间切换场景完成
+	/// <summary>
+	/// 客户端通知房间切换场景完成
+	/// </summary>
 	[Message(LockStepOuter.C2Room_ChangeSceneFinish)]
 	[MemoryPackable]
 	public partial class C2Room_ChangeSceneFinish: MessageObject, IRoomMessage
@@ -137,7 +139,9 @@ namespace ET
 
 	}
 
-// 房间通知客户端进入战斗
+	/// <summary>
+	/// 房间通知客户端进入战斗
+	/// </summary>
 	[Message(LockStepOuter.Room2C_Start)]
 	[MemoryPackable]
 	public partial class Room2C_Start: MessageObject, IMessage

@@ -24,7 +24,7 @@ namespace ET
 
     public static class InnerProto2CS
     {
-        private const string protoDir = "../Unity/Assets/Config/Proto";
+        private const string protoDir = "../Proto";
         private const string clientMessagePath = "../Unity/Assets/Scripts/Model/Generate/Client/Message/";
         private const string serverMessagePath = "../Unity/Assets/Scripts/Model/Generate/Server/Message/";
         private const string clientServerMessagePath = "../Unity/Assets/Scripts/Model/Generate/ClientServer/Message/";
@@ -82,6 +82,8 @@ namespace ET
             sb.Append("{\n");
             
             bool isMsgStart = false;
+            bool isRequest = false;
+            bool isResponse = false;
             string msgName = "";
             StringBuilder sbDispose = new StringBuilder();
             foreach (string line in s.Split('\n'))
@@ -100,9 +102,12 @@ namespace ET
                     continue;
                 }
 
+                // 生成注释
                 if (newline.StartsWith("//"))
                 {
-                    sb.Append($"{newline}\n");
+                    sb.Append("\t/// <summary>\n");
+                    sb.Append($"\t/{newline}\n");
+                    sb.Append("\t/// </summary>\n");
                     continue;
                 }
 
@@ -138,6 +143,15 @@ namespace ET
                     {
                         sb.Append("\n");
                     }
+                    
+                    if (parentClass.EndsWith("Request") || parentClass.EndsWith("LocationMessage"))
+                    {
+                        isRequest = true;
+                    }
+                    else if (parentClass.EndsWith("Response"))
+                    {
+                        isResponse = true;
+                    }
 
                     continue;
                 }
@@ -152,6 +166,20 @@ namespace ET
                         sb.Append($"\t\tpublic static {msgName} Create(bool isFromPool = true) \n\t\t{{ \n\t\t\treturn !isFromPool? new {msgName}() : ObjectPool.Instance.Fetch(typeof({msgName})) as {msgName}; \n\t\t}}\n\n");
                         
                         continue;
+                    }
+                    
+                    if (isRequest)
+                    {
+                        Members(sb, "int32 RpcId = 90;", true, sbDispose);
+                        isRequest = false;
+                    }
+
+                    if (isResponse)
+                    {
+                        Members(sb, "int32 RpcId = 90;", true, sbDispose);
+                        Members(sb, "int32 Error = 91;", true, sbDispose);
+                        Members(sb, "string Message = 92;", true, sbDispose);
+                        isResponse = false;
                     }
 
                     if (newline.StartsWith("}"))

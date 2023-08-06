@@ -6,7 +6,6 @@ package ET;
 //ResponseType ObjectQueryResponse
 message ObjectQueryRequest // IRequest
 {
-	int32 RpcId = 1;
 	int64 Key = 2;
 	int64 InstanceId = 3;
 }
@@ -14,50 +13,37 @@ message ObjectQueryRequest // IRequest
 //ResponseType A2M_Reload
 message M2A_Reload // IRequest
 {
-	int32 RpcId = 1;
 }
 
 message A2M_Reload // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType G2G_LockResponse
 message G2G_LockRequest // IRequest
 {
-	int32 RpcId = 1;
 	int64 Id = 2;
 	string Address = 3;
 }
 
 message G2G_LockResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType G2G_LockReleaseResponse
 message G2G_LockReleaseRequest // IRequest
 {
-	int32 RpcId = 1;
 	int64 Id = 2;
 	string Address = 3;
 }
 
 message G2G_LockReleaseResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType ObjectAddResponse
 message ObjectAddRequest // IRequest
 {
-	int32 RpcId = 1;
 	int32 Type = 2;
 	int64 Key = 3;
 	ActorId ActorId = 4;
@@ -65,15 +51,11 @@ message ObjectAddRequest // IRequest
 
 message ObjectAddResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType ObjectLockResponse
 message ObjectLockRequest // IRequest
 {
-	int32 RpcId = 1;
 	int32 Type = 2;
 	int64 Key = 3;
 	ActorId ActorId = 4;
@@ -81,15 +63,11 @@ message ObjectLockRequest // IRequest
 }
 message ObjectLockResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType ObjectUnLockResponse
 message ObjectUnLockRequest // IRequest
 {
-	int32 RpcId = 1;
 	int32 Type = 2;
 	int64 Key = 3;
 	ActorId OldActorId = 4;
@@ -97,37 +75,26 @@ message ObjectUnLockRequest // IRequest
 }
 message ObjectUnLockResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType ObjectRemoveResponse
 message ObjectRemoveRequest // IRequest
 {
-	int32 RpcId = 1;
 	int32 Type = 2;
 	int64 Key = 3;
 }
 message ObjectRemoveResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }
 
 //ResponseType ObjectGetResponse
 message ObjectGetRequest // IRequest
 {
-	int32 RpcId = 1;
 	int32 Type = 2;
 	int64 Key = 3;
 }
 message ObjectGetResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 	int32 Type = 4;
 	ActorId ActorId = 5;
 }
@@ -135,36 +102,27 @@ message ObjectGetResponse // IResponse
 //ResponseType G2R_GetLoginKey
 message R2G_GetLoginKey // IRequest
 {
-	int32 RpcId = 1;
 	string Account = 2;
 }
 
 message G2R_GetLoginKey // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 	int64 Key = 4;
 	int64 GateId = 5;
 }
 
 message G2M_SessionDisconnect // ILocationMessage
 {
-	int32 RpcId = 1;
 }
 
 message ObjectQueryResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 	bytes Entity = 4;
 }
 
 //ResponseType M2M_UnitTransferResponse
 message M2M_UnitTransferRequest // IRequest
 {
-	int32 RpcId = 1;
 	ActorId OldActorId = 2;
 	bytes Unit = 3;
 	repeated bytes Entitys = 4;
@@ -172,7 +130,4 @@ message M2M_UnitTransferRequest // IRequest
 
 message M2M_UnitTransferResponse // IResponse
 {
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
 }

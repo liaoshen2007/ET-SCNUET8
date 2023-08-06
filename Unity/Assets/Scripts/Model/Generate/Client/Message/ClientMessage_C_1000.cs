@@ -3,7 +3,9 @@ using MemoryPack;
 using System.Collections.Generic;
 namespace ET
 {
-// using
+	/// <summary>
+	/// using
+	/// </summary>
 	[ResponseType(nameof(NetClient2Main_Login))]
 	[Message(ClientMessage.Main2NetClient_Login)]
 	[MemoryPackable]
@@ -14,7 +16,7 @@ namespace ET
 			return !isFromPool? new Main2NetClient_Login() : ObjectPool.Instance.Fetch(typeof(Main2NetClient_Login)) as Main2NetClient_Login; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -48,13 +50,13 @@ namespace ET
 			return !isFromPool? new NetClient2Main_Login() : ObjectPool.Instance.Fetch(typeof(NetClient2Main_Login)) as NetClient2Main_Login; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]

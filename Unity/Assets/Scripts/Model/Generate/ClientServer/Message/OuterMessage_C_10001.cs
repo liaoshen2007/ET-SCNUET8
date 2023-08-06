@@ -65,7 +65,7 @@ namespace ET
 			return !isFromPool? new C2M_TestRequest() : ObjectPool.Instance.Fetch(typeof(C2M_TestRequest)) as C2M_TestRequest; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -91,13 +91,13 @@ namespace ET
 			return !isFromPool? new M2C_TestResponse() : ObjectPool.Instance.Fetch(typeof(M2C_TestResponse)) as M2C_TestResponse; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -126,7 +126,7 @@ namespace ET
 			return !isFromPool? new C2G_EnterMap() : ObjectPool.Instance.Fetch(typeof(C2G_EnterMap)) as C2G_EnterMap; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -148,16 +148,18 @@ namespace ET
 			return !isFromPool? new G2C_EnterMap() : ObjectPool.Instance.Fetch(typeof(G2C_EnterMap)) as G2C_EnterMap; 
 		}
 
-		[MemoryPackOrder(0)]
+	/// <summary>
+	/// 自己unitId
+	/// </summary>
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
-// 自己unitId
 		[MemoryPackOrder(3)]
 		public long MyId { get; set; }
 
@@ -351,7 +353,7 @@ namespace ET
 			return !isFromPool? new C2M_PathfindingResult() : ObjectPool.Instance.Fetch(typeof(C2M_PathfindingResult)) as C2M_PathfindingResult; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -377,7 +379,7 @@ namespace ET
 			return !isFromPool? new C2M_Stop() : ObjectPool.Instance.Fetch(typeof(C2M_Stop)) as C2M_Stop; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -464,7 +466,7 @@ namespace ET
 			return !isFromPool? new C2G_Ping() : ObjectPool.Instance.Fetch(typeof(C2G_Ping)) as C2G_Ping; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -486,13 +488,13 @@ namespace ET
 			return !isFromPool? new G2C_Ping() : ObjectPool.Instance.Fetch(typeof(G2C_Ping)) as G2C_Ping; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -539,7 +541,7 @@ namespace ET
 			return !isFromPool? new C2M_Reload() : ObjectPool.Instance.Fetch(typeof(C2M_Reload)) as C2M_Reload; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -569,13 +571,13 @@ namespace ET
 			return !isFromPool? new M2C_Reload() : ObjectPool.Instance.Fetch(typeof(M2C_Reload)) as M2C_Reload; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 
@@ -600,7 +602,7 @@ namespace ET
 			return !isFromPool? new C2R_Login() : ObjectPool.Instance.Fetch(typeof(C2R_Login)) as C2R_Login; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -630,13 +632,13 @@ namespace ET
 			return !isFromPool? new R2C_Login() : ObjectPool.Instance.Fetch(typeof(R2C_Login)) as R2C_Login; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -673,7 +675,7 @@ namespace ET
 			return !isFromPool? new C2G_LoginGate() : ObjectPool.Instance.Fetch(typeof(C2G_LoginGate)) as C2G_LoginGate; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -703,13 +705,13 @@ namespace ET
 			return !isFromPool? new G2C_LoginGate() : ObjectPool.Instance.Fetch(typeof(G2C_LoginGate)) as G2C_LoginGate; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -760,7 +762,7 @@ namespace ET
 			return !isFromPool? new C2M_TestRobotCase() : ObjectPool.Instance.Fetch(typeof(C2M_TestRobotCase)) as C2M_TestRobotCase; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -786,13 +788,13 @@ namespace ET
 			return !isFromPool? new M2C_TestRobotCase() : ObjectPool.Instance.Fetch(typeof(M2C_TestRobotCase)) as M2C_TestRobotCase; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
@@ -820,7 +822,7 @@ namespace ET
 			return !isFromPool? new C2M_TestRobotCase2() : ObjectPool.Instance.Fetch(typeof(C2M_TestRobotCase2)) as C2M_TestRobotCase2; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -846,7 +848,7 @@ namespace ET
 			return !isFromPool? new M2C_TestRobotCase2() : ObjectPool.Instance.Fetch(typeof(M2C_TestRobotCase2)) as M2C_TestRobotCase2; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		[MemoryPackOrder(1)]
@@ -873,7 +875,7 @@ namespace ET
 			return !isFromPool? new C2M_TransferMap() : ObjectPool.Instance.Fetch(typeof(C2M_TransferMap)) as C2M_TransferMap; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -895,13 +897,13 @@ namespace ET
 			return !isFromPool? new M2C_TransferMap() : ObjectPool.Instance.Fetch(typeof(M2C_TransferMap)) as M2C_TransferMap; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 
@@ -926,7 +928,7 @@ namespace ET
 			return !isFromPool? new C2G_Benchmark() : ObjectPool.Instance.Fetch(typeof(C2G_Benchmark)) as C2G_Benchmark; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
 		public override void Dispose() 
@@ -948,13 +950,13 @@ namespace ET
 			return !isFromPool? new G2C_Benchmark() : ObjectPool.Instance.Fetch(typeof(G2C_Benchmark)) as G2C_Benchmark; 
 		}
 
-		[MemoryPackOrder(0)]
+		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
-		[MemoryPackOrder(1)]
+		[MemoryPackOrder(90)]
 		public int Error { get; set; }
 
-		[MemoryPackOrder(2)]
+		[MemoryPackOrder(91)]
 		public string Message { get; set; }
 
 		public override void Dispose() 
