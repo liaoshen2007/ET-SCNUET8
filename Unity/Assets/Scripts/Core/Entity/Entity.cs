@@ -18,6 +18,7 @@ namespace ET
     public partial class Entity: DisposeObject
     {
 #if ENABLE_VIEW && UNITY_EDITOR
+        [BsonIgnore]
         [UnityEngine.HideInInspector]
         public UnityEngine.GameObject ViewGO;
 #endif
@@ -651,16 +652,16 @@ namespace ET
                 return null;
             }
 
+            // 如果有IGetComponent接口，则触发GetComponentSystem
+            if (this is IGetComponent)
+            {
+                EntitySystemSingleton.Instance.GetComponent(this, typeof(K));
+            }
+            
             Entity component;
             if (!this.components.TryGetValue(typeof (K).FullName, out component))
             {
                 return default;
-            }
-
-            // 如果有IGetComponent接口，则触发GetComponentSystem
-            if (this is IGetComponent)
-            {
-                EntitySystemSingleton.Instance.GetComponent(this, component);
             }
 
             return (K) component;
@@ -673,16 +674,17 @@ namespace ET
                 return null;
             }
 
+            // 如果有IGetComponent接口，则触发GetComponentSystem
+            // 这个要在tryget之前调用，因为有可能components没有，但是执行GetComponentSystem后又有了
+            if (this is IGetComponent)
+            {
+                EntitySystemSingleton.Instance.GetComponent(this, type);
+            }
+            
             Entity component;
             if (!this.components.TryGetValue(type.FullName, out component))
             {
                 return null;
-            }
-
-            // 如果有IGetComponent接口，则触发GetComponentSystem
-            if (this is IGetComponent)
-            {
-                EntitySystemSingleton.Instance.GetComponent(this, component);
             }
 
             return component;
@@ -717,11 +719,6 @@ namespace ET
 
             component.ComponentParent = this;
 
-            if (this is IAddComponent)
-            {
-                EntitySystemSingleton.Instance.AddComponent(this, component);
-            }
-
             return component;
         }
 
@@ -737,11 +734,6 @@ namespace ET
             component.ComponentParent = this;
             EntitySystemSingleton entitySystemSingleton = EntitySystemSingleton.Instance;
             entitySystemSingleton.Awake(component);
-
-            if (this is IAddComponent)
-            {
-                entitySystemSingleton.AddComponent(this, component);
-            }
 
             return component;
         }
@@ -760,11 +752,6 @@ namespace ET
             EntitySystemSingleton entitySystemSingleton = EntitySystemSingleton.Instance;
             entitySystemSingleton.Awake(component);
 
-            if (this is IAddComponent)
-            {
-                entitySystemSingleton.AddComponent(this, component);
-            }
-
             return component as K;
         }
 
@@ -781,11 +768,6 @@ namespace ET
             component.ComponentParent = this;
             EntitySystemSingleton entitySystemSingleton = EntitySystemSingleton.Instance;
             entitySystemSingleton.Awake(component, p1);
-
-            if (this is IAddComponent)
-            {
-                entitySystemSingleton.AddComponent(this, component);
-            }
 
             return component as K;
         }
@@ -804,11 +786,6 @@ namespace ET
             EntitySystemSingleton entitySystemSingleton = EntitySystemSingleton.Instance;
             entitySystemSingleton.Awake(component, p1, p2);
 
-            if (this is IAddComponent)
-            {
-                entitySystemSingleton.AddComponent(this, component);
-            }
-
             return component as K;
         }
 
@@ -825,11 +802,6 @@ namespace ET
             component.ComponentParent = this;
             EntitySystemSingleton entitySystemSingleton = EntitySystemSingleton.Instance;
             entitySystemSingleton.Awake(component, p1, p2, p3);
-
-            if (this is IAddComponent)
-            {
-                entitySystemSingleton.AddComponent(this, component);
-            }
 
             return component as K;
         }

@@ -14,12 +14,12 @@ namespace ET.Server
             {
                 case NetworkProtocol.TCP:
                 {
-                    self.AService = new TService(address, ServiceType.Inner);
+                    self.AService = new TService(address, ServiceType.Inner, self.Fiber().Log);
                     break;
                 }
                 case NetworkProtocol.KCP:
                 {
-                    self.AService = new KService(address, ServiceType.Inner);
+                    self.AService = new KService(address, ServiceType.Inner, self.Fiber().Log);
                     break;
                 }
             }
@@ -234,7 +234,7 @@ namespace ET.Server
             long costTime = endTime - beginTime;
             if (costTime > 200)
             {
-                Log.Warning($"actor rpc time > 200: {costTime} {iRequest}");
+                fiber.Warning($"actor rpc time > 200: {costTime} {iRequest}");
             }
 
             return response;

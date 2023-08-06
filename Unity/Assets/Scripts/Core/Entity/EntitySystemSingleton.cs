@@ -92,7 +92,7 @@ namespace ET
         }
         
         // GetComponentSystem
-        public void GetComponent(Entity entity, Entity component)
+        public void GetComponent(Entity entity, Type type)
         {
             List<object> iGetSystem = this.TypeSystems.GetSystems(entity.GetType(), typeof (IGetComponentSystem));
             if (iGetSystem == null)
@@ -109,7 +109,7 @@ namespace ET
 
                 try
                 {
-                    getSystem.Run(entity, component);
+                    getSystem.Run(entity, type);
                 }
                 catch (Exception e)
                 {
@@ -118,33 +118,6 @@ namespace ET
             }
         }
         
-        // AddComponentSystem
-        public void AddComponent(Entity entity, Entity component)
-        {
-            List<object> iAddSystem = this.TypeSystems.GetSystems(entity.GetType(), typeof (IAddComponentSystem));
-            if (iAddSystem == null)
-            {
-                return;
-            }
-
-            foreach (IAddComponentSystem addComponentSystem in iAddSystem)
-            {
-                if (addComponentSystem == null)
-                {
-                    continue;
-                }
-
-                try
-                {
-                    addComponentSystem.Run(entity, component);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e);
-                }
-            }
-        }
-
         public void Awake(Entity component)
         {
             List<object> iAwakeSystems = this.TypeSystems.GetSystems(component.GetType(), typeof (IAwakeSystem));

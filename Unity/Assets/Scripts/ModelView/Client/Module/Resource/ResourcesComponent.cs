@@ -353,7 +353,7 @@ namespace ET.Client
                     }
                     else
                     {
-                        Log.Error($"assets bundle not found: {assetBundleName}");
+                        self.Fiber().Error($"assets bundle not found: {assetBundleName}");
                     }
                 }
 
@@ -375,7 +375,7 @@ namespace ET.Client
             if (assetBundle == null)
             {
                 // 获取资源的时候会抛异常，这个地方不直接抛异常，因为有些地方需要Load之后判断是否Load成功
-                Log.Warning($"assets bundle not found: {assetBundleName}");
+                self.Fiber().Warning($"assets bundle not found: {assetBundleName}");
                 return;
             }
 
@@ -478,7 +478,7 @@ namespace ET.Client
                     }
                     else
                     {
-                        Log.Error("Bundle not exist! BundleName: " + assetBundleName);
+                        self.Fiber().Error("Bundle not exist! BundleName: " + assetBundleName);
                     }
 
                     // 编辑器模式也不能同步加载
@@ -494,7 +494,7 @@ namespace ET.Client
                 p = Path.Combine(PathHelper.AppResPath, assetBundleName);
             }
 
-            Log.Debug("Async load bundle BundleName : " + p);
+            self.Fiber().Debug("Async load bundle BundleName : " + p);
 
             // if (!File.Exists(p))
             // {
@@ -507,7 +507,7 @@ namespace ET.Client
             if (assetBundle == null)
             {
                 // 获取资源的时候会抛异常，这个地方不直接抛异常，因为有些地方需要Load之后判断是否Load成功
-                Log.Warning($"assets bundle not found: {assetBundleName}");
+                self.Fiber().Warning($"assets bundle not found: {assetBundleName}");
                 return null;
             }
 
