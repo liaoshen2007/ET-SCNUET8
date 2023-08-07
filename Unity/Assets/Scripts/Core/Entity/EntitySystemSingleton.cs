@@ -92,15 +92,15 @@ namespace ET
         }
         
         // GetComponentSystem
-        public void GetComponent(Entity entity, Type type)
+        public void GetComponentSys(Entity entity, Type type)
         {
-            List<object> iGetSystem = this.TypeSystems.GetSystems(entity.GetType(), typeof (IGetComponentSystem));
+            List<object> iGetSystem = this.TypeSystems.GetSystems(entity.GetType(), typeof (IGetComponentSysSystem));
             if (iGetSystem == null)
             {
                 return;
             }
 
-            foreach (IGetComponentSystem getSystem in iGetSystem)
+            foreach (IGetComponentSysSystem getSystem in iGetSystem)
             {
                 if (getSystem == null)
                 {
