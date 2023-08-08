@@ -246,13 +246,13 @@ namespace ET
 
             ExcelPackage p = GetPackage(Path.GetFullPath(path));
 
-            if (cs.Contains("c"))
+            if (cs.Contains('c'))
             {
                 ExportExcelJson(p, fileNameWithoutCS, table, ConfigType.c, relativePath);
                 ExportExcelProtobuf(ConfigType.c, protoName, relativePath);
             }
 
-            if (cs.Contains("s"))
+            if (cs.Contains('s'))
             {
                 ExportExcelJson(p, fileNameWithoutCS, table, ConfigType.s, relativePath);
                 ExportExcelProtobuf(ConfigType.s, protoName, relativePath);
