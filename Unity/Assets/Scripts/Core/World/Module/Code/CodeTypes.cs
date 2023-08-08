@@ -4,22 +4,11 @@ using System;
 
 namespace ET
 {
-    public static class CodeTypesHelper
-    {
-        public static long GetLongHashCode(this Type type)
-        {
-            // 帧同步项目需要type的确定性hash，如果不是帧同步项目，这里可以直接返回type.GetHashCode()
-            //return type.GetHashCode(); // 这样速度再快1/3
-            return CodeTypes.Instance.GetHashByType(type);
-        }
-    }
-    
     public class CodeTypes: Singleton<CodeTypes>, ISingletonAwake<Assembly[]>
     {
         private readonly Dictionary<string, Type> allTypes = new();
         private readonly UnOrderMultiMapSet<Type, Type> types = new();
-        private readonly DoubleMap<Type, long> entityTypeHash = new();
-
+        
         public void Awake(Assembly[] assemblies)
         {
             Dictionary<string, Type> addTypes = AssemblyHelper.GetAssemblyTypes(assemblies);
@@ -38,11 +27,6 @@ namespace ET
                 foreach (object o in objects)
                 {
                     this.types.Add(o.GetType(), type);
-                }
-
-                if (typeof(Entity).IsAssignableFrom(type))
-                {
-                    this.entityTypeHash.Add(type, type.FullName.GetLongHashCode());
                 }
             }
         }
@@ -65,16 +49,6 @@ namespace ET
         public Type GetType(string typeName)
         {
             return this.allTypes[typeName];
-        }
-        
-        public Type GetTypeByHash(long hash)
-        {
-            return this.entityTypeHash.GetKeyByValue(hash);
-        }
-        
-        public long GetHashByType(Type type)
-        {
-            return this.entityTypeHash.GetValueByKey(type);
         }
         
         public void CreateCode()
