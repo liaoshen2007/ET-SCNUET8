@@ -11,6 +11,7 @@
 [3005, {"_t":"Numeric","_id":3005,"Addition":0,"BaseValue":0,"Name":"属性点","Desc":"属性点","Fight":111}],
 [3006, {"_t":"Numeric","_id":3006,"Addition":0,"BaseValue":0,"Name":"等级","Desc":"等级","Fight":111}],
 [3007, {"_t":"Numeric","_id":3007,"Addition":0,"BaseValue":0,"Name":"金币","Desc":"金币","Fight":111}],
-[3008, {"_t":"Numeric","_id":3008,"Addition":0,"BaseValue":0,"Name":"经验","Desc":"经验","Fight":111}],
-[3009, {"_t":"Numeric","_id":3009,"Addition":0,"BaseValue":0,"Name":"血量","Desc":"血量","Fight":111}],
+[3008, {"_t":"Numeric","_id":3008,"Addition":0,"BaseValue":0,"Name":"血量","Desc":"血量","Fight":111}],
+[3009, {"_t":"Numeric","_id":3009,"Addition":0,"BaseValue":0,"Name":"物理护盾","Desc":"物理护盾","Fight":0}],
+[3010, {"_t":"Numeric","_id":3010,"Addition":0,"BaseValue":0,"Name":"魔法护盾","Desc":"魔法护盾","Fight":0}],
 ]}

@@ -15,6 +15,8 @@ namespace ET.Server
                     Unit unit = unitComponent.AddChildWithId<Unit, int>(id, 1001);
                     unit.AddComponent<MoveComponent>();
                     unit.Position = new float3(-10, 0, -10);
+                    
+                    unit.AddComponent<BuffComponent>();
 			
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
                     numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒

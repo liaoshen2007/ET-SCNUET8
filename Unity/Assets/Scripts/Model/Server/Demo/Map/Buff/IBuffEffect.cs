@@ -1,4 +1,4 @@
-﻿namespace ET
+﻿namespace ET.Server
 {
     public interface IBuffEffect
     {
@@ -14,28 +14,28 @@
         /// <summary>
         /// Buff 创建时
         /// </summary>
-        void Create();
+        void Create(BuffComponent self);
 
         /// <summary>
         /// Buff 时间间隔到
         /// </summary>
-        void Update();
-        
+        void Update(BuffComponent self);
+
         /// <summary>
         /// 触发Buff事件时
         /// </summary>
+        /// <param name="self"></param>
         /// <param name="buffEvent">Buff事件类型</param>
-        /// <param name="args">事件参数</param>
-        void Event(BuffEvent buffEvent, object args);
+        void Event(BuffComponent self, BuffEvent buffEvent);
         
         /// <summary>
         /// 计时时间到
         /// </summary>
-        void TimeOut();
+        void TimeOut(BuffComponent self);
 
         /// <summary>
         /// buff 移除时
         /// </summary>
-        void Remove();
+        void Remove(BuffComponent self);
     }
 }

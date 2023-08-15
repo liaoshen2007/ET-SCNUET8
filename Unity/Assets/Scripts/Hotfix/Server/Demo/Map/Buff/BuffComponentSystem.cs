@@ -12,13 +12,6 @@ namespace ET.Server
 
     public static class BuffComponentSystem
     {
-        public class BuffComponentAwakeSystem: AwakeSystem<BuffComponent>
-        {
-            protected override void Awake(BuffComponent self)
-            {
-            }
-        }
-
         public class BuffComponentUpdateSystem: UpdateSystem<BuffComponent>
         {
             protected override void Update(BuffComponent self)
@@ -46,11 +39,33 @@ namespace ET.Server
             return default;
         }
 
-        public static void ProcessBuff(this BuffComponent self, BuffEvent buffEvent, params object[] args)
+        public static void ProcessBuff(this BuffComponent self, BuffEvent buffEvent)
         {
+            switch (buffEvent)
+            {
+                case BuffEvent.PerHurt:
+                    self.ProcessPerHurt();
+                    break;
+                case BuffEvent.Hurt:
+                    self.BuffHook(buffEvent);
+                    break;
+                case BuffEvent.HurtMagic:
+                case BuffEvent.HurtPhysics:
+                    self.BuffHook(buffEvent);
+                    break;
+                default:
+                    if (self.ScribeEventMap.ContainsKey((int) buffEvent))
+                    {
+                        self.BuffHook(buffEvent);
+                    }
+
+                    break;
+            }
+
+            self.RemoveComponent<HurtArgs>();
         }
 
-        public static void BuffHook(this BuffComponent self, BuffEvent? buffEvent = null, object args = null)
+        public static void BuffHook(this BuffComponent self, BuffEvent? buffEvent = null)
         {
             if (self.BuffDict.Count == 0)
             {
@@ -68,7 +83,7 @@ namespace ET.Server
                     {
                         if (buffEvent.HasValue)
                         {
-                            self.DoBuff(buff, BuffLife.OnEvent, buffEvent, args);
+                            self.DoBuff(buff, BuffLife.OnEvent, buffEvent);
                         }
                         else
                         {
@@ -77,13 +92,13 @@ namespace ET.Server
                                 continue;
                             }
 
-                            self.DoBuff(buff, BuffLife.OnUpdate, null, args);
+                            self.DoBuff(buff, BuffLife.OnUpdate);
                             buff.LastUseTime = buff.LastUseTime <= 0? TimeInfo.Instance.ServerFrameTime() : buff.LastUseTime + buff.Interval;
                         }
                     }
                     else if (buff.ValidTime > 0)
                     {
-                        self.DoBuff(buff, BuffLife.OnTimeOut, null, args);
+                        self.DoBuff(buff, BuffLife.OnTimeOut);
                         self.RemoveBuff(id);
                     }
                     else
@@ -483,7 +498,7 @@ namespace ET.Server
             return playerBuff;
         }
 
-        private static void DoBuff(this BuffComponent self, Buff buff, BuffLife life, BuffEvent? buffEvent = null, object args = null)
+        private static void DoBuff(this BuffComponent self, Buff buff, BuffLife life, BuffEvent? buffEvent = null)
         {
             var buffCfg = BuffCfgCategory.Instance.Get(buff.BuffId);
             foreach (var effect in buffCfg.EffectList)
@@ -501,24 +516,24 @@ namespace ET.Server
 
                         buff.EffectDict.Add(effect.Cmd, buffEffect);
                         self.CheckBsEffect(buff, effect);
-                        buffEffect.Create();
-                        buffEffect.Update();
+                        buffEffect.Create(self);
+                        buffEffect.Update(self);
                         break;
                     }
                     case BuffLife.OnUpdate:
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Update();
+                            buffEffect.Update(self);
                         }
 
                         break;
                     }
                     case BuffLife.OnEvent:
                     {
-                        if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
+                        if (buffEvent.HasValue && buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Event(buffEvent.Value, args);
+                            buffEffect.Event(self, buffEvent.Value);
                         }
 
                         break;
@@ -527,8 +542,8 @@ namespace ET.Server
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.TimeOut();
-                            buffEffect.Update();
+                            buffEffect.TimeOut(self);
+                            buffEffect.Update(self);
                         }
 
                         break;
@@ -537,7 +552,7 @@ namespace ET.Server
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Remove();
+                            buffEffect.Remove(self);
                         }
 
                         break;
@@ -548,7 +563,7 @@ namespace ET.Server
 
         private static IBuffEffect CreateBuffEffect(this BuffComponent self, string cmd)
         {
-            if (!BuffComponent.BuffEffectDict.TryGetValue(cmd, out var t))
+            if (!BuffComponent.BuffEffectDict.TryGetValue(cmd, out Type t))
             {
                 return default;
             }
@@ -585,6 +600,41 @@ namespace ET.Server
                 // {
                 //     buffDyna.BeEffectArg = actor.Talent.Hook(buff.Config.MasterId, buff.Id, loopType, oft, effectArg);
                 // }
+            }
+        }
+
+        private static void ProcessPerHurt(this BuffComponent self)
+        {
+            var hurtArgs = self.GetComponent<HurtArgs>();
+            foreach (var info in hurtArgs.HurtList)
+            {
+                var dst = self.Root().GetComponent<UnitComponent>().Get(info.Id);
+                if (dst == null)
+                {
+                    continue;
+                }
+
+                var buffCom = dst.GetComponent<BuffComponent>();
+                UnitHelper.CreateHurtArgs(buffCom, default);
+                buffCom.ProcessBuff(BuffEvent.BeHurt);
+                var eventType = hurtArgs.IsPhysics? BuffEvent.HurtPhysics : BuffEvent.HurtMagic;
+                long oldHurt = info.Hurt;
+                UnitHelper.CreateHurtArgs(buffCom, default);
+                buffCom.ProcessBuff(eventType);
+                if (oldHurt == info.Hurt) //护盾减伤
+                {
+                    continue;
+                }
+
+                UnitHelper.CreateHurtArgs(buffCom, default);
+                self.ProcessBuff(BuffEvent.HurtShield);
+                var numeric = self.GetParent<Unit>().GetComponent<NumericComponent>();
+                long pValue = hurtArgs.IsPhysics? numeric.GetAsLong(NumericType.Sp) : numeric.GetAsLong(NumericType.Mp);
+                if (pValue == 0)
+                {
+                    UnitHelper.CreateHurtArgs(buffCom, default);
+                    self.ProcessBuff(BuffEvent.BreakShield);
+                }
             }
         }
     }

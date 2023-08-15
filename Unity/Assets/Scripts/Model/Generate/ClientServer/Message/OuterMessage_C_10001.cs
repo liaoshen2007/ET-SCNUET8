@@ -971,6 +971,87 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.HurtInfo)]
+	[MemoryPackable]
+	public partial class HurtInfo: MessageObject
+	{
+		public static HurtInfo Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new HurtInfo() : ObjectPool.Instance.Fetch(typeof(HurtInfo)) as HurtInfo; 
+		}
+
+	/// <summary>
+	///受伤者id
+	/// </summary>
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+	/// <summary>
+	///伤害值
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public long Hurt { get; set; }
+
+	/// <summary>
+	///吸血值
+	/// </summary>
+		[MemoryPackOrder(2)]
+		public long SuckHp { get; set; }
+
+	/// <summary>
+	///反伤
+	/// </summary>
+		[MemoryPackOrder(3)]
+		public long BackHurt { get; set; }
+
+	/// <summary>
+	///是否暴击
+	/// </summary>
+		[MemoryPackOrder(4)]
+		public bool IsCrit { get; set; }
+
+	/// <summary>
+	///是否闪避
+	/// </summary>
+		[MemoryPackOrder(5)]
+		public bool IsMiss { get; set; }
+
+	/// <summary>
+	///是否格挡
+	/// </summary>
+		[MemoryPackOrder(6)]
+		public bool IsFender { get; set; }
+
+	/// <summary>
+	///是否是加血
+	/// </summary>
+		[MemoryPackOrder(7)]
+		public bool IsAddHp { get; set; }
+
+	/// <summary>
+	///是否免疫
+	/// </summary>
+		[MemoryPackOrder(8)]
+		public bool IsImmUnity { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Hurt = default;
+			this.SuckHp = default;
+			this.BackHurt = default;
+			this.IsCrit = default;
+			this.IsMiss = default;
+			this.IsFender = default;
+			this.IsAddHp = default;
+			this.IsImmUnity = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -1007,5 +1088,6 @@ namespace ET
 		 public const ushort M2C_TransferMap = 10033;
 		 public const ushort C2G_Benchmark = 10034;
 		 public const ushort G2C_Benchmark = 10035;
+		 public const ushort HurtInfo = 10036;
 	}
 }

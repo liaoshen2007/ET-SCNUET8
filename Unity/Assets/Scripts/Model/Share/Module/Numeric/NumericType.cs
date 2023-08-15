@@ -93,14 +93,19 @@ namespace ET
 		public const int Coin = 3007;
 
 		/// <summary>
-		/// 经验
-		/// </summary>
-		public const int Exp = 3008;
-
-		/// <summary>
 		/// 血量
 		/// </summary>
-		public const int Hp = 3009;
+		public const int Hp = 3008;
+
+		/// <summary>
+		/// 物理护盾
+		/// </summary>
+		public const int Sp = 3009;
+
+		/// <summary>
+		/// 魔法护盾
+		/// </summary>
+		public const int Mp = 3010;
 
 
 	}

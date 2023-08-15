@@ -74,7 +74,7 @@ namespace ET
 
         public static void Update(this NumericComponent self, int numericType, bool isPublicEvent)
         {
-            int final = (int)numericType / 10;
+            int final = numericType / 10;
             int bas = final * 10 + 1;
             int add = final * 10 + 2;
             int pct = final * 10 + 3;

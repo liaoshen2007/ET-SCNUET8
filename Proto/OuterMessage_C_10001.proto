@@ -3,25 +3,25 @@ package ET;
 
 message HttpGetRouterResponse
 {
-	repeated string Realms = 1;
-	repeated string Routers = 2;
+  repeated string Realms = 1;
+  repeated string Routers = 2;
 }
 
 message RouterSync
 {
-	uint32 ConnectId = 1;
-	string Address = 2;
+  uint32 ConnectId = 1;
+  string Address = 2;
 }
 
 //ResponseType M2C_TestResponse
 message C2M_TestRequest // ILocationRequest
 {
-	string request = 2;
+  string request = 2;
 }
 
 message M2C_TestResponse // IResponse
 {
-	string response = 4;
+  string response = 4;
 }
 
 //ResponseType G2C_EnterMap
@@ -31,52 +31,52 @@ message C2G_EnterMap // ISessionRequest
 
 message G2C_EnterMap // ISessionResponse
 {
-	// 自己unitId
-	int64 MyId = 4;
+  // 自己unitId
+  int64 MyId = 4;
 }
 
 message MoveInfo
 {
-	repeated Unity.Mathematics.float3 Points = 1;
-	Unity.Mathematics.quaternion Rotation = 2;
-	int32 TurnSpeed = 3;
+  repeated Unity.Mathematics.float3 Points = 1;
+  Unity.Mathematics.quaternion Rotation = 2;
+  int32 TurnSpeed = 3;
 }
 
 message UnitInfo
 {
-    int64 UnitId = 1;
-	int32 ConfigId = 2;
-	int32 Type = 3;
-	Unity.Mathematics.float3 Position = 4;
-	Unity.Mathematics.float3 Forward = 5;
-	map<int32, int64> KV = 6;
-	MoveInfo MoveInfo = 7;
+  int64 UnitId = 1;
+  int32 ConfigId = 2;
+  int32 Type = 3;
+  Unity.Mathematics.float3 Position = 4;
+  Unity.Mathematics.float3 Forward = 5;
+  map<int32, int64> KV = 6;
+  MoveInfo MoveInfo = 7;
 }
 
 message M2C_CreateUnits // IMessage
 {
-	repeated UnitInfo Units = 1;
+  repeated UnitInfo Units = 1;
 }
 
 message M2C_CreateMyUnit // IMessage
 {
-	UnitInfo Unit = 1;
+  UnitInfo Unit = 1;
 }
 
 message M2C_StartSceneChange // IMessage
 {
-	int64 SceneInstanceId = 1;
-	string SceneName = 2;	
+  int64 SceneInstanceId = 1;
+  string SceneName = 2;
 }
 
 message M2C_RemoveUnits // IMessage
 {
-	repeated int64 Units = 1;
+  repeated int64 Units = 1;
 }
 
 message C2M_PathfindingResult // ILocationMessage
 {
-	Unity.Mathematics.float3 Position = 2;
+  Unity.Mathematics.float3 Position = 2;
 }
 
 message C2M_Stop // ILocationMessage
@@ -85,17 +85,17 @@ message C2M_Stop // ILocationMessage
 
 message M2C_PathfindingResult // IMessage
 {
-	int64 Id = 1;
-	Unity.Mathematics.float3 Position = 2;
-	repeated Unity.Mathematics.float3 Points = 3;
+  int64 Id = 1;
+  Unity.Mathematics.float3 Position = 2;
+  repeated Unity.Mathematics.float3 Points = 3;
 }
 
 message M2C_Stop // IMessage
 {
-	int32 Error = 1;
-	int64 Id = 2;
-	Unity.Mathematics.float3 Position = 3;
-	Unity.Mathematics.quaternion Rotation = 4;
+  int32 Error = 1;
+  int64 Id = 2;
+  Unity.Mathematics.float3 Position = 3;
+  Unity.Mathematics.quaternion Rotation = 4;
 }
 
 //ResponseType G2C_Ping
@@ -105,7 +105,7 @@ message C2G_Ping // ISessionRequest
 
 message G2C_Ping // ISessionResponse
 {
-	int64 Time = 4;
+  int64 Time = 4;
 }
 
 
@@ -116,8 +116,8 @@ message G2C_Test // ISessionMessage
 //ResponseType M2C_Reload
 message C2M_Reload // ISessionRequest
 {
-	string Account = 2;
-	string Password = 3;
+  string Account = 2;
+  string Password = 3;
 }
 
 message M2C_Reload // ISessionResponse
@@ -127,53 +127,53 @@ message M2C_Reload // ISessionResponse
 //ResponseType R2C_Login
 message C2R_Login // ISessionRequest
 {
-	string  Account = 2;  // 帐号
-	string  Password = 3;  // 密码
+  string  Account = 2;  // 帐号
+  string  Password = 3;  // 密码
 }
 
 message R2C_Login // ISessionResponse
 {
-	string Address = 4;
-	int64 Key = 5;
-	int64 GateId = 6;
+  string Address = 4;
+  int64 Key = 5;
+  int64 GateId = 6;
 }
 
 //ResponseType G2C_LoginGate
 message C2G_LoginGate // ISessionRequest
 {
-	int64 Key = 2;  // 帐号
-	int64 GateId = 3;
+  int64 Key = 2;  // 帐号
+  int64 GateId = 3;
 }
 
 message G2C_LoginGate // ISessionResponse
 {
-	int64 PlayerId = 4;
+  int64 PlayerId = 4;
 }
 
 message G2C_TestHotfixMessage // ISessionMessage
 {
-	string Info = 1;
+  string Info = 1;
 }
 
 //ResponseType M2C_TestRobotCase
 message C2M_TestRobotCase // ILocationRequest
 {
-	int32 N = 2;
+  int32 N = 2;
 }
 
 message M2C_TestRobotCase // ILocationResponse
 {
-	int32 N = 4;
+  int32 N = 4;
 }
 
 message C2M_TestRobotCase2 // ILocationMessage
 {
-	int32 N = 2;
+  int32 N = 2;
 }
 
 message M2C_TestRobotCase2 // ILocationMessage
 {
-	int32 N = 2;
+  int32 N = 2;
 }
 
 //ResponseType M2C_TransferMap
@@ -192,4 +192,26 @@ message C2G_Benchmark // ISessionRequest
 
 message G2C_Benchmark // ISessionResponse
 {
+}
+
+message HurtInfo
+{
+  //受伤者id
+  int64 Id = 1;
+  //伤害值
+  int64 Hurt = 2;
+  //吸血值
+  int64 SuckHp = 3;
+  //反伤
+  int64 BackHurt = 4;
+  //是否暴击
+  bool IsCrit = 5;
+  //是否闪避
+  bool IsMiss = 6;
+  //是否格挡
+  bool IsFender = 7;
+  //是否是加血
+  bool IsAddHp = 8;
+  //是否免疫
+  bool IsImmUnity = 9;
 }

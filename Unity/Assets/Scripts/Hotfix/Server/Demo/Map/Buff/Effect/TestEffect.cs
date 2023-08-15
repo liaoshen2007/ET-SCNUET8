@@ -1,4 +1,4 @@
-﻿namespace ET
+﻿namespace ET.Server
 {
     [Buff("Test")]
     public class TestEffect : ABuffEffect
