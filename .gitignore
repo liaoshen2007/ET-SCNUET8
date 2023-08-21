@@ -78,3 +78,4 @@ Publish/
 /Unity/*.csproj
 /Unity/*.vsconfig
 WebGL
+Unity/Bundles
