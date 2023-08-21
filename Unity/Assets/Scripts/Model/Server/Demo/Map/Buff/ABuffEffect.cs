@@ -6,15 +6,21 @@ namespace ET.Server
     {
         public bool IsBsEffect { get; set; }
 
-        public abstract void OnCheckIn();
+        public virtual void OnCheckIn()
+        {
+            
+        }
 
-        public abstract void OnCheckOut();
+        public virtual void OnCheckOut()
+        {
+            
+        }
 
-        public void Create(BuffComponent self)
+        public void Create(BuffComponent self, Buff buff, EffectArg effectArg)
         {
             try
             {
-                OnCreate(self);
+                OnCreate(self, buff, effectArg);
             }
             catch (Exception e)
             {
@@ -22,11 +28,11 @@ namespace ET.Server
             }
         }
 
-        public void Update(BuffComponent self)
+        public void Update(BuffComponent self, Buff buff, EffectArg effectArg)
         {
             try
             {
-                OnUpdate(self);
+                OnUpdate(self, buff, effectArg);
             }
             catch (Exception e)
             {
@@ -34,11 +40,11 @@ namespace ET.Server
             }
         }
 
-        public void Event(BuffComponent self, BuffEvent buffEvent)
+        public void Event(BuffComponent self, BuffEvent buffEvent, Buff buff, EffectArg effectArg)
         {
             try
             {
-                OnEvent(self, buffEvent);
+                OnEvent(self, buffEvent, buff, effectArg);
             }
             catch (Exception e)
             {
@@ -46,11 +52,11 @@ namespace ET.Server
             }
         }
 
-        public void TimeOut(BuffComponent self)
+        public void TimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
         {
             try
             {
-                OnTimeOut(self);
+                OnTimeOut(self, buff, effectArg);
             }
             catch (Exception e)
             {
@@ -58,11 +64,11 @@ namespace ET.Server
             }
         }
 
-        public void Remove(BuffComponent self)
+        public void Remove(BuffComponent self, Buff buff, EffectArg effectArg)
         {
             try
             {
-                OnRemove(self);
+                OnRemove(self, buff, effectArg);
             }
             catch (Exception e)
             {
@@ -70,23 +76,23 @@ namespace ET.Server
             }
         }
 
-        protected virtual void OnCreate(BuffComponent self)
+        protected virtual void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnUpdate(BuffComponent self)
+        protected virtual void OnUpdate(BuffComponent self, Buff buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnEvent(BuffComponent self, BuffEvent buffEvent)
+        protected virtual void OnEvent(BuffComponent self, BuffEvent buffEvent, Buff buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnTimeOut(BuffComponent self)
+        protected virtual void OnTimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnRemove(BuffComponent self)
+        protected virtual void OnRemove(BuffComponent sel, Buff buff, EffectArg effectArgf)
         {
         }
     }

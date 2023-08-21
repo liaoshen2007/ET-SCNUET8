@@ -516,15 +516,15 @@ namespace ET.Server
 
                         buff.EffectDict.Add(effect.Cmd, buffEffect);
                         self.CheckBsEffect(buff, effect);
-                        buffEffect.Create(self);
-                        buffEffect.Update(self);
+                        buffEffect.Create(self, buff, effect);
+                        buffEffect.Update(self, buff, effect);
                         break;
                     }
                     case BuffLife.OnUpdate:
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Update(self);
+                            buffEffect.Update(self, buff, effect);
                         }
 
                         break;
@@ -533,7 +533,7 @@ namespace ET.Server
                     {
                         if (buffEvent.HasValue && buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Event(self, buffEvent.Value);
+                            buffEffect.Event(self, buffEvent.Value, buff, effect);
                         }
 
                         break;
@@ -542,8 +542,8 @@ namespace ET.Server
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.TimeOut(self);
-                            buffEffect.Update(self);
+                            buffEffect.TimeOut(self, buff, effect);
+                            buffEffect.Update(self, buff, effect);
                         }
 
                         break;
@@ -552,7 +552,7 @@ namespace ET.Server
                     {
                         if (buff.EffectDict.TryGetValue(effect.Cmd, out var buffEffect))
                         {
-                            buffEffect.Remove(self);
+                            buffEffect.Remove(self, buff, effect);
                         }
 
                         break;

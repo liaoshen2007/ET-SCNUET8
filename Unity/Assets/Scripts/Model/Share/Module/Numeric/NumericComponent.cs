@@ -36,6 +36,21 @@ namespace ET
         {
             self[nt] = value;
         }
+        
+        public static void Add(this NumericComponent self, int nt, float value)
+        {
+            self[nt] += (long)(value * 10000);
+        }
+
+        public static void Add(this NumericComponent self, int nt, int value)
+        {
+            self[nt] += value;
+        }
+
+        public static void Add(this NumericComponent self, int nt, long value)
+        {
+            self[nt] += value;
+        }
 
         public static void SetNoEvent(this NumericComponent self, int numericType, long value)
         {

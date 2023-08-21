@@ -61,16 +61,27 @@ namespace ET.Server
         }
 
         /// <summary>
-        /// 获取当前角色的Hp
+        /// 获取当前角色的的属性值
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="attrType">属性类型</param>
+        /// <returns></returns>
+        public static long GetAttrValue(this Unit self, int attrType)
+        {
+            var numeric = self.GetComponent<NumericComponent>();
+            return numeric.GetAsLong(attrType);
+        }
+
+        /// <summary>
+        /// 是否暴击
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static long GetHp(this Unit self)
+        public static bool IsCrit(this Unit self)
         {
-            var numeric = self.GetComponent<NumericComponent>();
-            return numeric.GetAsLong(NumericType.Hp);
+            return self.Scene().GetComponent<FightFormula>().IsCrit(self);
         }
-
+        
         /// <summary>
         /// 创建受伤参数
         /// </summary>

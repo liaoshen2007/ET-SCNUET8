@@ -14,6 +14,16 @@ namespace ET
         {
             return (long) Math.Ceiling(value);
         }
+        
+        public static long Ceil(this long value)
+        {
+            return value;
+        }
+        
+        public static int Ceil(this int value)
+        {
+            return value;
+        }
 
         public static bool IsHit(this long value)
         {

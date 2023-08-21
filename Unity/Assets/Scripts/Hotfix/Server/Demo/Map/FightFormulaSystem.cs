@@ -80,7 +80,16 @@ public static partial class FightFormulaSystem
                 return 1;
         }
     }
-    
+
+    /// <summary>
+    /// 是否暴击
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsCrit(this FightFormula self, Unit target)
+    {
+        return target.GetComponent<NumericComponent>().GetAsLong(NumericType.CirtRate).IsHit();
+    }
+
     /// <summary>
     /// 是否暴击
     /// </summary>
@@ -89,7 +98,19 @@ public static partial class FightFormulaSystem
     {
         return target.GetAsLong(NumericType.CirtRate).IsHit();
     }
-        
+
+    /// <summary>
+    /// 是否命中
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsHit(this FightFormula self, Unit attack, Unit dst)
+    {
+        var hitRate = attack.GetComponent<NumericComponent>().GetAsLong(NumericType.HitRate);
+        var avoidRate = dst.GetComponent<NumericComponent>().GetAsLong(NumericType.AvoidRate);
+
+        return (hitRate - avoidRate).IsHit();
+    }
+
     /// <summary>
     /// 是否命中
     /// </summary>
@@ -98,7 +119,7 @@ public static partial class FightFormulaSystem
     {
         var hitRate = attack.GetAsLong(NumericType.HitRate);
         var avoidRate = dst.GetAsLong(NumericType.AvoidRate);
-            
+
         return (hitRate - avoidRate).IsHit();
     }
 }

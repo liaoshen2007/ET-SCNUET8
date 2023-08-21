@@ -172,5 +172,7 @@
         /// 无法选中
         /// </summary>
         UnSelectable = 11,
+        
+        End = 32,
     }
 }

@@ -2,17 +2,6 @@
 
 namespace ET.Server;
 
-
-[EntitySystemOf(typeof(HurtArgs))]
-public static partial class HurtArgsSystem
-{
-    [EntitySystem]
-    private static void Awake(this HurtArgs self)
-    {
-        self.HurtList = new List<HurtInfo>();
-    }
-}
-
 [ComponentOf(typeof(BuffComponent))]
 public class HurtArgs : Entity, IAwake
 {

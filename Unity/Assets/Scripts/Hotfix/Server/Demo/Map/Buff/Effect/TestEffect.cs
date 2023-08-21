@@ -1,14 +1,16 @@
 ﻿namespace ET.Server
 {
     [Buff("Test")]
-    public class TestEffect : ABuffEffect
+    public class TestEffect: ABuffEffect
     {
-        public override void OnCheckIn()
+        protected override void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
         {
+            self.Fiber().Info("------OnCreate---------");
         }
 
-        public override void OnCheckOut()
+        protected override void OnRemove(BuffComponent self, Buff buff, EffectArg effectArgf)
         {
+            self.Fiber().Info("------OnRemove---------");
         }
     }
 }
