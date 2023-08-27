@@ -628,13 +628,6 @@ namespace ET.Server
 
                 UnitHelper.CreateHurtArgs(buffCom, default);
                 self.ProcessBuff(BuffEvent.HurtShield);
-                var numeric = self.GetParent<Unit>().GetComponent<NumericComponent>();
-                long pValue = hurtArgs.IsPhysics? numeric.GetAsLong(NumericType.Sp) : numeric.GetAsLong(NumericType.Mp);
-                if (pValue == 0)
-                {
-                    UnitHelper.CreateHurtArgs(buffCom, default);
-                    self.ProcessBuff(BuffEvent.BreakShield);
-                }
             }
         }
     }

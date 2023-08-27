@@ -66,6 +66,8 @@ namespace ET
 		public int Position { get; set; }
 		/// <summary>身高</summary>
 		public int Height { get; set; }
+		/// <summary>半径</summary>
+		public int ModelR { get; set; }
 
 	}
 }

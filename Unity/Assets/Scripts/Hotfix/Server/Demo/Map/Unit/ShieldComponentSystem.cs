@@ -2,6 +2,14 @@
 
 public static class ShieldComponentSystem
 {
+    /// <summary>
+    /// 护盾修改事件
+    /// </summary>
+    public struct UnitShieldChange
+    {
+        public Unit Unit { get; set; }
+    }
+
     public class ShieldComponentAwakeSystem: AwakeSystem<ShieldComponent>
     {
         protected override void Awake(ShieldComponent self)
@@ -20,9 +28,9 @@ public static class ShieldComponentSystem
         if (self.ShieldIdDict.TryGetValue(buffId, out var value))
         {
             self.ShieldIdDict.Remove(buffId);
-            self.ReCaculate();
         }
 
+        self.ReCaculate();
         return value;
     }
 
@@ -36,15 +44,8 @@ public static class ShieldComponentSystem
     /// 重新计算护盾值
     /// </summary>
     /// <param name="self"></param>
-    public static void ReCaculate(this ShieldComponent self)
+    private static void ReCaculate(this ShieldComponent self)
     {
-        self.GetParent<Unit>().GetComponent<NumericComponent>().SetNoEvent(NumericType.Sp, 0);
-        long total = 0;
-        foreach (var (_, value) in self.ShieldIdDict)
-        {
-            total += value;
-        }
-
-        self.GetParent<Unit>().GetComponent<NumericComponent>().SetNoEvent(NumericType.Sp, total);
+        EventSystem.Instance.Publish(self.Scene(), new UnitShieldChange() { Unit = self.GetParent<Unit>() });
     }
 }

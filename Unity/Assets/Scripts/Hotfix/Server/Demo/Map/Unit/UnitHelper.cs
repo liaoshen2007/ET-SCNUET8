@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 
 namespace ET.Server
@@ -51,6 +52,30 @@ namespace ET.Server
         }
 
         /// <summary>
+        /// 获取修正位置
+        /// </summary>
+        /// <param name="srcX">x坐标</param>
+        /// <param name="srcZ">y坐标</param>
+        /// <param name="direct">方向</param>
+        /// <param name="repairPos">修改距离</param>
+        /// <returns></returns>
+        public static KeyValuePair<float, float> GetRepairPos(float srcX, float srcZ, float direct, float repairPos)
+        {
+            if (repairPos != 0)
+            {
+                srcX = (float) Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcZ = (float) Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
+            }
+
+            return new KeyValuePair<float, float>(srcX, srcZ);
+        }
+
+        public static Unit GetOwner(this Unit self)
+        {
+            return default;
+        }
+
+        /// <summary>
         /// 重置当前血量为最大血量
         /// </summary>
         /// <param name="self"></param>
@@ -81,7 +106,7 @@ namespace ET.Server
         {
             return self.Scene().GetComponent<FightFormula>().IsCrit(self);
         }
-        
+
         /// <summary>
         /// 创建受伤参数
         /// </summary>

@@ -237,16 +237,6 @@ namespace ET
 		/// </summary>
 		public const int Hp = 3008;
 
-		/// <summary>
-		/// 物理护盾
-		/// </summary>
-		public const int Sp = 3009;
-
-		/// <summary>
-		/// 魔法护盾
-		/// </summary>
-		public const int Mp = 3010;
-
 
 	}
 }

@@ -26,6 +26,4 @@
 [3006, {"_t":"Numeric","_id":3006,"Addition":0,"BaseValue":0,"Fight":111}],
 [3007, {"_t":"Numeric","_id":3007,"Addition":0,"BaseValue":0,"Fight":111}],
 [3008, {"_t":"Numeric","_id":3008,"Addition":0,"BaseValue":0,"Fight":111}],
-[3009, {"_t":"Numeric","_id":3009,"Addition":0,"BaseValue":0,"Fight":0}],
-[3010, {"_t":"Numeric","_id":3010,"Addition":0,"BaseValue":0,"Fight":0}],
 ]}

@@ -194,6 +194,7 @@ message G2C_Benchmark // ISessionResponse
 {
 }
 
+//受伤信息
 message HurtInfo
 {
   //受伤者id
@@ -214,4 +215,11 @@ message HurtInfo
   bool IsAddHp = 8;
   //是否免疫
   bool IsImmUnity = 9;
+}
+
+//更新护盾值
+message M2C_UpdateUnitShield // IMessage
+{
+  int64 Id = 1;
+  map<int32, int64> KV = 2;
 }

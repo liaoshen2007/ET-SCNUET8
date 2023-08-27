@@ -92,7 +92,7 @@ namespace ET.Server
         {
         }
 
-        protected virtual void OnRemove(BuffComponent sel, Buff buff, EffectArg effectArgf)
+        protected virtual void OnRemove(BuffComponent self, Buff buff, EffectArg effectArg)
         {
         }
     }
