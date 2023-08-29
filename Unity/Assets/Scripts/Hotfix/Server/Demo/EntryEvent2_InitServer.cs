@@ -7,6 +7,7 @@ namespace ET.Server
     public class EntryEvent2_InitServer: AEvent<Scene, EntryEvent2>
     {
         protected override async ETTask Run(Scene root, EntryEvent2 args)
+        
         {
             switch (Options.Instance.AppType)
             {

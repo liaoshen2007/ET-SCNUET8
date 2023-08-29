@@ -14,7 +14,7 @@
                 return;
             }
 
-            MapMessageHelper.NoticeUnitRemove(a.GetParent<Unit>(), b.GetParent<Unit>());
+            MapMessageHelper.NoticeUnitRemove(a.Unit, b.Unit);
         }
     }
 }

@@ -52,6 +52,29 @@ namespace ET.Server
         }
 
         /// <summary>
+        /// 获取unit看见的玩家
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static List<Unit> GetSeePlayers(this Unit self)
+        {
+            var dict = self.GetComponent<AOIEntity>().GetSeePlayers();
+            var list = new List<Unit>();
+            foreach (var (_, aoiEntity) in dict)
+            {
+                list.Add(aoiEntity.Unit);
+            }
+
+            return list;
+        }
+        
+        public static List<Unit> GetFoucslayers(this Unit self, FocusType fT, bool isCanAttack = true)
+        {
+            var list = self.GetSeePlayers();
+            return list;
+        }
+
+        /// <summary>
         /// 获取修正位置
         /// </summary>
         /// <param name="srcX">x坐标</param>

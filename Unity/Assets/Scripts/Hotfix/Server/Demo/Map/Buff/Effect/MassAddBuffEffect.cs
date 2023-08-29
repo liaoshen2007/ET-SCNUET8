@@ -9,7 +9,10 @@
     {
         protected override void OnTimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
         {
-            
+            int buffId = effectArg.Args[0];
+            int time = effectArg.Args[1];
+            int maxCount = effectArg.Args[2];
+            int pct = effectArg.Args[3];
         }
     }
 }

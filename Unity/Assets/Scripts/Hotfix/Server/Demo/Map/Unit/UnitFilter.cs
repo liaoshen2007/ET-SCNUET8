@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 
 namespace ET.Server;
@@ -8,14 +9,6 @@ public enum OriginMode
 {
     Actor,
     Parent,
-}
-
-public enum FocusType
-{
-    Self,
-    Hostile,
-    Friendly,
-    All,
 }
 
 [Flags]
@@ -58,8 +51,26 @@ public static class UnitFilter
         return Math.Floor(Math.Pow((x2 - x1), 2) + Math.Pow((y1 - y1), 2));
     }
 
-    public static List<Unit> Filter(List<Unit> unitList, float srcX, float srcZ, SharpType sharp, float direct, float repairPos, float arg1,
-    float arg2, HashSet<long> dstSet = null)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="unitList"></param>
+    /// <param name="srcX"></param>
+    /// <param name="srcZ"></param>
+    /// <param name="sharp"></param>
+    /// <param name="direct"></param>
+    /// <param name="repairPos"></param>
+    /// <param name="arg1"></param>
+    /// <param name="arg2"></param>
+    /// <param name="dstSet"></param>
+    /// <returns></returns>
+    public static List<Unit> GetSlector(List<Unit> unitList,
+    float srcX, float srcZ,
+    SharpType sharp,
+    float direct,
+    float repairPos,
+    float arg1, float arg2,
+    HashSet<long> dstSet = null)
     {
         var list = new List<Unit>();
         var repair = UnitHelper.GetRepairPos(srcX, srcZ, direct, repairPos);
@@ -166,6 +177,132 @@ public static class UnitFilter
                 }
 
                 break;
+        }
+
+        return list;
+    }
+
+    /// <summary>
+    /// 获取攻击列表
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="fT"></param>
+    /// <param name="rT"></param>
+    /// <param name="direct"></param>
+    /// <param name="dstList"></param>
+    /// <param name="dstPosList"></param>
+    /// <param name="repairPos"></param>
+    /// <param name="arg1"></param>
+    /// <param name="arg2"></param>
+    /// <param name="arg3"></param>
+    /// <param name="arg4"></param>
+    /// <param name="maxDistance"></param>
+    /// <returns></returns>
+    public static List<Unit> GetAttackList(this Unit self,
+    FocusType fT,
+    RangeType rT,
+    float direct,
+    List<Unit> dstList,
+    List<float3> dstPosList,
+    float repairPos,
+    float arg1, int arg2, float arg3, float arg4,
+    float maxDistance)
+    {
+        HashSet<long> dstSet = new HashSet<long>();
+        if (dstList != null && self.Type == UnitType.Player)
+        {
+            foreach (var unit in dstList)
+            {
+                dstSet.Add(unit.Id);
+            }
+        }
+
+        List<Unit> list = new List<Unit>();
+        int maxCount = 99999;
+        List<Unit> list2 = new List<Unit>();
+        switch (rT)
+        {
+            case RangeType.Self:
+            {
+                list2.Add(self);
+                break;
+            }
+            case RangeType.Single:
+            {
+                maxCount = 1;
+                list2 = GetSlector(dstList, self.Position.x, self.Position.z, SharpType.Round, direct, repairPos, maxDistance * 1.2f, 0, dstSet);
+                break;
+            }
+            case RangeType.Much:
+            {
+                maxCount = arg2;
+                list2 = GetSlector(dstList, self.Position.x, self.Position.z, SharpType.Round, direct, repairPos, maxDistance * 1.2f, 0, dstSet);
+                break;
+            }
+            case RangeType.SelfFan:
+            {
+                var ll = self.GetFoucslayers(fT);
+                list2 = GetSlector(ll, self.Position.x, self.Position.z, SharpType.Fan, direct, repairPos, arg1, arg2);
+                list2.Add(self);
+                break;
+            }
+            case RangeType.SelfLine:
+            {
+                var ll = self.GetFoucslayers(fT);
+                list2 = GetSlector(ll, self.Position.x, self.Position.z, SharpType.Line, direct, repairPos, arg1, arg2);
+                list2.Add(self);
+                break;
+            }
+            case RangeType.DstLine:
+            {
+                var ll = self.GetFoucslayers(fT);
+                foreach (var pos in dstPosList)
+                {
+                    var rList = GetSlector(ll, pos.x, pos.z, SharpType.Line, direct, repairPos, arg1, arg2);
+                    list2.AddRange(rList);
+                }
+
+                break;
+            }
+            case RangeType.DstFan:
+            {
+                var ll = self.GetFoucslayers(fT);
+                foreach (var pos in dstPosList)
+                {
+                    var rList = GetSlector(ll, pos.x, pos.z, SharpType.Fan, direct, repairPos, arg1, arg2);
+                    list2.AddRange(rList);
+                }
+
+                break;
+            }
+            case RangeType.DstFanLine:
+            {
+                var ll = self.GetFoucslayers(fT);
+                var ll1 = GetSlector(ll, self.Position.x, self.Position.z, SharpType.Fan, direct, repairPos, arg1, arg2);
+                var ll2 = GetSlector(ll, self.Position.x, self.Position.z, SharpType.Line, direct, repairPos, arg3, arg4);
+                list2.AddRange(ll1);
+                list2.AddRange(ll2);
+
+                break;
+            }
+            case RangeType.UseLast:
+                break;
+        }
+
+        int count = 0;
+        HashSet<long> unitMap = new HashSet<long>();
+        foreach (var unit in list2)
+        {
+            if (!unitMap.Contains(unit.Id))
+            {
+                list.Add(unit);
+                unitMap.Add(unit.Id);
+                count += 1;
+                if (count >= maxCount)
+                {
+                    break;
+                }
+            }
         }
 
         return list;

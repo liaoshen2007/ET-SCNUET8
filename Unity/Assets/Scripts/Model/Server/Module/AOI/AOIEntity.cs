@@ -6,6 +6,9 @@ namespace ET.Server
     [ComponentOf(typeof(Unit))]
     public class AOIEntity: Entity, IAwake<int, float3>, IDestroy
     {
+        /// <summary>
+        /// 父物体
+        /// </summary>
         public Unit Unit => this.GetParent<Unit>();
 
         public int ViewDistance;
