@@ -52,23 +52,17 @@ namespace ET.Client
         
         public static T LoadAsset<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
         {
-            AssetOperationHandle assetOperationHandle;
-            ResourceHandler handler;
+            OperationHandleBase handler;
             if (!self.handlers.TryGetValue(location, out handler))
             {
-                assetOperationHandle = self.package.LoadAssetAsync<T>(location);
+                handler = self.package.LoadAssetAsync<T>(location);
             
-                assetOperationHandle.Task.Wait();
+                handler.Task.Wait();
 
-                handler = new ResourceHandler(assetOperationHandle);
                 self.handlers.Add(location, handler);
             }
-            else
-            {
-                assetOperationHandle = handler.GetHandler<AssetOperationHandle>();
-            }
             
-            return (T)assetOperationHandle.AssetObject;
+            return (T)((AssetOperationHandle)handler).AssetObject;
         }
 
         public static async ETTask<T> LoadAssetAsync<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object

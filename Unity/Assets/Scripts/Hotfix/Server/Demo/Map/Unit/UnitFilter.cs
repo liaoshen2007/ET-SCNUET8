@@ -83,7 +83,7 @@ public static class UnitFilter
                 double sinX = Math.Sign(Math.Atan(-direct));
                 foreach (var unit in unitList)
                 {
-                    var modelR = unit.Config.ModelR;
+                    var modelR = unit.Config().ModelR;
                     if (dstSet != null && dstSet.Contains(unit.Id))
                     {
                         modelR += 500;
@@ -103,7 +103,7 @@ public static class UnitFilter
             case SharpType.Round:
                 foreach (var unit in unitList)
                 {
-                    if (GetDistance(srcX, srcZ, unit.Position.x, unit.Position.z) <= Math.Pow((arg1 + unit.Config.ModelR), 2))
+                    if (GetDistance(srcX, srcZ, unit.Position.x, unit.Position.z) <= Math.Pow((arg1 + unit.Config().ModelR), 2))
                     {
                         list.Add(unit);
                     }
@@ -113,7 +113,7 @@ public static class UnitFilter
             case SharpType.Fan:
                 foreach (var unit in unitList)
                 {
-                    if (GetDistance(srcX, srcZ, unit.Position.x, unit.Position.z) <= Math.Pow((arg1 + unit.Config.ModelR), 2))
+                    if (GetDistance(srcX, srcZ, unit.Position.x, unit.Position.z) <= Math.Pow((arg1 + unit.Config().ModelR), 2))
                     {
                         list.Add(unit);
                     }
@@ -146,7 +146,7 @@ public static class UnitFilter
                     }
                     else
                     {
-                        var modelR = unit.Config.ModelR;
+                        var modelR = unit.Config().ModelR;
                         if (dstSet != null && dstSet.Contains(unit.Id))
                         {
                             modelR += 500;
@@ -209,7 +209,7 @@ public static class UnitFilter
     float maxDistance)
     {
         HashSet<long> dstSet = new HashSet<long>();
-        if (dstList != null && self.Type == UnitType.Player)
+        if (dstList != null && self.Type() == UnitType.Player)
         {
             foreach (var unit in dstList)
             {
