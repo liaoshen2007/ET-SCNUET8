@@ -19,6 +19,16 @@ namespace ET
             }
         }
 
+        public int GetCount(Type type)
+        {
+            if (!this.objPool.TryGetValue(type, out var queue))
+            {
+                return 0;
+            }
+
+            return queue.Count;
+        }
+        
         public T Fetch<T>() where T : class
         {
             return this.Fetch(typeof (T)) as T;
@@ -59,6 +69,8 @@ namespace ET
         /// </summary>
         private class Pool
         {
+            public int Count => this._items.Count;
+            
             private readonly Type ObjectType;
             private readonly int MaxCapacity;
             private int NumItems;

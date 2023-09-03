@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Widget
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 56
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 56
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2bfa1a19c4497e74cafa2785ddd5d39e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8d4c133088ba9c0488a5cdb55243f509, type: 3}
+  - {fileID: 21300000, guid: f3d65c403e2efe148bab4946bb97d4d9, type: 3}
+  - {fileID: 21300000, guid: 4bb40c50cf7bf154ba9a0c359ec1960e, type: 3}
+  - {fileID: 21300000, guid: f56a6933395ee1845bc0d945e7266bf7, type: 3}
+  - {fileID: 21300000, guid: 19c6d6c34f383684c9c4af6788862e05, type: 3}
+  - {fileID: 21300000, guid: d9e732248f7dcb0409ec31ccd9465852, type: 3}
+  - {fileID: 21300000, guid: 6c4d384488b2ce34c847e2baf84b5e74, type: 3}
+  - {fileID: 21300000, guid: 2c378664fd382ae43b8bffebf071030f, type: 3}
+  - {fileID: 21300000, guid: 7c9d2864e66d1b14ca34bea8bde30fc7, type: 3}
+  - {fileID: 21300000, guid: 3fad64a42fd865d4f848f8de34235472, type: 3}
+  - {fileID: 21300000, guid: 632417b4642f9e74e890b843f05d1d76, type: 3}
+  - {fileID: 21300000, guid: f56139754d560694bb5c16e20d01e38c, type: 3}
+  - {fileID: 21300000, guid: f354ca856cd148a45bb417c1ceb01dfc, type: 3}
+  - {fileID: 21300000, guid: 6cb87fb5ea951cc42aa04a775188a069, type: 3}
+  - {fileID: 21300000, guid: c2956f57a4b2cfa469c5dfac9fe2ba9a, type: 3}
+  - {fileID: 21300000, guid: f58043b7dbbd1b648ba7a8aa874b9153, type: 3}
+  - {fileID: 21300000, guid: d7b1a708e5d8be64193897c6f21a0941, type: 3}
+  - {fileID: 21300000, guid: 55374538dc70bb14e8a58d3c2c64a1cc, type: 3}
+  - {fileID: 21300000, guid: 78545ea836a0b1c499e70f842a0bf5c2, type: 3}
+  - {fileID: 21300000, guid: 0c968f09638050445b29c1d7a38f5816, type: 3}
+  - {fileID: 21300000, guid: fb25b6296dcef3c40bf28b2d8702fba7, type: 3}
+  - {fileID: 21300000, guid: aaf93e495cf942148b949970be6cae8f, type: 3}
+  - {fileID: 21300000, guid: 22ec4569fa8f8fa4b85b606cc7e7d0c8, type: 3}
+  - {fileID: 21300000, guid: ac1853c9111cf1c48a7a1f21a9b0356d, type: 3}
+  - {fileID: 21300000, guid: fd9536e9526cad1488c3d4b02d894574, type: 3}
+  - {fileID: 21300000, guid: 84c0f8f92830a5d49b430e2f984ae7e6, type: 3}
+  - {fileID: 21300000, guid: c332cc8aeb80e1f429ea2302e5493e50, type: 3}
+  - {fileID: 21300000, guid: 6744a81b6c202044faa765ab66d7db33, type: 3}
+  - {fileID: 21300000, guid: bcecd74bbebe9fa4b8df9e9986a97a7b, type: 3}
+  - {fileID: 21300000, guid: bbb1cabb285726849ae2ec8a5917dc81, type: 3}
+  - {fileID: 21300000, guid: ed3d27fb0b166ac4cb30c6b724894dbe, type: 3}
+  - {fileID: 21300000, guid: a9a88b1c75cf62a4e9be7dc73e140c30, type: 3}
+  - {fileID: 21300000, guid: e33a4b3c6bf35be49aa53a86e4c95e49, type: 3}
+  - {fileID: 21300000, guid: 2cfc3e3d355746e42a2a21b710c565ab, type: 3}
+  - {fileID: 21300000, guid: f2023a3e338dd234db72d0eafce16826, type: 3}
+  - {fileID: 21300000, guid: cbf05d6e979d7c54d97874bd46bdab84, type: 3}
+  - {fileID: 21300000, guid: e590067ed23390b4ea63fce575816c44, type: 3}
+  - {fileID: 21300000, guid: d7c718eea219cff4fa5db7f79a6239e1, type: 3}
+  - {fileID: 21300000, guid: d18e22df1a631d24c9fb8f2263869990, type: 3}
+  - {fileID: 21300000, guid: dccc55ff1ac328a47abdc0d87020e73b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - wg_pnl_anc18
+  - wb_btn_fh
+  - wb_btn_fh03
+  - wg_pnl_anc10
+  - wg_pnl_jues01
+  - wg_pnl_anc06
+  - wg_pnl_gwdt
+  - wg_pnl_anc09
+  - wg_pnl_xt02
+  - wg_pnl_anc13
+  - wg_pnl_anc
+  - wg_pnl_jsxt01
+  - wg_pnl_anc21
+  - wg_pnl_gwxtd
+  - wg_pnl_anc08
+  - bg_ptk
+  - wb_btn_fh02
+  - wg_pnl_anc03
+  - wg_pnl_anc02
+  - wg_pnl_anc04
+  - wg_pnl_jsxt02
+  - wg_pnl_anc05
+  - bg_xyk
+  - wg_pnl_anc11
+  - wg_btn_lan_hu
+  - wg_pnl_xt01
+  - bg_cqk
+  - wg_pnl_anc14
+  - wg_btn-hua_hu
+  - wg_pnl_anc15
+  - wg_pnl_jsxt03
+  - wg_pnl_anc16
+  - wg_pnl_anc17
+  - wg_pnl_anc20
+  - wg_pnl_xt03
+  - wb_btn_off
+  - wg_pnl_anc12
+  - wg_pnl_anc19
+  - wg_pnl_xt04
+  - wg_pnl_anc07
+  m_RenderDataMap: {}
+  m_Tag: Widget
+  m_IsVariant: 0

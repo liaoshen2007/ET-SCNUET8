@@ -205,17 +205,15 @@
         /// </summary>
         Skill = 5,
 
+        /// <summary>
+        /// 无敌
+        /// </summary>
         Invincible = 6,
 
         /// <summary>
         /// 移动
         /// </summary>
         Move = 7,
-
-        /// <summary>
-        /// 操作移动
-        /// </summary>
-        HandlerMove = 8,
 
         /// <summary>
         /// 无法选中

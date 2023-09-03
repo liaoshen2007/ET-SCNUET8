@@ -15,6 +15,8 @@ namespace ET
 		private Dictionary<string, TextAsset> dlls;
 		private Dictionary<string, TextAsset> aotDlls; 
 		
+		public Action OnApplicationQuit;
+		
 		public void Awake()
 		{
 		}

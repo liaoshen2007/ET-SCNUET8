@@ -46,4 +46,34 @@ public static class AbilitySystem
     {
         return (self.Value & (int) ability) == 0;
     }
+
+    /// <summary>
+    /// 能否普攻
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static bool CanNormalAttack(this Unit self)
+    {
+        return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Attack);
+    }
+    
+    /// <summary>
+    /// 能否使用技能
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static bool CanSkill(this Unit self)
+    {
+        return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Skill);
+    }
+    
+    /// <summary>
+    /// 能否移动
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static bool CanMove(this Unit self)
+    {
+        return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Move);
+    }
 }
