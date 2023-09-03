@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.Mathematics;
 
 namespace ET.Server
@@ -14,7 +13,7 @@ namespace ET.Server
             NumericComponent nc = unit.GetComponent<NumericComponent>();
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
-            unitInfo.Type = (int) unit.Type;
+            unitInfo.Type = (int)unit.Type();
             unitInfo.Position = unit.Position;
             unitInfo.Forward = unit.Forward;
 
