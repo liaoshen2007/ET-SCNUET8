@@ -2,11 +2,16 @@
 
 namespace ET.Client
 {
-    [ChildOf(typeof(UIComponent))]
+    [ChildOf(typeof (UIComponent))]
     public class UIBaseWindow: Entity, IAwake, IDestroy
     {
         public WindowCoreData WindowData => this.GetComponent<WindowCoreData>();
-        
+
+        /// <summary>
+        /// 是否显示遮罩
+        /// </summary>
+        public bool ShowMask { get; set; } = true;
+
         /// <summary>
         /// 是否预加载窗口
         /// </summary>

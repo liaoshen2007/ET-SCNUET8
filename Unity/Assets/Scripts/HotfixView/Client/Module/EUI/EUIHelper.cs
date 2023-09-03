@@ -10,7 +10,6 @@ namespace ET.Client
     public static class EUIHelper
     {
         #region UI辅助方法
-
         public static void SetText(this Text Label, string content)
         {
             if (null == Label)
@@ -30,12 +29,6 @@ namespace ET.Client
                 return;
             }
 
-            if (null == uiBehaviour.gameObject)
-            {
-                Log.Error("uiBehaviour gameObject is null!");
-                return;
-            }
-
             if (uiBehaviour.gameObject.activeSelf == isVisible)
             {
                 return;
@@ -49,12 +42,6 @@ namespace ET.Client
             if (null == uiBehaviour)
             {
                 Log.Error("uibehaviour is null!");
-                return;
-            }
-
-            if (null == uiBehaviour.gameObject)
-            {
-                Log.Error("uiBehaviour gameObject is null!");
                 return;
             }
 
@@ -78,12 +65,6 @@ namespace ET.Client
             if (null == transform)
             {
                 Log.Error("uibehaviour is null!");
-                return;
-            }
-
-            if (null == transform.gameObject)
-            {
-                Log.Error("uiBehaviour gameObject is null!");
                 return;
             }
 

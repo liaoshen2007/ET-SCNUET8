@@ -27,6 +27,7 @@ namespace ET.Client
     {
         public static void Awake(this UIComponent self)
         {
+            self.AddComponent<UIMask, bool>(true);
             self.IsPopStackWndStatus = false;
             self.AllWindowsDic?.Clear();
             self.VisibleWindowsDic?.Clear();
@@ -511,7 +512,9 @@ namespace ET.Client
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
-            baseWindow.SetRoot(self.GetTargetRoot(baseWindow.WindowData.windowType));
+            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
+            self.GetComponent<UIMask>().SetAsLastSibling(root);
+            baseWindow.SetRoot(root);
             baseWindow.UITransform.SetAsLastSibling();
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
@@ -537,7 +540,9 @@ namespace ET.Client
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
-            baseWindow.SetRoot(self.GetTargetRoot(baseWindow.WindowData.windowType));
+            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
+            self.GetComponent<UIMask>().SetAsLastSibling(root);
+            baseWindow.SetRoot(root);
             baseWindow.UITransform.SetAsLastSibling();
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
