@@ -19,6 +19,8 @@ namespace ET.Server
             root.AddComponent<LocationProxyComponent>();
             root.AddComponent<MessageLocationSenderComponent>();
             
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
+            root.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.Port}/");
             root.AddComponent<FightFormula>();
 
             await ETTask.CompletedTask;
