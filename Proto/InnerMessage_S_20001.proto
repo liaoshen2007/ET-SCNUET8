@@ -131,3 +131,77 @@ message M2M_UnitTransferRequest // IRequest
 message M2M_UnitTransferResponse // IResponse
 {
 }
+
+//添加或更新缓存数据
+//ResponseType Cache2Other_UpdateCache
+message Other2Cache_UpdateCache // IRequest
+{
+	int64 UnitId = 1;
+	//实体列表
+	repeated string EntityTypeList = 2;
+	repeated bytes EntityData = 3;
+}
+
+message Cache2Other_UpdateCache // IResponse
+{
+}
+
+//获取缓存数据
+//ResponseType Cache2Other_GetCache
+message Other2Cache_GetCache // IRequest
+{
+	int64 UnitId = 1;
+	repeated string ComponentNameList = 2;
+}
+
+message Cache2Other_GetCache // IResponse
+{
+	repeated string ComponentNameList = 1;
+	repeated bytes Entitys = 2;
+}
+
+//删除缓存数据
+//ResponseType Cache2Other_DeleteCache
+message Other2Cache_DeleteCache // IRequest
+{
+	int64 UnitId = 1;
+}
+
+message Cache2Other_DeleteCache // IResponse
+{
+}
+
+//玩家进入游戏
+//ResponseType Other2G_EnterResponse
+message G2Other_EnterRequest // IRequest
+{
+	int64 PlayerId = 1;
+}
+
+message Other2G_EnterResponse // IResponse
+{
+	int64 Id = 1;
+}
+
+//玩家退出游戏
+//ResponseType Other2G_LeaveResponse
+message G2Other_LeaveRequest // IRequest
+{
+	int64 PlayerId = 1;
+}
+
+message Other2G_LeaveResponse // IResponse
+{
+}
+
+//守护进程请求保存数据
+//ResponseType Other2W_SaveDataResponse
+message W2Other_SaveDataRequest // IRequest
+{
+
+}
+
+message Other2W_SaveDataResponse // IResponse
+{
+
+}

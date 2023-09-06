@@ -223,3 +223,78 @@ message M2C_UpdateUnitShield // IMessage
   int64 Id = 1;
   map<int32, int64> KV = 2;
 }
+
+message RankRoleInfoProto
+{
+	string Name = 1;
+	string HeadIcon = 2;
+	int32 Level = 3;
+	int64 Fight = 4;
+	int32 Sex = 5;
+}
+
+//排行榜显示信息
+message RankInfoProto
+{
+	int64 UnitId = 1;
+	//分数
+	int64 Score = 2;
+	//排名
+	int64 Rank = 3;
+	//时间
+	int64 Time = 4;
+	//角色信息
+	RankRoleInfoProto RoleInfo = 5;
+}
+
+//获取排行榜数据
+//ResponseType Ran2C_GetRankResponse
+message C2Rank_GetRankRequest // IRankRequest
+{
+	int64 UnitId = 1;
+	int32 Type = 2;
+	int32 SubType = 3;
+	int32 Page = 4;
+}
+
+message Ran2C_GetRankResponse // IRankResponse
+{
+	repeated RankInfoProto List = 1;
+	//自己的数据
+	RankInfoProto SelfInfo = 2;
+	int32 Page = 3;
+}
+
+message RoleInfoProto
+{
+	int64 UnitId = 6;
+	string Name = 1;
+	string HeadIcon = 2;
+	int32 Level = 3;
+	int64 Fight = 4;
+	int32 Sex = 5;
+}
+
+//发送聊天消息
+//ResponseType Chat2C_SendResponse
+message C2Chat_SendRequest // IChatRequest
+{
+	int32 Channel = 1;
+	RoleInfoProto RoleInfo = 2;
+	string Message = 3;
+	int64 GroupId = 4;
+}
+
+message Chat2C_SendResponse // IChatResponse
+{
+
+}
+
+//收到聊天信息
+message Chat2C_UpdateChat // IChatMessage
+{
+	int32 Channel = 1;
+	RoleInfoProto RoleInfo = 2;
+	string Message = 3;
+	int64 GroupId = 4;
+}

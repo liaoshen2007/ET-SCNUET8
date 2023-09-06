@@ -59,6 +59,35 @@ namespace ET.Server
                     }
                     break;
                 }
+                case IRankRequest rankRequest:
+                {
+                    var id = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), nameof(SceneType.Rank)).ActorId;
+                    int rpcId = rankRequest.RpcId; // 这里要保存客户端的rpcId
+                    long instanceId = session.InstanceId;
+                    IResponse response = await root.GetComponent<MessageSender>().Call(id, rankRequest);
+                    response.RpcId = rpcId;
+                    // session可能已经断开了，所以这里需要判断
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Send(response);
+                    }
+
+                    break;
+                }
+                case IRankMessage rankMessage:
+                {
+                    var id = session.GetComponent<SessionPlayerComponent>().Player.GetActorId();
+                    root.GetComponent<MessageSender>().Send(id, rankMessage);
+                    break;
+                }
+                case IChatRequest chatRequest:
+                {
+                    break;
+                }
+                case IChatMessage chatMessage:
+                {
+                    break;
+                }
                 case IRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;
@@ -67,7 +96,6 @@ namespace ET.Server
                 {
                     break;
                 }
-				
                 default:
                 {
                     throw new Exception($"not found handler: {message}");

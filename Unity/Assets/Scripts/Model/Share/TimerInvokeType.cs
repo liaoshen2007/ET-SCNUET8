@@ -15,5 +15,10 @@
         public const int SessionAcceptTimeout = 203;
         
         public const int RoomUpdate = 301;
+        
+        /// <summary>
+        /// 保存排行榜
+        /// </summary>
+        public const int SaveRank = 311;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ET
@@ -104,6 +105,63 @@ namespace ET
 		public static bool IsNullOrEmpty(this string str)
 		{
 			return string.IsNullOrEmpty(str);
+		}
+		
+		/// <summary>
+		/// 获取字符串的哈希值，自定义算法与系统有区别，不能混用。
+		/// </summary>
+		/// <param name="str">字符串</param>
+		/// <returns>返回哈希值</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int HashCode(this string str)
+		{
+			int num = 0;
+			int totalLength = str.Length;
+			for (int i = 0; i < totalLength; ++i)
+			{
+				num = ((num << 5) - num) + str[i];
+			}
+
+			return num;
+		}
+
+		/// <summary>
+		/// 获取字符串的哈希值，自定义算法与系统有区别，不能混用。
+		/// </summary>
+		/// <param name="str">字符串</param>
+		/// <param name="startIndex">哈希值计算的起始位置</param>
+		/// <returns>返回哈希值</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int HashCode(this string str, int startIndex)
+		{
+			int num = 0;
+			int totalLength = str.Length;
+			for (int i = startIndex; i < totalLength; ++i)
+			{
+				num = ((num << 5) - num) + str[i];
+			}
+
+			return num;
+		}
+
+		/// <summary>
+		/// 获取字符串的哈希值，自定义算法与系统有区别，不能混用。
+		/// </summary>
+		/// <param name="str">字符串</param>
+		/// <param name="startIndex">哈希值计算的起始位置</param>
+		/// <param name="length">哈希值计算的字符串总长度</param>
+		/// <returns>返回哈希值</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int HashCode(this string str, int startIndex, int length)
+		{
+			int num = 0;
+			int totalLength = startIndex + length;
+			for (int i = startIndex; i < totalLength; ++i)
+			{
+				num = ((num << 5) - num) + str[i];
+			}
+
+			return num;
 		}
 	}
 }

@@ -6,6 +6,9 @@ namespace ET
 {
     public partial class StartSceneConfigCategory
     {
+        /// <summary>
+        /// 一个区服对应多个网关服务器
+        /// </summary>
         public MultiMap<int, StartSceneConfig> Gates = new();
         
         public MultiMap<int, StartSceneConfig> ProcessScenes = new();
@@ -14,7 +17,15 @@ namespace ET
 
         public StartSceneConfig LocationConfig;
 
+        /// <summary>
+        /// 一个区服对应多个负载均衡服务器
+        /// </summary>
         public List<StartSceneConfig> Realms = new();
+        
+        /// <summary>
+        /// 一个区服对应一个缓存服
+        /// </summary>
+        public Dictionary<int, StartSceneConfig> Caches = new Dictionary<int, StartSceneConfig>();
         
         public List<StartSceneConfig> Routers = new();
         
@@ -32,6 +43,11 @@ namespace ET
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ClientScenesByName[zone][name];
+        }
+        
+        public StartSceneConfig GetCache(int zone)
+        {
+            return Caches[zone];
         }
 
         public override void EndInit()
@@ -68,6 +84,9 @@ namespace ET
                         break;
                     case SceneType.BenchmarkServer:
                         this.Benchmark = startSceneConfig;
+                        break;
+                    case SceneType.Cache:
+                        this.Caches.Add(startSceneConfig.Zone, startSceneConfig);
                         break;
                 }
             }

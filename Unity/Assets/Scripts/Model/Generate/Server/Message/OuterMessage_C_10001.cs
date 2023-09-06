@@ -971,6 +971,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///受伤信息
+	/// </summary>
 	[Message(OuterMessage.HurtInfo)]
 	[MemoryPackable]
 	public partial class HurtInfo: MessageObject
@@ -1052,6 +1055,364 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///更新护盾值
+	/// </summary>
+	[Message(OuterMessage.M2C_UpdateUnitShield)]
+	[MemoryPackable]
+	public partial class M2C_UpdateUnitShield: MessageObject, IMessage
+	{
+		public static M2C_UpdateUnitShield Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_UpdateUnitShield() : ObjectPool.Instance.Fetch(typeof(M2C_UpdateUnitShield)) as M2C_UpdateUnitShield; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+		[MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptions(MongoDB.Bson.Serialization.Options.DictionaryRepresentation.ArrayOfArrays)]
+		[MemoryPackOrder(1)]
+		public Dictionary<int, long> KV { get; set; } = new();
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.KV.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.RankRoleInfoProto)]
+	[MemoryPackable]
+	public partial class RankRoleInfoProto: MessageObject
+	{
+		public static RankRoleInfoProto Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new RankRoleInfoProto() : ObjectPool.Instance.Fetch(typeof(RankRoleInfoProto)) as RankRoleInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string HeadIcon { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Level { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long Fight { get; set; }
+
+		[MemoryPackOrder(4)]
+		public int Sex { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Name = default;
+			this.HeadIcon = default;
+			this.Level = default;
+			this.Fight = default;
+			this.Sex = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///排行榜显示信息
+	/// </summary>
+	[Message(OuterMessage.RankInfoProto)]
+	[MemoryPackable]
+	public partial class RankInfoProto: MessageObject
+	{
+		public static RankInfoProto Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new RankInfoProto() : ObjectPool.Instance.Fetch(typeof(RankInfoProto)) as RankInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+	/// <summary>
+	///分数
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public long Score { get; set; }
+
+	/// <summary>
+	///排名
+	/// </summary>
+		[MemoryPackOrder(2)]
+		public long Rank { get; set; }
+
+	/// <summary>
+	///时间
+	/// </summary>
+		[MemoryPackOrder(3)]
+		public long Time { get; set; }
+
+	/// <summary>
+	///角色信息
+	/// </summary>
+		[MemoryPackOrder(4)]
+		public RankRoleInfoProto RoleInfo { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.UnitId = default;
+			this.Score = default;
+			this.Rank = default;
+			this.Time = default;
+			this.RoleInfo = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///获取排行榜数据
+	/// </summary>
+	[ResponseType(nameof(Ran2C_GetRankResponse))]
+	[Message(OuterMessage.C2Rank_GetRankRequest)]
+	[MemoryPackable]
+	public partial class C2Rank_GetRankRequest: MessageObject, IRankRequest
+	{
+		public static C2Rank_GetRankRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new C2Rank_GetRankRequest() : ObjectPool.Instance.Fetch(typeof(C2Rank_GetRankRequest)) as C2Rank_GetRankRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Type { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int SubType { get; set; }
+
+		[MemoryPackOrder(3)]
+		public int Page { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.UnitId = default;
+			this.Type = default;
+			this.SubType = default;
+			this.Page = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.Ran2C_GetRankResponse)]
+	[MemoryPackable]
+	public partial class Ran2C_GetRankResponse: MessageObject, IRankResponse
+	{
+		public static Ran2C_GetRankResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Ran2C_GetRankResponse() : ObjectPool.Instance.Fetch(typeof(Ran2C_GetRankResponse)) as Ran2C_GetRankResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public List<RankInfoProto> List { get; set; } = new();
+
+	/// <summary>
+	///自己的数据
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public RankInfoProto SelfInfo { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Page { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.List.Clear();
+			this.SelfInfo = default;
+			this.Page = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.RoleInfoProto)]
+	[MemoryPackable]
+	public partial class RoleInfoProto: MessageObject
+	{
+		public static RoleInfoProto Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new RoleInfoProto() : ObjectPool.Instance.Fetch(typeof(RoleInfoProto)) as RoleInfoProto; 
+		}
+
+		[MemoryPackOrder(5)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string HeadIcon { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Level { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long Fight { get; set; }
+
+		[MemoryPackOrder(4)]
+		public int Sex { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.UnitId = default;
+			this.Name = default;
+			this.HeadIcon = default;
+			this.Level = default;
+			this.Fight = default;
+			this.Sex = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///发送聊天消息
+	/// </summary>
+	[ResponseType(nameof(Chat2C_SendResponse))]
+	[Message(OuterMessage.C2Chat_SendRequest)]
+	[MemoryPackable]
+	public partial class C2Chat_SendRequest: MessageObject, IChatRequest
+	{
+		public static C2Chat_SendRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new C2Chat_SendRequest() : ObjectPool.Instance.Fetch(typeof(C2Chat_SendRequest)) as C2Chat_SendRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int Channel { get; set; }
+
+		[MemoryPackOrder(1)]
+		public RoleInfoProto RoleInfo { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long GroupId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Channel = default;
+			this.RoleInfo = default;
+			this.Message = default;
+			this.GroupId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.Chat2C_SendResponse)]
+	[MemoryPackable]
+	public partial class Chat2C_SendResponse: MessageObject, IChatResponse
+	{
+		public static Chat2C_SendResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Chat2C_SendResponse() : ObjectPool.Instance.Fetch(typeof(Chat2C_SendResponse)) as Chat2C_SendResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///收到聊天信息
+	/// </summary>
+	[Message(OuterMessage.Chat2C_UpdateChat)]
+	[MemoryPackable]
+	public partial class Chat2C_UpdateChat: MessageObject, IChatMessage
+	{
+		public static Chat2C_UpdateChat Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Chat2C_UpdateChat() : ObjectPool.Instance.Fetch(typeof(Chat2C_UpdateChat)) as Chat2C_UpdateChat; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Channel { get; set; }
+
+		[MemoryPackOrder(1)]
+		public RoleInfoProto RoleInfo { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long GroupId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Channel = default;
+			this.RoleInfo = default;
+			this.Message = default;
+			this.GroupId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -1089,5 +1450,14 @@ namespace ET
 		 public const ushort C2G_Benchmark = 10034;
 		 public const ushort G2C_Benchmark = 10035;
 		 public const ushort HurtInfo = 10036;
+		 public const ushort M2C_UpdateUnitShield = 10037;
+		 public const ushort RankRoleInfoProto = 10038;
+		 public const ushort RankInfoProto = 10039;
+		 public const ushort C2Rank_GetRankRequest = 10040;
+		 public const ushort Ran2C_GetRankResponse = 10041;
+		 public const ushort RoleInfoProto = 10042;
+		 public const ushort C2Chat_SendRequest = 10043;
+		 public const ushort Chat2C_SendResponse = 10044;
+		 public const ushort Chat2C_UpdateChat = 10045;
 	}
 }

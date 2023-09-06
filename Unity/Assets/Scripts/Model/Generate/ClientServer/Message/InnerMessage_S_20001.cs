@@ -731,6 +731,389 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///添加或更新缓存数据
+	/// </summary>
+	[ResponseType(nameof(Cache2Other_UpdateCache))]
+	[Message(InnerMessage.Other2Cache_UpdateCache)]
+	[MemoryPackable]
+	public partial class Other2Cache_UpdateCache: MessageObject, IRequest
+	{
+		public static Other2Cache_UpdateCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2Cache_UpdateCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_UpdateCache)) as Other2Cache_UpdateCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+	/// <summary>
+	///实体列表
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public List<string> EntityTypeList { get; set; } = new();
+
+		[MemoryPackOrder(2)]
+		public List<byte[]> EntityData { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.UnitId = default;
+			this.EntityTypeList.Clear();
+			this.EntityData.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Cache2Other_UpdateCache)]
+	[MemoryPackable]
+	public partial class Cache2Other_UpdateCache: MessageObject, IResponse
+	{
+		public static Cache2Other_UpdateCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Cache2Other_UpdateCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_UpdateCache)) as Cache2Other_UpdateCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///获取缓存数据
+	/// </summary>
+	[ResponseType(nameof(Cache2Other_GetCache))]
+	[Message(InnerMessage.Other2Cache_GetCache)]
+	[MemoryPackable]
+	public partial class Other2Cache_GetCache: MessageObject, IRequest
+	{
+		public static Other2Cache_GetCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2Cache_GetCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_GetCache)) as Other2Cache_GetCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public List<string> ComponentNameList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.UnitId = default;
+			this.ComponentNameList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Cache2Other_GetCache)]
+	[MemoryPackable]
+	public partial class Cache2Other_GetCache: MessageObject, IResponse
+	{
+		public static Cache2Other_GetCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Cache2Other_GetCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_GetCache)) as Cache2Other_GetCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public List<string> ComponentNameList { get; set; } = new();
+
+		[MemoryPackOrder(1)]
+		public List<byte[]> Entitys { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.ComponentNameList.Clear();
+			this.Entitys.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///删除缓存数据
+	/// </summary>
+	[ResponseType(nameof(Cache2Other_DeleteCache))]
+	[Message(InnerMessage.Other2Cache_DeleteCache)]
+	[MemoryPackable]
+	public partial class Other2Cache_DeleteCache: MessageObject, IRequest
+	{
+		public static Other2Cache_DeleteCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2Cache_DeleteCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_DeleteCache)) as Other2Cache_DeleteCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.UnitId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Cache2Other_DeleteCache)]
+	[MemoryPackable]
+	public partial class Cache2Other_DeleteCache: MessageObject, IResponse
+	{
+		public static Cache2Other_DeleteCache Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Cache2Other_DeleteCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_DeleteCache)) as Cache2Other_DeleteCache; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///玩家进入游戏
+	/// </summary>
+	[ResponseType(nameof(Other2G_EnterResponse))]
+	[Message(InnerMessage.G2Other_EnterRequest)]
+	[MemoryPackable]
+	public partial class G2Other_EnterRequest: MessageObject, IRequest
+	{
+		public static G2Other_EnterRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new G2Other_EnterRequest() : ObjectPool.Instance.Fetch(typeof(G2Other_EnterRequest)) as G2Other_EnterRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long PlayerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.PlayerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Other2G_EnterResponse)]
+	[MemoryPackable]
+	public partial class Other2G_EnterResponse: MessageObject, IResponse
+	{
+		public static Other2G_EnterResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2G_EnterResponse() : ObjectPool.Instance.Fetch(typeof(Other2G_EnterResponse)) as Other2G_EnterResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.Id = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///玩家退出游戏
+	/// </summary>
+	[ResponseType(nameof(Other2G_LeaveResponse))]
+	[Message(InnerMessage.G2Other_LeaveRequest)]
+	[MemoryPackable]
+	public partial class G2Other_LeaveRequest: MessageObject, IRequest
+	{
+		public static G2Other_LeaveRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new G2Other_LeaveRequest() : ObjectPool.Instance.Fetch(typeof(G2Other_LeaveRequest)) as G2Other_LeaveRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long PlayerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.PlayerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Other2G_LeaveResponse)]
+	[MemoryPackable]
+	public partial class Other2G_LeaveResponse: MessageObject, IResponse
+	{
+		public static Other2G_LeaveResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2G_LeaveResponse() : ObjectPool.Instance.Fetch(typeof(Other2G_LeaveResponse)) as Other2G_LeaveResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///守护进程请求保存数据
+	/// </summary>
+	[ResponseType(nameof(Other2W_SaveDataResponse))]
+	[Message(InnerMessage.W2Other_SaveDataRequest)]
+	[MemoryPackable]
+	public partial class W2Other_SaveDataRequest: MessageObject, IRequest
+	{
+		public static W2Other_SaveDataRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new W2Other_SaveDataRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_SaveDataRequest)) as W2Other_SaveDataRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.Other2W_SaveDataResponse)]
+	[MemoryPackable]
+	public partial class Other2W_SaveDataResponse: MessageObject, IResponse
+	{
+		public static Other2W_SaveDataResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new Other2W_SaveDataResponse() : ObjectPool.Instance.Fetch(typeof(Other2W_SaveDataResponse)) as Other2W_SaveDataResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
@@ -756,5 +1139,17 @@ namespace ET
 		 public const ushort ObjectQueryResponse = 20022;
 		 public const ushort M2M_UnitTransferRequest = 20023;
 		 public const ushort M2M_UnitTransferResponse = 20024;
+		 public const ushort Other2Cache_UpdateCache = 20025;
+		 public const ushort Cache2Other_UpdateCache = 20026;
+		 public const ushort Other2Cache_GetCache = 20027;
+		 public const ushort Cache2Other_GetCache = 20028;
+		 public const ushort Other2Cache_DeleteCache = 20029;
+		 public const ushort Cache2Other_DeleteCache = 20030;
+		 public const ushort G2Other_EnterRequest = 20031;
+		 public const ushort Other2G_EnterResponse = 20032;
+		 public const ushort G2Other_LeaveRequest = 20033;
+		 public const ushort Other2G_LeaveResponse = 20034;
+		 public const ushort W2Other_SaveDataRequest = 20035;
+		 public const ushort Other2W_SaveDataResponse = 20036;
 	}
 }
