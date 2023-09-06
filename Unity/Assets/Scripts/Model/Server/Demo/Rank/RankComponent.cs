@@ -17,7 +17,7 @@ public class RankCompare : IComparer<RankInfo>
 }
 
 [ComponentOf(typeof (Scene))]
-public class RankComponent: Entity, IAwake, IDestroy
+public class RankComponent: Entity, IAwake, IDestroy, ILoad
 {
     public long Timer = 0;
 

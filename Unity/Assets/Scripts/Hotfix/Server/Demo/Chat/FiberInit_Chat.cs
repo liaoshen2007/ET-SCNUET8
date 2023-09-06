@@ -1,6 +1,6 @@
 ﻿namespace ET.Server
 {
-    [Invoke((long)SceneType.Cache)]
+    [Invoke((long)SceneType.Chat)]
     public class FiberInit_Chat: AInvokeHandler<FiberInit, ETTask>
     {
         public override async ETTask Handle(FiberInit fiberInit)
@@ -11,6 +11,7 @@
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<DBManagerComponent>();
+            root.AddComponent<ChatComponent>();
 
             await ETTask.CompletedTask;
         }

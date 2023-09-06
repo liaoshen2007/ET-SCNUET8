@@ -46,6 +46,14 @@ namespace ET
             this.mainThreadScheduler.LateUpdate();
         }
 
+        public void Load()
+        {
+            foreach (var fiber in this.fibers)
+            {
+                fiber.Value.Load();
+            }
+        }
+        
         protected override void Destroy()
         {
             foreach (IScheduler scheduler in this.schedulers)

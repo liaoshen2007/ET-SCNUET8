@@ -1,7 +1,7 @@
 ﻿namespace ET.Server
 {
-    [Invoke((long)SceneType.Cache)]
-    public class FiberInit_Cache: AInvokeHandler<FiberInit, ETTask>
+    [Invoke((long) SceneType.Rank)]
+    public class FiberInit_Rank: AInvokeHandler<FiberInit, ETTask>
     {
         public override async ETTask Handle(FiberInit fiberInit)
         {
@@ -11,7 +11,7 @@
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<DBManagerComponent>();
-            root.AddComponent<CacheComponent>();
+            root.AddComponent<RankComponent>();
 
             await ETTask.CompletedTask;
         }

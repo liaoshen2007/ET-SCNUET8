@@ -15,7 +15,7 @@ namespace ET
 
         public int Sex { get; set; }
 
-        protected bool Equals(RankRoleInfo other)
+        private bool Equals(RankRoleInfo other)
         {
             return this.Name == other.Name && this.HeadIcon == other.HeadIcon && this.Level == other.Level && this.Fight == other.Fight && this.Sex == other.Sex;
         }

@@ -3,9 +3,37 @@ using System.Collections.Generic;
 
 namespace ET.Server;
 
-[FriendOf(typeof(RankComponent))]
-public static class RankComponentSystem
+[FriendOf(typeof (RankComponent))]
+[EntitySystemOf(typeof (RankComponent))]
+public static partial class RankComponentSystem
 {
+    [EntitySystem]
+    private static void Awake(this RankComponent self)
+    {
+        self.Init();
+    }
+
+    [EntitySystem]
+    private static void Destroy(this RankComponent self)
+    {
+        self.Fiber().TimerComponent.Remove(ref self.Timer);
+        self.RankDict.Clear();
+        self.RankObjDict.Clear();
+        foreach (var (_, com) in self.RankItem)
+        {
+            com.NeedSaveInfo.Clear();
+        }
+
+        self.RankItem.Clear();
+        self.NeedSaveObj.Clear();
+    }
+
+    [EntitySystem]
+    private static void Load(this RankComponent self)
+    {
+        self.Init();
+    }
+
     [Invoke(TimerInvokeType.SaveRank)]
     public class SaveRankTimer: ATimer<RankComponent>
     {
@@ -15,42 +43,19 @@ public static class RankComponentSystem
         }
     }
 
-    [FriendOf(typeof(RankComponent))]
-    public class RankComponentAwakeSystem: AwakeSystem<RankComponent>
+    public static void Init(this RankComponent self)
     {
-        protected override void Awake(RankComponent self)
+        self.RankDict.Clear();
+        self.RankObjDict.Clear();
+        self.RankItem.Clear();
+        self.NeedSaveObj.Clear();
+
+        self.LoadRankDict = new Dictionary<RankType, List<int>>()
         {
-            self.RankDict.Clear();
-            self.RankObjDict.Clear();
-            self.RankItem.Clear();
-            self.NeedSaveObj.Clear();
-
-            self.LoadRankDict = new Dictionary<RankType, List<int>>()
-            {
-                { RankType.Fight, new List<int>(){0}},
-                { RankType.Level, new List<int>(){0}},
-            };
-            self.LoadRank().Coroutine();
-            self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(5 * 1000, TimerInvokeType.SaveRank, self);
-        }
-    }
-
-    [FriendOf(typeof(RankComponent))]
-    public class RankComponentDestorySystem: DestroySystem<RankComponent>
-    {
-        protected override void Destroy(RankComponent self)
-        {
-            self.Fiber().TimerComponent.Remove(ref self.Timer);
-            self.RankDict.Clear();
-            self.RankObjDict.Clear();
-            foreach (var (_, com) in self.RankItem)
-            {
-                com.NeedSaveInfo.Clear();
-            }
-
-            self.RankItem.Clear();
-            self.NeedSaveObj.Clear();
-        }
+            { RankType.Fight, new List<int>() { 0 } }, { RankType.Level, new List<int>() { 0 } },
+        };
+        self.LoadRank().Coroutine();
+        self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(5 * 1000, TimerInvokeType.SaveRank, self);
     }
 
     /// <summary>
@@ -86,7 +91,7 @@ public static class RankComponentSystem
                 }
             }
         }
-        
+
         self.Fiber().Info("加载排行榜数据完成!");
     }
 
@@ -199,7 +204,7 @@ public static class RankComponentSystem
             list.RemoveAt(list.IndexOfValue(unitId));
             item.RemoveChild(unitId);
         }
-        
+
         var child = item.AddChildWithId<RankInfo>(unitId);
         child.UnitId = unitId;
         child.Score = score;

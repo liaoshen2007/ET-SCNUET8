@@ -127,6 +127,11 @@ namespace ET
             }
         }
 
+        internal void Load()
+        {
+            this.EntitySystem.Load();
+        }
+
         public async ETTask WaitFrameFinish()
         {
             ETTask task = ETTask.Create(true);
