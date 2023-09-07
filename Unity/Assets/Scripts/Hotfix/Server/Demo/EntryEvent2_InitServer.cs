@@ -31,6 +31,13 @@ namespace ET.Server
                 }
                 case AppType.Watcher:
                 {
+                    int process = root.Fiber.Process;
+                    StartProcessConfig startProcessConfig = StartProcessConfigCategory.Instance.Get(process);
+                    if (startProcessConfig.Port != 0)
+                    {
+                        await FiberManager.Instance.Create(SchedulerType.ThreadPool, ConstFiberId.NetInner, 0, SceneType.NetInner, "NetInner");
+                    }
+                    
                     root.AddComponent<WatcherComponent>();
                     root.AddComponent<MessageSender>();
                     

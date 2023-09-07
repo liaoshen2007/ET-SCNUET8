@@ -50,6 +50,11 @@ namespace ET.Server
                     continue;
                 }
 
+                if (self.Fiber().Process == startProcessConfig.Id)
+                {
+                    continue;
+                }
+
                 if (self.Processes.Remove(startProcessConfig.Id))
                 {
                     self.Fiber().Console($"删除已经退出的进程: {startProcessConfig.Id}");
@@ -62,7 +67,7 @@ namespace ET.Server
 
         public static async ETTask SaveData(this WatcherComponent self)
         {
-            var message = new W2Other_SaveDataRequest();
+            self.Fiber().Console("正在保存数据...");
 
             async ETTask SaveDataAsync(StartSceneConfig config, IRequest m)
             {
@@ -87,12 +92,17 @@ namespace ET.Server
                     var sceneCfgList = StartSceneConfigCategory.Instance.GetByProcess(process);
                     foreach (var config in sceneCfgList)
                     {
-                        list.Add(SaveDataAsync(config, message));
+                        if (config.Type is SceneType.Cache or SceneType.Chat or SceneType.Map or SceneType.Rank)
+                        {
+                            list.Add(SaveDataAsync(config, new W2Other_SaveDataRequest()));
+                        }
                     }
                 }
 
                 await ETTaskHelper.WaitAll(list);
             }
+
+            self.Fiber().Console("保存数据完成...");
         }
 
         public static void OpenProcess(this WatcherComponent self, int processId)
@@ -157,12 +167,11 @@ namespace ET.Server
         {
             self.Fiber().Console("准备关服...");
             await self.Fiber().TimerComponent.WaitAsync(1000);
-            self.Fiber().Console("正在保存数据...");
             await self.SaveData();
             await self.Fiber().TimerComponent.WaitAsync(1000);
-            self.CloseProcess(-1);
 
-            Process.GetCurrentProcess().Kill();
+            // self.CloseProcess(-1);
+            // Process.GetCurrentProcess().Kill();
         }
     }
 }

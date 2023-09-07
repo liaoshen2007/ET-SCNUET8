@@ -48,7 +48,7 @@ namespace ET.Server
                     $" --Develop={Options.Instance.Develop}" +
                     $" --LogLevel={Options.Instance.LogLevel}" +
                     $" --Console={Options.Instance.Console}";
-            Log.Debug($"{exe} {arguments}");
+            Log.Console($"{exe} {arguments}");
             Process process = ProcessHelper.Run(exe, arguments);
             return process;
         }

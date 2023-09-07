@@ -12,8 +12,6 @@ public class SaveDataHandler : IConsoleHandler
 
                 await fiber.Root.GetComponent<WatcherComponent>().SaveData();
                 
-                fiber.Console("保存数据成功!");
-                
                 break;
         }
 
