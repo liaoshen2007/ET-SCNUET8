@@ -32,6 +32,8 @@ namespace ET.Server
                 case AppType.Watcher:
                 {
                     root.AddComponent<WatcherComponent>();
+                    root.AddComponent<MessageSender>();
+                    
                     break;
                 }
                 case AppType.GameTool:

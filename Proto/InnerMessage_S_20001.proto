@@ -205,3 +205,29 @@ message Other2W_SaveDataResponse // IResponse
 {
 
 }
+
+//守护进程关闭其他进程
+//ResponseType Other2W_SaveDataResponse
+message W2Other_CloseRequest // IRequest
+{
+	//要关闭的进程ID, 小于0时全部关闭
+	int32 ProcessId = 1;
+}
+
+message W2Other_CloseResponse // IResponse
+{
+
+}
+
+//守护进程开启其他进程
+//ResponseType Other2W_SaveDataResponse
+message W2Other_OpenRequest // IRequest
+{
+	//要关闭的进程ID, 小于0时全部开启
+	int32 ProcessId = 1;
+}
+
+message W2Other_OpenResponse // IResponse
+{
+
+}

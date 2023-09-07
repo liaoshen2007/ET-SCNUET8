@@ -43,7 +43,7 @@ public static partial class RankComponentSystem
         }
     }
 
-    public static void Init(this RankComponent self)
+    private static void Init(this RankComponent self)
     {
         self.RankDict.Clear();
         self.RankObjDict.Clear();
@@ -70,7 +70,7 @@ public static partial class RankComponentSystem
         {
             foreach (int sub in subList)
             {
-                var rankName = GetRankName(t, sub);
+                var rankName = GetRankName(t, sub, self.Zone());
                 var rankList = await zoneDb.Query<RankInfo>(info => true, rankName);
                 if (!self.RankDict.TryGetValue(rankName, out var list))
                 {
@@ -97,6 +97,7 @@ public static partial class RankComponentSystem
 
     /// <summary>
     /// 保存排行榜数据
+    /// 
     /// </summary>
     /// <param name="self"></param>
     /// <returns></returns>
@@ -128,7 +129,7 @@ public static partial class RankComponentSystem
                     var child = item.GetChild<RankInfo>(l);
                     if (child != null)
                     {
-                        list.Add(zoneDb.Save(child, GetRankName(child.RankType, child.SubType)));
+                        list.Add(zoneDb.Save(child, GetRankName(child.RankType, child.SubType, child.Zone)));
                     }
                 }
 
@@ -186,7 +187,7 @@ public static partial class RankComponentSystem
     public static void UpdateRank(this RankComponent self, long unitId, RankType t, int subT, long score, long? time = null, IRankObj info = null)
     {
         self.UpdateRankObj(unitId, info);
-        var rankName = GetRankName(t, subT);
+        var rankName = GetRankName(t, subT, self.Zone());
         if (!self.RankDict.TryGetValue(rankName, out var list))
         {
             list = new SortedList<RankInfo, long>(self.RankComparer);
@@ -218,7 +219,7 @@ public static partial class RankComponentSystem
     public static (List<RankInfoProto>, RankInfoProto) GetRank(this RankComponent self, long unitId, RankType t, int subT, int page = 0)
     {
         var list = new List<RankInfoProto>();
-        var rankName = GetRankName(t, subT);
+        var rankName = GetRankName(t, subT, self.Zone());
         if (!self.RankDict.TryGetValue(rankName, out var sortList))
         {
             return (list, null);
@@ -263,8 +264,8 @@ public static partial class RankComponentSystem
         return proto;
     }
 
-    private static string GetRankName(RankType t, int subT)
+    private static string GetRankName(RankType t, int subT, int zone)
     {
-        return $"Rank_{t}_{subT}";
+        return $"Rank_{t}_{subT}_{zone}";
     }
 }

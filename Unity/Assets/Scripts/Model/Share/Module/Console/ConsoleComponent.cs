@@ -12,6 +12,13 @@ namespace ET
         public const string Debugger = "Debugger";
         public const string CreateRobot = "CreateRobot";
         public const string Robot = "Robot";
+        
+        public const string Save = "Save";
+        public const string Open = "Open";
+        public const string Close = "Close";
+        public const string GG = "GG";
+        
+        public const string Test = "Test";
     }
 
     [ComponentOf(typeof(Scene))]

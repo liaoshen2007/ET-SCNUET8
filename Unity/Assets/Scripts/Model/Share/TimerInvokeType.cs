@@ -20,5 +20,10 @@
         /// 保存排行榜
         /// </summary>
         public const int SaveRank = 311;
+        
+        /// <summary>
+        /// 监听服
+        /// </summary>
+        public const int WatcherCheck = 312;
     }
 }

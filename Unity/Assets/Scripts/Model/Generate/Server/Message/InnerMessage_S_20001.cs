@@ -1114,6 +1114,132 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///守护进程关闭其他进程
+	/// </summary>
+	[ResponseType(nameof(Other2W_SaveDataResponse))]
+	[Message(InnerMessage.W2Other_CloseRequest)]
+	[MemoryPackable]
+	public partial class W2Other_CloseRequest: MessageObject, IRequest
+	{
+		public static W2Other_CloseRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new W2Other_CloseRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_CloseRequest)) as W2Other_CloseRequest; 
+		}
+
+	/// <summary>
+	///要关闭的进程ID, 小于0时全部关闭
+	/// </summary>
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int ProcessId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.ProcessId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.W2Other_CloseResponse)]
+	[MemoryPackable]
+	public partial class W2Other_CloseResponse: MessageObject, IResponse
+	{
+		public static W2Other_CloseResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new W2Other_CloseResponse() : ObjectPool.Instance.Fetch(typeof(W2Other_CloseResponse)) as W2Other_CloseResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///守护进程开启其他进程
+	/// </summary>
+	[ResponseType(nameof(Other2W_SaveDataResponse))]
+	[Message(InnerMessage.W2Other_OpenRequest)]
+	[MemoryPackable]
+	public partial class W2Other_OpenRequest: MessageObject, IRequest
+	{
+		public static W2Other_OpenRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new W2Other_OpenRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_OpenRequest)) as W2Other_OpenRequest; 
+		}
+
+	/// <summary>
+	///要关闭的进程ID, 小于0时全部开启
+	/// </summary>
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int ProcessId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.ProcessId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.W2Other_OpenResponse)]
+	[MemoryPackable]
+	public partial class W2Other_OpenResponse: MessageObject, IResponse
+	{
+		public static W2Other_OpenResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new W2Other_OpenResponse() : ObjectPool.Instance.Fetch(typeof(W2Other_OpenResponse)) as W2Other_OpenResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
@@ -1151,5 +1277,9 @@ namespace ET
 		 public const ushort Other2G_LeaveResponse = 20034;
 		 public const ushort W2Other_SaveDataRequest = 20035;
 		 public const ushort Other2W_SaveDataResponse = 20036;
+		 public const ushort W2Other_CloseRequest = 20037;
+		 public const ushort W2Other_CloseResponse = 20038;
+		 public const ushort W2Other_OpenRequest = 20039;
+		 public const ushort W2Other_OpenResponse = 20040;
 	}
 }

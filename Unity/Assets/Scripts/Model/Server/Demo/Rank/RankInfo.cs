@@ -23,6 +23,8 @@
         /// </summary>
         public int SubType { get; set; }
 
+        public int Zone { get; set; }
+
         public IRankObj RoleInfo { get; set; }
     }
 }
