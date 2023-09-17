@@ -15,7 +15,7 @@ public class CloseProcessHandler: IConsoleHandler
 
                 fiber.Root.GetComponent<WatcherComponent>().CloseProcess(Convert.ToInt32(lines[1]));
 
-                fiber.Console("关闭进程成功!");
+                Log.Console("关闭进程成功!");
 
                 break;
         }

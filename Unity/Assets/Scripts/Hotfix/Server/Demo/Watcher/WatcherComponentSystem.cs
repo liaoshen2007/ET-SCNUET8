@@ -57,7 +57,7 @@ namespace ET.Server
 
                 if (self.Processes.Remove(startProcessConfig.Id))
                 {
-                    self.Fiber().Console($"删除已经退出的进程: {startProcessConfig.Id}");
+                    Log.Console($"删除已经退出的进程: {startProcessConfig.Id}");
                 }
 
                 Process process = WatcherHelper.StartProcess(startProcessConfig.Id);
@@ -67,7 +67,7 @@ namespace ET.Server
 
         public static async ETTask SaveData(this WatcherComponent self)
         {
-            self.Fiber().Console("正在保存数据...");
+            Log.Console("正在保存数据...");
 
             async ETTask SaveDataAsync(StartSceneConfig config, IRequest m)
             {
@@ -76,12 +76,12 @@ namespace ET.Server
                     var resp = await self.Root().GetComponent<MessageSender>().Call(config.ActorId, m);
                     if (resp.Error != ErrorCode.ERR_Success)
                     {
-                        self.Fiber().Console($"保存数据错误: {resp.Error}, {config.Name} - {config.Id}");
+                        Log.Console($"保存数据错误: {resp.Error}, {config.Name} - {config.Id}");
                     }
                 }
                 catch (Exception e)
                 {
-                    self.Fiber().Error($"保存数据异常: {e}");
+                    Log.Error($"保存数据异常: {e}");
                 }
             }
 
@@ -102,7 +102,7 @@ namespace ET.Server
                 await ETTaskHelper.WaitAll(list);
             }
 
-            self.Fiber().Console("保存数据完成...");
+            Log.Console("保存数据完成...");
         }
 
         public static void OpenProcess(this WatcherComponent self, int processId)
@@ -148,7 +148,7 @@ namespace ET.Server
                 }
                 catch (Exception e)
                 {
-                    self.Fiber().Error(e);
+                    Log.Error(e);
                 }
 
                 self.Processes.Clear();
@@ -165,7 +165,7 @@ namespace ET.Server
 
         public static async ETTask GG(this WatcherComponent self)
         {
-            self.Fiber().Console("准备关服...");
+            Log.Console("准备关服...");
             await self.Fiber().TimerComponent.WaitAsync(1000);
             await self.SaveData();
             await self.Fiber().TimerComponent.WaitAsync(1000);

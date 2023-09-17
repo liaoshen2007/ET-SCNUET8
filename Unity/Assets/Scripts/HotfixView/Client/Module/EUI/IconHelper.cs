@@ -20,14 +20,14 @@ namespace ET.Client
                 Sprite sprite = spriteAtlas.GetSprite(spriteName);
                 if (null == sprite)
                 {
-                    self.Fiber().Error($"sprite is null: {spriteName}");
+                    Log.Error($"sprite is null: {spriteName}");
                 }
 
                 return sprite;
             }
             catch (Exception e)
             {
-                self.Fiber().Error(e);
+                Log.Error(e);
                 return null;
             }
         }

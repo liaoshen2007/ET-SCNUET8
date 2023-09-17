@@ -45,7 +45,7 @@ namespace ET.Client
             {
                 if (this.m_windowID == WindowID.Win_Invaild)
                 {
-                    this.Fiber().Error("window id is " + WindowID.Win_Invaild);
+                    Log.Error("window id is " + WindowID.Win_Invaild);
                 }
 
                 return m_windowID;

@@ -58,13 +58,13 @@ namespace ET.Client
             UIBaseWindow baseWindow = self.GetUIBaseWindow(windowsId);
             if (null == baseWindow)
             {
-                self.Fiber().Warning($"{windowsId} is not created!");
+                Log.Warning($"{windowsId} is not created!");
                 return null;
             }
 
             if (!baseWindow.IsPreLoad)
             {
-                self.Fiber().Warning($"{windowsId} is not loaded!");
+                Log.Warning($"{windowsId} is not loaded!");
                 return null;
             }
 
@@ -72,7 +72,7 @@ namespace ET.Client
             {
                 if (!self.IsWindowVisible(windowsId))
                 {
-                    self.Fiber().Warning($"{windowsId} is need show state!");
+                    Log.Warning($"{windowsId} is need show state!");
                     return null;
                 }
             }
@@ -93,7 +93,7 @@ namespace ET.Client
                 return (WindowID) windowsId;
             }
 
-            self.Fiber().Error($"{typeof (T).FullName} is not have any windowId!");
+            Log.Error($"{typeof (T).FullName} is not have any windowId!");
             return WindowID.Win_Invaild;
         }
 
@@ -205,7 +205,7 @@ namespace ET.Client
             }
             catch (Exception e)
             {
-                self.Fiber().Error(e);
+                Log.Error(e);
             }
         }
 
@@ -230,14 +230,14 @@ namespace ET.Client
         {
             if (!self.VisibleWindowsDic.ContainsKey((int) id))
             {
-                self.Fiber().Warning($"检测关闭 WindowsID: {id} 失败！");
+                Log.Warning($"检测关闭 WindowsID: {id} 失败！");
                 return;
             }
 
             UIBaseWindow baseWindow = self.VisibleWindowsDic[(int) id];
             if (baseWindow == null || baseWindow.IsDisposed)
             {
-                self.Fiber().Error($"UIBaseWindow is null  or isDisposed ,  WindowsID: {id} 失败！");
+                Log.Error($"UIBaseWindow is null  or isDisposed ,  WindowsID: {id} 失败！");
                 return;
             }
 
@@ -269,7 +269,7 @@ namespace ET.Client
             UIBaseWindow baseWindow = self.GetUIBaseWindow(id);
             if (null == baseWindow)
             {
-                self.Fiber().Error($"UIBaseWindow WindowId {id} is null!!!");
+                Log.Error($"UIBaseWindow WindowId {id} is null!!!");
                 return;
             }
 
@@ -345,7 +345,7 @@ namespace ET.Client
             }
             catch (Exception e)
             {
-                self.Fiber().Error(e);
+                Log.Error(e);
                 return default;
             }
             finally
@@ -360,7 +360,7 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(id).OnShowWindow(baseWindow, showData);
 
             self.VisibleWindowsDic[(int) id] = baseWindow;
-            self.Fiber().Info("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID);
+            Log.Info("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID);
         }
 
         public static void Destroy(this UIComponent self)
@@ -398,7 +398,7 @@ namespace ET.Client
 
             self.HideWindow(windowId);
             self.UnLoadWindow(windowId);
-            self.Fiber().Info("<color=magenta>## close window without PopNavigationWindow() ##</color>");
+            Log.Info("<color=magenta>## close window without PopNavigationWindow() ##</color>");
         }
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace ET.Client
                 case UIWindowType.Other:
                     return Global.Instance.OtherRoot;
                 default:
-                    self.Fiber().Error("uiroot type is error: " + type);
+                    Log.Error("uiroot type is error: " + type);
                     return null;
             }
         }
@@ -502,7 +502,7 @@ namespace ET.Client
         {
             if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) baseWindow.WindowID, out string value))
             {
-                self.Fiber().Error($"{baseWindow.WindowID} uiPath is not Exist!");
+                Log.Error($"{baseWindow.WindowID} uiPath is not Exist!");
                 return;
             }
 
@@ -530,7 +530,7 @@ namespace ET.Client
         {
             if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) baseWindow.WindowID, out string value))
             {
-                self.Fiber().Error($"{baseWindow.WindowID} is not Exist!");
+                Log.Error($"{baseWindow.WindowID} is not Exist!");
                 return;
             }
 

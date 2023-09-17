@@ -384,7 +384,7 @@ namespace ETEditor
 
                     strBuilder.AppendLine("     			if (uiTransform == null)");
                     strBuilder.AppendLine("     			{");
-                    strBuilder.AppendLine("     				this.Fiber().Error(\"uiTransform is null.\");");
+                    strBuilder.AppendLine("     				Log.Error(\"uiTransform is null.\");");
                     strBuilder.AppendLine("     				return null;");
                     strBuilder.AppendLine("     			}").AppendLine("");
 
@@ -523,7 +523,7 @@ namespace ETEditor
 
             strBuilder.AppendLine("     			if (uiTransform == null)");
             strBuilder.AppendLine("     			{");
-            strBuilder.AppendLine("     				this.Fiber().Error(\"uiTransform is null.\");");
+            strBuilder.AppendLine("     				Log.Error(\"uiTransform is null.\");");
             strBuilder.AppendLine("     				return null;");
             strBuilder.AppendLine("     			}").AppendLine("");
 

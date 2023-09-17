@@ -92,7 +92,7 @@ public static partial class RankComponentSystem
             }
         }
 
-        self.Fiber().Info("加载排行榜数据完成!");
+        Log.Info("加载排行榜数据完成!");
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public static partial class RankComponentSystem
 
                 break;
             default:
-                self.Fiber().Error($"{obj} 类型未继承Entity");
+                Log.Error($"{obj} 类型未继承Entity");
                 return;
         }
     }

@@ -12,7 +12,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 
@@ -31,7 +31,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 
@@ -50,7 +50,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 
@@ -69,7 +69,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 
@@ -88,7 +88,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 
@@ -107,7 +107,7 @@ namespace ET.Client
      		{
      			if (uiTransform == null)
      			{
-     				this.Fiber().Error("uiTransform is null.");
+     				Log.Error("uiTransform is null.");
      				return null;
      			}
 

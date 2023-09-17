@@ -24,7 +24,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Fiber().Error($"执行Buff创建事件错误: {e}");
+                Log.Error($"执行Buff创建事件错误: {e}");
             }
         }
 
@@ -36,7 +36,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Fiber().Error($"执行Buff创建事件错误: {e}");
+                Log.Error($"执行Buff创建事件错误: {e}");
             }
         }
 
@@ -48,7 +48,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Fiber().Error($"执行Buff事件错误: {buffEvent} {e}");
+                Log.Error($"执行Buff事件错误: {buffEvent} {e}");
             }
         }
 
@@ -60,7 +60,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Fiber().Error($"执行Buff超时事件错误: {e}");
+                Log.Error($"执行Buff超时事件错误: {e}");
             }
         }
 
@@ -72,7 +72,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Fiber().Error($"执行Buff移除事件错误: {e}");
+                Log.Error($"执行Buff移除事件错误: {e}");
             }
         }
 

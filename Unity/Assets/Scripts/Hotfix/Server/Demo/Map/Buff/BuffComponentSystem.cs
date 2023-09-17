@@ -125,14 +125,14 @@ namespace ET.Server
             var buffConfig = BuffCfgCategory.Instance.Get(id);
             if (buffConfig == null)
             {
-                self.Root().Fiber.Error($"buff 配置不存在 {id}");
+                Log.Error($"buff 配置不存在 {id}");
                 return default;
             }
 
             ms = ms == 0? buffConfig.Ms : ms;
             if (ms == 0)
             {
-                self.Root().Fiber.Error($"buff 配置时间为0 {id}");
+                Log.Error($"buff 配置时间为0 {id}");
                 return default;
             }
 
@@ -299,7 +299,7 @@ namespace ET.Server
                 }
                 catch (Exception e)
                 {
-                    self.Root().Fiber.Error(e);
+                    Log.Error(e);
                 }
             }
 
@@ -510,7 +510,7 @@ namespace ET.Server
                         var buffEffect = self.CreateBuffEffect(effect.Cmd);
                         if (buffEffect == null)
                         {
-                            self.Root().Fiber.Error($"创建Buff效果实例失败: {effect.Cmd}");
+                            Log.Error($"创建Buff效果实例失败: {effect.Cmd}");
                             return;
                         }
 
@@ -575,7 +575,7 @@ namespace ET.Server
             }
             catch (Exception e)
             {
-                self.Root().Fiber.Error(e);
+                Log.Error(e);
             }
 
             return effect;

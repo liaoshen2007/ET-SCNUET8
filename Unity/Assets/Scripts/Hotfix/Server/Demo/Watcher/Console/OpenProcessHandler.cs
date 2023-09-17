@@ -15,7 +15,7 @@ public class OpenProcessHandler : IConsoleHandler
 
                 fiber.Root.GetComponent<WatcherComponent>().OpenProcess(Convert.ToInt32(lines[1]));
 
-                fiber.Console("打开进程成功!");
+                Log.Console("打开进程成功!");
                 
                 break;
         }
