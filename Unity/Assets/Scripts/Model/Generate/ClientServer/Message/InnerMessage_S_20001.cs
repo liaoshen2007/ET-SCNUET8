@@ -6,6 +6,59 @@ namespace ET
 	/// <summary>
 	/// using
 	/// </summary>
+	[ResponseType(nameof(InnerPingResponse))]
+	[Message(InnerMessage.InnerPingRequest)]
+	[MemoryPackable]
+	public partial class InnerPingRequest: MessageObject, IRequest
+	{
+		public static InnerPingRequest Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new InnerPingRequest() : ObjectPool.Instance.Fetch(typeof(InnerPingRequest)) as InnerPingRequest; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.InnerPingResponse)]
+	[MemoryPackable]
+	public partial class InnerPingResponse: MessageObject, IResponse
+	{
+		public static InnerPingResponse Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new InnerPingResponse() : ObjectPool.Instance.Fetch(typeof(InnerPingResponse)) as InnerPingResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	[ResponseType(nameof(ObjectQueryResponse))]
 	[Message(InnerMessage.ObjectQueryRequest)]
 	[MemoryPackable]
@@ -1242,44 +1295,46 @@ namespace ET
 
 	public static class InnerMessage
 	{
-		 public const ushort ObjectQueryRequest = 20002;
-		 public const ushort M2A_Reload = 20003;
-		 public const ushort A2M_Reload = 20004;
-		 public const ushort G2G_LockRequest = 20005;
-		 public const ushort G2G_LockResponse = 20006;
-		 public const ushort G2G_LockReleaseRequest = 20007;
-		 public const ushort G2G_LockReleaseResponse = 20008;
-		 public const ushort ObjectAddRequest = 20009;
-		 public const ushort ObjectAddResponse = 20010;
-		 public const ushort ObjectLockRequest = 20011;
-		 public const ushort ObjectLockResponse = 20012;
-		 public const ushort ObjectUnLockRequest = 20013;
-		 public const ushort ObjectUnLockResponse = 20014;
-		 public const ushort ObjectRemoveRequest = 20015;
-		 public const ushort ObjectRemoveResponse = 20016;
-		 public const ushort ObjectGetRequest = 20017;
-		 public const ushort ObjectGetResponse = 20018;
-		 public const ushort R2G_GetLoginKey = 20019;
-		 public const ushort G2R_GetLoginKey = 20020;
-		 public const ushort G2M_SessionDisconnect = 20021;
-		 public const ushort ObjectQueryResponse = 20022;
-		 public const ushort M2M_UnitTransferRequest = 20023;
-		 public const ushort M2M_UnitTransferResponse = 20024;
-		 public const ushort Other2Cache_UpdateCache = 20025;
-		 public const ushort Cache2Other_UpdateCache = 20026;
-		 public const ushort Other2Cache_GetCache = 20027;
-		 public const ushort Cache2Other_GetCache = 20028;
-		 public const ushort Other2Cache_DeleteCache = 20029;
-		 public const ushort Cache2Other_DeleteCache = 20030;
-		 public const ushort G2Other_EnterRequest = 20031;
-		 public const ushort Other2G_EnterResponse = 20032;
-		 public const ushort G2Other_LeaveRequest = 20033;
-		 public const ushort Other2G_LeaveResponse = 20034;
-		 public const ushort W2Other_SaveDataRequest = 20035;
-		 public const ushort Other2W_SaveDataResponse = 20036;
-		 public const ushort W2Other_CloseRequest = 20037;
-		 public const ushort W2Other_CloseResponse = 20038;
-		 public const ushort W2Other_OpenRequest = 20039;
-		 public const ushort W2Other_OpenResponse = 20040;
+		 public const ushort InnerPingRequest = 20002;
+		 public const ushort InnerPingResponse = 20003;
+		 public const ushort ObjectQueryRequest = 20004;
+		 public const ushort M2A_Reload = 20005;
+		 public const ushort A2M_Reload = 20006;
+		 public const ushort G2G_LockRequest = 20007;
+		 public const ushort G2G_LockResponse = 20008;
+		 public const ushort G2G_LockReleaseRequest = 20009;
+		 public const ushort G2G_LockReleaseResponse = 20010;
+		 public const ushort ObjectAddRequest = 20011;
+		 public const ushort ObjectAddResponse = 20012;
+		 public const ushort ObjectLockRequest = 20013;
+		 public const ushort ObjectLockResponse = 20014;
+		 public const ushort ObjectUnLockRequest = 20015;
+		 public const ushort ObjectUnLockResponse = 20016;
+		 public const ushort ObjectRemoveRequest = 20017;
+		 public const ushort ObjectRemoveResponse = 20018;
+		 public const ushort ObjectGetRequest = 20019;
+		 public const ushort ObjectGetResponse = 20020;
+		 public const ushort R2G_GetLoginKey = 20021;
+		 public const ushort G2R_GetLoginKey = 20022;
+		 public const ushort G2M_SessionDisconnect = 20023;
+		 public const ushort ObjectQueryResponse = 20024;
+		 public const ushort M2M_UnitTransferRequest = 20025;
+		 public const ushort M2M_UnitTransferResponse = 20026;
+		 public const ushort Other2Cache_UpdateCache = 20027;
+		 public const ushort Cache2Other_UpdateCache = 20028;
+		 public const ushort Other2Cache_GetCache = 20029;
+		 public const ushort Cache2Other_GetCache = 20030;
+		 public const ushort Other2Cache_DeleteCache = 20031;
+		 public const ushort Cache2Other_DeleteCache = 20032;
+		 public const ushort G2Other_EnterRequest = 20033;
+		 public const ushort Other2G_EnterResponse = 20034;
+		 public const ushort G2Other_LeaveRequest = 20035;
+		 public const ushort Other2G_LeaveResponse = 20036;
+		 public const ushort W2Other_SaveDataRequest = 20037;
+		 public const ushort Other2W_SaveDataResponse = 20038;
+		 public const ushort W2Other_CloseRequest = 20039;
+		 public const ushort W2Other_CloseResponse = 20040;
+		 public const ushort W2Other_OpenRequest = 20041;
+		 public const ushort W2Other_OpenResponse = 20042;
 	}
 }

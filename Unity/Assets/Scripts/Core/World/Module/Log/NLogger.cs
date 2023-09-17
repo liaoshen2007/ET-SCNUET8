@@ -11,7 +11,7 @@ namespace ET
         {
             LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(configPath);
             LogManager.Configuration.Variables["currentDir"] = Environment.CurrentDirectory;
-            this.logger = LogManager.GetLogger($"{(uint)process:000000}.{(uint)fiber:0000000000}.{name}");
+            this.logger = LogManager.GetLogger($"{process:00}.{fiber:0000}.{name}");
         }
 
         public void Trace(string message)

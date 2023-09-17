@@ -111,9 +111,8 @@ namespace ET.Server
             Session session = self.AddChildWithId<Session, AService>(channelId, self.AService);
             session.RemoteAddress = ipEndPoint.ToString();
             self.AService.Create(channelId, session.RemoteAddress);
-
-            //session.AddComponent<InnerPingComponent>();
-            //session.AddComponent<SessionIdleCheckerComponent, int, int, int>(NetThreadComponent.checkInteral, NetThreadComponent.recvMaxIdleTime, NetThreadComponent.sendMaxIdleTime);
+            
+            session.AddComponent<SessionIdleCheckerComponent>();
 
             return session;
         }

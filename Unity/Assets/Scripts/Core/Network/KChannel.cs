@@ -453,6 +453,11 @@ namespace ET
 				this.waitSendMessages.Enqueue(messageInfo);
 				return;
 			}
+			
+			if (this.IsDisposed)
+			{
+				throw new Exception("KChannel已经被Dispose, 不能发送消息");
+			}
 
 			MemoryBuffer stream = this.Service.Fetch();
 			MessageSerializeHelper.MessageToStream(stream, message);
