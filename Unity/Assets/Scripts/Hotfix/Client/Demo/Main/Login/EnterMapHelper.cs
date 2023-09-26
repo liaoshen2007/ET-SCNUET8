@@ -5,7 +5,7 @@ namespace ET.Client
 {
     public static partial class EnterMapHelper
     {
-        public static async ETTask EnterMapAsync(Scene root)
+        public static async ETTask<int> EnterMapAsync(Scene root)
         {
             try
             {
@@ -14,12 +14,14 @@ namespace ET.Client
                 // 等待场景切换完成
                 await root.GetComponent<ObjectWait>().Wait<Wait_SceneChangeFinish>();
                 
-                EventSystem.Instance.Publish(root, new EnterMapFinish());
+                await EventSystem.Instance.PublishAsync(root, new EnterMapFinish());
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }	
+            
+            return ErrorCode.ERR_Success;
         }
         
         public static async ETTask Match(Fiber fiber)

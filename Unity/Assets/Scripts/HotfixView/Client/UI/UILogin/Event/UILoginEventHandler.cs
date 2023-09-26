@@ -28,7 +28,7 @@
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
 		{
-
+			 
 		}
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)

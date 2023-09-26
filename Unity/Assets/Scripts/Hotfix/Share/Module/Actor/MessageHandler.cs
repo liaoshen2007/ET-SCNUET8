@@ -2,6 +2,11 @@
 
 namespace ET
 {
+    /// <summary>
+    /// 服务间消息
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
+    /// <typeparam name="Message"></typeparam>
     [EnableClass]
     public abstract class MessageHandler<E, Message>: IMHandler where E : Entity where Message : class, IMessage
     {
@@ -42,7 +47,12 @@ namespace ET
     }
     
     
-    
+    /// <summary>
+    /// 服务间消息
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
+    /// <typeparam name="Request"></typeparam>
+    /// <typeparam name="Response"></typeparam>
     [EnableClass]
     public abstract class MessageHandler<E, Request, Response>: IMHandler where E : Entity where Request : MessageObject, IRequest where Response : MessageObject, IResponse
     {
