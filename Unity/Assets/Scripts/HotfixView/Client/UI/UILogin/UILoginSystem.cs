@@ -22,8 +22,9 @@ namespace ET.Client
 
         private static async ETTask OnLoginClick(this UILogin self)
         {
+            var root = self.Root();
             var errno = await LoginHelper.Login(
-                self.Root(), 
+                root, 
                 self.View.E_AccountInputInputField.text,
                 self.View.E_PasswordInputInputField.text);
 
@@ -33,7 +34,7 @@ namespace ET.Client
                 return;
             }
 
-            errno = await EnterMapHelper.EnterMapAsync(self.Root());
+            errno = await EnterMapHelper.EnterMapAsync(root);
             if (errno != ErrorCode.ERR_Success)
             {
                 Log.Error($"进入地图失败: {errno}");
