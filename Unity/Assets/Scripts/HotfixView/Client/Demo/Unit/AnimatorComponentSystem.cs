@@ -18,7 +18,7 @@ namespace ET.Client
 		[EntitySystem]
 		private static void Awake(this AnimatorComponent self)
 		{
-			Animator animator = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.GetComponent<Animator>();
+			Animator animator = self.GetParent<Unit>().GetComponent<GameObjectComponent>().Animator;
 
 			if (animator == null)
 			{
@@ -34,11 +34,13 @@ namespace ET.Client
 			{
 				return;
 			}
+			
 			self.Animator = animator;
 			foreach (AnimationClip animationClip in animator.runtimeAnimatorController.animationClips)
 			{
 				self.animationClips[animationClip.name] = animationClip;
 			}
+			
 			foreach (AnimatorControllerParameter animatorControllerParameter in animator.parameters)
 			{
 				self.Parameter.Add(animatorControllerParameter.name);

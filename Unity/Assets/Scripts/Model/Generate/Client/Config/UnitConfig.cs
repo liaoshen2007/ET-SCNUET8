@@ -68,6 +68,8 @@ namespace ET
 		public int Height { get; set; }
 		/// <summary>半径</summary>
 		public int ModelR { get; set; }
+		/// <summary>预制件名称</summary>
+		public string Prefab { get; set; }
 
 	}
 }
