@@ -31,7 +31,6 @@
 
                 var resp = await self.Scene().GetComponent<ProcessOuterSender>()
                         .Call(new ActorId(startProcessConfig.Id, ConstFiberId.NetInner), InnerPingRequest.Create());
-                Log.Console(resp.ToString());
             }
         }
 

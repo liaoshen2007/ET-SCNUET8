@@ -14,7 +14,7 @@ namespace ET.Server
             StartProcessConfig startProcessConfig = StartProcessConfigCategory.Instance.Get(fiberInit.Fiber.Process);
             root.AddComponent<ProcessOuterSender, IPEndPoint>(startProcessConfig.IPEndPoint);
             root.AddComponent<ProcessInnerSender>();
-            root.AddComponent<InnerPingComponent>();
+            // root.AddComponent<InnerPingComponent>();
 
             await ETTask.CompletedTask;
         }
