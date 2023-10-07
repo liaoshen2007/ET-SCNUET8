@@ -116,6 +116,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 进入地图
+	/// </summary>
 	[ResponseType(nameof(G2C_EnterMap))]
 	[Message(OuterMessage.C2G_EnterMap)]
 	[MemoryPackable]
@@ -252,6 +255,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 创建对象列表
+	/// </summary>
 	[Message(OuterMessage.M2C_CreateUnits)]
 	[MemoryPackable]
 	public partial class M2C_CreateUnits: MessageObject, IMessage
@@ -274,6 +280,34 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 删除对象列表
+	/// </summary>
+	[Message(OuterMessage.M2C_RemoveUnits)]
+	[MemoryPackable]
+	public partial class M2C_RemoveUnits: MessageObject, IMessage
+	{
+		public static M2C_RemoveUnits Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_RemoveUnits() : ObjectPool.Instance.Fetch(typeof(M2C_RemoveUnits)) as M2C_RemoveUnits; 
+		}
+
+		[MemoryPackOrder(0)]
+		public List<long> Units { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Units.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 创建主玩家
+	/// </summary>
 	[Message(OuterMessage.M2C_CreateMyUnit)]
 	[MemoryPackable]
 	public partial class M2C_CreateMyUnit: MessageObject, IMessage
@@ -296,6 +330,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 开始切换场景
+	/// </summary>
 	[Message(OuterMessage.M2C_StartSceneChange)]
 	[MemoryPackable]
 	public partial class M2C_StartSceneChange: MessageObject, IMessage
@@ -322,28 +359,9 @@ namespace ET
 
 	}
 
-	[Message(OuterMessage.M2C_RemoveUnits)]
-	[MemoryPackable]
-	public partial class M2C_RemoveUnits: MessageObject, IMessage
-	{
-		public static M2C_RemoveUnits Create(bool isFromPool = true) 
-		{ 
-			return !isFromPool? new M2C_RemoveUnits() : ObjectPool.Instance.Fetch(typeof(M2C_RemoveUnits)) as M2C_RemoveUnits; 
-		}
-
-		[MemoryPackOrder(0)]
-		public List<long> Units { get; set; } = new();
-
-		public override void Dispose() 
-		{
-			if (!this.IsFromPool) return;
-			this.Units.Clear();
-			
-			ObjectPool.Instance.Recycle(this); 
-		}
-
-	}
-
+	/// <summary>
+	/// 寻路请求
+	/// </summary>
 	[Message(OuterMessage.C2M_PathfindingResult)]
 	[MemoryPackable]
 	public partial class C2M_PathfindingResult: MessageObject, ILocationMessage
@@ -370,6 +388,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 停止移动
+	/// </summary>
 	[Message(OuterMessage.C2M_Stop)]
 	[MemoryPackable]
 	public partial class C2M_Stop: MessageObject, ILocationMessage
@@ -392,6 +413,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 寻路广播
+	/// </summary>
 	[Message(OuterMessage.M2C_PathfindingResult)]
 	[MemoryPackable]
 	public partial class M2C_PathfindingResult: MessageObject, IMessage
@@ -422,6 +446,9 @@ namespace ET
 
 	}
 
+	/// <summary>
+	/// 停止移动
+	/// </summary>
 	[Message(OuterMessage.M2C_Stop)]
 	[MemoryPackable]
 	public partial class M2C_Stop: MessageObject, IMessage
@@ -1424,9 +1451,9 @@ namespace ET
 		 public const ushort MoveInfo = 10008;
 		 public const ushort UnitInfo = 10009;
 		 public const ushort M2C_CreateUnits = 10010;
-		 public const ushort M2C_CreateMyUnit = 10011;
-		 public const ushort M2C_StartSceneChange = 10012;
-		 public const ushort M2C_RemoveUnits = 10013;
+		 public const ushort M2C_RemoveUnits = 10011;
+		 public const ushort M2C_CreateMyUnit = 10012;
+		 public const ushort M2C_StartSceneChange = 10013;
 		 public const ushort C2M_PathfindingResult = 10014;
 		 public const ushort C2M_Stop = 10015;
 		 public const ushort M2C_PathfindingResult = 10016;

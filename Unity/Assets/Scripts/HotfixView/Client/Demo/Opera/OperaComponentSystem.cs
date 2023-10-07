@@ -37,7 +37,7 @@ namespace ET.Client
             if (Input.GetKeyDown(KeyCode.T))
             {
                 C2M_TransferMap c2MTransferMap = new();
-                self.Root().GetComponent<ClientSenderCompnent>().Call(c2MTransferMap).Coroutine();
+                self.Root().GetComponent<ClientSenderCompnent>().Send(c2MTransferMap);
             }
         }
     }

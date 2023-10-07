@@ -66,7 +66,7 @@ namespace ET
         {
             get
             {
-                return this.Targets[this.Targets.Count - 1];
+                return this.Targets[^1];
             }
         }
 

@@ -24,6 +24,7 @@ message M2C_TestResponse // IResponse
   string response = 4;
 }
 
+// 进入地图
 //ResponseType G2C_EnterMap
 message C2G_EnterMap // ISessionRequest
 {
@@ -53,36 +54,43 @@ message UnitInfo
   MoveInfo MoveInfo = 7;
 }
 
+// 创建对象列表
 message M2C_CreateUnits // IMessage
 {
   repeated UnitInfo Units = 1;
 }
 
+// 删除对象列表
+message M2C_RemoveUnits // IMessage
+{
+  repeated int64 Units = 1;
+}
+
+// 创建主玩家
 message M2C_CreateMyUnit // IMessage
 {
   UnitInfo Unit = 1;
 }
 
+// 开始切换场景
 message M2C_StartSceneChange // IMessage
 {
   int64 SceneInstanceId = 1;
   string SceneName = 2;
 }
 
-message M2C_RemoveUnits // IMessage
-{
-  repeated int64 Units = 1;
-}
-
+// 寻路请求
 message C2M_PathfindingResult // ILocationMessage
 {
   Unity.Mathematics.float3 Position = 2;
 }
 
+// 停止移动
 message C2M_Stop // ILocationMessage
 {
 }
 
+// 寻路广播
 message M2C_PathfindingResult // IMessage
 {
   int64 Id = 1;
@@ -90,6 +98,7 @@ message M2C_PathfindingResult // IMessage
   repeated Unity.Mathematics.float3 Points = 3;
 }
 
+// 停止移动
 message M2C_Stop // IMessage
 {
   int32 Error = 1;
