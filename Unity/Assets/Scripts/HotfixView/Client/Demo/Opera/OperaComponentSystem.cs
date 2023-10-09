@@ -33,11 +33,16 @@ namespace ET.Client
                 CodeLoader.Instance.Reload();
                 return;
             }
-        
+
             if (Input.GetKeyDown(KeyCode.T))
             {
                 C2M_TransferMap c2MTransferMap = new();
                 self.Root().GetComponent<ClientSenderCompnent>().Send(c2MTransferMap);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                self.Root().GetComponent<ClientSenderCompnent>().Send(new C2M_Stop());
             }
         }
     }

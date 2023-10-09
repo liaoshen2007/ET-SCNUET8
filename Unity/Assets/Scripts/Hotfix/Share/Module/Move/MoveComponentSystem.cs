@@ -263,6 +263,10 @@ namespace ET
             }
 
             self.MoveFinish(ret);
+            if (!ret)
+            {
+                EventSystem.Instance.Publish(self.Scene(), new MoveStop() {Unit = self.GetParent<Unit>()});
+            }
         }
 
         private static void MoveFinish(this MoveComponent self, bool ret)

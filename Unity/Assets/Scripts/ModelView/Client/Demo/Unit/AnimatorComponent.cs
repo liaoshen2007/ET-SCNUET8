@@ -23,5 +23,7 @@ namespace ET.Client
 		public bool isStop;
 		public float stopSpeed;
 		public Animator Animator;
+		
+		public int MotionSpeedHash;
 	}
 }

@@ -18,6 +18,7 @@ namespace ET.Client
 		[EntitySystem]
 		private static void Awake(this AnimatorComponent self)
 		{
+			self.MotionSpeedHash = Animator.StringToHash("MotionSpeed");
 			Animator animator = self.GetParent<Unit>().GetComponent<GameObjectComponent>().Animator;
 
 			if (animator == null)
@@ -62,7 +63,7 @@ namespace ET.Client
 
 			try
 			{
-				self.Animator.SetFloat("MotionSpeed", self.MontionSpeed);
+				self.Animator.SetFloat(self.MotionSpeedHash, self.MontionSpeed);
 
 				self.Animator.SetTrigger(self.MotionType.ToString());
 
@@ -94,6 +95,7 @@ namespace ET.Client
 				Log.Error($"motionSpeed数值异常, {motionSpeed}, 此动作跳过");
 				return;
 			}
+			
 			self.MotionType = motionType;
 			self.MontionSpeed = motionSpeed;
 		}
