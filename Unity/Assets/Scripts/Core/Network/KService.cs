@@ -449,7 +449,7 @@ namespace ET
 
             kChannel.Error = error;
             
-            Log.Trace($"kservice remove channel: {id} {kChannel.LocalConn} {kChannel.RemoteConn} {error}");
+            Log.Debug($"kservice remove channel: {id} {kChannel.LocalConn} {kChannel.RemoteConn} {error}");
             this.localConnChannels.Remove(kChannel.LocalConn);
             if (this.waitAcceptChannels.TryGetValue(kChannel.RemoteConn, out KChannel waitChannel))
             {
@@ -460,6 +460,7 @@ namespace ET
             }
             
             kChannel.Dispose();
+            this.Transport.OnError(id, error);
         }
 
         public void Disconnect(uint localConn, uint remoteConn, int error, EndPoint address, int times)
