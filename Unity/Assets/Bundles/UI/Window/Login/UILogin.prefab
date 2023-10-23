@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 222002149542603454}
   - component: {fileID: 114719520540637998}
   - component: {fileID: 114630311973242952}
+  - component: {fileID: 9056618067898745207}
   m_Layer: 5
   m_Name: E_LoginButton
   m_TagString: Untagged
@@ -653,6 +654,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9056618067898745207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920061237828514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f606a863cde5c7e44b39a8b701ac386e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 114630311973242952}
+  scaleTarget: {fileID: 224532636050568724}
+  scaleFactor: 1.1
+  scaleDuration: 0.1
 --- !u!1 &3540279927782159835
 GameObject:
   m_ObjectHideFlags: 0

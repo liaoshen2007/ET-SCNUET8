@@ -124,6 +124,17 @@ message G2M_SessionDisconnect // ILocationMessage
 {
 }
 
+//ResponseType M2G_RequestEnterGameState
+message G2M_RequestEnterGameState // ILocationRequest
+{
+
+}
+
+message M2G_RequestEnterGameState // ILocationResponse
+{
+
+}
+
 message ObjectQueryResponse // IResponse
 {
 	bytes Entity = 4;

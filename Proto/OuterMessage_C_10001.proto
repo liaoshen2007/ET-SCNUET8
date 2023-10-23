@@ -159,6 +159,78 @@ message G2C_LoginGate // ISessionResponse
   int64 PlayerId = 4;
 }
 
+message ServerInfoProto
+{
+	int64 Id = 1;
+	int32 Status = 2;
+	string ServerName = 3;
+}
+
+message HttpServerList
+{
+  repeated ServerInfoProto ServerList = 1;
+}
+
+message RoleInfoProto
+{
+	int64 Id = 1;
+	string Name = 2;
+	int32 State = 3;
+	string Account = 4;
+	int64 LastLoginTime = 5;
+	int64 CreateTime = 6;
+	int32 ServerId = 7;
+}
+
+message HttpRoleList
+{
+  repeated RoleInfoProto RoleList = 1;
+}
+
+//创建角色
+//ResponseType A2C_CreateRole
+message C2A_CreateRole // ISessionRequest
+{
+	string Token    = 1;
+	string Account  = 2;
+	string Name     = 3;
+	int32 ServerId  = 4;
+}
+
+message A2C_CreateRole // ISessionResponse
+{
+	RoleInfoProto RoleInfo = 1;
+}
+
+//获取角色列表
+//ResponseType A2C_GetRoles
+message C2A_GetRoles // ISessionRequest
+{
+	string Token     = 1;
+	string Account   = 2;
+	int32  ServerId  = 3;
+}
+
+message A2C_GetRoles // ISessionResponse
+{
+	repeated RoleInfoProto RoleInfo = 1;
+}
+
+//删除角色
+//ResponseType A2C_DeleteRole
+message C2A_DeleteRole // ISessionRequest
+{
+	string Token      = 1;
+	string Account  = 2;
+	int64  RoleInfoId = 3;
+	int32  ServerId   = 4;
+}
+
+message A2C_DeleteRole // ISessionResponse
+{
+	int64  DeletedRoleInfoId = 1;
+}
+
 message G2C_TestHotfixMessage // ISessionMessage
 {
   string Info = 1;
@@ -274,7 +346,7 @@ message Ran2C_GetRankResponse // IRankResponse
 	int32 Page = 3;
 }
 
-message RoleInfoProto
+message PlayerInfoProto
 {
 	int64 UnitId = 6;
 	string Name = 1;
@@ -289,7 +361,7 @@ message RoleInfoProto
 message C2Chat_SendRequest // IChatRequest
 {
 	int32 Channel = 1;
-	RoleInfoProto RoleInfo = 2;
+	PlayerInfoProto RoleInfo = 2;
 	string Message = 3;
 	int64 GroupId = 4;
 }
@@ -303,7 +375,7 @@ message Chat2C_SendResponse // IChatResponse
 message Chat2C_UpdateChat // IChatMessage
 {
 	int32 Channel = 1;
-	RoleInfoProto RoleInfo = 2;
+	PlayerInfoProto RoleInfo = 2;
 	string Message = 3;
 	int64 GroupId = 4;
 }

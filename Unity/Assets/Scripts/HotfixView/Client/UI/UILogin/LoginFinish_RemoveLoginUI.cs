@@ -6,6 +6,7 @@
 		protected override async ETTask Run(Scene scene, LoginFinish args)
 		{
 			scene.GetComponent<UIComponent>().CloseWindow(WindowID.Win_Login);
+			await ETTask.CompletedTask;
 		}
 	}
 }

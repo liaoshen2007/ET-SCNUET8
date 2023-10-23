@@ -36,6 +36,26 @@ namespace ET
             StackTrace st = new(1, true);
             GetLog().Trace($"{msg}\n{st}");
         }
+        
+        public static void Info(Entity obj)
+        {
+            if (Options.Instance.LogLevel > InfoLevel)
+            {
+                return;
+            }
+            
+            GetLog().Info(obj.ToJson());
+        }
+        
+        public static void Info(object obj)
+        {
+            if (Options.Instance.LogLevel > InfoLevel)
+            {
+                return;
+            }
+            
+            GetLog().Info(obj.ToString());
+        }
 
         public static void Info(string msg)
         {

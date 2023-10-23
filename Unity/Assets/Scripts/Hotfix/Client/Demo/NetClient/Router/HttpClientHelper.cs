@@ -12,6 +12,7 @@ namespace ET.Client
             try
             {
                 using HttpClient httpClient = new();
+                httpClient.Timeout = TimeSpan.FromSeconds(10);
                 HttpResponseMessage response =  await httpClient.GetAsync(link);
                 string result = await response.Content.ReadAsStringAsync();
                 return result;

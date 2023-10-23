@@ -22,23 +22,15 @@ namespace ET.Client
 
         private static async ETTask OnLoginClick(this UILogin self)
         {
-            var root = self.Root();
-            var errno = await LoginHelper.Login(
-                root, 
-                self.View.E_AccountInputInputField.text,
-                self.View.E_PasswordInputInputField.text);
-
+            var errno = await LoginHelper.GetServerInfos(self.Scene(), self.View.E_AccountInputInputField.text);
             if (errno != ErrorCode.ERR_Success)
             {
-                Log.Error($"登录失败: {errno}");
+                Log.Error($"获取服务器列表失败: {errno}");
                 return;
             }
 
-            errno = await EnterMapHelper.EnterMapAsync(root);
-            if (errno != ErrorCode.ERR_Success)
-            {
-                Log.Error($"进入地图失败: {errno}");
-            }
+            self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_Login);
+            await self.Scene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_ServerList);
         }
     }
 }

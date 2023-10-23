@@ -35,6 +35,9 @@
     {
     }
 
+    /// <summary>
+    /// 进入地图成功
+    /// </summary>
     public struct EnterMapFinish
     {
     }

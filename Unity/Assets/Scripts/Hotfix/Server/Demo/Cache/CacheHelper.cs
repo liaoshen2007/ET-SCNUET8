@@ -11,7 +11,7 @@
             await self.Scene().GetComponent<MessageSender>().Call(cacheCfg.ActorId, message);
         }
 
-        public static void UpdateAllCache(Unit unit)
+        public static void UpdateAllCache(Scene scene, Unit unit)
         {
             var cacheCfg = StartSceneConfigCategory.Instance.GetCache(unit.Zone());
             var message = new Other2Cache_UpdateCache() { UnitId = unit.Id, };
@@ -30,7 +30,7 @@
                 message.EntityData.Add(entity.ToBson());
             }
 
-            unit.Scene().GetComponent<MessageSender>().Call(cacheCfg.ActorId, message).Coroutine();
+            scene.GetComponent<MessageSender>().Send(cacheCfg.ActorId, message);
         }
 
         public static async ETTask<Unit> GetCache(Scene scene, long unitId)
@@ -55,14 +55,20 @@
                 return default;
             }
 
-            foreach (var entity in resp.Entitys)
+            foreach (var bytes in resp.Entitys)
             {
-                // if (entity == null || entity == unit)
-                // {
-                    // continue;
-                // }
-
-                // unit.AddComponent(entity);
+                if (bytes == null)
+                {
+                    continue;
+                }
+                
+                Entity entity = MongoHelper.Deserialize<Entity>(bytes);
+                if (entity == unit)
+                {
+                    continue;
+                }
+                
+                unit.AddComponent(entity);
             }
 
             return unit;

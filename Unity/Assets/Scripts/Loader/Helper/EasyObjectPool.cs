@@ -1,11 +1,4 @@
-﻿/* 
- * Unless otherwise licensed, this file cannot be copied or redistributed in any format without the explicit consent of the author.
- * (c) Preet Kamal Singh Minhas, http://marchingbytes.com
- * contact@marchingbytes.com
- */
-// modified version by Kanglai Qian
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace ET
@@ -19,7 +12,7 @@ namespace ET
         DOUBLE
     }
 
-    public class GameObjectPool
+    public class GameObjectPool : DisposeObject
     {
         private readonly Stack<PoolObject> availableObjStack = new Stack<PoolObject>();
 
@@ -33,9 +26,7 @@ namespace ET
         {
             if (poolObjectPrefab == null)
             {
-#if UNITY_EDITOR
-                Debug.LogError("[ObjPoolManager] null pool object prefab !");
-#endif
+                Log.Error("[ObjPoolManager] null pool object prefab !");
                 return;
             }
 
@@ -44,7 +35,6 @@ namespace ET
             this.rootObj = new GameObject(poolName + "Pool");
             this.rootObj.transform.SetParent(rootPoolObj.transform, false);
 
-            // In case the origin one is Destroyed, we should keep at least one
             GameObject go = UnityEngine.Object.Instantiate(poolObjectPrefab);
             PoolObject po = go.GetComponent<PoolObject>();
             if (po == null)
@@ -55,18 +45,16 @@ namespace ET
             po.poolName = poolName;
             AddObjectToPool(po);
 
-            //populate the pool
             populatePool(Mathf.Max(initialCount, 1));
         }
 
-        //o(1)
         private void AddObjectToPool(PoolObject po)
         {
-            //add to pool
             po.gameObject.SetActive(false);
             po.gameObject.name = poolName;
             availableObjStack.Push(po);
             po.isPooled = true;
+
             //add to a root obj
             po.gameObject.transform.SetParent(rootObj.transform, false);
         }
@@ -75,12 +63,11 @@ namespace ET
         {
             for (int index = 0; index < initialCount; index++)
             {
-                PoolObject po = UnityEngine.Object.Instantiate(availableObjStack.Peek());
+                var po = UnityEngine.Object.Instantiate(availableObjStack.Peek());
                 AddObjectToPool(po);
             }
         }
 
-        //o(1)
         public GameObject NextAvailableObject(bool autoActive)
         {
             PoolObject po = null;
@@ -91,6 +78,7 @@ namespace ET
             else
             {
                 int increaseSize = 0;
+
                 //increment size var, this is for info purpose only
                 if (inflationType == PoolInflationType.INCREMENT)
                 {
@@ -100,9 +88,8 @@ namespace ET
                 {
                     increaseSize = availableObjStack.Count + Mathf.Max(objectsInUse, 0);
                 }
-#if UNITY_EDITOR
-                Debug.Log($"Growing pool {this.poolName}: {increaseSize} populated");
-#endif
+
+                Log.Info($"Growing pool {this.poolName}: {increaseSize} populated");
                 if (increaseSize > 0)
                 {
                     populatePool(increaseSize);
@@ -116,29 +103,20 @@ namespace ET
                 objectsInUse++;
                 po.isPooled = false;
                 result = po.gameObject;
-                if (autoActive)
-                {
-                    result.SetActive(true);
-                }
+                result.SetActive(autoActive);
             }
 
             return result;
         }
 
-        //o(1)
         public void ReturnObjectToPool(PoolObject po)
         {
             if (poolName.Equals(po.poolName))
             {
                 objectsInUse--;
-                /* we could have used availableObjStack.Contains(po) to check if this object is in pool.
-                 * While that would have been more robust, it would have made this method O(n) 
-                 */
                 if (po.isPooled)
                 {
-#if UNITY_EDITOR
-                    Debug.LogWarning(po.gameObject.name + " is already in pool. Why are you trying to return it again? Check usage.");
-#endif
+                    Log.Error(po.gameObject.name + " is already in pool. Why are you trying to return it again? Check usage.");
                 }
                 else
                 {
@@ -147,8 +125,21 @@ namespace ET
             }
             else
             {
-                Debug.LogError($"Trying to add object to incorrect pool {po.poolName} {this.poolName}");
+                Log.Error($"Trying to add object to incorrect pool {po.poolName} {this.poolName}");
             }
+        }
+
+        private bool isDisposed;
+        public override void Dispose()
+        {
+            if (this.isDisposed)
+            {
+                return;
+            }
+            
+            this.isDisposed = true;
+            availableObjStack.Clear();
+            UnityEngine.Object.Destroy(this.rootObj);
         }
     }
 }

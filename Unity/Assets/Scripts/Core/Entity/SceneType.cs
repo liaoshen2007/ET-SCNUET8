@@ -56,6 +56,11 @@ namespace ET
         /// 游戏服
         /// </summary>
         Game = 1 << 23,
+        
+        /// <summary>
+        /// 账号服
+        /// </summary>
+        Account = 1 << 24,
 
         // 客户端
         Demo = 1 << 30,

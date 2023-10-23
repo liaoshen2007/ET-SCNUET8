@@ -1,6 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using ET;
 
 namespace UnityEngine.UI
@@ -9,54 +7,54 @@ namespace UnityEngine.UI
     {
         GameObject GetObject(int index);
 
-        void ReturnObject(Transform trans,bool isDestroy = false);
+        void ReturnObject(Transform trans, bool isDestroy = false);
     }
-    
-    
-    
-    [System.Serializable]
-    public class LoopScrollPrefabSourceInstance : LoopScrollPrefabSource
+
+    [Serializable]
+    public class LoopScrollPrefabSourceInstance: LoopScrollPrefabSource
     {
         public string prefabName;
+        public GameObject prefab;
         public int poolSize = 5;
 
         private bool inited = false;
+
         public virtual GameObject GetObject(int index)
         {
             try
             {
-                if(!inited)
+                if (!inited)
                 {
-                    GameObjectPoolHelper.InitPool(prefabName, poolSize);
+                    GameObjectPoolHelper.InitPool(prefabName, prefab, poolSize);
                     inited = true;
                 }
+
                 return GameObjectPoolHelper.GetObjectFromPool(prefabName);
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                Log.Error(e);
                 return null;
             }
         }
-        
-        public virtual void ReturnObject(Transform go , bool isDestroy = false)
+
+        public virtual void ReturnObject(Transform go, bool isDestroy = false)
         {
             try
             {
                 if (isDestroy)
                 {
-                    UnityEngine.GameObject.Destroy(go.gameObject);
+                    Object.Destroy(go.gameObject);
                 }
                 else
                 {
-                    GameObjectPoolHelper.ReturnObjectToPool(go.gameObject);
+                    GameObjectPoolHelper.ReturnTransformToPool(go);
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                Log.Error(e);
             }
         }
     }
-    
 }

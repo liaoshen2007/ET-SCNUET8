@@ -5,7 +5,7 @@
 	{
 		protected override async ETTask Run(Scene scene, LoginFinish args)
 		{
-			
+			await ETTask.CompletedTask;
 		}
 	}
 }

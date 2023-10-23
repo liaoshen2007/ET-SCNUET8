@@ -685,6 +685,59 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(M2G_RequestEnterGameState))]
+	[Message(InnerMessage.G2M_RequestEnterGameState)]
+	[MemoryPackable]
+	public partial class G2M_RequestEnterGameState: MessageObject, ILocationRequest
+	{
+		public static G2M_RequestEnterGameState Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new G2M_RequestEnterGameState() : ObjectPool.Instance.Fetch(typeof(G2M_RequestEnterGameState)) as G2M_RequestEnterGameState; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.M2G_RequestEnterGameState)]
+	[MemoryPackable]
+	public partial class M2G_RequestEnterGameState: MessageObject, ILocationResponse
+	{
+		public static M2G_RequestEnterGameState Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2G_RequestEnterGameState() : ObjectPool.Instance.Fetch(typeof(M2G_RequestEnterGameState)) as M2G_RequestEnterGameState; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	[Message(InnerMessage.ObjectQueryResponse)]
 	[MemoryPackable]
 	public partial class ObjectQueryResponse: MessageObject, IResponse
@@ -1317,24 +1370,26 @@ namespace ET
 		 public const ushort R2G_GetLoginKey = 20021;
 		 public const ushort G2R_GetLoginKey = 20022;
 		 public const ushort G2M_SessionDisconnect = 20023;
-		 public const ushort ObjectQueryResponse = 20024;
-		 public const ushort M2M_UnitTransferRequest = 20025;
-		 public const ushort M2M_UnitTransferResponse = 20026;
-		 public const ushort Other2Cache_UpdateCache = 20027;
-		 public const ushort Cache2Other_UpdateCache = 20028;
-		 public const ushort Other2Cache_GetCache = 20029;
-		 public const ushort Cache2Other_GetCache = 20030;
-		 public const ushort Other2Cache_DeleteCache = 20031;
-		 public const ushort Cache2Other_DeleteCache = 20032;
-		 public const ushort G2Other_EnterRequest = 20033;
-		 public const ushort Other2G_EnterResponse = 20034;
-		 public const ushort G2Other_LeaveRequest = 20035;
-		 public const ushort Other2G_LeaveResponse = 20036;
-		 public const ushort W2Other_SaveDataRequest = 20037;
-		 public const ushort Other2W_SaveDataResponse = 20038;
-		 public const ushort W2Other_CloseRequest = 20039;
-		 public const ushort W2Other_CloseResponse = 20040;
-		 public const ushort W2Other_OpenRequest = 20041;
-		 public const ushort W2Other_OpenResponse = 20042;
+		 public const ushort G2M_RequestEnterGameState = 20024;
+		 public const ushort M2G_RequestEnterGameState = 20025;
+		 public const ushort ObjectQueryResponse = 20026;
+		 public const ushort M2M_UnitTransferRequest = 20027;
+		 public const ushort M2M_UnitTransferResponse = 20028;
+		 public const ushort Other2Cache_UpdateCache = 20029;
+		 public const ushort Cache2Other_UpdateCache = 20030;
+		 public const ushort Other2Cache_GetCache = 20031;
+		 public const ushort Cache2Other_GetCache = 20032;
+		 public const ushort Other2Cache_DeleteCache = 20033;
+		 public const ushort Cache2Other_DeleteCache = 20034;
+		 public const ushort G2Other_EnterRequest = 20035;
+		 public const ushort Other2G_EnterResponse = 20036;
+		 public const ushort G2Other_LeaveRequest = 20037;
+		 public const ushort Other2G_LeaveResponse = 20038;
+		 public const ushort W2Other_SaveDataRequest = 20039;
+		 public const ushort Other2W_SaveDataResponse = 20040;
+		 public const ushort W2Other_CloseRequest = 20041;
+		 public const ushort W2Other_CloseResponse = 20042;
+		 public const ushort W2Other_OpenRequest = 20043;
+		 public const ushort W2Other_OpenResponse = 20044;
 	}
 }

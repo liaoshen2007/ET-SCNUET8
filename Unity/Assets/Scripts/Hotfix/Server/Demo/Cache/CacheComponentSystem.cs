@@ -71,6 +71,7 @@
                     }
 
                     uniCache.AddOrUpdate(entity);
+                    Log.Info(entity.ToJson());
                     list.Add(entity);
                 }
 

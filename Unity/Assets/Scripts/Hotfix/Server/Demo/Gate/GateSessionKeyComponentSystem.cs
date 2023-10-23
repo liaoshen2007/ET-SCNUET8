@@ -11,8 +11,7 @@
 
         public static string Get(this GateSessionKeyComponent self, long key)
         {
-            string account = null;
-            self.sessionKey.TryGetValue(key, out account);
+            self.sessionKey.TryGetValue(key, out string account);
             return account;
         }
 
@@ -23,6 +22,7 @@
 
         private static async ETTask TimeoutRemoveKey(this GateSessionKeyComponent self, long key)
         {
+            // 20S不登录就删除key
             await self.Fiber().TimerComponent.WaitAsync(20000);
             self.sessionKey.Remove(key);
         }

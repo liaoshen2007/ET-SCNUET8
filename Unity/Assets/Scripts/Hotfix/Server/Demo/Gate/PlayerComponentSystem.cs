@@ -18,8 +18,13 @@ namespace ET.Server
         
         public static Player GetByAccount(this PlayerComponent self,  string account)
         {
-            self.dictionary.TryGetValue(account, out Player player);
+            self.dictionary.TryGetValue(account, out var player);
             return player;
+        }
+        
+        public static Player[] GetAll(this PlayerComponent self)
+        {
+            return self.dictionary.Values.ToArray();
         }
     }
 }

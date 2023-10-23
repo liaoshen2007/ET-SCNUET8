@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace ET.Server
+﻿namespace ET.Server
 {
-    [ComponentOf(typeof(Scene))]
+    [ComponentOf(typeof (Scene))]
     public class DBManagerComponent: Entity, IAwake
     {
         public DBComponent[] DBComponents = new DBComponent[IdGenerater.MaxZone];
+
+        public DBComponent CommonDB { get; set; }
     }
 }

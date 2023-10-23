@@ -6,6 +6,7 @@
 		protected override async ETTask Run(Scene scene, LoginFinish args)
 		{
 			// await UIHelper.Create(scene, UIType.UILSLobby, UILayer.Mid);
+			await ETTask.CompletedTask;
 		}
 	}
 }

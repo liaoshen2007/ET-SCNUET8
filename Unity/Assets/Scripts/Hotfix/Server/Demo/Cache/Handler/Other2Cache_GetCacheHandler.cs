@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MongoDB.Bson;
+﻿using System.Collections.Generic;
 
 namespace ET.Server
 {
@@ -37,7 +35,7 @@ namespace ET.Server
                 response.ComponentNameList.AddRange(dict.Keys);
                 foreach (var value in dict.Values)
                 {
-                    response.Entitys.Add(value.ToBson());
+                    response.Entitys.Add(value?.ToBson());
                 }
             }
             finally

@@ -167,6 +167,10 @@ namespace ET.Client
             t = obj.GetComponent<T>();
         }
 
+        public static void ClearPool(this LoopVerticalScrollRect scrollRect)
+        {
+            GameObjectPoolHelper.ClearPool(scrollRect.prefabSource.prefabName);
+        }
         #endregion
 
         #region UI按钮事件
@@ -177,9 +181,9 @@ namespace ET.Client
 
             async ETTask clickActionAsync()
             {
-                UIEvent.Instance?.SetUIClick(true);
+                UIEvent.Instance.SetUIClick(true);
                 await action(id);
-                UIEvent.Instance?.SetUIClick(false);
+                UIEvent.Instance.SetUIClick(false);
             }
 
             button.onClick.AddListener(() =>
@@ -199,9 +203,9 @@ namespace ET.Client
 
             async ETTask clickActionAsync()
             {
-                UIEvent.Instance?.SetUIClick(true);
+                UIEvent.Instance.SetUIClick(true);
                 await action();
-                UIEvent.Instance?.SetUIClick(false);
+                UIEvent.Instance.SetUIClick(false);
             }
 
             button.onClick.AddListener(() =>

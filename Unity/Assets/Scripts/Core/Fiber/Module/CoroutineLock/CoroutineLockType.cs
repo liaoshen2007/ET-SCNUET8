@@ -12,6 +12,7 @@ namespace ET
         public const int ResourcesLoader = 7;
         
         public const int LoadUIBaseWindows = 20;
+        public const int CreateRole = 21; //创建角色
 
         public const int Max = 100; // 这个必须最大
     }

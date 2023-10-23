@@ -16,12 +16,12 @@ namespace ET.Server
 			self.database = self.mongoClient.GetDatabase(dbName);
 		}
 
-	    private static IMongoCollection<T> GetCollection<T>(this DBComponent self, string collection = null)
+	    public static IMongoCollection<T> GetCollection<T>(this DBComponent self, string collection = null)
 	    {
 		    return self.database.GetCollection<T>(collection ?? typeof (T).FullName);
 	    }
 
-	    private static IMongoCollection<Entity> GetCollection(this DBComponent self, string name)
+	    public static IMongoCollection<Entity> GetCollection(this DBComponent self, string name)
 	    {
 		    return self.database.GetCollection<Entity>(name);
 	    }
@@ -177,7 +177,7 @@ namespace ET.Server
 			    return;
 		    }
 
-		    using (await self.Fiber().CoroutineLockComponent.Wait(CoroutineLockType.DB, id % DBComponent.TaskCount))
+		    using (await fiber.CoroutineLockComponent.Wait(CoroutineLockType.DB, id % DBComponent.TaskCount))
 		    {
 			    foreach (Entity entity in entities)
 			    {

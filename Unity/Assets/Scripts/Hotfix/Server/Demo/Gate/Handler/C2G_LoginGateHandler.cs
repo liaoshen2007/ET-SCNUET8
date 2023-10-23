@@ -39,12 +39,13 @@
             {
                 // 判断是否在战斗
                 PlayerRoomComponent playerRoomComponent = player.GetComponent<PlayerRoomComponent>();
-                if (playerRoomComponent.RoomActorId != default)
+                if (playerRoomComponent != null && playerRoomComponent.RoomActorId != default)
                 {
                     CheckRoom(player, session).Coroutine();
                 }
                 else
                 {
+                    session.AddComponent<SessionPlayerComponent>().Player = player;
                     PlayerSessionComponent playerSessionComponent = player.GetComponent<PlayerSessionComponent>();
                     playerSessionComponent.Session = session;
                 }

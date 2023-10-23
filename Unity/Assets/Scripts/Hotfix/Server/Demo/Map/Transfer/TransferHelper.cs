@@ -9,7 +9,7 @@ namespace ET.Server
         {
             await unit.Fiber().WaitFrameFinish();
 
-            await TransferHelper.Transfer(unit, sceneInstanceId, sceneName);
+            await Transfer(unit, sceneInstanceId, sceneName);
         }
         
 

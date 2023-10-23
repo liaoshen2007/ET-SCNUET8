@@ -272,7 +272,7 @@ namespace ET.Client
 
         public static GameObject GetORedDotGameObjectFromPool(this RedDotComponent self)
         {
-            return GameObjectPoolHelper.GetObjectFromPool("RedDot", true, 5);
+            return GameObjectPoolHelper.GetObjectFromPool("RedDot");
         }
 
         public static void RecycleRedDotGameObject(this RedDotComponent self, GameObject go)

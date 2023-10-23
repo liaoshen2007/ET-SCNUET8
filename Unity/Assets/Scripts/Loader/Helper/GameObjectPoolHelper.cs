@@ -8,79 +8,32 @@ namespace ET
     {
         private static readonly Dictionary<string, GameObjectPool> poolDict = new Dictionary<string, GameObjectPool>();
 
-        public static void InitPool(string poolName, int size, PoolInflationType type = PoolInflationType.DOUBLE)
+        public static void InitPool(string poolName, GameObject prefab, int size, PoolInflationType type = PoolInflationType.DOUBLE)
         {
             if (!poolDict.ContainsKey(poolName))
             {
-                try
-                {
-                    GameObject pb = GetGameObjectByResType(poolName);
-                    if (pb == null)
-                    {
-                        Debug.LogError("[ResourceManager] Invalide prefab name for pooling :" + poolName);
-                        return;
-                    }
-
-                    poolDict[poolName] = new GameObjectPool(poolName, pb, GameObject.Find("Global/Pool"), size, type);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                }
+                poolDict[poolName] = new GameObjectPool(poolName, prefab, GameObject.Find("Global/Pool"), size, type);
             }
         }
 
-        public static async ETTask InitPoolFormGamObjectAsync(GameObject pb, int size, PoolInflationType type = PoolInflationType.DOUBLE)
-        {
-            string poolName = pb.name;
-            if (poolDict.ContainsKey(poolName))
-            {
-                return;
-            }
-
-            try
-            {
-                poolDict[poolName] = new GameObjectPool(poolName, pb, GameObject.Find("Global/PoolRoot"), size, type);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-            }
-
-            await ETTask.CompletedTask;
-        }
-
-        /// <summary>
-        /// Returns an available object from the pool 
-        /// OR null in case the pool does not have any object available & can grow size is false.
-        /// </summary>
-        /// <OtherParam name="poolName"></OtherParam>
-        /// <returns></returns>
-        public static GameObject GetObjectFromPool(string poolName, bool autoActive = true, int autoCreate = 0)
+        public static GameObject GetObjectFromPool(string poolName, bool autoActive = true)
         {
             GameObject result = null;
-
-            if (!poolDict.ContainsKey(poolName) && autoCreate > 0)
-            {
-                InitPool(poolName, autoCreate, PoolInflationType.INCREMENT);
-            }
-
             if (poolDict.ContainsKey(poolName))
             {
                 GameObjectPool pool = poolDict[poolName];
                 result = pool.NextAvailableObject(autoActive);
-                //scenario when no available object is found in pool
 #if UNITY_EDITOR
                 if (result == null)
                 {
-                    Debug.LogWarning("[ResourceManager]:No object available in " + poolName);
+                    Log.Error("[ResourceManager]:No object available in " + poolName);
                 }
 #endif
             }
 #if UNITY_EDITOR
             else
             {
-                Debug.LogError("[ResourceManager]:Invalid pool name specified: " + poolName);
+                Log.Error("[ResourceManager]:Invalid pool name specified: " + poolName);
             }
 #endif
             return result;
@@ -96,7 +49,7 @@ namespace ET
             if (po == null)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("Specified object is not a pooled instance: " + go.name);
+                Log.Error("Specified object is not a pooled instance: " + go.name);
 #endif
             }
             else
@@ -109,7 +62,7 @@ namespace ET
 #if UNITY_EDITOR
                 else
                 {
-                    Debug.LogWarning("No pool available with name: " + po.poolName);
+                    Log.Error("No pool available with name: " + po.poolName);
                 }
 #endif
             }
@@ -124,7 +77,7 @@ namespace ET
             if (t == null)
             {
 #if UNITY_EDITOR
-                Debug.LogError("[ResourceManager] try to return a null transform to pool!");
+                Log.Error("[ResourceManager] try to return a null transform to pool!");
 #endif
                 return;
             }
@@ -132,12 +85,12 @@ namespace ET
             ReturnObjectToPool(t.gameObject);
         }
 
-        public static GameObject GetGameObjectByResType(string poolName)
+        public static void ClearPool(string poolName)
         {
-            GameObject pb = null;
-            // Dictionary<string, UnityEngine.Object> assetDict = AssetsBundleHelper.LoadBundle(poolName + ".unity3d").Item2;
-            // pb = assetDict[poolName] as GameObject;
-            return pb;
+            if (poolDict.TryGetValue(poolName, out var pool))
+            {
+                pool.Dispose();
+            }
         }
     }
 }
