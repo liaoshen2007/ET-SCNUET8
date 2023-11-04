@@ -65,13 +65,6 @@ namespace ET
         public bool OpenSelectPicDialogWhenAddDecorate = true;
 
         /// <summary>
-        /// 此路径可以为空，设置后首次导入本插件时就会加载该目录下的所有prefab
-        /// </summary>
-        [SerializeField]
-        [Tooltip("首次导入本插件时会加载该目录下的所有prefab")]
-        public string PrefabWinFirstSearchPath = "Assets/Prefabs";
-
-        /// <summary>
         /// 所有编辑界面的Canvas都放到此节点上，可定制节点名
         /// </summary>
         [SerializeField]

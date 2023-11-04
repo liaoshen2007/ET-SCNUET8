@@ -159,6 +159,20 @@ message G2C_LoginGate // ISessionResponse
   int64 PlayerId = 4;
 }
 
+message AccountProto
+{
+  int64 Id = 0;
+	string UserUid = 1;
+  int32 AccountType = 2;
+  int64 CreateTime = 3;
+}
+
+message HttpAccount
+{
+  int32 Error = 91;
+  AccountProto Account = 1;
+}
+
 message ServerInfoProto
 {
 	int64 Id = 1;

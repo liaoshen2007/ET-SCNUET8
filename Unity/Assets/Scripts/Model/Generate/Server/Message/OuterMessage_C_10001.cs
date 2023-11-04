@@ -757,6 +757,66 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.AccountProto)]
+	[MemoryPackable]
+	public partial class AccountProto: MessageObject
+	{
+		public static AccountProto Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new AccountProto() : ObjectPool.Instance.Fetch(typeof(AccountProto)) as AccountProto; 
+		}
+
+		[MemoryPackOrder(-1)]
+		public long Id { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string UserUid { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int AccountType { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long CreateTime { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.UserUid = default;
+			this.AccountType = default;
+			this.CreateTime = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.HttpAccount)]
+	[MemoryPackable]
+	public partial class HttpAccount: MessageObject
+	{
+		public static HttpAccount Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new HttpAccount() : ObjectPool.Instance.Fetch(typeof(HttpAccount)) as HttpAccount; 
+		}
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(0)]
+		public AccountProto Account { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Error = default;
+			this.Account = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	[Message(OuterMessage.ServerInfoProto)]
 	[MemoryPackable]
 	public partial class ServerInfoProto: MessageObject
@@ -1811,34 +1871,36 @@ namespace ET
 		 public const ushort R2C_Login = 10024;
 		 public const ushort C2G_LoginGate = 10025;
 		 public const ushort G2C_LoginGate = 10026;
-		 public const ushort ServerInfoProto = 10027;
-		 public const ushort HttpServerList = 10028;
-		 public const ushort RoleInfoProto = 10029;
-		 public const ushort HttpRoleList = 10030;
-		 public const ushort C2A_CreateRole = 10031;
-		 public const ushort A2C_CreateRole = 10032;
-		 public const ushort C2A_GetRoles = 10033;
-		 public const ushort A2C_GetRoles = 10034;
-		 public const ushort C2A_DeleteRole = 10035;
-		 public const ushort A2C_DeleteRole = 10036;
-		 public const ushort G2C_TestHotfixMessage = 10037;
-		 public const ushort C2M_TestRobotCase = 10038;
-		 public const ushort M2C_TestRobotCase = 10039;
-		 public const ushort C2M_TestRobotCase2 = 10040;
-		 public const ushort M2C_TestRobotCase2 = 10041;
-		 public const ushort C2M_TransferMap = 10042;
-		 public const ushort M2C_TransferMap = 10043;
-		 public const ushort C2G_Benchmark = 10044;
-		 public const ushort G2C_Benchmark = 10045;
-		 public const ushort HurtInfo = 10046;
-		 public const ushort M2C_UpdateUnitShield = 10047;
-		 public const ushort RankRoleInfoProto = 10048;
-		 public const ushort RankInfoProto = 10049;
-		 public const ushort C2Rank_GetRankRequest = 10050;
-		 public const ushort Ran2C_GetRankResponse = 10051;
-		 public const ushort PlayerInfoProto = 10052;
-		 public const ushort C2Chat_SendRequest = 10053;
-		 public const ushort Chat2C_SendResponse = 10054;
-		 public const ushort Chat2C_UpdateChat = 10055;
+		 public const ushort AccountProto = 10027;
+		 public const ushort HttpAccount = 10028;
+		 public const ushort ServerInfoProto = 10029;
+		 public const ushort HttpServerList = 10030;
+		 public const ushort RoleInfoProto = 10031;
+		 public const ushort HttpRoleList = 10032;
+		 public const ushort C2A_CreateRole = 10033;
+		 public const ushort A2C_CreateRole = 10034;
+		 public const ushort C2A_GetRoles = 10035;
+		 public const ushort A2C_GetRoles = 10036;
+		 public const ushort C2A_DeleteRole = 10037;
+		 public const ushort A2C_DeleteRole = 10038;
+		 public const ushort G2C_TestHotfixMessage = 10039;
+		 public const ushort C2M_TestRobotCase = 10040;
+		 public const ushort M2C_TestRobotCase = 10041;
+		 public const ushort C2M_TestRobotCase2 = 10042;
+		 public const ushort M2C_TestRobotCase2 = 10043;
+		 public const ushort C2M_TransferMap = 10044;
+		 public const ushort M2C_TransferMap = 10045;
+		 public const ushort C2G_Benchmark = 10046;
+		 public const ushort G2C_Benchmark = 10047;
+		 public const ushort HurtInfo = 10048;
+		 public const ushort M2C_UpdateUnitShield = 10049;
+		 public const ushort RankRoleInfoProto = 10050;
+		 public const ushort RankInfoProto = 10051;
+		 public const ushort C2Rank_GetRankRequest = 10052;
+		 public const ushort Ran2C_GetRankResponse = 10053;
+		 public const ushort PlayerInfoProto = 10054;
+		 public const ushort C2Chat_SendRequest = 10055;
+		 public const ushort Chat2C_SendResponse = 10056;
+		 public const ushort Chat2C_UpdateChat = 10057;
 	}
 }

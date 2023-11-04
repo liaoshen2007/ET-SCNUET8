@@ -16,6 +16,7 @@
 		protected override void Destroy(UILoginViewComponent self)
 		{
 			self.DestroyWidget();
+
 		}
 	}
 }

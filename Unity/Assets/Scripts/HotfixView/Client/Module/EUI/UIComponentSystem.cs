@@ -98,6 +98,23 @@ namespace ET.Client
         }
 
         /// <summary>
+        /// 根据泛型类型获取窗口Id
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static WindowID GetWindowIdByGeneric(this UIComponent self, Type type)
+        {
+            if (UIPath.Instance.WindowTypeIdDict.TryGetValue(type.Name, out int windowsId))
+            {
+                return (WindowID) windowsId;
+            }
+
+            Log.Error($"{type.FullName} is not have any windowId!");
+            return WindowID.Win_Invaild;
+        }
+
+        /// <summary>
         /// 压入一个进栈队列界面
         /// </summary>
         /// <param name="self"></param>
@@ -241,10 +258,27 @@ namespace ET.Client
                 return;
             }
 
+            UIEvent.Instance.GetUIEventHandler(id).OnUnFocus(baseWindow);
             baseWindow.UIPrefabGameObject?.SetActive(false);
             UIEvent.Instance.GetUIEventHandler(id).OnHideWindow(baseWindow);
+            self.GetComponent<UIMask>().Hide();
 
             self.VisibleWindowsDic.Remove((int) id);
+            for (int i = self.ShowWindowsList.Count - 1; i >= 0; i--)
+            {
+                if (self.ShowWindowsList[i].WindowID == id)
+                {
+                    self.ShowWindowsList.RemoveAt(i);
+                    break;
+                }
+            }
+
+            if (self.ShowWindowsList.Count > 0)
+            {
+                var win = self.ShowWindowsList[0];
+                UIEvent.Instance.GetUIEventHandler(win.WindowID).OnFocus(win);
+                Log.Info("<color=magenta>### window Focus </color>" + win.WindowID);
+            }
 
             self.PopNextStackUIBaseWindow(id);
         }
@@ -257,6 +291,17 @@ namespace ET.Client
         public static void HideWindow<T>(this UIComponent self) where T : Entity
         {
             WindowID hideWindowId = self.GetWindowIdByGeneric<T>();
+            self.HideWindow(hideWindowId);
+        }
+
+        /// <summary>
+        /// 根据泛型类型隐藏UI窗口
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="type"></param>
+        public static void HideWindow(this UIComponent self, Type type)
+        {
+            WindowID hideWindowId = self.GetWindowIdByGeneric(type);
             self.HideWindow(hideWindowId);
         }
 
@@ -279,7 +324,7 @@ namespace ET.Client
                 UnityEngine.Object.Destroy(baseWindow.UIPrefabGameObject);
                 baseWindow.UIPrefabGameObject = null;
             }
-
+            
             if (isDispose)
             {
                 self.AllWindowsDic.Remove((int) id);
@@ -356,9 +401,21 @@ namespace ET.Client
 
         private static void RealShowWindow(this UIComponent self, UIBaseWindow baseWindow, WindowID id, ShowWindowData showData = null)
         {
+            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
+            self.GetComponent<UIMask>().SetActive(root);
+            baseWindow.UITransform.SetAsLastSibling();
             baseWindow.UIPrefabGameObject?.SetActive(true);
             UIEvent.Instance.GetUIEventHandler(id).OnShowWindow(baseWindow, showData);
+            if (self.ShowWindowsList.Count > 0)
+            {
+                var win = self.ShowWindowsList[0];
+                UIEvent.Instance.GetUIEventHandler(win.WindowID).OnUnFocus(win);
+                Log.Info("<color=magenta>### window OnUnFocus </color>" + win.WindowID);
+            }
 
+            UIEvent.Instance.GetUIEventHandler(id).OnFocus(baseWindow);
+            
+            self.ShowWindowsList.Add(baseWindow);
             self.VisibleWindowsDic[(int) id] = baseWindow;
             Log.Info("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID);
         }
@@ -437,6 +494,7 @@ namespace ET.Client
                 baseWindow.Dispose();
             }
 
+            self.ShowWindowsList.Clear();
             self.AllWindowsDic.Clear();
             self.VisibleWindowsDic.Clear();
             self.StackWindowsQueue.Clear();
@@ -513,9 +571,7 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
             var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
-            self.GetComponent<UIMask>().SetAsLastSibling(root);
             baseWindow.SetRoot(root);
-            baseWindow.UITransform.SetAsLastSibling();
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnRegisterUIEvent(baseWindow);
@@ -541,9 +597,7 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
             var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
-            self.GetComponent<UIMask>().SetAsLastSibling(root);
             baseWindow.SetRoot(root);
-            baseWindow.UITransform.SetAsLastSibling();
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnRegisterUIEvent(baseWindow);

@@ -6,7 +6,7 @@ namespace ET.Client
 	[EnableMethod]
 	public  class UIServerListViewComponent : Entity, IAwake, IDestroy 
 	{
-		public RectTransform EGBackGroundRectTransform
+		public ExtendText E_TitleExtendText
      	{
      		get
      		{
@@ -16,12 +16,31 @@ namespace ET.Client
      				return null;
      			}
 
-     			if( m_EGBackGroundRectTransform == null )
+     			if( m_E_TitleExtendText == null )
      			{
-		    		m_EGBackGroundRectTransform = UIFindHelper.FindDeepChild<RectTransform>(uiTransform.gameObject,"EGBackGround");
+		    		m_E_TitleExtendText = UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"Panel/E_Title");
      			}
 
-     			return m_EGBackGroundRectTransform;
+     			return m_E_TitleExtendText;
+     		}
+     	}
+
+		public LoopVerticalScrollRect E_ServerTabListLoopVerticalScrollRect
+     	{
+     		get
+     		{
+     			if (uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+
+     			if( m_E_ServerTabListLoopVerticalScrollRect == null )
+     			{
+		    		m_E_ServerTabListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(uiTransform.gameObject,"Panel/E_ServerTabList");
+     			}
+
+     			return m_E_ServerTabListLoopVerticalScrollRect;
      		}
      	}
 
@@ -37,14 +56,14 @@ namespace ET.Client
 
      			if( m_E_ServerListLoopVerticalScrollRect == null )
      			{
-		    		m_E_ServerListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(uiTransform.gameObject,"E_ServerList");
+		    		m_E_ServerListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(uiTransform.gameObject,"Panel/E_ServerList");
      			}
 
      			return m_E_ServerListLoopVerticalScrollRect;
      		}
      	}
 
-		public Button E_ConfirmButton
+		public Button E_CloseBtnButton
      	{
      		get
      		{
@@ -54,16 +73,16 @@ namespace ET.Client
      				return null;
      			}
 
-     			if( m_E_ConfirmButton == null )
+     			if( m_E_CloseBtnButton == null )
      			{
-		    		m_E_ConfirmButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Confirm");
+		    		m_E_CloseBtnButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"Panel/E_CloseBtn");
      			}
 
-     			return m_E_ConfirmButton;
+     			return m_E_CloseBtnButton;
      		}
      	}
 
-		public Image E_ConfirmImage
+		public ExtendImage E_CloseBtnExtendImage
      	{
      		get
      		{
@@ -73,28 +92,30 @@ namespace ET.Client
      				return null;
      			}
 
-     			if( m_E_ConfirmImage == null )
+     			if( m_E_CloseBtnExtendImage == null )
      			{
-		    		m_E_ConfirmImage = UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"E_Confirm");
+		    		m_E_CloseBtnExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"Panel/E_CloseBtn");
      			}
 
-     			return m_E_ConfirmImage;
+     			return m_E_CloseBtnExtendImage;
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			m_EGBackGroundRectTransform = null;
+			m_E_TitleExtendText = null;
+			m_E_ServerTabListLoopVerticalScrollRect = null;
 			m_E_ServerListLoopVerticalScrollRect = null;
-			m_E_ConfirmButton = null;
-			m_E_ConfirmImage = null;
+			m_E_CloseBtnButton = null;
+			m_E_CloseBtnExtendImage = null;
 			uiTransform = null;
 		}
 
-		private RectTransform m_EGBackGroundRectTransform = null;
+		private ExtendText m_E_TitleExtendText = null;
+		private LoopVerticalScrollRect m_E_ServerTabListLoopVerticalScrollRect = null;
 		private LoopVerticalScrollRect m_E_ServerListLoopVerticalScrollRect = null;
-		private Button m_E_ConfirmButton = null;
-		private Image m_E_ConfirmImage = null;
+		private Button m_E_CloseBtnButton = null;
+		private ExtendImage m_E_CloseBtnExtendImage = null;
 		public Transform uiTransform = null;
 	}
 }

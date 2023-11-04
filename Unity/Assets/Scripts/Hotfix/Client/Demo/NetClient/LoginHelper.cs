@@ -1,9 +1,15 @@
-using System;
-
 namespace ET.Client
 {
+    [FriendOf(typeof (Account))]
     public static class LoginHelper
     {
+        /// <summary>
+        /// 登录游戏
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static async ETTask<int> Login(Scene root, string account, string password)
         {
             root.RemoveComponent<ClientSenderCompnent>();
@@ -18,11 +24,51 @@ namespace ET.Client
             return ErrorCode.ERR_Success;
         }
 
+        /// <summary>
+        /// 获取账号信息
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static async ETTask<int> QueryAccount(Scene root, string account, string password)
+        {
+            string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/account?Account={account}&Password={password}";
+            string str = await HttpClientHelper.Get(url);
+            HttpAccount httpAcc = MongoHelper.FromJson<HttpAccount>(str);
+            if (httpAcc.Error != ErrorCode.ERR_Success)
+            {
+                return httpAcc.Error;
+            }
+
+            var child = root.GetChild<Account>();
+            if (child != null)
+            {
+                root.RemoveChild(child.Id);
+            }
+
+            var acc = root.AddChildWithId<Account>(httpAcc.Account.Id);
+            acc.AccountName = account;
+            acc.Password = password;
+            acc.UserUid = httpAcc.Account.UserUid;
+            acc.AccountType = (AccountType) httpAcc.Account.AccountType;
+            acc.CreateTime = httpAcc.Account.CreateTime;
+
+            return ErrorCode.ERR_Success;
+        }
+
+        /// <summary>
+        /// 获取服务器列表
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public static async ETTask<int> GetServerInfos(Scene root, string account)
         {
             string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/server_list?ServerType=1";
             string str = await HttpClientHelper.Get(url);
             HttpServerList httpServer = MongoHelper.FromJson<HttpServerList>(str);
+            root.GetComponent<ServerInfoComponent>().Clear();
             foreach (var serverInfoProto in httpServer.ServerList)
             {
                 var serverInfo = root.GetComponent<ServerInfoComponent>().AddChildWithId<ServerInfo>(serverInfoProto.Id);

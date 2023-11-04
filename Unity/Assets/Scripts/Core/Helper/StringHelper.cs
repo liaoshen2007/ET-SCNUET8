@@ -163,5 +163,16 @@ namespace ET
 
 			return num;
 		}
+		
+		public static string[] ToStringArray<T>(this IEnumerable<T> itor)
+		{
+			var list = new List<string>();
+			foreach (var obj in itor)
+			{
+				list.Add(obj.ToString());
+			}
+
+			return list.ToArray();
+		}
 	}
 }

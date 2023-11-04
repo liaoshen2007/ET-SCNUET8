@@ -25,6 +25,11 @@ namespace ET.Client
         /// 正在显示中的窗口
         /// </summary>
         public Dictionary<int, UIBaseWindow> VisibleWindowsDic { get; set; } = new Dictionary<int, UIBaseWindow>();
+        
+        /// <summary>
+        /// 显示中的窗口队列
+        /// </summary>
+        public List<UIBaseWindow> ShowWindowsList { get; set; } = new List<UIBaseWindow>();
 
         public Queue<WindowID> StackWindowsQueue { get; set; } = new Queue<WindowID>();
 

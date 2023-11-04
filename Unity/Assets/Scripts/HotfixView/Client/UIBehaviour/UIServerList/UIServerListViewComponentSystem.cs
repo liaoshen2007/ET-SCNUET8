@@ -6,6 +6,7 @@
 		protected override void Awake(UIServerListViewComponent self)
 		{
 			self.uiTransform = self.GetParent<UIBaseWindow>().UITransform;
+			self.RegisterCloseEvent(self.E_CloseBtnButton);
 		}
 	}
 
@@ -16,6 +17,7 @@
 		protected override void Destroy(UIServerListViewComponent self)
 		{
 			self.DestroyWidget();
+
 		}
 	}
 }

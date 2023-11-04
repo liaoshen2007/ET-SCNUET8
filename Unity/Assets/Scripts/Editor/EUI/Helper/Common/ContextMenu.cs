@@ -10,6 +10,7 @@ namespace ET
     public static class ContextMenu
     {
         #region Public Methods
+
         /// <summary>
         /// 添加一个菜单项
         /// </summary>
@@ -17,9 +18,9 @@ namespace ET
         /// <param name="isChecked"></param>
         /// <param name="callback">点击回调</param>
         public static void AddItem(
-            string item,
-            bool isChecked,
-            GenericMenu.MenuFunction callback)
+        string item,
+        bool isChecked,
+        GenericMenu.MenuFunction callback)
         {
             if (callback != null)
             {
@@ -59,10 +60,10 @@ namespace ET
         /// <param name="callback">点击回调</param>
         /// <param name="userData">自定义数据</param>
         public static void AddItem(
-            string item,
-            bool isChecked,
-            GenericMenu.MenuFunction2 callback,
-            object userData)
+        string item,
+        bool isChecked,
+        GenericMenu.MenuFunction2 callback,
+        object userData)
         {
             if (callback != null)
             {
@@ -87,6 +88,30 @@ namespace ET
                 }
 
                 mMenu.AddItem(new GUIContent(item), isChecked, callback, userData);
+            }
+            else
+            {
+                AddDisabledItem(item);
+            }
+        }
+
+        public static void AddItemWithArge(string item, bool isChecked, GenericMenu.MenuFunction2 callback, object arge)
+        {
+            if (callback != null)
+            {
+                mMenu ??= new GenericMenu();
+                int count = 0;
+
+                for (int i = 0; i < mEntries.Count; ++i)
+                {
+                    string str = mEntries[i];
+                    if (str == item) ++count;
+                }
+
+                mEntries.Add(item);
+
+                if (count > 0) item += " [" + count + "]";
+                mMenu.AddItem(new GUIContent(item), isChecked, callback, arge);
             }
             else
             {
@@ -176,9 +201,11 @@ namespace ET
             AddItem("排序所有界面", false, UILayoutHelper.ResortAllLayout);
             AddItem("清空界面", false, UIEditorHelper.ClearAllCanvas);
         }
+
         #endregion
 
         #region Internal Methods
+
         /// <summary>
         /// 增加对齐菜单
         /// </summary>
@@ -300,12 +327,14 @@ namespace ET
 
             mMenu.AddDisabledItem(new GUIContent(item));
         }
+
         #endregion
 
         #region Internal Fields
+
         private static List<string> mEntries = new List<string>();
         private static GenericMenu mMenu;
+
         #endregion
     }
 }
-

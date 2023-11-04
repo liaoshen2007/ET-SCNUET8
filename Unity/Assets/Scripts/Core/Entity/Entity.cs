@@ -561,6 +561,24 @@ namespace ET
             this.children.TryGetValue(id, out Entity child);
             return child as K;
         }
+        
+        public K GetChild<K>() where K : Entity
+        {
+            if (this.children == null)
+            {
+                return null;
+            }
+
+            foreach (var entity in this.Children.Values)
+            {
+                if (entity.GetType() == typeof(K))
+                {
+                    return entity as K;
+                }
+            }
+            
+            return default;
+        }
 
         public void RemoveChild(long id)
         {

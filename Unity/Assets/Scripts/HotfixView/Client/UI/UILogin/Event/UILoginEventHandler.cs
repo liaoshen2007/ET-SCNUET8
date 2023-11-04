@@ -21,6 +21,16 @@
 			uiBaseWindow.GetComponent<UILogin>().RegisterUIEvent(); 
 		}
 
+		public void OnFocus(UIBaseWindow uiBaseWindow)
+		{
+			uiBaseWindow.GetComponent<UILogin>().OnFocus(); 
+		}
+
+		public void OnUnFocus(UIBaseWindow uiBaseWindow)
+		{
+			
+		}
+
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{
 			uiBaseWindow.GetComponent<UILogin>().ShowWindow(contextData); 

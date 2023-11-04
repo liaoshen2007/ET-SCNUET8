@@ -16,7 +16,6 @@ namespace ET.Client
         private SerializedProperty m_Mirror;
         private SerializedProperty m_Grey;
         private SerializedProperty m_CircleMask;
-        private SerializedProperty m_Localiable;
         private AnimBool           m_ShowImgType;
         private SerializedProperty m_HandleRect;
         private SerializedProperty m_FillMethod;
@@ -31,7 +30,6 @@ namespace ET.Client
             m_Mirror         = serializedObject.FindProperty("m_Mirror");
             m_Grey           = serializedObject.FindProperty("m_Grey");
             m_CircleMask     = serializedObject.FindProperty("m_CircleMask");
-            m_Localiable     = serializedObject.FindProperty("m_Localiable");
             m_HandleRect = serializedObject.FindProperty("m_HandleRect");
             m_FillMethod = serializedObject.FindProperty("m_FillMethod");
             m_SlicedClipMode = serializedObject.FindProperty("m_SlicedClipMode");
@@ -45,7 +43,6 @@ namespace ET.Client
             EditorGUILayout.HelpBox("图片置灰、本地化及simple模式图片镜像", MessageType.Info, true);
             SpriteGUI();
             AppearanceControlsGUI();
-            EditorGUILayout.PropertyField(m_Localiable);
             EditorGUILayout.PropertyField(m_Grey);
             RaycastControlsGUI();
 

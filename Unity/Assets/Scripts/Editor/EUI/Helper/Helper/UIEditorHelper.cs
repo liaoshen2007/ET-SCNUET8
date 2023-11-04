@@ -15,6 +15,54 @@ namespace ET
     /// </summary>
     public static class UIEditorHelper
     {
+        private static Texture2D CreateCheckerTex(Color c0, Color c1)
+        {
+            Texture2D tex = new Texture2D(16, 16);
+            tex.name = "[Generated] Checker Texture";
+            tex.hideFlags = HideFlags.DontSave;
+
+            for (int y = 0; y < 8; ++y)
+            for (int x = 0; x < 8; ++x)
+            {
+                tex.SetPixel(x, y, c1);
+            }
+
+            for (int y = 8; y < 16; ++y)
+            for (int x = 0; x < 8; ++x)
+            {
+                tex.SetPixel(x, y, c0);
+            }
+
+            for (int y = 0; y < 8; ++y)
+            for (int x = 8; x < 16; ++x)
+            {
+                tex.SetPixel(x, y, c0);
+            }
+
+            for (int y = 8; y < 16; ++y)
+            for (int x = 8; x < 16; ++x)
+            {
+                tex.SetPixel(x, y, c1);
+            }
+
+            tex.Apply();
+            tex.filterMode = FilterMode.Point;
+            return tex;
+        }
+
+        private static Texture2D mBackdropTex;
+
+        public static Texture2D backdropTexture
+        {
+            get
+            {
+                if (mBackdropTex == null)
+                    mBackdropTex = CreateCheckerTex(new Color(0.1f, 0.1f, 0.1f, 0.5f),
+                        new Color(0.2f, 0.2f, 0.2f, 0.5f));
+                return mBackdropTex;
+            }
+        }
+
         /// <summary>
         /// 通过路径设置图片
         /// </summary>
@@ -24,8 +72,8 @@ namespace ET
         public static void SetImageByPath(string assetPath, Image image, bool isNativeSize = true)
         {
             Sprite newImg = AssetDatabase.LoadAssetAtPath<Sprite>(assetPath);
-            Undo.RecordObject(image, "Change Image");//有了这句才可以用ctrl+z撤消此赋值操作
-            image.sprite = newImg; 
+            Undo.RecordObject(image, "Change Image"); //有了这句才可以用ctrl+z撤消此赋值操作
+            image.sprite = newImg;
             if (isNativeSize)
             {
                 image.SetNativeSize();
@@ -100,7 +148,8 @@ namespace ET
                 {
                     //获取节点的四个角的世界坐标，分别按顺序为左下左上，右上右下
                     trans.GetWorldCorners(corners);
-                    if (mouse_abs_pos.x >= corners[0].x && mouse_abs_pos.y <= corners[1].y && mouse_abs_pos.x <= corners[2].x && mouse_abs_pos.y >= corners[3].y)
+                    if (mouse_abs_pos.x >= corners[0].x && mouse_abs_pos.y <= corners[1].y && mouse_abs_pos.x <= corners[2].x &&
+                        mouse_abs_pos.y >= corners[3].y)
                     {
                         list.Add(trans);
                     }
@@ -112,8 +161,8 @@ namespace ET
                 return null;
             }
 
-            list.Sort((a, b) => (a.GetSiblingIndex() == b.GetSiblingIndex()) ? 0 :
-                ((a.GetSiblingIndex() < b.GetSiblingIndex()) ? 1 : -1));
+            list.Sort((a, b) => (a.GetSiblingIndex() == b.GetSiblingIndex())? 0 :
+                    ((a.GetSiblingIndex() < b.GetSiblingIndex())? 1 : -1));
 
             return GetRootTrans(list[0]);
         }
@@ -131,6 +180,7 @@ namespace ET
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -138,7 +188,7 @@ namespace ET
         {
             string filePath = Path.Combine(Configure.ResAssetsPath, "Decorate.prefab");
             filePath = FileUtil.GetProjectRelativePath(filePath);
-            GameObject decorate_prefab = AssetDatabase.LoadAssetAtPath(filePath, typeof(Object)) as GameObject;
+            GameObject decorate_prefab = AssetDatabase.LoadAssetAtPath(filePath, typeof (Object)) as GameObject;
             GameObject decorate = UObject.Instantiate(decorate_prefab);
             decorate.transform.SetParent(parent);
             RectTransform rectTrans = decorate.transform as RectTransform;
@@ -164,7 +214,7 @@ namespace ET
             {
                 Canvas canvas = Selection.activeTransform.GetComponentInParent<Canvas>();
                 if (canvas != null)
-                {                    
+                {
                     Decorate decor = CreateEmptyDecorate(canvas.transform);
                     Selection.activeTransform = decor.transform;
 
@@ -226,6 +276,7 @@ namespace ET
                         return item.gameObject;
                 }
             }
+
             return null;
         }
 
@@ -270,12 +321,13 @@ namespace ET
                     break;
                 }
             }
+
             return realLayout;
         }
 
         public static void ReLoadLayout(GameObject o, bool isQuiet)
         {
-            GameObject saveObj = o == null ? Selection.activeGameObject : o;
+            GameObject saveObj = o == null? Selection.activeGameObject : o;
             if (saveObj == null)
                 return;
             LayoutInfo layoutInfo = saveObj.GetComponentInParent<LayoutInfo>();
@@ -290,7 +342,7 @@ namespace ET
                     if (real_layout)
                     {
                         string select_path = FileUtil.GetProjectRelativePath(layoutInfo.LayoutPath);
-                        var prefab = AssetDatabase.LoadAssetAtPath(select_path, typeof(UObject));
+                        var prefab = AssetDatabase.LoadAssetAtPath(select_path, typeof (UObject));
                         GameObject newView = PrefabUtility.InstantiateAttachedAsset(prefab) as GameObject;
                         if (newView != null)
                         {
@@ -301,7 +353,7 @@ namespace ET
                         }
 
                         //链接中的话删里面的子节点时会报警告，所以还是一直失联的好，保存时直接覆盖pref
-//                        PrefabUtility.DisconnectPrefabInstance(newView);
+                        //                        PrefabUtility.DisconnectPrefabInstance(newView);
                         Undo.DestroyObjectImmediate(real_layout.gameObject);
                         Debug.Log("Reload Layout Succeed!");
                         layoutInfo.ApplyConfig(select_path);
@@ -320,14 +372,15 @@ namespace ET
             layoutInfo.LayoutPath = selectPath;
             if (!File.Exists(selectPath))
             {
-                Debug.Log("UIEditorHelper:LoadLayoutByPath cannot find layout file:"+selectPath);
+                Debug.Log("UIEditorHelper:LoadLayoutByPath cannot find layout file:" + selectPath);
                 return null;
             }
+
             string asset_relate_path = selectPath;
             if (!selectPath.StartsWith("Assets/"))
                 asset_relate_path = FileUtil.GetProjectRelativePath(selectPath);
 
-            var prefab = AssetDatabase.LoadAssetAtPath(asset_relate_path, typeof(UObject));
+            var prefab = AssetDatabase.LoadAssetAtPath(asset_relate_path, typeof (UObject));
             GameObject newView = PrefabUtility.InstantiateAttachedAsset(prefab) as GameObject;
             if (newView != null)
             {
@@ -339,7 +392,7 @@ namespace ET
                 newLayout.gameObject.name = just_name + "_Canvas";
 
                 //链接中的话删里面的子节点时会报警告，所以还是一直失联的好，保存时直接覆盖prefab就行了
-//                PrefabUtility.DisconnectPrefabInstance(new_view); 
+                //                PrefabUtility.DisconnectPrefabInstance(new_view); 
             }
 
             //打开界面时,从项目临时文件夹找到对应界面的参照图配置,然后生成参照图
@@ -416,7 +469,6 @@ namespace ET
             RenderTexture.ReleaseTemporary(temp);
 
             return ret;
-
         }
 
         /// <summary>
@@ -462,7 +514,7 @@ namespace ET
                 byte[] bytes = new byte[fileStream.Length];
 
                 //读取文件
-                fileStream.Read(bytes, 0, (int)fileStream.Length);
+                fileStream.Read(bytes, 0, (int) fileStream.Length);
 
                 //创建Texture
                 int width = 300;
@@ -491,6 +543,7 @@ namespace ET
             Texture2D texture = LoadTextureInLocal(filePath);
 
             var pivot = new Vector2(0.5f, 0.5f);
+
             //创建Sprite
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), pivot);
 
@@ -506,12 +559,12 @@ namespace ET
             if (cloneTransform is RectTransform)
             {
                 //如果是UGUI节点的话就要把它们放在Canvas下了
-                canvas_obj = new GameObject("render canvas", typeof(Canvas));
+                canvas_obj = new GameObject("render canvas", typeof (Canvas));
                 cloneTransform.SetParent(canvas_obj.transform);
                 cloneTransform.localPosition = Vector3.zero;
 
                 canvas_obj.transform.position = new Vector3(-1000, -1000, -1000);
-                canvas_obj.layer = 21;//放在21层，摄像机也只渲染此层的，避免混入了奇怪的东西
+                canvas_obj.layer = 21; //放在21层，摄像机也只渲染此层的，避免混入了奇怪的东西
                 isUINode = true;
             }
             else
@@ -535,30 +588,32 @@ namespace ET
             renderCamera.cullingMask = 1 << 21;
             if (isUINode)
             {
-                cameraObj.transform.position = new Vector3((Max.x + Min.x) / 2f, (Max.y + Min.y) / 2f, cloneTransform.position.z-100);
-                Vector3 center = new Vector3(cloneTransform.position.x+0.01f, (Max.y + Min.y) / 2f, cloneTransform.position.z);//+0.01f是为了去掉Unity自带的摄像机旋转角度为0的打印，太烦人了
+                cameraObj.transform.position = new Vector3((Max.x + Min.x) / 2f, (Max.y + Min.y) / 2f, cloneTransform.position.z - 100);
+                Vector3 center = new Vector3(cloneTransform.position.x + 0.01f, (Max.y + Min.y) / 2f,
+                    cloneTransform.position.z); //+0.01f是为了去掉Unity自带的摄像机旋转角度为0的打印，太烦人了
                 cameraObj.transform.LookAt(center);
 
                 renderCamera.orthographic = true;
                 float width = Max.x - Min.x;
                 float height = Max.y - Min.y;
-                float max_camera_size = width > height ? width : height;
-                renderCamera.orthographicSize = max_camera_size / 2;//预览图要尽量少点空白
+                float max_camera_size = width > height? width : height;
+                renderCamera.orthographicSize = max_camera_size / 2; //预览图要尽量少点空白
             }
             else
             {
                 cameraObj.transform.position = new Vector3((Max.x + Min.x) / 2f, (Max.y + Min.y) / 2f, Max.z + (Max.z - Min.z));
-                Vector3 center = new Vector3(cloneTransform.position.x+0.01f, (Max.y + Min.y) / 2f, cloneTransform.position.z);
+                Vector3 center = new Vector3(cloneTransform.position.x + 0.01f, (Max.y + Min.y) / 2f, cloneTransform.position.z);
                 cameraObj.transform.LookAt(center);
 
-                int angle = (int)(Mathf.Atan2((Max.y - Min.y) / 2, (Max.z - Min.z)) * 180 / 3.1415f * 2);
+                int angle = (int) (Mathf.Atan2((Max.y - Min.y) / 2, (Max.z - Min.z)) * 180 / 3.1415f * 2);
                 renderCamera.fieldOfView = angle;
             }
+
             RenderTexture texture = new RenderTexture(128, 128, 0, RenderTextureFormat.Default);
             renderCamera.targetTexture = texture;
 
             Undo.DestroyObjectImmediate(cameraObj);
-            Undo.PerformUndo();//不知道为什么要删掉再Undo回来后才Render得出来UI的节点，3D节点是没这个问题的，估计是Canvas创建后没那么快有效？
+            Undo.PerformUndo(); //不知道为什么要删掉再Undo回来后才Render得出来UI的节点，3D节点是没这个问题的，估计是Canvas创建后没那么快有效？
             renderCamera.RenderDontRestore();
             RenderTexture tex = new RenderTexture(128, 128, 0, RenderTextureFormat.Default);
             Graphics.Blit(texture, tex);
@@ -640,6 +695,7 @@ namespace ET
                 }
 
                 GameObject childObj = child.gameObject;
+
                 //Debug.Log("child type :" + PrefabUtility.GetPrefabType(child_obj));
 
                 //判断选择的物体，是否为预设  
@@ -660,6 +716,7 @@ namespace ET
             //判断选择的物体，是否为预设  
             var type = PrefabUtility.GetPrefabAssetType(childObj);
             Debug.Log(type);
+
             //不是预设的话说明还没保存过的，弹出保存框
             string default_path = PathSaver.GetInstance().GetLastPath(PathType.SaveLayout);
             string savePath = EditorUtility.SaveFilePanel("Save Layout", default_path, "prefab_name", "prefab");
@@ -685,6 +742,7 @@ namespace ET
             string just_name = Path.GetFileNameWithoutExtension(savePath);
             childObj.name = just_name;
             layout.gameObject.name = just_name + "_Canvas";
+
             //刷新  
             AssetDatabase.Refresh();
             Debug.Log("Save Succeed!");
@@ -698,7 +756,7 @@ namespace ET
         /// <param name="isQuiet"></param>
         public static void SaveLayout(GameObject obj, bool isQuiet)
         {
-            GameObject saveObj = obj == null ? Selection.activeGameObject : obj;
+            GameObject saveObj = obj == null? Selection.activeGameObject : obj;
             if (saveObj == null)
             {
                 EditorUtility.DisplayDialog("Warn", "I don't know which prefab you want to save", "Ok");
@@ -716,13 +774,16 @@ namespace ET
             if (realLayout != null)
             {
                 GameObject childObj = realLayout.gameObject;
+
                 //判断选择的物体，是否为预设  
                 var curPrefabType = PrefabUtility.GetPrefabAssetType(childObj);
                 if (PrefabUtility.GetPrefabAssetType(childObj) == PrefabAssetType.Regular || curPrefabType == PrefabAssetType.MissingAsset)
                 {
                     var path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(childObj);
+
                     //替换预设 只能用ConnectToPrefab,不然会重复加多几个同名控件的
                     PrefabUtility.SaveAsPrefabAssetAndConnect(childObj, path, InteractionMode.UserAction);
+
                     //刷新  
                     AssetDatabase.Refresh();
                     if (!isQuiet)
@@ -751,20 +812,21 @@ namespace ET
         public static string ObjectToGUID(UObject obj)
         {
             string path = AssetDatabase.GetAssetPath(obj);
-            return (!string.IsNullOrEmpty(path)) ? AssetDatabase.AssetPathToGUID(path) : null;
+            return (!string.IsNullOrEmpty(path))? AssetDatabase.AssetPathToGUID(path) : null;
         }
 
         static MethodInfo s_GetInstanceIDFromGUID;
+
         public static UObject GUIDToObject(string guid)
         {
             if (string.IsNullOrEmpty(guid)) return null;
 
             if (s_GetInstanceIDFromGUID == null)
-                s_GetInstanceIDFromGUID = typeof(AssetDatabase).GetMethod("GetInstanceIDFromGUID", BindingFlags.Static | BindingFlags.NonPublic);
+                s_GetInstanceIDFromGUID = typeof (AssetDatabase).GetMethod("GetInstanceIDFromGUID", BindingFlags.Static | BindingFlags.NonPublic);
 
             if (s_GetInstanceIDFromGUID != null)
             {
-                int id = (int)s_GetInstanceIDFromGUID.Invoke(null, new object[] { guid });
+                int id = (int) s_GetInstanceIDFromGUID.Invoke(null, new object[] { guid });
                 if (id != 0)
                 {
                     return EditorUtility.InstanceIDToObject(id);
@@ -777,7 +839,7 @@ namespace ET
                 return null;
             }
 
-            return AssetDatabase.LoadAssetAtPath(path, typeof(Object));
+            return AssetDatabase.LoadAssetAtPath(path, typeof (Object));
         }
 
         public static T GUIDToObject<T>(string guid) where T : UObject
@@ -786,23 +848,22 @@ namespace ET
             if (obj == null) return null;
 
             System.Type objType = obj.GetType();
-            if (objType == typeof(T) || objType.IsSubclassOf(typeof(T)))
+            if (objType == typeof (T) || objType.IsSubclassOf(typeof (T)))
             {
                 return obj as T;
             }
 
-            if (objType == typeof(GameObject) && typeof(T).IsSubclassOf(typeof(Component)))
+            if (objType == typeof (GameObject) && typeof (T).IsSubclassOf(typeof (Component)))
             {
                 GameObject go = obj as GameObject;
                 if (go != null)
                 {
-                    return go.GetComponent(typeof(T)) as T;
+                    return go.GetComponent(typeof (T)) as T;
                 }
             }
 
             return null;
         }
-
 
         public static void AddHorizontalLayoutComponent()
         {
@@ -840,11 +901,9 @@ namespace ET
         {
             SaveAnotherLayoutMenu();
         }
-        #region Public Events
-
-        #endregion
 
         #region Methods
+
         /// <summary>
         /// 获取字符串的MD5值
         /// </summary>
@@ -891,12 +950,7 @@ namespace ET
             GameObject root = GameObject.Find("UIRoot");
             if (!root)
             {
-                var types = new[]
-                {
-                    typeof(Canvas),
-                    typeof(CanvasScaler),
-                    typeof(GraphicRaycaster),
-                };
+                var types = new[] { typeof (Canvas), typeof (CanvasScaler), typeof (GraphicRaycaster), };
 
                 root = new GameObject("UIRoot", types);
                 Transform trans = root.GetComponent<Transform>();
@@ -912,14 +966,35 @@ namespace ET
 
             return root;
         }
+
+        public static void DrawTiledTexture(Rect rect, Texture tex)
+        {
+            GUI.BeginGroup(rect);
+            {
+                int width = Mathf.RoundToInt(rect.width);
+                int height = Mathf.RoundToInt(rect.height);
+
+                for (int y = 0; y < height; y += tex.height)
+                {
+                    for (int x = 0; x < width; x += tex.width)
+                    {
+                        GUI.DrawTexture(new Rect(x, y, tex.width, tex.height), tex);
+                    }
+                }
+            }
+            GUI.EndGroup();
+        }
+
         #endregion
 
         #region Internal Methods
- 
+
         #endregion
 
         #region Internal Fields
+
         private static Configure configure;
+
         #endregion
     }
 }

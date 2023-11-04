@@ -19,6 +19,18 @@
         /// </summary>
         /// <param name="uiBaseWindow"></param>
         void OnRegisterUIEvent(UIBaseWindow uiBaseWindow);
+        
+        /// <summary>
+        /// 当窗口进入焦点
+        /// </summary>
+        /// <param name="uiBaseWindow"></param>
+        void OnFocus(UIBaseWindow uiBaseWindow);
+        
+        /// <summary>
+        /// 当窗口失去焦点
+        /// </summary>
+        /// <param name="uiBaseWindow"></param>
+        void OnUnFocus(UIBaseWindow uiBaseWindow);
 
         /// <summary>
         /// 打开UI窗口的业务逻辑

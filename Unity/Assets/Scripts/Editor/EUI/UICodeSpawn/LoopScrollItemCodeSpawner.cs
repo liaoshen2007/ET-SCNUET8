@@ -21,13 +21,12 @@ namespace ETEditor
 
         static void SpawnCodeForScrollLoopItemViewSystem(GameObject gameObject)
         {
-            if (null == gameObject)
+            if (!gameObject)
             {
                 return;
             }
 
             string strDlgName = gameObject.name;
-
             string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIItemBehaviour";
 
             if (!Directory.Exists(strFilePath))
@@ -63,15 +62,13 @@ namespace ETEditor
 
         static void SpawnCodeForScrollLoopItemBehaviour(GameObject gameObject)
         {
-            if (null == gameObject)
+            if (!gameObject)
             {
                 return;
             }
 
             string strDlgName = gameObject.name;
-                    
             string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIItemBehaviour";
-
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);

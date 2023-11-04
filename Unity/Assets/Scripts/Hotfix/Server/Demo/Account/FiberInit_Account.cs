@@ -16,6 +16,7 @@
             root.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.Port}/");
             root.AddComponent<ServerInfoComponent>();
             root.AddComponent<RoleInfosComponent>();
+            root.AddComponent<AccountComponent>();
 
             await ETTask.CompletedTask;
         }

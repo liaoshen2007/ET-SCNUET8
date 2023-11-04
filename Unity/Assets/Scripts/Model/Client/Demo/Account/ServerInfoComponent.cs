@@ -7,6 +7,6 @@ namespace ET.Client
     {
         public List<ServerInfo> ServerInfoList = new();
 
-        public int CurrentServerId = 0;
+        public int CurrentServerId { get; set; }
     }
 }

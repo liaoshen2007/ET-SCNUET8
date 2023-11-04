@@ -20,6 +20,16 @@
 		{
 			uiBaseWindow.GetComponent<UIMain>().RegisterUIEvent(); 
 		}
+		
+		public void OnFocus(UIBaseWindow uiBaseWindow)
+		{
+			
+		}
+
+		public void OnUnFocus(UIBaseWindow uiBaseWindow)
+		{
+			
+		}
 
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{

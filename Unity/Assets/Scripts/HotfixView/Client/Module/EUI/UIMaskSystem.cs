@@ -31,7 +31,7 @@ namespace ET.Client
             self.Mask = null;
         }
 
-        public static void SetAsLastSibling(this UIMask self, Transform parent)
+        public static void SetActive(this UIMask self, Transform parent)
         {
             self.Mask.Normalize();
             self.Mask.SetParent(parent, false);

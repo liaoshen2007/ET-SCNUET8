@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ETEditor
 {
@@ -106,6 +107,18 @@ namespace ETEditor
                     .AppendLine("\t\t ")
                     .AppendLine("\t\t}")
                     .AppendLine();
+            
+            strBuilder.AppendFormat("\t\tpublic static void Foucs(this {0} self)\n", strDlgName)
+                    .AppendLine("\t\t{")
+                    .AppendLine("\t\t ")
+                    .AppendLine("\t\t}")
+                    .AppendLine();
+            
+            strBuilder.AppendFormat("\t\tpublic static void UnFoucs(this {0} self)\n", strDlgName)
+                    .AppendLine("\t\t{")
+                    .AppendLine("\t\t ")
+                    .AppendLine("\t\t}")
+                    .AppendLine();
 
             strBuilder.AppendFormat("\t\tpublic static void ShowWindow(this {0} self, Entity contextData = null)\n", strDlgName);
             strBuilder.AppendLine("\t\t{")
@@ -167,9 +180,19 @@ namespace ETEditor
 
             strBuilder.AppendLine("\t\tpublic void OnRegisterUIEvent(UIBaseWindow uiBaseWindow)")
                     .AppendLine("\t\t{");
-
             strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().RegisterUIEvent(); \r\n", strDlgName);
-
+            strBuilder.AppendLine("\t\t}")
+                    .AppendLine();
+            
+            strBuilder.AppendLine("\t\tpublic void OnFocus(UIBaseWindow uiBaseWindow)")
+                    .AppendLine("\t\t{");
+            strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().Focus(); \r\n", strDlgName);
+            strBuilder.AppendLine("\t\t}")
+                    .AppendLine();
+            
+            strBuilder.AppendLine("\t\tpublic void OnUnFocus(UIBaseWindow uiBaseWindow)")
+                    .AppendLine("\t\t{");
+            strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().UnFocus(); \r\n", strDlgName);
             strBuilder.AppendLine("\t\t}")
                     .AppendLine();
 
@@ -209,6 +232,11 @@ namespace ETEditor
             }
 
             strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UI/" + strDlgName + "/" + strDlgName + ".cs";
+            if (File.Exists(strFilePath))
+            {
+                return;
+            }
+            
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
             StringBuilder strBuilder = new StringBuilder();
 
@@ -260,6 +288,18 @@ namespace ETEditor
             strBuilder.AppendFormat("\t\tprotected override void Awake({0} self)\n", strDlgComponentName);
             strBuilder.AppendLine("\t\t{");
             strBuilder.AppendLine("\t\t\tself.uiTransform = self.GetParent<UIBaseWindow>().UITransform;");
+            if (Path2WidgetCachedDict.TryGetValue("E_CloseBtn", out var list))
+            {
+                foreach (var v in list)
+                {
+                    if (v is Button)
+                    {
+                        strBuilder.AppendLine("\t\t\tself.RegisterCloseEvent(self.E_CloseBtnButton);");
+                        break;
+                    }   
+                }
+            } 
+            
             strBuilder.AppendLine("\t\t}");
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("\n");
@@ -269,7 +309,7 @@ namespace ETEditor
             strBuilder.AppendLine("\t{");
             strBuilder.AppendFormat("\t\tprotected override void Destroy({0} self)", strDlgComponentName);
             strBuilder.AppendLine("\n\t\t{");
-            strBuilder.AppendFormat("\t\t\tself.DestroyWidget();\r\n");
+            strBuilder.AppendLine("\t\t\tself.DestroyWidget();\r\n");
             strBuilder.AppendLine("\t\t}");
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("}");
@@ -309,7 +349,7 @@ namespace ETEditor
             CreateWidgetBindCode(ref strBuilder, gameObject.transform);
 
             CreateDestroyWidgetCode(ref strBuilder);
-
+            
             CreateDeclareCode(ref strBuilder);
             strBuilder.AppendFormat("\t\tpublic Transform uiTransform = null;\r\n");
             strBuilder.AppendLine("\t}");
@@ -543,7 +583,6 @@ namespace ETEditor
         {
             WidgetInterfaceList = new List<string>();
             WidgetInterfaceList.Add("Button");
-            WidgetInterfaceList.Add("Text");
             WidgetInterfaceList.Add("ExtendText");
             WidgetInterfaceList.Add("Input");
             WidgetInterfaceList.Add("InputField");
@@ -553,7 +592,6 @@ namespace ETEditor
             WidgetInterfaceList.Add("Dropdown");
             WidgetInterfaceList.Add("Slider");
             WidgetInterfaceList.Add("ScrollRect");
-            WidgetInterfaceList.Add("Image");
             WidgetInterfaceList.Add("ExtendImage");
             WidgetInterfaceList.Add("RawImage");
             WidgetInterfaceList.Add("Canvas");

@@ -276,7 +276,7 @@ namespace ET.Client
         /// </summary>
         /// <OtherParam name="self"></OtherParam>
         /// <OtherParam name="closeButton"></OtherParam>
-        public static void RegisterCloseEvent<T>(this Entity self, Button closeButton, bool isClose = false) where T : Entity, IAwake, IUILogic
+        public static void RegisterCloseEvent(this Entity self, Button closeButton, bool isClose = false)
         {
             closeButton.onClick.RemoveAllListeners();
             if (isClose)

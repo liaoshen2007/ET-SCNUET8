@@ -18,7 +18,7 @@ namespace ET.Client
 			return this;
 		}
 
-		public Image EI_serverTestImage
+		public Button E_ServerButton
      	{
      		get
      		{
@@ -30,22 +30,22 @@ namespace ET.Client
 
      			if (isCacheNode)
      			{
-     				if( m_EI_serverTestImage == null )
+     				if( m_E_ServerButton == null )
      				{
-		    			m_EI_serverTestImage = UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"EI_serverTest");
+		    			m_E_ServerButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Server");
      				}
 
-     				return m_EI_serverTestImage;
+     				return m_E_ServerButton;
      			}
      			else
      			{
 
-		    		return UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"EI_serverTest");
+		    		return UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Server");
      			}
      		}
      	}
 
-		public Button E_SelectButton
+		public ExtendImage E_ServerExtendImage
      	{
      		get
      		{
@@ -57,22 +57,22 @@ namespace ET.Client
 
      			if (isCacheNode)
      			{
-     				if( m_E_SelectButton == null )
+     				if( m_E_ServerExtendImage == null )
      				{
-		    			m_E_SelectButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Select");
+		    			m_E_ServerExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Server");
      				}
 
-     				return m_E_SelectButton;
+     				return m_E_ServerExtendImage;
      			}
      			else
      			{
 
-		    		return UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Select");
+		    		return UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Server");
      			}
      		}
      	}
 
-		public Image E_SelectImage
+		public ExtendText E_NameExtendText
      	{
      		get
      		{
@@ -84,22 +84,22 @@ namespace ET.Client
 
      			if (isCacheNode)
      			{
-     				if( m_E_SelectImage == null )
+     				if( m_E_NameExtendText == null )
      				{
-		    			m_E_SelectImage = UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"E_Select");
+		    			m_E_NameExtendText = UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"E_Name");
      				}
 
-     				return m_E_SelectImage;
+     				return m_E_NameExtendText;
      			}
      			else
      			{
 
-		    		return UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"E_Select");
+		    		return UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"E_Name");
      			}
      		}
      	}
 
-		public Text E_serverTestTipText
+		public ExtendImage E_TagExtendImage
      	{
      		get
      		{
@@ -111,34 +111,34 @@ namespace ET.Client
 
      			if (isCacheNode)
      			{
-     				if( m_E_serverTestTipText == null )
+     				if( m_E_TagExtendImage == null )
      				{
-		    			m_E_serverTestTipText = UIFindHelper.FindDeepChild<Text>(uiTransform.gameObject,"E_serverTestTip");
+		    			m_E_TagExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Tag");
      				}
 
-     				return m_E_serverTestTipText;
+     				return m_E_TagExtendImage;
      			}
      			else
      			{
 
-		    		return UIFindHelper.FindDeepChild<Text>(uiTransform.gameObject,"E_serverTestTip");
+		    		return UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Tag");
      			}
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			m_EI_serverTestImage = null;
-			m_E_SelectButton = null;
-			m_E_SelectImage = null;
-			m_E_serverTestTipText = null;
+			m_E_ServerButton = null;
+			m_E_ServerExtendImage = null;
+			m_E_NameExtendText = null;
+			m_E_TagExtendImage = null;
 			uiTransform = null;
 		}
 
-		private Image m_EI_serverTestImage = null;
-		private Button m_E_SelectButton = null;
-		private Image m_E_SelectImage = null;
-		private Text m_E_serverTestTipText = null;
+		private Button m_E_ServerButton = null;
+		private ExtendImage m_E_ServerExtendImage = null;
+		private ExtendText m_E_NameExtendText = null;
+		private ExtendImage m_E_TagExtendImage = null;
 		public Transform uiTransform = null;
 	}
 }
