@@ -5,8 +5,30 @@ namespace ET.Client
     [FriendOf(typeof (UILogin))]
     [FriendOf(typeof (Account))]
     [FriendOf(typeof (ServerInfoComponent))]
-    public static class UILoginSystem
+    [EntitySystemOf(typeof (UILogin))]
+    public static partial class UILoginSystem
     {
+        [Invoke(TimerInvokeType.ClientServerCheck)]
+        private class ServerCheckTimer: ATimer<UILogin>
+        {
+            protected override void Run(UILogin self)
+            {
+                self.QueryServer().Coroutine();
+            }
+        }
+
+        [EntitySystem]
+        private static void Awake(this UILogin self)
+        {
+            self.TimerId = self.Fiber().TimerComponent.NewRepeatedTimer(10 * 1000, TimerInvokeType.ClientServerCheck, self);
+        }
+
+        [EntitySystem]
+        private static void Destroy(this UILogin self)
+        {
+            self.Fiber().TimerComponent.Remove(ref self.TimerId);
+        }
+
         public static void RegisterUIEvent(this UILogin self)
         {
             self.View.E_LoginBtnButton.AddListenerAsync(self.OnLoginClick);

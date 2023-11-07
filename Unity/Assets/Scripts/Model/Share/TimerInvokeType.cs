@@ -26,7 +26,9 @@
         /// 监听服
         /// </summary>
         public const int WatcherCheck = 312;
-
         public const int ServerCheck = 313;
+        
+        // 客户端1000起
+        public const int ClientServerCheck = 1000;
     }
 }
