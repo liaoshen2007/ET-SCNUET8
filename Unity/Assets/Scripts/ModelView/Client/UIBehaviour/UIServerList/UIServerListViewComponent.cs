@@ -25,25 +25,6 @@ namespace ET.Client
      		}
      	}
 
-		public LoopVerticalScrollRect E_ServerTabListLoopVerticalScrollRect
-     	{
-     		get
-     		{
-     			if (uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-
-     			if( m_E_ServerTabListLoopVerticalScrollRect == null )
-     			{
-		    		m_E_ServerTabListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(uiTransform.gameObject,"Panel/E_ServerTabList");
-     			}
-
-     			return m_E_ServerTabListLoopVerticalScrollRect;
-     		}
-     	}
-
 		public LoopVerticalScrollRect E_ServerListLoopVerticalScrollRect
      	{
      		get
@@ -104,7 +85,6 @@ namespace ET.Client
 		public void DestroyWidget()
 		{
 			m_E_TitleExtendText = null;
-			m_E_ServerTabListLoopVerticalScrollRect = null;
 			m_E_ServerListLoopVerticalScrollRect = null;
 			m_E_CloseBtnButton = null;
 			m_E_CloseBtnExtendImage = null;
@@ -112,7 +92,6 @@ namespace ET.Client
 		}
 
 		private ExtendText m_E_TitleExtendText = null;
-		private LoopVerticalScrollRect m_E_ServerTabListLoopVerticalScrollRect = null;
 		private LoopVerticalScrollRect m_E_ServerListLoopVerticalScrollRect = null;
 		private Button m_E_CloseBtnButton = null;
 		private ExtendImage m_E_CloseBtnExtendImage = null;

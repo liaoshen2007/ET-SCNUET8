@@ -10,6 +10,6 @@ namespace ET.Client
             get => GetParent<UIBaseWindow>().GetComponent<UIServerListViewComponent>();
         }
 
-        public Dictionary<int, Scroll_Item_Server> ScrollItemServerTests;
+        public Dictionary<int, Scroll_Item_Server> ItemServerDict;
     }
 }

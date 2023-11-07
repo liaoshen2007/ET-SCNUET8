@@ -19,19 +19,19 @@ namespace ET.Client
         {
             var serverCom = self.Scene().GetComponent<ServerInfoComponent>();
             int count = serverCom.ServerInfoList.Count;
-            self.AddUIScrollItems(ref self.ScrollItemServerTests, count);
+            self.AddUIScrollItems(ref self.ItemServerDict, count);
             self.View.E_ServerListLoopVerticalScrollRect.SetVisible(true, count);
         }
 
         public static void HideWindow(this UIServerList self)
         {
-            self.RemoveUIScrollItems(ref self.ScrollItemServerTests);
+            self.RemoveUIScrollItems(ref self.ItemServerDict);
             self.View.E_ServerListLoopVerticalScrollRect.ClearPool();
         }
 
         private static void OnScrollItemRefreshHandler(this UIServerList self, Transform transform, int index)
         {
-            var serverTest = self.ScrollItemServerTests[index].BindTrans(transform);
+            var serverTest = self.ItemServerDict[index].BindTrans(transform);
             ServerInfo info = self.Scene().GetComponent<ServerInfoComponent>().ServerInfoList[index];
             serverTest.E_NameExtendText.SetText(info.ServerName);
             serverTest.E_ServerButton.AddListener(() => { self.OnSelectServerItemHandler(info.Id); });
