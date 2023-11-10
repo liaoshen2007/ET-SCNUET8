@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 namespace ET
 {
-    [RequireComponent(typeof(RectTransform))]
-    public class DragableUIElement : MonoBehaviour, 
-        IInitializePotentialDragHandler, 
-        IBeginDragHandler,
-        IDragHandler,
-        IEndDragHandler
+    [RequireComponent(typeof (RectTransform))]
+    public class DragableUIElement: MonoBehaviour,
+            IInitializePotentialDragHandler,
+            IBeginDragHandler,
+            IDragHandler,
+            IEndDragHandler
     {
         private List<Selectable> cache = new List<Selectable>();
 
         public void OnInitializePotentialDrag(PointerEventData eventData)
         {
+            
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -27,15 +28,14 @@ namespace ET
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(
-                (RectTransform) transform.parent, 
-                eventData.position,
-                Camera.main))
+            var uiCamera = Global.Instance.UICamera;
+            if (RectTransformUtility.RectangleContainsScreenPoint((RectTransform) transform.parent,
+                    eventData.position,
+                    uiCamera))
             {
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    (RectTransform) transform.parent
+                RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform) transform.parent
                     , eventData.position
-                    , Camera.main
+                    , uiCamera
                     , out var localPos);
                 transform.localPosition = localPos;
             }

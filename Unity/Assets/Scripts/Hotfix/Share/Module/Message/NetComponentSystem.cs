@@ -3,6 +3,9 @@ using System.Net.Sockets;
 
 namespace ET
 {
+    /// <summary>
+    /// 外网挂这个组件
+    /// </summary>
     [EntitySystemOf(typeof(NetComponent))]
     [FriendOf(typeof(NetComponent))]
     public static partial class NetComponentSystem
