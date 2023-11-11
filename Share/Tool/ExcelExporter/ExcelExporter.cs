@@ -68,6 +68,7 @@ namespace ET
         private const string clientProtoDir = "../Unity/Assets/Bundles/Config";
         private const string serverProtoDir = "../Config/Excel/{0}/{1}";
         private const string numericPath = "../Unity/Assets/Scripts/Model/Share/Module/Numeric/NumericType.cs";
+        private const string windowPath = "../Unity/Assets/Scripts/ModelView/Client/Module/EUI/WindowId.cs";
         private static Assembly[] configAssemblies = new Assembly[3];
 
         private static Dictionary<string, Table> tables = new Dictionary<string, Table>();
@@ -193,7 +194,9 @@ namespace ET
                 
                 Log.Console("Export Excel Sucess!");
                 ExportNumeric();
-                Log.Console("Export Numeric Sucess!");
+                Log.Console("Export Numeric Sucess!");                
+                ExportWindow();
+                Log.Console("Export Window Sucess!");
             }
             catch (Exception e)
             {
@@ -612,8 +615,8 @@ namespace ET
             file.Write(final.ToBson());
         }
         
-                /// <summary>
-        /// 到处属性类型
+        /// <summary>
+        /// 导出属性类型
         /// </summary>
         private static void ExportNumeric()
         {
@@ -677,7 +680,64 @@ namespace ET
                 }
             }
 
+            sb.Remove(sb.Length - 3, 3);
             using FileStream txt = new FileStream(numericPath, FileMode.Create);
+            using StreamWriter sw = new StreamWriter(txt);
+            var result = template.Replace("(fields)", sb.ToString());
+            sw.Write(result);
+        }
+        
+        /// <summary>
+        /// 导出窗口类型
+        /// </summary>
+        private static void ExportWindow()
+        {
+            static void AppendDesc(string desc, StringBuilder stringBuilder)
+            {
+                if (!desc.IsNullOrEmpty())
+                {
+                    stringBuilder.Append("\t\t/// <summary>\n");
+                    stringBuilder.AppendFormat($"\t\t/// {desc}\n");
+                    stringBuilder.Append("\t\t/// </summary>\n");
+                }
+            }
+
+            var path = Path.GetFullPath(excelDir + "/Window@c.xlsx");
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            ExcelPackage p = GetPackage(Path.GetFullPath(path));
+            template = File.ReadAllText("Window.txt");
+            var sb = new StringBuilder();
+            string format = "\t\tWin_{0},\n";
+            foreach (ExcelWorksheet worksheet in p.Workbook.Worksheets)
+            {
+                if (worksheet.Name.StartsWith("#"))
+                {
+                    continue;
+                }
+
+                for (int row = 6; row <= worksheet.Dimension.End.Row; ++row)
+                {
+                    var fieldType = worksheet.Cells[5, 3].Text.Trim();
+                    var v = Convert(fieldType, worksheet.Cells[row, 3].Text.Trim());
+                    if (v.IsNullOrEmpty() || v == "0")
+                    {
+                        continue;
+                    }
+
+                    var desc = worksheet.Cells[row, 4].Text.Trim();
+                    var t = Convert(fieldType, worksheet.Cells[row, 5].Text.Trim());
+                    AppendDesc(desc, sb);
+                    sb.AppendFormat(format, t);
+                    sb.AppendLine();
+                }
+            }
+            
+            sb.Remove(sb.Length - 3, 3);
+            using FileStream txt = new FileStream(windowPath, FileMode.Create);
             using StreamWriter sw = new StreamWriter(txt);
             var result = template.Replace("(fields)", sb.ToString());
             sw.Write(result);

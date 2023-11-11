@@ -236,7 +236,5 @@ namespace ET
 		/// 血量
 		/// </summary>
 		public const int Hp = 3008;
-
-
 	}
 }

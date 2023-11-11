@@ -1,0 +1,5 @@
+{"dict": [
+[1001, {"_t":"Window","_id":1001,"Title":"登录","Type":"Login","HelpId":0,"CurrencyID":0,"Path":"Login/UILogin"}],
+[1002, {"_t":"Window","_id":1002,"Title":"服务器列表","Type":"ServerList","HelpId":0,"CurrencyID":0,"Path":"Login/UIServerList"}],
+[1003, {"_t":"Window","_id":1003,"Title":"主窗口","Type":"Main","HelpId":0,"CurrencyID":0,"Path":"Main/UIMain"}],
+]}

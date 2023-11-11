@@ -17,7 +17,8 @@
         /// <returns></returns>
         public static string ToUIPath(this string fileName)
         {
-            return $"Assets/Bundles/UI/Window/{fileName}/UI{fileName}.prefab";
+            var winCfg = WindowCategory.Instance.GetWindow(fileName);
+            return $"Assets/Bundles/UI/Window/{winCfg.Path}.prefab";
         }
         
         public static string ToUISpriteAtlasPath( this string fileName)

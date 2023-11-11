@@ -1,0 +1,3 @@
+{"dict": [
+[11001, {"_t":"Item","_id":11001,"ItemMode":0,"ModeArgs":[],"Quality":7,"Type":0,"LackTip":""}],
+]}
