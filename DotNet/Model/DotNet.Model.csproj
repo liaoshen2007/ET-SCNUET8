@@ -49,8 +49,8 @@
         <ProjectReference Include="..\ThirdParty\DotNet.ThirdParty.csproj" />
     </ItemGroup> 
     <ItemGroup>
-      <Folder Include="..\..\Unity\Assets\Scripts\Model\Server\Demo\Game\">
-        <Link>Server\Demo\Game</Link>
+      <Folder Include="..\..\Unity\Assets\Scripts\Model\Server\Demo\Map\Item\">
+        <Link>Server\Demo\Map\Item</Link>
       </Folder>
       <Folder Include="Client\LockStep\" />
     </ItemGroup>

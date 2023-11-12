@@ -180,8 +180,8 @@ namespace ET.Client
         /// <summary>
         /// 根据指定Id的显示UI窗口
         /// </summary>
-        /// <OtherParam name="id"></OtherParam>
-        /// <OtherParam name="showData"></OtherParam>
+        /// <OtherParam name="id">窗口类型ID</OtherParam>
+        /// <OtherParam name="showData">窗口透传参数</OtherParam>
         public static void ShowWindow(this UIComponent self, WindowID id, ShowWindowData showData = null)
         {
             UIBaseWindow baseWindow = self.ReadyToShowBaseWindow(id);
@@ -194,8 +194,8 @@ namespace ET.Client
         /// <summary>
         /// 根据泛型类型显示UI窗口
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="showData"></param>
+        /// <param name="self">UI组件</param>
+        /// <param name="showData">窗口透传参数</param>
         /// <typeparam name="T"></typeparam>
         public static void ShowWindow<T>(this UIComponent self, ShowWindowData showData = null) where T : Entity, IUILogic
         {
@@ -206,9 +206,9 @@ namespace ET.Client
         /// <summary>
         /// 根据指定Id的异步加载显示UI窗口
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="id"></param>
-        /// <param name="showData"></param>
+        /// <param name="self">UI组件</param>
+        /// <param name="id">窗口类型ID</param>
+        /// <param name="showData">窗口透传参数</param>
         public static async ETTask ShowWindowAsync(this UIComponent self, WindowID id, ShowWindowData showData = null)
         {
             UIBaseWindow baseWindow = self.GetUIBaseWindow(id);

@@ -163,6 +163,7 @@ namespace ET.Client
 
         private static void OnEnterGameClick(this UILogin self)
         {
+            
         }
     }
 }

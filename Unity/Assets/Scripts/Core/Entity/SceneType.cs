@@ -53,11 +53,6 @@ namespace ET
         Rank = 1 << 22,
 
         /// <summary>
-        /// 游戏服
-        /// </summary>
-        Game = 1 << 23,
-        
-        /// <summary>
         /// 账号服
         /// </summary>
         Account = 1 << 24,
