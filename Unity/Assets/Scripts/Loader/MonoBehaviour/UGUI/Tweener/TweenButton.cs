@@ -28,7 +28,7 @@ namespace ET
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
-            scaleTweener?.PlayReverse();
+            scaleTweener.PlayReverse();
         }
 
         protected void OnDestroy()

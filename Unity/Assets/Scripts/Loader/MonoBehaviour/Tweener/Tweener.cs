@@ -204,7 +204,7 @@ namespace ET
             }
 
             IsPlaying = false;
-            TweenManager.UnRegisterTweener(this);
+            TweenManager.Instance.UnRegisterTweener(this);
             if (forceToEnd)
             {
                 Sample(1, true);
@@ -233,7 +233,7 @@ namespace ET
                 Stop(false, complete);
                 OnKill?.Invoke(this);
                 OnKilled();
-                TweenManager.OnKill(this);
+                TweenManager.Instance.OnKill(this);
             }
             catch (Exception e)
             {
@@ -340,18 +340,18 @@ namespace ET
 
             OnCompleted();
         }
+        
+        private void UpdatePerDelta(bool forward)
+        {
+            amountPerDelta = Mathf.Abs(amountPerDelta);
+            if (!forward)
+            {
+                amountPerDelta = -amountPerDelta;
+            }
+        }
 
         private void Play(bool forward)
         {
-            void UpdatePerDelta()
-            {
-                amountPerDelta = Mathf.Abs(amountPerDelta);
-                if (!forward)
-                {
-                    amountPerDelta = -amountPerDelta;
-                }
-            }
-
             if (kill)
             {
                 Log.Error("无法播放已经销毁的动画");
@@ -364,15 +364,15 @@ namespace ET
                 if (IsReverse != forward)
                 {
                     IsReverse = forward;
-                    UpdatePerDelta();
+                    UpdatePerDelta(forward);
                 }
 
                 return;
             }
 
-            UpdatePerDelta();
+            UpdatePerDelta(forward);
             IsPlaying = true;
-            TweenManager.RegisterTweener(this);
+            TweenManager.Instance.RegisterTweener(this);
             try
             {
                 OnStart?.Invoke(this);
@@ -388,10 +388,10 @@ namespace ET
         {
             void Finish()
             {
-                factor = Math.Max(Math.Min(factor, 1), 0);
+                factor = this.IsReverse ?1f : 0f;
                 Sample(factor, true);
                 IsPlaying = false;
-                TweenManager.UnRegisterTweener(this);
+                TweenManager.Instance.UnRegisterTweener(this);
                 Complete();
             }
 

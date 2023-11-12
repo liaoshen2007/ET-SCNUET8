@@ -79,7 +79,7 @@ namespace ET
         #region Internal Methods
         protected virtual void Awake()
         {
-            tweener = TweenManager.CreateTweener<Tweener>();
+            tweener = TweenManager.Instance.CreateTweener<Tweener>();
             tweener.UpdateFactor = OnUpdate;
         }
 

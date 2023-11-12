@@ -101,7 +101,7 @@ namespace ET
             var tween = GetTween(target);
             if (tween != null)
             {
-                TweenManager.Kill(tween, complete);
+                TweenManager.Instance.Kill(tween, complete);
             }
         }
 
@@ -112,7 +112,7 @@ namespace ET
         /// <returns></returns>
         public static Tweener GetTween(object target)
         {
-            return TweenManager.GetTween(target, TweenPropType.None);
+            return TweenManager.Instance.GetTween(target, TweenPropType.None);
         }
 
         /// <summary>
@@ -123,12 +123,12 @@ namespace ET
         /// <returns></returns>
         public static Tweener GetTween(object target, TweenPropType propType)
         {
-            return TweenManager.GetTween(target, propType);
+            return TweenManager.Instance.GetTween(target, propType);
         }
 
         private static UTweener CreateTween()
         {
-            return TweenManager.CreateTweener<UTweener>();
+            return TweenManager.Instance.CreateTweener<UTweener>();
         }
     }
 }

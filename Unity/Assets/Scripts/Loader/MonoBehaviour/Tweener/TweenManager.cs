@@ -7,15 +7,14 @@ namespace ET
     /// <summary>
     /// 动画管理器
     /// </summary>
-    internal class TweenManager: MonoBehaviour
+    [Code]
+    public class TweenManager: Singleton<TweenManager>, ISingletonAwake, ISingletonUpdate
     {
-        #region Methods
-
         /// <summary>
         /// 创建Tweener
         /// </summary>
         /// <returns></returns>
-        public static T CreateTweener<T>() where T : Tweener
+        public T CreateTweener<T>() where T : Tweener
         {
             var t = ObjectPool.Instance.Fetch(typeof (T));
             var tweenr = (T) t;
@@ -23,27 +22,17 @@ namespace ET
             return tweenr;
         }
 
-        #endregion
-
-        #region Internal Methods
-
-        static TweenManager()
+        public void Awake()
         {
-            var tween = new GameObject("TweenManager");
-            tween.AddComponent<TweenManager>();
-            DontDestroyOnLoad(tween);
-
             fixedUpdatedList = new List<Tweener>();
             updatedList = new List<Tweener>();
-
-            CodeLoader.Instance.OnApplicationQuit += OnQuit;
         }
 
         /// <summary>
         /// 注册动画到动画更新字典中
         /// </summary>
         /// <param name="tweener">要注册的动画</param>
-        internal static void RegisterTweener(Tweener tweener)
+        internal void RegisterTweener(Tweener tweener)
         {
             Thrower.IsNotNull(tweener);
             if (tweener.UseFixedUpdate)
@@ -56,7 +45,6 @@ namespace ET
                 }
 
                 fixedUpdatedList.Add(tweener);
-                tweenCount++;
             }
             else
             {
@@ -68,7 +56,6 @@ namespace ET
                 }
 
                 updatedList.Add(tweener);
-                tweenCount++;
             }
         }
 
@@ -76,28 +63,15 @@ namespace ET
         /// 取消动画更新
         /// </summary>
         /// <param name="tweener">要取消更新的动画</param>
-        internal static bool UnRegisterTweener(Tweener tweener)
+        internal bool UnRegisterTweener(Tweener tweener)
         {
             Thrower.IsNotNull(tweener);
-            bool success;
             if (tweener.UseFixedUpdate)
             {
-                success = fixedUpdatedList.Remove(tweener);
-                if (success)
-                {
-                    tweenCount--;
-                }
-
-                return success;
+                return fixedUpdatedList.Remove(tweener);
             }
 
-            success = updatedList.Remove(tweener);
-            if (success)
-            {
-                tweenCount--;
-            }
-
-            return success;
+            return updatedList.Remove(tweener);
         }
 
         /// <summary>
@@ -105,18 +79,18 @@ namespace ET
         /// </summary>
         /// <param name="tweener">要销毁的动画</param>
         /// <param name="complete"></param>
-        internal static void Kill(Tweener tweener, bool complete)
+        internal void Kill(Tweener tweener, bool complete)
         {
             tweener.Kill(complete);
         }
 
-        internal static void OnKill(Tweener tweener)
+        internal void OnKill(Tweener tweener)
         {
             tweener.Reset();
             ObjectPool.Instance.Recycle(tweener);
         }
 
-        internal static Tweener GetTween(object target)
+        internal Tweener GetTween(object target)
         {
             foreach (var tweener in updatedList)
             {
@@ -137,7 +111,7 @@ namespace ET
             return null;
         }
 
-        internal static Tweener GetTween(object target, TweenPropType propType)
+        internal Tweener GetTween(object target, TweenPropType propType)
         {
             foreach (var tweener in updatedList)
             {
@@ -158,37 +132,34 @@ namespace ET
             return null;
         }
 
-        private void Update()
+        void ISingletonUpdate.Update()
         {
+            var deltaTime = Time.deltaTime;
+            var time = Time.time;
             for (int i = 0; i < updatedList.Count; i++)
             {
                 var item = updatedList[i];
                 try
                 {
-                    item.Update(Time.deltaTime, Time.time);
+                    item.Update(deltaTime, time);
                 }
                 catch (Exception e)
                 {
                     Log.Error(e);
                 }
             }
-
-            if (Application.isEditor)
-            {
-                playerCount = tweenCount;
-                cacheCount = ObjectPool.Instance.GetCount(typeof (Tweener));
-                totalCount = tweenCount + this.playerCount;
-            }
         }
 
-        private void FixedUpdate()
+        internal void FixedUpdate()
         {
+            var deltaTime = Time.fixedDeltaTime;
+            var time = Time.time;
             for (int i = 0; i < fixedUpdatedList.Count; i++)
             {
                 var item = fixedUpdatedList[i];
                 try
                 {
-                    item.Update(Time.deltaTime, Time.time);
+                    item.Update(deltaTime, time);
                 }
                 catch (Exception e)
                 {
@@ -197,7 +168,7 @@ namespace ET
             }
         }
 
-        private static void OnQuit()
+        public override void Dispose()
         {
             for (int i = 0; i < updatedList.Count; i++)
             {
@@ -213,26 +184,11 @@ namespace ET
 
             fixedUpdatedList.Clear();
             updatedList.Clear();
+            
+            base.Dispose();
         }
 
-        #endregion
-
-        #region Internal Fields
-
-        [SerializeField]
-        private int playerCount;
-
-        [SerializeField]
-        private int cacheCount;
-
-        [SerializeField]
-        private int totalCount;
-
-        private static int tweenCount;
-
-        private static List<Tweener> fixedUpdatedList;
-        private static List<Tweener> updatedList;
-
-        #endregion
+        private List<Tweener> fixedUpdatedList;
+        private List<Tweener> updatedList;
     }
 }

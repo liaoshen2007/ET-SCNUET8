@@ -8,6 +8,7 @@ namespace ET
 	{
 		private void Start()
 		{
+			Application.targetFrameRate = 60;
 			this.StartAsync().Coroutine();
 		}
 		
@@ -43,12 +44,14 @@ namespace ET
 
 		private void Update()
 		{
+			World.Instance.Update();
 			TimeInfo.Instance.Update();
 			FiberManager.Instance.Update();
 		}
 
 		private void LateUpdate()
 		{
+			World.Instance.LateUpdate();;
 			FiberManager.Instance.LateUpdate();
 		}
 

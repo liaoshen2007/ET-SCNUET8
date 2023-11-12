@@ -83,6 +83,28 @@ namespace ET
             return singleton;
         }
 
+        public void Update()
+        {
+            foreach (var kv in this.singletons)
+            {
+                if (kv.Value is ISingletonUpdate update)
+                {
+                    update.Update();
+                }
+            }
+        }
+        
+        public void LateUpdate()
+        {
+            foreach (var kv in this.singletons)
+            {
+                if (kv.Value is ISingletonLateUpdate update)
+                {
+                    update.LateUpdate();
+                }
+            }
+        }
+        
         public void AddSingleton(ASingleton singleton)
         {
             lock (this)
