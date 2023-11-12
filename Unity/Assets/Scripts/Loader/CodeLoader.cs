@@ -14,6 +14,8 @@ namespace ET
         private Dictionary<string, TextAsset> dlls;
         private Dictionary<string, TextAsset> aotDlls;
 
+        public Action OnApplicationQuit;
+        
         public void Awake()
         {
         }
@@ -120,6 +122,7 @@ namespace ET
             CodeTypes codeTypes = World.Instance.AddSingleton<CodeTypes, Assembly[]>(new[] { typeof(World).Assembly, typeof(Init).Assembly, this.assembly, hotfixAssembly });
             codeTypes.CreateCode();
 
+            FiberManager.Instance.Load();
             Log.Debug($"reload dll finish!");
         }
     }
