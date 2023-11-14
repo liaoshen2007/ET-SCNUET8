@@ -319,6 +319,40 @@ message M2C_UpdateUnitShield // IMessage
   map<int32, int64> KV = 2;
 }
 
+//任务
+message TaskProto
+{
+  int32 Id = 1;
+  repeated int64 Args = 2;
+  int64 Min = 3;
+  int64 Max = 4;
+  int32 Status = 5;
+  int64 Time = 6;
+}
+
+// 更新任务
+message M2C_UpdateTask //ILocationMessage
+{
+  repeated TaskProto List = 1;
+}
+
+// 删除任务
+message M2C_DeleteTask //ILocationMessage
+{
+  repeated int32 List = 1;
+}
+
+// 提交任务
+//ResponseType M2C_CommitTask
+message C2M_CommitTask //ILocationRequest
+{
+  int32 Id = 1;
+}
+
+message M2C_CommitTask //ILocationResponse
+{
+}
+
 message RankRoleInfoProto
 {
 	string Name = 1;

@@ -40,5 +40,8 @@ namespace ET
         /// 输入参数有误
         /// </summary>
         public const int ERR_InputInvaid = 210003;
+        
+        public const int ERR_GSCmdError = 210004;
+        public const int ERR_GSCmdNotFound = 210004;
     }
 }

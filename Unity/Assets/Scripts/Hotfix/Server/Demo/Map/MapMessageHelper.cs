@@ -31,7 +31,7 @@ namespace ET.Server
             }
         }
         
-        public static void SendToClient(Unit unit, IMessage message)
+        public static void SendToClient(this Unit unit, IMessage message)
         {
             unit.Root().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession).Send(unit.Id, message);
         }

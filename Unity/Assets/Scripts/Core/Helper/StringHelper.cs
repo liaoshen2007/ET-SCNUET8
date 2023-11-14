@@ -6,8 +6,39 @@ using System.Text;
 
 namespace ET
 {
+	public class CmdArg
+	{
+		public string Cmd { get; set; }
+		public List<long> Args { get; set; }
+	}
+	
 	public static class StringHelper
 	{
+		public static List<CmdArg> ParseCmdArgs(this string cmdStr)
+		{
+			List<CmdArg> cmdArgs = new List<CmdArg>();
+			if (string.IsNullOrEmpty(cmdStr))
+			{
+				return cmdArgs;
+			}
+			
+			var ll1 = cmdStr.Split(';', StringSplitOptions.RemoveEmptyEntries);
+			foreach (string s in ll1)
+			{
+				CmdArg arg = new CmdArg();
+				string[] ll2 = s.Split(':', StringSplitOptions.RemoveEmptyEntries);
+				arg.Cmd = ll2[0];
+				arg.Args = new List<long>();
+				for (int i = 1; i < ll2.Length; i++)
+				{
+					long.TryParse(ll2[i], out long v);
+					arg.Args.Add(v);
+				}
+			}
+			
+			return cmdArgs;
+		}
+
 		public static IEnumerable<byte> ToBytes(this string str)
 		{
 			byte[] byteArray = Encoding.Default.GetBytes(str);
