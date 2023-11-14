@@ -20,13 +20,13 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this UILogin self)
         {
-            self.TimerId = self.Fiber().TimerComponent.NewRepeatedTimer(10 * 1000, TimerInvokeType.ClientServerCheck, self);
+            self.TimerId = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(10 * 1000, TimerInvokeType.ClientServerCheck, self);
         }
 
         [EntitySystem]
         private static void Destroy(this UILogin self)
         {
-            self.Fiber().TimerComponent.Remove(ref self.TimerId);
+            self.Fiber().Root.GetComponent<TimerComponent>().Remove(ref self.TimerId);
         }
 
         public static void RegisterUIEvent(this UILogin self)

@@ -16,7 +16,7 @@ public static partial class RankComponentSystem
     [EntitySystem]
     private static void Destroy(this RankComponent self)
     {
-        self.Fiber().TimerComponent.Remove(ref self.Timer);
+        self.Fiber().Root.GetComponent<TimerComponent>().Remove(ref self.Timer);
         self.RankDict.Clear();
         self.RankObjDict.Clear();
         foreach (var (_, com) in self.RankItem)
@@ -55,7 +55,7 @@ public static partial class RankComponentSystem
             { RankType.Fight, new List<int>() { 0 } }, { RankType.Level, new List<int>() { 0 } },
         };
         self.LoadRank().Coroutine();
-        self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(5 * 1000, TimerInvokeType.SaveRank, self);
+        self.Timer = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(5 * 1000, TimerInvokeType.SaveRank, self);
     }
 
     /// <summary>

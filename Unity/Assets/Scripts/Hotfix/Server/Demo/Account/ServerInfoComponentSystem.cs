@@ -19,13 +19,13 @@ namespace ET.Server
         private static void Awake(this ServerInfoComponent self)
         {
             self.Init().Coroutine();
-            self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(10000, TimerInvokeType.ServerCheck, self);
+            self.Timer = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(10000, TimerInvokeType.ServerCheck, self);
         }
 
         [EntitySystem]
         private static void Destroy(this ServerInfoComponent self)
         {
-            self.Fiber().TimerComponent?.Remove(ref self.Timer);
+            self.Fiber().Root.GetComponent<TimerComponent>()?.Remove(ref self.Timer);
             foreach (var serverInfo in self.ServerInfos)
             {
                 serverInfo?.Dispose();

@@ -369,7 +369,7 @@ namespace ET.Client
             CoroutineLock coroutineLock = null;
             try
             {
-                coroutineLock = await self.Fiber().CoroutineLockComponent.Wait(CoroutineLockType.LoadUIBaseWindows, (int) id);
+                coroutineLock = await self.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoadUIBaseWindows, (int) id);
                 UIBaseWindow baseWindow = self.GetUIBaseWindow(id);
                 if (null == baseWindow)
                 {

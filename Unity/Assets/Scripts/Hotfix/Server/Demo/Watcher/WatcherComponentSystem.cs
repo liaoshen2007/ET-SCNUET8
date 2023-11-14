@@ -19,14 +19,14 @@ namespace ET.Server
         [EntitySystem]
         private static void Awake(this WatcherComponent self)
         {
-            self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(5 * 1000, TimerInvokeType.WatcherCheck, self);
+            self.Timer = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(5 * 1000, TimerInvokeType.WatcherCheck, self);
             self.Start();
         }
 
         [EntitySystem]
         private static void Destroy(this WatcherComponent self)
         {
-            self.Fiber().TimerComponent.Remove(ref self.Timer);
+            self.Fiber().Root.GetComponent<TimerComponent>().Remove(ref self.Timer);
         }
 
         public static void Check(this WatcherComponent self)
@@ -166,9 +166,9 @@ namespace ET.Server
         public static async ETTask GG(this WatcherComponent self)
         {
             Log.Console("准备关服...");
-            await self.Fiber().TimerComponent.WaitAsync(1000);
+            await self.Fiber().Root.GetComponent<TimerComponent>().WaitAsync(1000);
             await self.SaveData();
-            await self.Fiber().TimerComponent.WaitAsync(1000);
+            await self.Fiber().Root.GetComponent<TimerComponent>().WaitAsync(1000);
 
             // self.CloseProcess(-1);
             // Process.GetCurrentProcess().Kill();

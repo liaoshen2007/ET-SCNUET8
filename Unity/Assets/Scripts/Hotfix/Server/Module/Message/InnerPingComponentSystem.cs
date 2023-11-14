@@ -37,13 +37,13 @@
         [EntitySystem]
         private static void Awake(this InnerPingComponent self)
         {
-            self.Timer = self.Fiber().TimerComponent.NewRepeatedTimer(3000, TimerInvokeType.InnerPing, self);
+            self.Timer = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(3000, TimerInvokeType.InnerPing, self);
         }
 
         [EntitySystem]
         private static void Destroy(this InnerPingComponent self)
         {
-            self.Fiber().TimerComponent?.Remove(ref self.Timer);
+            self.Fiber().Root.GetComponent<TimerComponent>()?.Remove(ref self.Timer);
         }
     }
 }

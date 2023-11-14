@@ -15,7 +15,7 @@
 
             using (session.AddComponent<SessionLockingComponent>())
             {
-                using (await session.Fiber().CoroutineLockComponent.Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))
+                using (await session.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))
                 {
                     var roleInfos = await session.DBComponent()
                             .Query<RoleInfo>(d =>
