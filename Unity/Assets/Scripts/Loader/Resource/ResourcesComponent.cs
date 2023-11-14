@@ -63,7 +63,7 @@ namespace ET
                 YooAssets.SetDefaultPackage(package);
             }
 
-            GlobalConfig globalConfig = Resources.Load<GlobalConfig>("GlobalConfig");
+            GlobalConfig globalConfig = Resources.Load<GlobalConfig>(nameof (GlobalConfig));
             EPlayMode ePlayMode = globalConfig.EPlayMode;
             
             // 编辑器下的模拟模式
