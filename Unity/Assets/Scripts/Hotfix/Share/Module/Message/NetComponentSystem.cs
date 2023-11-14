@@ -55,7 +55,7 @@ namespace ET
         private static void OnAccept(this NetComponent self, long channelId, IPEndPoint ipEndPoint)
         {
             Session session = self.AddChildWithId<Session, AService>(channelId, self.AService);
-            session.RemoteAddress = ipEndPoint.ToString();
+            session.RemoteAddress = ipEndPoint;
 
             if (self.IScene.SceneType != SceneType.BenchmarkServer)
             {
@@ -86,7 +86,7 @@ namespace ET
         {
             long channelId = NetServices.Instance.CreateConnectChannelId();
             Session session = self.AddChildWithId<Session, AService>(channelId, self.AService);
-            session.RemoteAddress = realIPEndPoint.ToString();
+            session.RemoteAddress = realIPEndPoint;
             if (self.IScene.SceneType != SceneType.BenchmarkClient)
             {
                 session.AddComponent<SessionIdleCheckerComponent>();
@@ -101,12 +101,12 @@ namespace ET
         {
             long channelId = localConn;
             Session session = self.AddChildWithId<Session, AService>(channelId, self.AService);
-            session.RemoteAddress = realIPEndPoint.ToString();
+            session.RemoteAddress = realIPEndPoint;
             if (self.IScene.SceneType != SceneType.BenchmarkClient)
             {
                 session.AddComponent<SessionIdleCheckerComponent>();
             }
-            self.AService.Create(session.Id, routerIPEndPoint.ToString());
+            self.AService.Create(session.Id, routerIPEndPoint);
             return session;
         }
     }
