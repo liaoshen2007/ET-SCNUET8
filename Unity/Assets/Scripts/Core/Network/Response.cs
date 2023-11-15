@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MemoryPack;
 
 namespace ET
@@ -8,9 +9,11 @@ namespace ET
     {
         [MemoryPackOrder(1)]
         public int RpcId { get; set; }
+
         [MemoryPackOrder(2)]
         public int Error { get; set; }
+
         [MemoryPackOrder(3)]
-        public string Message { get; set; }
+        public List<string> Message { get; set; }
     }
 }

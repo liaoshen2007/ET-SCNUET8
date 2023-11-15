@@ -57,7 +57,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public long PlayerId { get; set; }
@@ -67,7 +67,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.PlayerId = default;
 			
 			ObjectPool.Instance.Recycle(this); 

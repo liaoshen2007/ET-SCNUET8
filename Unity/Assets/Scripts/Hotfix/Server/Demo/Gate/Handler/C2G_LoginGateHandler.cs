@@ -1,4 +1,6 @@
-﻿namespace ET.Server
+﻿using System.Collections.Generic;
+
+namespace ET.Server
 {
     /// <summary>
     /// 登录Gate
@@ -13,7 +15,7 @@
             if (account == null)
             {
                 response.Error = ErrorCore.ERR_ConnectGateKeyError;
-                response.Message = "Gate key验证失败!";
+                response.Message = new List<string>() { "Gate key验证失败!" };
                 return;
             }
 

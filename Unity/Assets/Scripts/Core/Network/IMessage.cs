@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET
 {
     // 不需要返回消息
     public interface IMessage
@@ -22,7 +24,7 @@
             set;
         }
 
-        string Message
+        List<string> Message
         {
             get;
             set;

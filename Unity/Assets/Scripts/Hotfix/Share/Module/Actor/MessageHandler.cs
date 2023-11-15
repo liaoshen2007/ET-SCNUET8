@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ET
 {
@@ -85,12 +86,12 @@ namespace ET
                 catch (RpcException exception)
                 {
                     response.Error = exception.Error;
-                    response.Message = exception.ToString();
+                    response.Message = new List<string>(){ exception.ToString() };
                 }
                 catch (Exception exception)
                 {
                     response.Error = ErrorCore.ERR_RpcFail;
-                    response.Message = exception.ToString();
+                    response.Message = new List<string>() { exception.ToString() };
                 }
                 
                 response.RpcId = rpcId;

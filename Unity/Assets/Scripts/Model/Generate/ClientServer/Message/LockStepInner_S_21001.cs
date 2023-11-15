@@ -49,14 +49,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -109,7 +109,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public ActorId ActorId { get; set; }
@@ -119,7 +119,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.ActorId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -170,7 +170,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public long StartTime { get; set; }
@@ -186,7 +186,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.StartTime = default;
 			this.UnitInfos.Clear();
 			this.Frame = default;
@@ -239,14 +239,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}

@@ -1,4 +1,5 @@
-﻿using MemoryPack;
+﻿using System.Collections.Generic;
+using MemoryPack;
 
 namespace ET
 {
@@ -7,29 +8,29 @@ namespace ET
     {
         public static A2NetInner_Message Create()
         {
-            return ObjectPool.Instance.Fetch(typeof(A2NetInner_Message)) as A2NetInner_Message;
+            return ObjectPool.Instance.Fetch(typeof (A2NetInner_Message)) as A2NetInner_Message;
         }
 
         public override void Dispose()
         {
             this.FromAddress = default;
             this.ActorId = default;
-            
+
             ObjectPool.Instance.Recycle(this);
         }
-        
+
         public Address FromAddress;
         public ActorId ActorId;
         public IMessage MessageObject;
     }
-    
+
     [Message(2)]
-    [ResponseType(nameof(A2NetInner_Response))]
+    [ResponseType(nameof (A2NetInner_Response))]
     public class A2NetInner_Request: MessageObject, IRequest
     {
         public static A2NetInner_Request Create()
         {
-            return ObjectPool.Instance.Fetch(typeof(A2NetInner_Request)) as A2NetInner_Request;
+            return ObjectPool.Instance.Fetch(typeof (A2NetInner_Request)) as A2NetInner_Request;
         }
 
         public override void Dispose()
@@ -37,21 +38,21 @@ namespace ET
             this.RpcId = default;
             this.ActorId = default;
             this.MessageObject = default;
-            
+
             ObjectPool.Instance.Recycle(this);
         }
-        
+
         public int RpcId { get; set; }
         public ActorId ActorId;
         public IRequest MessageObject;
     }
-    
+
     [Message(3)]
     public class A2NetInner_Response: MessageObject, IResponse
     {
         public static A2NetInner_Response Create()
         {
-            return ObjectPool.Instance.Fetch(typeof(A2NetInner_Response)) as A2NetInner_Response;
+            return ObjectPool.Instance.Fetch(typeof (A2NetInner_Response)) as A2NetInner_Response;
         }
 
         public override void Dispose()
@@ -59,15 +60,14 @@ namespace ET
             this.RpcId = default;
             this.Error = default;
             this.Message = default;
-            
+
             ObjectPool.Instance.Recycle(this);
         }
-        
-        public int Error { get; set; }
-        public string Message { get; set; }
-        public int RpcId { get; set; }
-        
-        public IResponse MessageObject;
 
+        public int Error { get; set; }
+        public List<string> Message { get; set; }
+        public int RpcId { get; set; }
+
+        public IResponse MessageObject;
     }
 }

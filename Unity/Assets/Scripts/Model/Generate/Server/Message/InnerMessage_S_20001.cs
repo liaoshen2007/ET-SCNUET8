@@ -45,14 +45,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -129,14 +129,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -190,14 +190,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -251,14 +251,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -316,14 +316,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -385,14 +385,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -454,14 +454,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -515,14 +515,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -576,7 +576,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public int Type { get; set; }
@@ -589,7 +589,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.Type = default;
 			this.ActorId = default;
 			
@@ -641,7 +641,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public long Key { get; set; }
@@ -654,7 +654,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.Key = default;
 			this.GateId = default;
 			
@@ -724,14 +724,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -754,7 +754,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public byte[] Entity { get; set; }
@@ -764,7 +764,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.Entity = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -823,14 +823,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -894,14 +894,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -958,7 +958,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(0)]
 		public List<string> ComponentNameList { get; set; } = new();
@@ -971,7 +971,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.ComponentNameList.Clear();
 			this.Entitys.Clear();
 			
@@ -1026,14 +1026,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1086,7 +1086,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		[MemoryPackOrder(0)]
 		public long Id { get; set; }
@@ -1096,7 +1096,7 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			this.Id = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -1150,14 +1150,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1206,14 +1206,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1269,14 +1269,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1332,14 +1332,14 @@ namespace ET
 		public int Error { get; set; }
 
 		[MemoryPackOrder(91)]
-		public string Message { get; set; }
+		public List<string> Message { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
-			this.Message = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}

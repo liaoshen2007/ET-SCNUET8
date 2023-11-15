@@ -178,7 +178,7 @@ namespace ET
                     {
                         Members(sb, "int32 RpcId = 90;", true, sbDispose);
                         Members(sb, "int32 Error = 91;", true, sbDispose);
-                        Members(sb, "string Message = 92;", true, sbDispose);
+                        Repeated(sb, ns, "repeated string Message = 92;", sbDispose);
                         isResponse = false;
                     }
 
@@ -344,7 +344,7 @@ namespace ET
         {
             try
             {
-                int index = newline.IndexOf(";");
+                int index = newline.IndexOf(";", StringComparison.Ordinal);
                 newline = newline.Remove(index);
                 string[] ss = newline.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
                 string type = ss[0];
