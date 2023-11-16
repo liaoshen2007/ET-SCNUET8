@@ -261,7 +261,10 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(id).OnUnFocus(baseWindow);
             baseWindow.UIPrefabGameObject?.SetActive(false);
             UIEvent.Instance.GetUIEventHandler(id).OnHideWindow(baseWindow);
-            self.GetComponent<UIMask>().Hide();
+            if (baseWindow.WindowData.NeedMask)
+            {
+                self.GetComponent<UIMask>().Hide();
+            }
 
             self.VisibleWindowsDic.Remove((int) id);
             for (int i = self.ShowWindowsList.Count - 1; i >= 0; i--)
@@ -324,7 +327,7 @@ namespace ET.Client
                 UnityEngine.Object.Destroy(baseWindow.UIPrefabGameObject);
                 baseWindow.UIPrefabGameObject = null;
             }
-            
+
             if (isDispose)
             {
                 self.AllWindowsDic.Remove((int) id);
@@ -401,8 +404,12 @@ namespace ET.Client
 
         private static void RealShowWindow(this UIComponent self, UIBaseWindow baseWindow, WindowID id, ShowWindowData showData = null)
         {
-            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
-            self.GetComponent<UIMask>().SetActive(root);
+            var root = self.GetTargetRoot(baseWindow.WindowData.WindowType);
+            if (baseWindow.WindowData.NeedMask)
+            {
+                self.GetComponent<UIMask>().SetActive(root);
+            }
+
             baseWindow.UITransform.SetAsLastSibling();
             baseWindow.UIPrefabGameObject?.SetActive(true);
             UIEvent.Instance.GetUIEventHandler(id).OnShowWindow(baseWindow, showData);
@@ -414,7 +421,7 @@ namespace ET.Client
             }
 
             UIEvent.Instance.GetUIEventHandler(id).OnFocus(baseWindow);
-            
+
             self.ShowWindowsList.Add(baseWindow);
             self.VisibleWindowsDic[(int) id] = baseWindow;
             Log.Info("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID);
@@ -512,7 +519,7 @@ namespace ET.Client
             self.UIBaseWindowlistCached.Clear();
             foreach (KeyValuePair<int, UIBaseWindow> window in self.VisibleWindowsDic)
             {
-                if (window.Value.WindowData.windowType == UIWindowType.Fixed && !includeFixed)
+                if (window.Value.WindowData.WindowType == UIWindowType.Fixed && !includeFixed)
                     continue;
                 if (window.Value.IsDisposed)
                 {
@@ -570,7 +577,7 @@ namespace ET.Client
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
-            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
+            var root = self.GetTargetRoot(baseWindow.WindowData.WindowType);
             baseWindow.SetRoot(root);
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
@@ -596,7 +603,7 @@ namespace ET.Client
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
 
-            var root = self.GetTargetRoot(baseWindow.WindowData.windowType);
+            var root = self.GetTargetRoot(baseWindow.WindowData.WindowType);
             baseWindow.SetRoot(root);
 
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);

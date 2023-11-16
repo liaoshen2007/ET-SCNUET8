@@ -9,6 +9,7 @@ namespace ET
     public class Tweener
     {
         #region Events
+
         /// <summary>
         /// 当动画开始
         /// </summary>
@@ -33,6 +34,8 @@ namespace ET
         /// 当动画完成时
         /// </summary>
         public Action<Tweener> OnComplete;
+        
+        public Action<Tweener> OnReset;
 
         /// <summary>
         /// 当所有动画完成时
@@ -43,9 +46,11 @@ namespace ET
         /// 更新采样因子
         /// </summary>
         public Action<float, float> UpdateFactor;
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// 用户自定义数据
         /// </summary>
@@ -145,32 +150,51 @@ namespace ET
         /// 动画目标对象
         /// </summary>
         public object Target { get; set; }
+
         #endregion
 
         #region Methods
 
         public Tweener()
         {
-            Id = ++idGenerate; 
+            Id = ++idGenerate;
         }
 
         /// <summary>
-        /// 停止动画并重置所有数据
+        /// 停止动画并重置除事件外所有数据
         /// </summary>
-        public void Reset()
+        public void Reset(bool clearEvent = false)
         {
             Stop();
 
+            factor = 0;
             currentTime = 0;
             started = false;
             startTime = 0;
-            OnStart = null;
-            OnPause = null;
-            OnUpdated = null;
-            OnComplete = null;
-            OnKill = null;
+            if (clearEvent)
+            {
+                ClearEvent();
+            }
+
+            try
+            {
+                OnReset?.Invoke(this);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
 
             DoReset();
+        }
+
+        /// <summary>
+        /// 重新开始动画
+        /// </summary>
+        public void ReStart()
+        {
+            Reset();
+            this.PlayForward();
         }
 
         /// <summary>
@@ -223,8 +247,6 @@ namespace ET
         {
             if (kill)
             {
-                Log.Warning($"重复销毁动画  ID: {Id}");
-
                 return;
             }
 
@@ -233,13 +255,15 @@ namespace ET
                 Stop(false, complete);
                 OnKill?.Invoke(this);
                 OnKilled();
-                TweenManager.Instance.OnKill(this);
+                UserData = null;
+                this.ClearEvent();
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
 
+            ObjectPool.Instance?.Recycle(this.GetType());
             kill = true;
         }
 
@@ -261,6 +285,7 @@ namespace ET
             EaseType = Ease.Linear;
             Delay = 0;
             LoopType = LoopType.None;
+            this.ClearEvent();
         }
 
         /// <summary>
@@ -294,7 +319,6 @@ namespace ET
 
         protected virtual void OnKilled()
         {
-
         }
 
         /// <summary>
@@ -340,7 +364,7 @@ namespace ET
 
             OnCompleted();
         }
-        
+
         private void UpdatePerDelta(bool forward)
         {
             amountPerDelta = Mathf.Abs(amountPerDelta);
@@ -388,7 +412,7 @@ namespace ET
         {
             void Finish()
             {
-                factor = this.IsReverse ?1f : 0f;
+                factor = this.IsReverse? 1f : 0f;
                 Sample(factor, true);
                 IsPlaying = false;
                 TweenManager.Instance.UnRegisterTweener(this);
@@ -420,13 +444,13 @@ namespace ET
             }
 
             //提前采样因子
-            factor += Duration == 0f ? 1f : amountPerDelta * delta;
+            factor += Duration == 0f? 1f : amountPerDelta * delta;
             if (LoopType == LoopType.Restart)
             {
                 //循环模式，当因子超过1之后重置它
                 if (factor > 1f)
                 {
-                    factor -= (float)Math.Floor(factor);
+                    factor -= (float) Math.Floor(factor);
                 }
             }
             else if (LoopType == LoopType.PingPong)
@@ -434,13 +458,13 @@ namespace ET
                 // Ping-pong效果反转方向
                 if (factor > 1f)
                 {
-                    factor = 1f - (factor - (float)Math.Floor(factor));
+                    factor = 1f - (factor - (float) Math.Floor(factor));
                     amountPerDelta = -amountPerDelta;
                 }
                 else if (factor < 0f)
                 {
                     factor = -factor;
-                    factor -= (float)Math.Floor(factor);
+                    factor -= (float) Math.Floor(factor);
                     amountPerDelta = -amountPerDelta;
                 }
             }
@@ -481,7 +505,7 @@ namespace ET
             var newFactor = Math.Max(Math.Min(factor, 1), 0);
             float time = newFactor * Duration;
             float value = EaseManager.Evaluate(EaseType, time, Duration,
-                                 EaseOvershootOrAmplitude, EasePeriod);
+                EaseOvershootOrAmplitude, EasePeriod);
 
             OnUpdate(value, time);
             try
@@ -494,16 +518,30 @@ namespace ET
             }
         }
 
+        private void ClearEvent()
+        {
+            OnStart = null;
+            OnPause = null;
+            OnUpdated = null;
+            OnComplete = null;
+            OnKill = null;
+            OnAllComplete = null;
+            UpdateFactor = null;
+            OnReset = null;
+        }
         #endregion
 
         #region Internal Properies
+
         /// <summary>
         /// 是否反方向播放动画
         /// </summary>
         protected bool IsReverse { get; private set; }
+
         #endregion
 
         #region Internal Fields
+
         protected bool kill;
 
         private int idGenerate;
@@ -514,6 +552,7 @@ namespace ET
         private float duration;
         private float amountPerDelta = 1000f;
         private float factor;
+
         #endregion
     }
 }

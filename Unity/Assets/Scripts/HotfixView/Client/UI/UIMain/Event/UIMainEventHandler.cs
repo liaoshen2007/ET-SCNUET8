@@ -2,12 +2,12 @@
 {
 	[FriendOf(typeof(WindowCoreData))]
 	[FriendOf(typeof(UIBaseWindow))]
-	[AUIEvent(WindowID.Win_Main)]
+	[AUIEvent(WindowID.Win_UIMain)]
 	public  class UIMainEventHandler : IAUIEventHandler
 	{
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
 		{
-			uiBaseWindow.WindowData.windowType = UIWindowType.Normal; 
+			uiBaseWindow.WindowData.WindowType = UIWindowType.Normal; 
 		}
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)

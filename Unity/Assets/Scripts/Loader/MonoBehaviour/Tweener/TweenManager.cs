@@ -111,27 +111,6 @@ namespace ET
             return null;
         }
 
-        internal Tweener GetTween(object target, TweenPropType propType)
-        {
-            foreach (var tweener in updatedList)
-            {
-                if (tweener is UTweener uTweener && uTweener.Target == target && propType == uTweener.PropType)
-                {
-                    return tweener;
-                }
-            }
-
-            foreach (var tweener in fixedUpdatedList)
-            {
-                if (tweener is UTweener uTweener && uTweener.Target == target && propType == uTweener.PropType)
-                {
-                    return tweener;
-                }
-            }
-
-            return null;
-        }
-
         void ISingletonUpdate.Update()
         {
             var deltaTime = Time.deltaTime;
@@ -168,7 +147,7 @@ namespace ET
             }
         }
 
-        public override void Dispose()
+        protected override void Destroy()
         {
             for (int i = 0; i < updatedList.Count; i++)
             {
@@ -184,8 +163,6 @@ namespace ET
 
             fixedUpdatedList.Clear();
             updatedList.Clear();
-            
-            base.Dispose();
         }
 
         private List<Tweener> fixedUpdatedList;

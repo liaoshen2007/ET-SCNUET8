@@ -6,9 +6,10 @@ namespace ET
     /// <summary>
     /// Alpha 渐变动画
     /// </summary>
-    public class TweenAlpha : UComTweener
+    public class TweenAlpha: UComTweener
     {
         #region Properties
+
         /// <summary>
         /// Alpha 值
         /// </summary>
@@ -44,15 +45,22 @@ namespace ET
                 }
             }
         }
+
         #endregion
 
         #region Internal Methods
+
         protected override void Awake()
         {
             base.Awake();
 
             graphic = GetComponent<Graphic>();
-            group = GetComponent<CanvasGroup>(); 
+            group = GetComponent<CanvasGroup>();
+        }
+
+        protected override void OnReset(Tweener t)
+        {
+            this.Alpha = this.startValue;
         }
 
         /// <summary>
@@ -64,9 +72,11 @@ namespace ET
         {
             Alpha = Mathf.Lerp(startValue, endValue, factor);
         }
+
         #endregion
 
         #region Internal Fields
+
         [SerializeField]
         [Range(0, 1)]
         private float startValue = 0;
@@ -77,6 +87,7 @@ namespace ET
 
         private Graphic graphic;
         private CanvasGroup group;
+
         #endregion
     }
 }

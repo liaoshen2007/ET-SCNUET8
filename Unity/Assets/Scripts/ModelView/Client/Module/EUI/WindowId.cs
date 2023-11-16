@@ -16,16 +16,18 @@ namespace ET
 		/// <summary>
 		/// 登录
 		/// </summary>
-		Win_Login,
+		Win_UILogin,
 
 		/// <summary>
 		/// 服务器列表
 		/// </summary>
-		Win_ServerList,
+		Win_UIServerList,
 
 		/// <summary>
 		/// 主窗口
 		/// </summary>
-		Win_Main,
+		Win_UIMain,
+
+		Win_UIPop,
 	}
 }

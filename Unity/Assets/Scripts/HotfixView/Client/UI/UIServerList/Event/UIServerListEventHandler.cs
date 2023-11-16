@@ -2,12 +2,12 @@
 {
 	[FriendOf(typeof(WindowCoreData))]
 	[FriendOf(typeof(UIBaseWindow))]
-	[AUIEvent(WindowID.Win_ServerList)]
+	[AUIEvent(WindowID.Win_UIServerList)]
 	public  class UIServerListEventHandler : IAUIEventHandler
 	{
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
 		{
-			uiBaseWindow.WindowData.windowType = UIWindowType.Normal; 
+			uiBaseWindow.WindowData.WindowType = UIWindowType.Normal; 
 		}
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)
@@ -38,7 +38,7 @@
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
 		{
-
+			uiBaseWindow.GetComponent<UIServerList>().HideWindow(); 
 		}
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)

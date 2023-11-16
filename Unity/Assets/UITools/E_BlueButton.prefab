@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5203482226004725305}
   - component: {fileID: 114630311973242952}
   - component: {fileID: 9056618067898745207}
+  - component: {fileID: 7517731398720204652}
   m_Layer: 5
   m_Name: E_BlueButton
   m_TagString: Untagged
@@ -140,10 +141,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f606a863cde5c7e44b39a8b701ac386e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tween: {fileID: 7517731398720204652}
   target: {fileID: 114630311973242952}
   scaleTarget: {fileID: 224532636050568724}
-  scaleFactor: 1.1
-  scaleDuration: 0.1
+--- !u!114 &7517731398720204652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920061237828514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130881e6cab17984ca9711fd4067a790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.15
+  loopType: 0
+  easeType: 6
+  fixedUpdate: 0
+  autoPlay: 0
+  startValue: {x: 1, y: 1, z: 1}
+  endValue: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!1 &8980575198950994637
 GameObject:
   m_ObjectHideFlags: 0

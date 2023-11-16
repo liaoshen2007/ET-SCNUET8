@@ -11,7 +11,9 @@
     [ComponentOf(typeof(UIBaseWindow))]
     public class WindowCoreData: Entity, IAwake
     {
-        public UIWindowType windowType = UIWindowType.Normal;
+        public UIWindowType WindowType = UIWindowType.Normal;
+        
+        public bool NeedMask = true;
     }
 
     public class ShowWindowData: Entity

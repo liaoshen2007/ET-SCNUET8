@@ -1,52 +1,54 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ET
 {
-    public class TweenButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class TweenButton: MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         #region Internal Methods
+
+        private void Start()
+        {
+            this.tween.TweenUpdate(this.OnUpdate);
+        }
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
             // 不可交互或没有缩放对象
-            if (target != null && !target.IsInteractable() || !scaleTarget || scaleDuration <= 0)
+            if (target != null && !target.IsInteractable() || !scaleTarget)
             {
                 return;
             }
 
-            if (scaleTweener == null)
-            {
-                scaleTweener = Tween.To(Vector3.one, Vector3.one * scaleFactor, scaleDuration);
-                scaleTweener.AutoKill = false;
-                scaleTweener.OnUpdated += OnUpdate;
-            }
-
-            scaleTweener.PlayForward();
+            this.tween.PlayForward();
         }
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
-            scaleTweener.PlayReverse();
+            this.tween.PlayForward();
         }
 
         protected void OnDestroy()
         {
-            scaleTweener?.Kill();
+            this.tween.Kill();
         }
 
-        private void OnUpdate(Tweener tween)
+        private void OnUpdate(Tweener _)
         {
-            if (tween is UTweener ut)
-            {
-                scaleTarget.localScale = ut.Value.Vec3;
-            }
+            scaleTarget.localScale = this.tween.transform.localScale;
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            tween = this.GetComponent<TweenScale>();
+            if (!this.tween)
+            {
+                this.tween = gameObject.AddComponent<TweenScale>();
+            }
+
             if (target == null)
             {
                 target = GetComponentInChildren<Selectable>();
@@ -67,22 +69,20 @@ namespace ET
             OnValidate();
         }
 #endif
+
         #endregion
 
         #region Internal Fields
+
+        [SerializeField]
+        private TweenScale tween;
+
         [SerializeField]
         private Selectable target;
 
         [SerializeField]
         private Transform scaleTarget; // 缩放动画target
 
-        [SerializeField]
-        private float scaleFactor = 1.1f;
-
-        [SerializeField]
-        private float scaleDuration = 0.1f;
-
-        private UTweener scaleTweener;
         #endregion
     }
 }

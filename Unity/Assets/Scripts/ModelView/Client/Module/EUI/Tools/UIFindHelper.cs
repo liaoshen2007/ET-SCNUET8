@@ -7,19 +7,21 @@ namespace ET.Client
         /// <summary>
         /// 查找子节点
         /// </summary>
-        /// <OtherParam name="_target"></OtherParam>
-        /// <OtherParam name="_childName"></OtherParam>
+        /// <param name="target"></param>
+        /// <param name="childName"></param>
         /// <returns></returns>
-        public static Transform FindDeepChild(GameObject _target, string _childName)
+        public static Transform FindDeepChild(GameObject target, string childName)
         {
-            Transform resultTrs = _target.transform.Find(_childName);
+            Transform resultTrs = target.transform.Find(childName);
             if (resultTrs == null)
             {
-                foreach (Transform trs in _target.transform)
+                foreach (Transform trs in target.transform)
                 {
-                    resultTrs = FindDeepChild(trs.gameObject, _childName);
+                    resultTrs = FindDeepChild(trs.gameObject, childName);
                     if (resultTrs != null)
+                    {
                         return resultTrs;
+                    }
                 }
             }
 
@@ -29,15 +31,18 @@ namespace ET.Client
         /// <summary>
         /// 根据泛型查找子节点
         /// </summary>
-        /// <param name="_target"></param>
-        /// <param name="_childName"></param>
+        /// <param name="target"></param>
+        /// <param name="childName"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T FindDeepChild<T>(GameObject _target, string _childName) where T : Component
+        public static T FindDeepChild<T>(GameObject target, string childName) where T : Component
         {
-            Transform resultTrs = FindDeepChild(_target, _childName);
+            Transform resultTrs = FindDeepChild(target, childName);
             if (resultTrs != null)
+            {
                 return resultTrs.gameObject.GetComponent<T>();
+            }
+
             return null;
         }
     }

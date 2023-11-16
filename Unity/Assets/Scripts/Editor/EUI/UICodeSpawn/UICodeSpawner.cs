@@ -107,13 +107,13 @@ namespace ETEditor
                     .AppendLine("\t\t ")
                     .AppendLine("\t\t}")
                     .AppendLine();
-            
+
             strBuilder.AppendFormat("\t\tpublic static void Foucs(this {0} self)\n", strDlgName)
                     .AppendLine("\t\t{")
                     .AppendLine("\t\t ")
                     .AppendLine("\t\t}")
                     .AppendLine();
-            
+
             strBuilder.AppendFormat("\t\tpublic static void UnFoucs(this {0} self)\n", strDlgName)
                     .AppendLine("\t\t{")
                     .AppendLine("\t\t ")
@@ -183,13 +183,13 @@ namespace ETEditor
             strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().RegisterUIEvent(); \r\n", strDlgName);
             strBuilder.AppendLine("\t\t}")
                     .AppendLine();
-            
+
             strBuilder.AppendLine("\t\tpublic void OnFocus(UIBaseWindow uiBaseWindow)")
                     .AppendLine("\t\t{");
             strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().Focus(); \r\n", strDlgName);
             strBuilder.AppendLine("\t\t}")
                     .AppendLine();
-            
+
             strBuilder.AppendLine("\t\tpublic void OnUnFocus(UIBaseWindow uiBaseWindow)")
                     .AppendLine("\t\t{");
             strBuilder.AppendFormat("\t\t\tuiBaseWindow.GetComponent<{0}>().UnFocus(); \r\n", strDlgName);
@@ -236,7 +236,7 @@ namespace ETEditor
             {
                 return;
             }
-            
+
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
             StringBuilder strBuilder = new StringBuilder();
 
@@ -247,8 +247,8 @@ namespace ETEditor
             strBuilder.AppendFormat("\tpublic  class {0} : Entity, IAwake, IUILogic\r\n", strDlgName);
             strBuilder.AppendLine("\t{");
 
-            strBuilder.AppendLine(
-                "\t\tpublic " + strDlgName + "ViewComponent View { get => GetParent<UIBaseWindow>().GetComponent<" + strDlgName + "ViewComponent>();} ");
+            strBuilder.AppendLine("\t\tpublic " + strDlgName + "ViewComponent View { get => GetParent<UIBaseWindow>().GetComponent<" + strDlgName +
+                "ViewComponent>();} ");
 
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("}");
@@ -296,10 +296,10 @@ namespace ETEditor
                     {
                         strBuilder.AppendLine("\t\t\tself.RegisterCloseEvent(self.E_CloseBtnButton);");
                         break;
-                    }   
+                    }
                 }
-            } 
-            
+            }
+
             strBuilder.AppendLine("\t\t}");
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("\n");
@@ -349,7 +349,7 @@ namespace ETEditor
             CreateWidgetBindCode(ref strBuilder, gameObject.transform);
 
             CreateDestroyWidgetCode(ref strBuilder);
-            
+
             CreateDeclareCode(ref strBuilder);
             strBuilder.AppendFormat("\t\tpublic Transform uiTransform = null;\r\n");
             strBuilder.AppendLine("\t}");
@@ -360,17 +360,23 @@ namespace ETEditor
             sw.Close();
         }
 
-        private static void CreateDestroyWidgetCode(ref StringBuilder strBuilder)
+        private static void CreateDestroyWidgetCode(ref StringBuilder strBuilder, bool isScrollItem = false)
         {
             strBuilder.AppendFormat("\t\tpublic void DestroyWidget()");
             strBuilder.AppendLine("\n\t\t{");
             CreateDlgWidgetDisposeCode(ref strBuilder);
             strBuilder.AppendFormat("\t\t\tuiTransform = null;\r\n");
+            if (isScrollItem)
+            {
+                strBuilder.AppendLine("\t\t\tthis.DataId = 0;");
+            }
+
             strBuilder.AppendLine("\t\t}\n");
         }
 
-        private static void CreateDlgWidgetDisposeCode(ref StringBuilder strBuilder)
+        public static void CreateDlgWidgetDisposeCode(ref StringBuilder strBuilder, bool isSelf = false)
         {
+            string pointStr = isSelf? "self" : "this";
             foreach (KeyValuePair<string, List<Component>> pair in Path2WidgetCachedDict)
             {
                 foreach (var info in pair.Value)
@@ -380,18 +386,17 @@ namespace ETEditor
 
                     if (pair.Key.StartsWith(CommonUIPrefix))
                     {
-                        strBuilder.AppendFormat("\t\t	m_{0}?.Dispose();\r\n", pair.Key.ToLower());
-                        strBuilder.AppendFormat("\t\t	m_{0} = null;\r\n", pair.Key.ToLower());
+                        strBuilder.AppendFormat("\t\t	{0}.m_{1} = null;\r\n", pointStr, pair.Key.ToLower());
                         continue;
                     }
 
                     string widgetName = widget.name + strClassType.Split('.').ToList().Last();
-                    strBuilder.AppendFormat("\t\t	m_{0} = null;\r\n", widgetName);
+                    strBuilder.AppendFormat("\t\t	{0}.m_{1} = null;\r\n", pointStr, widgetName);
                 }
             }
         }
 
-        private static void CreateWidgetBindCode(ref StringBuilder strBuilder, Transform transRoot)
+        public static void CreateWidgetBindCode(ref StringBuilder strBuilder, Transform transRoot)
         {
             foreach (KeyValuePair<string, List<Component>> pair in Path2WidgetCachedDict)
             {
@@ -422,37 +427,37 @@ namespace ETEditor
                     strBuilder.AppendLine("     		get");
                     strBuilder.AppendLine("     		{");
 
-                    strBuilder.AppendLine("     			if (uiTransform == null)");
+                    strBuilder.AppendLine("     			if (this.uiTransform == null)");
                     strBuilder.AppendLine("     			{");
                     strBuilder.AppendLine("     				Log.Error(\"uiTransform is null.\");");
                     strBuilder.AppendLine("     				return null;");
-                    strBuilder.AppendLine("     			}").AppendLine("");
+                    strBuilder.AppendLine("     			}");
 
                     if (transRoot.gameObject.name.StartsWith(UIItemPrefix))
                     {
-                        strBuilder.AppendLine("     			if (isCacheNode)");
+                        strBuilder.AppendLine("     			if (this.isCacheNode)");
                         strBuilder.AppendLine("     			{");
-                        strBuilder.AppendFormat("     				if( m_{0} == null )\n", widgetName);
+                        strBuilder.AppendFormat("     				if( this.m_{0} == null )\n", widgetName);
                         strBuilder.AppendLine("     				{");
-                        strBuilder.AppendFormat("		    			m_{0} = UIFindHelper.FindDeepChild<{2}>(uiTransform.gameObject,\"{1}\");\r\n", widgetName,
-                            strPath, strInterfaceType);
-                        strBuilder.AppendLine("     				}").AppendLine("");
-                        strBuilder.AppendFormat("     				return m_{0};\n", widgetName);
+                        strBuilder.AppendFormat("		    			this.m_{0} = UIFindHelper.FindDeepChild<{2}>(this.uiTransform.gameObject,\"{1}\");\r\n",
+                            widgetName, strPath, strInterfaceType);
+                        strBuilder.AppendLine("     				}");
+                        strBuilder.AppendFormat("     				return this.m_{0};\n", widgetName);
                         strBuilder.AppendLine("     			}");
                         strBuilder.AppendLine("     			else");
-                        strBuilder.AppendLine("     			{").AppendLine("");
-                        strBuilder.AppendFormat("		    		return UIFindHelper.FindDeepChild<{2}>(uiTransform.gameObject,\"{1}\");\r\n", widgetName,
-                            strPath, strInterfaceType);
+                        strBuilder.AppendLine("     			{");
+                        strBuilder.AppendFormat("		    		return UIFindHelper.FindDeepChild<{2}>(this.uiTransform.gameObject,\"{1}\");\r\n",
+                            widgetName, strPath, strInterfaceType);
                         strBuilder.AppendLine("     			}");
                     }
                     else
                     {
-                        strBuilder.AppendFormat("     			if( m_{0} == null )\n", widgetName);
+                        strBuilder.AppendFormat("     			if( this.m_{0} == null )\n", widgetName);
                         strBuilder.AppendLine("     			{");
-                        strBuilder.AppendFormat("		    		m_{0} = UIFindHelper.FindDeepChild<{2}>(uiTransform.gameObject,\"{1}\");\r\n", widgetName,
-                            strPath, strInterfaceType);
-                        strBuilder.AppendLine("     			}").AppendLine("");
-                        strBuilder.AppendFormat("     			return m_{0};\n", widgetName);
+                        strBuilder.AppendFormat("		    		this.m_{0} = UIFindHelper.FindDeepChild<{2}>(this.uiTransform.gameObject,\"{1}\");\r\n",
+                            widgetName, strPath, strInterfaceType);
+                        strBuilder.AppendLine("     			}");
+                        strBuilder.AppendFormat("     			return this.m_{0};\n", widgetName);
                     }
 
                     strBuilder.AppendLine("     		}");
@@ -461,7 +466,7 @@ namespace ETEditor
             }
         }
 
-        private static void CreateDeclareCode(ref StringBuilder strBuilder)
+        public static void CreateDeclareCode(ref StringBuilder strBuilder)
         {
             foreach (KeyValuePair<string, List<Component>> pair in Path2WidgetCachedDict)
             {
@@ -480,7 +485,7 @@ namespace ETEditor
                         }
 
                         string subUIClassType = subUIClassPrefab.name;
-                        strBuilder.AppendFormat("\t\tprivate {0} m_{1} = null;\r\n", subUIClassType, pair.Key.ToLower());
+                        strBuilder.AppendFormat("\t\tprivate EntityRef<{0}> m_{1} = null;\r\n", subUIClassType, pair.Key.ToLower());
                         continue;
                     }
 
@@ -554,26 +559,26 @@ namespace ETEditor
             return path;
         }
 
-        private static void GetSubUIBaseWindowCode(ref StringBuilder strBuilder, string widget, string strPath, string subUIClassType)
+        static void GetSubUIBaseWindowCode(ref StringBuilder strBuilder, string widget, string strPath, string subUIClassType)
         {
             strBuilder.AppendFormat("		public {0} {1}\r\n", subUIClassType, widget);
             strBuilder.AppendLine("     	{");
             strBuilder.AppendLine("     		get");
             strBuilder.AppendLine("     		{");
 
-            strBuilder.AppendLine("     			if (uiTransform == null)");
+            strBuilder.AppendLine("     			if (this.uiTransform == null)");
             strBuilder.AppendLine("     			{");
             strBuilder.AppendLine("     				Log.Error(\"uiTransform is null.\");");
             strBuilder.AppendLine("     				return null;");
-            strBuilder.AppendLine("     			}").AppendLine("");
+            strBuilder.AppendLine("     			}");
 
-            strBuilder.AppendFormat("     			if( m_{0} == null )\n", widget.ToLower());
+            strBuilder.AppendFormat("     			if( this.m_{0} == null )\n", widget.ToLower());
             strBuilder.AppendLine("     			{");
-            strBuilder.AppendFormat("		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(uiTransform.gameObject,\"{0}\");\r\n",
+            strBuilder.AppendFormat("		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,\"{0}\");\r\n",
                 strPath);
-            strBuilder.AppendFormat("		    	   m_{0} = AddChild<{1},Transform>(subTrans);\r\n", widget.ToLower(), subUIClassType);
-            strBuilder.AppendLine("     			}").AppendLine("");
-            strBuilder.AppendFormat("     			return m_{0};\n", widget.ToLower());
+            strBuilder.AppendFormat("		    	   this.m_{0} = this.AddChild<{1},Transform>(subTrans);\r\n", widget.ToLower(), subUIClassType);
+            strBuilder.AppendLine("     			}");
+            strBuilder.AppendFormat("     			return this.m_{0};\n", widget.ToLower());
             strBuilder.AppendLine("     		}");
 
             strBuilder.AppendLine("     	}\n");
@@ -605,6 +610,7 @@ namespace ETEditor
         private const string UIPanelPrefix = "UI";
         private const string CommonUIPrefix = "ES";
         private const string UIWidgetPrefix = "E";
+        private const string UITweenPrefix = "ET";
         private const string UIGameObjectPrefix = "EG";
         private const string UIItemPrefix = "Item";
     }

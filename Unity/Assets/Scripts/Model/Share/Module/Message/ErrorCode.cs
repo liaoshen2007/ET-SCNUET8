@@ -14,6 +14,7 @@ namespace ET
         // 110000 - 200000是抛异常的错误
         // 200001以上不抛异常
 
+        public const int ERR_NetWorkError = 200008;
         /// <summary>
         /// 其他人登录
         /// </summary>

@@ -10,18 +10,16 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if( m_E_TitleExtendText == null )
+     			if( this.m_E_TitleExtendText == null )
      			{
-		    		m_E_TitleExtendText = UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"Panel/E_Title");
+		    		this.m_E_TitleExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"Panel/E_Title");
      			}
-
-     			return m_E_TitleExtendText;
+     			return this.m_E_TitleExtendText;
      		}
      	}
 
@@ -29,18 +27,16 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if( m_E_ServerListLoopVerticalScrollRect == null )
+     			if( this.m_E_ServerListLoopVerticalScrollRect == null )
      			{
-		    		m_E_ServerListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(uiTransform.gameObject,"Panel/E_ServerList");
+		    		this.m_E_ServerListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(this.uiTransform.gameObject,"Panel/E_ServerList");
      			}
-
-     			return m_E_ServerListLoopVerticalScrollRect;
+     			return this.m_E_ServerListLoopVerticalScrollRect;
      		}
      	}
 
@@ -48,18 +44,16 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if( m_E_CloseBtnButton == null )
+     			if( this.m_E_CloseBtnButton == null )
      			{
-		    		m_E_CloseBtnButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"Panel/E_CloseBtn");
+		    		this.m_E_CloseBtnButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"Panel/E_CloseBtn");
      			}
-
-     			return m_E_CloseBtnButton;
+     			return this.m_E_CloseBtnButton;
      		}
      	}
 
@@ -67,27 +61,25 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if( m_E_CloseBtnExtendImage == null )
+     			if( this.m_E_CloseBtnExtendImage == null )
      			{
-		    		m_E_CloseBtnExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"Panel/E_CloseBtn");
+		    		this.m_E_CloseBtnExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"Panel/E_CloseBtn");
      			}
-
-     			return m_E_CloseBtnExtendImage;
+     			return this.m_E_CloseBtnExtendImage;
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			m_E_TitleExtendText = null;
-			m_E_ServerListLoopVerticalScrollRect = null;
-			m_E_CloseBtnButton = null;
-			m_E_CloseBtnExtendImage = null;
+			this.m_E_TitleExtendText = null;
+			this.m_E_ServerListLoopVerticalScrollRect = null;
+			this.m_E_CloseBtnButton = null;
+			this.m_E_CloseBtnExtendImage = null;
 			uiTransform = null;
 		}
 

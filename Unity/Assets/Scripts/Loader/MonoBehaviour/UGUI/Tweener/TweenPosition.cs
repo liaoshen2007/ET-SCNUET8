@@ -9,10 +9,12 @@ namespace ET
     public class TweenPosition : UComTweener
     {
         #region Internal Methods
+
         /// <summary>
         /// 当更新时
         /// </summary>
         /// <param name="factor">采样因子 大小在0 - 1之间</param>
+        /// <param name="currentTime"></param>
         protected override void OnUpdate(float factor, float currentTime)
         {
             if (isLocal)
@@ -24,6 +26,19 @@ namespace ET
                 transform.position = Vector3.Lerp(startValue, endValue, factor);
             }
         }
+
+        protected override void OnReset(Tweener t)
+        {
+            if (isLocal)
+            {
+                transform.localPosition = this.startValue;
+            }
+            else
+            {
+                transform.position = this.startValue;
+            }
+        }
+
         #endregion
 
         #region Internal Fields

@@ -5,7 +5,7 @@
     {
         protected override async ETTask Run(Scene scene, EnterMapFinish e)
         {
-            await scene.GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_Main);
+            await scene.GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UIMain);
         }
     }   
 }

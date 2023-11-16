@@ -77,6 +77,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f354ca856cd148a45bb417c1ceb01dfc, type: 3}
   - {fileID: 21300000, guid: 6cb87fb5ea951cc42aa04a775188a069, type: 3}
   - {fileID: 21300000, guid: c2956f57a4b2cfa469c5dfac9fe2ba9a, type: 3}
+  - {fileID: 21300000, guid: 7a8cba77677bc3944b539a6a0f60f5d2, type: 3}
   - {fileID: 21300000, guid: f58043b7dbbd1b648ba7a8aa874b9153, type: 3}
   - {fileID: 21300000, guid: d7b1a708e5d8be64193897c6f21a0941, type: 3}
   - {fileID: 21300000, guid: 55374538dc70bb14e8a58d3c2c64a1cc, type: 3}
@@ -118,6 +119,7 @@ SpriteAtlas:
   - wg_pnl_anc21
   - wg_pnl_gwxtd
   - wg_pnl_anc08
+  - wg_pnl_xttsk01
   - bg_ptk
   - wb_btn_fh02
   - wg_pnl_anc03

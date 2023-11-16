@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 5203482226004725305}
   - component: {fileID: 114630311973242952}
   - component: {fileID: 9056618067898745207}
+  - component: {fileID: 8186436835497018106}
   m_Layer: 5
   m_Name: E_LoginBtn
   m_TagString: Untagged
@@ -683,10 +684,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f606a863cde5c7e44b39a8b701ac386e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tween: {fileID: 8186436835497018106}
   target: {fileID: 114630311973242952}
   scaleTarget: {fileID: 224532636050568724}
-  scaleFactor: 1.1
-  scaleDuration: 0.1
+--- !u!114 &8186436835497018106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920061237828514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130881e6cab17984ca9711fd4067a790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.15
+  loopType: 0
+  easeType: 6
+  fixedUpdate: 0
+  autoPlay: 0
+  startValue: {x: 1, y: 1, z: 1}
+  endValue: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!1 &3540279927782159835
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1007,7 @@ GameObject:
   - component: {fileID: 1566247273817226710}
   - component: {fileID: 3000113760113546149}
   - component: {fileID: 7386575777512775694}
+  - component: {fileID: 3456769775790526268}
   m_Layer: 0
   m_Name: E_ServerBtn
   m_TagString: Untagged
@@ -1113,10 +1134,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f606a863cde5c7e44b39a8b701ac386e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tween: {fileID: 3456769775790526268}
   target: {fileID: 3000113760113546149}
   scaleTarget: {fileID: 3643091240579671080}
-  scaleFactor: 1.1
-  scaleDuration: 0.1
+--- !u!114 &3456769775790526268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427388872953282824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130881e6cab17984ca9711fd4067a790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.15
+  loopType: 0
+  easeType: 6
+  fixedUpdate: 0
+  autoPlay: 0
+  startValue: {x: 1, y: 1, z: 1}
+  endValue: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!1 &7525189031430942680
 GameObject:
   m_ObjectHideFlags: 0

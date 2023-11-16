@@ -6,16 +6,19 @@ namespace ET
     /// <summary>
     /// 可挂载的Unity动画实现
     /// </summary>
-    public abstract class UComTweener : MonoBehaviour
+    public abstract class UComTweener: MonoBehaviour
     {
         #region Properties
+
         /// <summary>
         /// 动画管理器
         /// </summary>
         public Tweener Tweener => tweener;
+
         #endregion
 
         #region Methods
+
         public Tweener TweenStart(Action<Tweener> start)
         {
             Thrower.IsNotNull(start);
@@ -74,22 +77,26 @@ namespace ET
         {
             tweener.Kill();
         }
+
         #endregion
 
         #region Internal Methods
+
         protected virtual void Awake()
         {
             tweener = TweenManager.Instance.CreateTweener<Tweener>();
             tweener.UpdateFactor = OnUpdate;
+            tweener.OnReset = this.OnReset;
         }
 
-        protected virtual void Start()
+        protected virtual void OnEnable()
         {
             tweener.Delay = delay;
             tweener.Duration = duration;
             tweener.LoopType = loopType;
             tweener.EaseType = easeType;
             tweener.UseFixedUpdate = fixedUpdate;
+            tweener.AutoKill = false;
 
             if (autoPlay)
             {
@@ -100,6 +107,7 @@ namespace ET
         private void OnDestroy()
         {
             tweener.Kill();
+            tweener = null;
         }
 
         /// <summary>
@@ -108,6 +116,10 @@ namespace ET
         /// <param name="factor">采样因子 大小在0 - 1之间</param>
         /// <param name="currentTime"></param>
         protected abstract void OnUpdate(float factor, float currentTime);
+
+        protected virtual void OnReset(Tweener t)
+        {
+        }
 
         protected virtual void OnValidate()
         {
@@ -121,30 +133,43 @@ namespace ET
             }
         }
 
-        [ContextMenu("PlayForward")]
-        private void PlayForward()
+        [ContextMenu("Restart")]
+        public void ReStart()
+        {
+            tweener?.ReStart();
+        }
+        
+        [ContextMenu("Restart")]
+        public void PlayForward()
         {
             tweener?.PlayForward();
         }
 
         [ContextMenu("PlayReverse")]
-        private void PlayReverse()
+        public void PlayReverse()
         {
             tweener?.PlayReverse();
         }
+
         #endregion
 
         #region Internal Fields
+
         [SerializeField]
         private float delay = 0;
+
         [SerializeField]
         private float duration = 1;
+
         [SerializeField]
-        private LoopType loopType = LoopType.PingPong;
+        private LoopType loopType = LoopType.None;
+
         [SerializeField]
-        private Ease easeType = Ease.Linear;
+        private Ease easeType = Ease.OutQuad;
+
         [SerializeField]
         private bool fixedUpdate = false;
+
         [SerializeField]
         private bool autoPlay = true;
 

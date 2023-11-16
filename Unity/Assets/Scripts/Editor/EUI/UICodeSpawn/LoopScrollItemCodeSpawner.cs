@@ -87,7 +87,8 @@ namespace ETEditor
             strBuilder.AppendFormat("\tpublic  class Scroll_{0} : Entity, IAwake, IDestroy, IUIScrollItem \r\n", strDlgName)
                     .AppendLine("\t{");
 
-            strBuilder.AppendLine("\t\tprivate bool isCacheNode = false;");
+            strBuilder.AppendLine("\t\tpublic long DataId {get;set;}");
+            strBuilder.AppendLine("\t\tprivate bool isCacheNode = false;").AppendLine();
             strBuilder.AppendLine("\t\tpublic void SetCacheMode(bool isCache)");
             strBuilder.AppendLine("\t\t{");
             strBuilder.AppendLine("\t\t\tthis.isCacheNode = isCache;");
@@ -99,7 +100,7 @@ namespace ETEditor
             strBuilder.AppendLine("\t\t}\n");
 
             CreateWidgetBindCode(ref strBuilder, gameObject.transform);
-            CreateDestroyWidgetCode(ref strBuilder);
+            CreateDestroyWidgetCode(ref strBuilder, true);
             CreateDeclareCode(ref strBuilder);
 
             strBuilder.AppendLine("\t\tpublic Transform uiTransform = null;");

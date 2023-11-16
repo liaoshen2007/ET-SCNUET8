@@ -1,3 +1,5 @@
+using System;
+
 namespace ET.Client
 {
     [FriendOf(typeof (Account))]
@@ -34,7 +36,17 @@ namespace ET.Client
         public static async ETTask<int> QueryAccount(Scene root, string account, string password)
         {
             string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/account?Account={account}&Password={password}";
-            string str = await HttpClientHelper.Get(url);
+            string str = string.Empty;
+            try
+            {
+                str = await HttpClientHelper.Get(url);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetWorkError;
+            }
+            
             HttpAccount httpAcc = MongoHelper.FromJson<HttpAccount>(str);
             if (httpAcc.Error != ErrorCode.ERR_Success)
             {
@@ -66,7 +78,17 @@ namespace ET.Client
         public static async ETTask<int> GetServerInfos(Scene root, string account)
         {
             string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/server_list?ServerType=1";
-            string str = await HttpClientHelper.Get(url);
+            string str = string.Empty;
+            try
+            {
+                str = await HttpClientHelper.Get(url);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetWorkError;
+            }
+            
             HttpServerList httpServer = MongoHelper.FromJson<HttpServerList>(str);
             root.GetComponent<ServerInfoComponent>().Clear();
             foreach (var serverInfoProto in httpServer.ServerList)

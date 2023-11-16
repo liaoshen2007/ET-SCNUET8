@@ -134,25 +134,26 @@ namespace ET.Client
 
         private static async ETTask OnLoginClick(this UILogin self)
         {
-            var ok = await self.QueryAccount();
-            if (!ok)
-            {
-                return;
-            }
-
-            ok = await self.QueryServer();
-            if (!ok)
-            {
-                return;
-            }
-
-            self.View.EG_AccountRectTransform.SetActive(false);
-            self.View.EG_ServerRectTransform.SetActive(true);
+            self.Root().GetComponent<UIComponent>().GetDlgLogic<UIPop>().PopMsg("哈哈哈哈哈哈哈哈, 我是你爸爸!");
+            // var ok = await self.QueryAccount();
+            // if (!ok)
+            // {
+            //     return;
+            // }
+            //
+            // ok = await self.QueryServer();
+            // if (!ok)
+            // {
+            //     return;
+            // }
+            //
+            // self.View.EG_AccountRectTransform.SetActive(false);
+            // self.View.EG_ServerRectTransform.SetActive(true);
         }
 
         private static async ETTask OnServerClick(this UILogin self)
         {
-            await self.Scene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_ServerList);
+            await self.Scene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UIServerList);
         }
 
         private static void OnBackClick(this UILogin self)
@@ -163,7 +164,7 @@ namespace ET.Client
 
         private static void OnEnterGameClick(this UILogin self)
         {
-            
+               
         }
     }
 }

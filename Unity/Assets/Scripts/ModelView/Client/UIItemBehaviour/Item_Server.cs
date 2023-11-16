@@ -6,7 +6,9 @@ namespace ET.Client
 	[EnableMethod]
 	public  class Scroll_Item_Server : Entity, IAwake, IDestroy, IUIScrollItem 
 	{
+		public long DataId {get;set;}
 		private bool isCacheNode = false;
+
 		public void SetCacheMode(bool isCache)
 		{
 			this.isCacheNode = isCache;
@@ -22,25 +24,22 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if (isCacheNode)
+     			if (this.isCacheNode)
      			{
-     				if( m_E_ServerButton == null )
+     				if( this.m_E_ServerButton == null )
      				{
-		    			m_E_ServerButton = UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Server");
+		    			this.m_E_ServerButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Server");
      				}
-
-     				return m_E_ServerButton;
+     				return this.m_E_ServerButton;
      			}
      			else
      			{
-
-		    		return UIFindHelper.FindDeepChild<Button>(uiTransform.gameObject,"E_Server");
+		    		return UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Server");
      			}
      		}
      	}
@@ -49,25 +48,22 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if (isCacheNode)
+     			if (this.isCacheNode)
      			{
-     				if( m_E_ServerExtendImage == null )
+     				if( this.m_E_ServerExtendImage == null )
      				{
-		    			m_E_ServerExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Server");
+		    			this.m_E_ServerExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Server");
      				}
-
-     				return m_E_ServerExtendImage;
+     				return this.m_E_ServerExtendImage;
      			}
      			else
      			{
-
-		    		return UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Server");
+		    		return UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Server");
      			}
      		}
      	}
@@ -76,25 +72,22 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if (isCacheNode)
+     			if (this.isCacheNode)
      			{
-     				if( m_E_NameExtendText == null )
+     				if( this.m_E_NameExtendText == null )
      				{
-		    			m_E_NameExtendText = UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"E_Name");
+		    			this.m_E_NameExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"E_Name");
      				}
-
-     				return m_E_NameExtendText;
+     				return this.m_E_NameExtendText;
      			}
      			else
      			{
-
-		    		return UIFindHelper.FindDeepChild<ExtendText>(uiTransform.gameObject,"E_Name");
+		    		return UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"E_Name");
      			}
      		}
      	}
@@ -103,36 +96,34 @@ namespace ET.Client
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if (isCacheNode)
+     			if (this.isCacheNode)
      			{
-     				if( m_E_TagExtendImage == null )
+     				if( this.m_E_TagExtendImage == null )
      				{
-		    			m_E_TagExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Tag");
+		    			this.m_E_TagExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Tag");
      				}
-
-     				return m_E_TagExtendImage;
+     				return this.m_E_TagExtendImage;
      			}
      			else
      			{
-
-		    		return UIFindHelper.FindDeepChild<ExtendImage>(uiTransform.gameObject,"E_Tag");
+		    		return UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Tag");
      			}
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			m_E_ServerButton = null;
-			m_E_ServerExtendImage = null;
-			m_E_NameExtendText = null;
-			m_E_TagExtendImage = null;
+			this.m_E_ServerButton = null;
+			this.m_E_ServerExtendImage = null;
+			this.m_E_NameExtendText = null;
+			this.m_E_TagExtendImage = null;
 			uiTransform = null;
+			this.DataId = 0;
 		}
 
 		private Button m_E_ServerButton = null;
