@@ -18,7 +18,6 @@ namespace ET
                 {
                     var handler = Activator.CreateInstance(type) as ACmdHandler;
                     var cmd = (attrs[0] as CmdAttribute).Cmd;
-                    Log.Info("注册消息处理器: " + type.Name + cmd);
                     cmdHandlers.Add(cmd, handler);
                 }
             }
@@ -63,7 +62,7 @@ namespace ET
             foreach (var cmdArg in list)
             {
                 var cc = ProcessCmd(self, cmdArg.Cmd, cmdArg.Args, args, ret);
-                if (!errorContinue && cc.Errco != ErrorCode.ERR_Success)
+                if (!errorContinue && cc.Errno != ErrorCode.ERR_Success)
                 {
                     return cc;
                 }

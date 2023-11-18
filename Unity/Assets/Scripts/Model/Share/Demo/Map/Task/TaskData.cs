@@ -25,6 +25,24 @@ namespace ET
         Timeout = 4,
     }
 
+    public enum TaskObjType
+    {
+        /// <summary>
+        /// 玩家任务
+        /// </summary>
+        Player = 0,
+
+        /// <summary>
+        /// 帮会任务
+        /// </summary>
+        League = 1,
+
+        /// <summary>
+        /// 全服任务
+        /// </summary>
+        Server = 2,
+    }
+
     [ChildOf]
     public class TaskData: Entity, IAwake
     {
@@ -32,6 +50,24 @@ namespace ET
         /// 任务状态
         /// </summary>
         public TaskStatus Status { get; set; }
+
+        public TaskObjType ObjType
+        {
+            get
+            {
+                if (this.Config.EventType > (int) TaskEventType.ServerType)
+                {
+                    return TaskObjType.Server;
+                }
+
+                if (this.Config.EventType > (int) TaskEventType.LeagueType)
+                {
+                    return TaskObjType.League;
+                }
+
+                return TaskObjType.Player;
+            }
+        }
 
         /// <summary>
         /// 活动参数
@@ -51,7 +87,12 @@ namespace ET
         /// 完成时间
         /// </summary>
         public long FinishTime { get; set; }
-        
+
+        /// <summary>
+        /// 提交时间
+        /// </summary>
+        public long CommitTime { get; set; }
+
         /// <summary>
         /// 超时时间
         /// </summary>

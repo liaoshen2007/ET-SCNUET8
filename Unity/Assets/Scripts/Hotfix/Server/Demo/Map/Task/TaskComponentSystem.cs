@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 
 namespace ET.Server;
 
 [EntitySystemOf(typeof (TaskComponent))]
+[FriendOf(typeof (TaskComponent))]
 public static partial class TaskComponentSystem
 {
     [EntitySystem]
     private static void Awake(this TaskComponent self)
     {
+        self.Load();
     }
 
     [EntitySystem]
@@ -15,9 +18,146 @@ public static partial class TaskComponentSystem
     {
     }
 
+    [EntitySystem]
+    private static void Load(this TaskComponent self)
+    {
+        self.TaskArgDict = new Dictionary<string, ATaskArgs>();
+        self.TaskHanderDict = new Dictionary<string, ATaskHandler>();
+        self.TaskProcessDict = new Dictionary<string, ATaskProcess>();
+        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskArgsAttribute)))
+        {
+            var attr = v.GetCustomAttributes(typeof (TaskArgsAttribute), false)[0] as TaskArgsAttribute;
+            self.TaskArgDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskArgs);
+        }
+
+        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskHandlerAttribute)))
+        {
+            var attr = v.GetCustomAttributes(typeof (TaskHandlerAttribute), false)[0] as TaskHandlerAttribute;
+            self.TaskHanderDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskHandler);
+        }
+
+        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskProcessAttribute)))
+        {
+            var attr = v.GetCustomAttributes(typeof (TaskProcessAttribute), false)[0] as TaskProcessAttribute;
+            self.TaskProcessDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskProcess);
+        }
+
+        self.TaskFuncDict = new Dictionary<TaskEventType, TaskFunc>()
+        {
+            { TaskEventType.Complete, new TaskFunc("Default", KeyValuePair.Create(0, 0)) },
+            { TaskEventType.UseCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
+            { TaskEventType.AddCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
+            { TaskEventType.ConsumeCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
+        };
+    }
+
     private static void UpdateTask(this TaskComponent self, TaskData task)
     {
-        self.GetParent<Unit>().SendToClient(new M2C_UpdateTask() { List = { task.ToTaskProto() } });
+        var proto = task.ToTaskProto();
+        if (self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        {
+            var ff = self.TaskProcessDict[tf.TaskProcess];
+            var pro = ff.Run(self, task, task.Config.Args);
+            proto.Min = pro.Key;
+            proto.Max = pro.Value;
+        }
+
+        self.GetParent<Unit>().SendToClient(new M2C_UpdateTask() { List = { proto } });
+    }
+
+    public static TaskData GetTask(this TaskComponent self, int taskId)
+    {
+        if (self.TaskDict.TryGetValue(taskId, out var task))
+        {
+            return task;
+        }
+
+        return default;
+    }
+
+    private static bool ProcessArgs(this TaskComponent self, TaskData task, List<long> args)
+    {
+        if (!self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        {
+            return false;
+        }
+
+        if (!self.TaskArgDict.TryGetValue(tf.TaskArgs, out var ff))
+        {
+            Log.Error($"不存在处理函数: {tf.TaskArgs}");
+            return false;
+        }
+
+        bool ok = ff.Run(self, task, args, task.Config.Args);
+        if (ok)
+        {
+            if (task.Config.ShopProgress)
+            {
+                self.UpdateTask(task);
+            }
+        }
+
+        return ok;
+    }
+
+    private static void ProcessHandler(this TaskComponent self, TaskData task)
+    {
+        if (!self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        {
+            return;
+        }
+
+        if (!self.TaskHanderDict.TryGetValue(tf.TaskHandle, out var ff))
+        {
+            Log.Error($"不存在处理函数: {tf.TaskHandle}");
+            return;
+        }
+
+        bool ok = ff.Run(self, task, task.Args, task.Config.Args);
+        if (ok)
+        {
+            self.FinishTask((int) task.Id);
+        }
+    }
+
+    private static void ProcessTask(this TaskComponent self, TaskData task, List<long> args = default)
+    {
+        args ??= new List<long>();
+        if (task.Status == TaskStatus.Accept)
+        {
+            bool isChange = self.ProcessArgs(task, args);
+            if (isChange)
+            {
+                self.ProcessHandler(task);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 处理任务事件
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="eventType"></param>
+    /// <param name="args"></param>
+    public static void ProcessTaskEvent(this TaskComponent self, TaskEventType eventType, List<long> args = default)
+    {
+        var list = new List<int>();
+        int evt = (int) eventType;
+        foreach (var t in self.TaskDict)
+        {
+            if (t.Value.Config.EventType == evt)
+            {
+                list.Add(t.Key);
+            }
+        }
+
+        foreach (int id in list)
+        {
+            if (self.TaskDict.TryGetValue(id, out var task))
+            {
+                self.ProcessTask(task, args);
+            }
+        }
     }
 
     /// <summary>
@@ -27,7 +167,7 @@ public static partial class TaskComponentSystem
     /// <param name="taskId">任务ID</param>
     /// <param name="data">任务数据</param>
     /// <returns></returns>
-    public static int AddTsak(this TaskComponent self, int taskId, AddTaskData data)
+    public static MessageReturn AddTsak(this TaskComponent self, int taskId, AddTaskData data)
     {
         if (data.Replace)
         {
@@ -37,14 +177,14 @@ public static partial class TaskComponentSystem
         {
             if (self.TaskDict.TryGetValue(taskId, out var task))
             {
-                return ErrorCode.ERR_Success;
+                return MessageReturn.Success();
             }
 
             var taskCfg = TaskConfigCategory.Instance.Get(taskId);
-            var ret = Cmd.Instance.ProcessCmdList(self.GetParent<Unit>(), taskCfg.GetCmdList);
-            if (ret.Errco != ErrorCode.ERR_Success)
+            var ret = Cmd.Instance.ProcessCmdList(self.GetParent<Unit>(), taskCfg.GetConditionList);
+            if (ret.Errno != ErrorCode.ERR_Success)
             {
-                return ret.Errco;
+                return ret;
             }
 
             task = self.AddChildWithId<TaskData>(taskId);
@@ -53,9 +193,10 @@ public static partial class TaskComponentSystem
             self.TaskDict.Add(taskId, task);
             EventSystem.Instance.Publish(self.Scene(), new AddTask() { TaskData = task });
             self.UpdateTask(task);
+            self.ProcessTask(task);
         }
 
-        return ErrorCode.ERR_Success;
+        return MessageReturn.Success();
     }
 
     /// <summary>
@@ -73,20 +214,106 @@ public static partial class TaskComponentSystem
             self.GetParent<Unit>().SendToClient(new M2C_DeleteTask() { List = { taskId } });
             task.Dispose();
         }
-
-        self.FinishTaskDict.Remove(taskId);
     }
 
-    public static int CommitTask(this TaskComponent self, int taskId, int logEvent)
+    private static MessageReturn PlayerTaskCommit(this TaskComponent self, TaskData task, int logEvent)
+    {
+        switch (task.Status)
+        {
+            case TaskStatus.Accept:
+                return MessageReturn.Create(ErrorCode.ERR_TaskNotFinish);
+            case TaskStatus.Commit:
+                return MessageReturn.Create(ErrorCode.ERR_TaskIsCommit);
+            case TaskStatus.Timeout:
+                return MessageReturn.Create(ErrorCode.ERR_TaskIsTimeOut);
+        }
+
+        var ret = Cmd.Instance.ProcessCmdList(self.GetParent<Unit>(), task.Config.CommitConditionList);
+        if (ret.Errno != ErrorCode.ERR_Success)
+        {
+            return ret;
+        }
+
+        //计算奖励
+        task.Status = TaskStatus.Commit;
+        task.CommitTime = TimeInfo.Instance.ServerFrameTime();
+        self.UpdateTask(task);
+        EventSystem.Instance.Publish(self.Scene(), new CommitTask() { TaskData = task });
+        if (!task.Config.FinishShow)
+        {
+            self.DelTask((int) task.Id, LogDef.TaskCommit);
+        }
+
+        if (task.Config.IsEnterFinish)
+        {
+            self.FinishTaskDict.Add((int) task.Id, new FinishTaskData() { Args = task.Args, FinishTime = task.CommitTime });
+        }
+
+        foreach (int id in task.Config.NextList)
+        {
+            self.AddTsak(id, new AddTaskData() { LogEvent = LogDef.TaskCommit });
+        }
+
+        Cmd.Instance.ProcessCmdList(self.GetParent<Unit>(), task.Config.CommitCmdList, new List<long>() { task.Id }, true);
+
+        return MessageReturn.Success();
+    }
+
+    private static MessageReturn LeagueTaskCommit(this TaskComponent self, TaskData task, int logEvent)
+    {
+        if (self.TaskIsCommit((int) task.Id))
+        {
+            return MessageReturn.Create(ErrorCode.ERR_TaskIsCommit);
+        }
+
+        return MessageReturn.Success();
+    }
+
+    private static MessageReturn ServerTaskCommit(this TaskComponent self, TaskData task, int logEvent)
+    {
+        if (self.TaskIsCommit((int) task.Id))
+        {
+            return MessageReturn.Create(ErrorCode.ERR_TaskIsCommit);
+        }
+
+        return MessageReturn.Success();
+    }
+
+    /// <summary>
+    /// 提交任务
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="taskId"></param>
+    /// <param name="logEvent"></param>
+    /// <returns></returns>
+    public static MessageReturn CommitTask(this TaskComponent self, int taskId, int logEvent)
     {
         if (!self.TaskDict.TryGetValue(taskId, out var task))
         {
-            return ErrorCode.ERR_CantFindCfg;
+            //可能有重复提交
+            return MessageReturn.Success();
         }
 
-        return ErrorCode.ERR_Success;
+        switch (task.ObjType)
+        {
+            case TaskObjType.Player:
+                return self.PlayerTaskCommit(task, logEvent);
+            case TaskObjType.League:
+                return self.LeagueTaskCommit(task, logEvent);
+            case TaskObjType.Server:
+                return self.ServerTaskCommit(task, logEvent);
+        }
+
+        return MessageReturn.Success();
     }
 
+    /// <summary>
+    /// 任务超时
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="taskId"></param>
+    /// <param name="logEvent"></param>
+    /// <returns></returns>
     public static int TimeoutTask(this TaskComponent self, int taskId, int logEvent)
     {
         if (!self.TaskDict.TryGetValue(taskId, out var task))
@@ -99,11 +326,17 @@ public static partial class TaskComponentSystem
         return ErrorCode.ERR_Success;
     }
 
+    /// <summary>
+    /// 完成任务
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="taskId"></param>
+    /// <returns></returns>
     public static int FinishTask(this TaskComponent self, int taskId)
     {
         if (!self.TaskDict.TryGetValue(taskId, out var task))
         {
-            return ErrorCode.ERR_CantFindCfg;
+            return ErrorCode.ERR_Success;
         }
 
         task.Args[0] = task.Config.Args[0];
@@ -116,17 +349,18 @@ public static partial class TaskComponentSystem
             self.CommitTask(taskId, LogDef.TaskAutoCommit);
         }
 
-        if (task.Config.FinishShow)
-        {
-            self.FinishTaskDict.Add(taskId, new FinishTaskData() { Args = task.Args, FinishTime = task.FinishTime });
-        }
-
         return ErrorCode.ERR_Success;
     }
 
+    /// <summary>
+    /// 任务是否提交
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="taskId"></param>
+    /// <returns></returns>
     public static bool TaskIsCommit(this TaskComponent self, int taskId)
     {
-        if (self.FinishTaskDict.ContainsKey(taskId))
+        if (self.FinishTaskDict.TryGetValue(taskId, out _))
         {
             return true;
         }
@@ -139,13 +373,14 @@ public static partial class TaskComponentSystem
         return task.Status == TaskStatus.Commit;
     }
 
+    /// <summary>
+    /// 任务是否完成
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="taskId"></param>
+    /// <returns></returns>
     public static bool TaskIsFinish(this TaskComponent self, int taskId)
     {
-        if (self.FinishTaskDict.ContainsKey(taskId))
-        {
-            return true;
-        }
-
         if (!self.TaskDict.TryGetValue(taskId, out var task))
         {
             return false;

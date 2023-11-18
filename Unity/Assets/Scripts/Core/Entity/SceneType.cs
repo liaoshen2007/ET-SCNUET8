@@ -56,6 +56,12 @@ namespace ET
         /// 账号服
         /// </summary>
         Account = 1 << 24,
+        
+        /// <summary>
+        /// 帮会服
+        /// </summary>
+        League = 1 << 25,
+        
 
         // 客户端
         Demo = 1 << 30,

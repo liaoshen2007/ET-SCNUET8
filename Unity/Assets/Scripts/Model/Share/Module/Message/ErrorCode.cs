@@ -44,5 +44,12 @@ namespace ET
         
         public const int ERR_GSCmdError = 210004;
         public const int ERR_GSCmdNotFound = 210004;
+        
+        /// <summary>
+        /// 任务未完成
+        /// </summary>
+        public const int ERR_TaskNotFinish = 211001;
+        public const int ERR_TaskIsCommit = 211002;
+        public const int ERR_TaskIsTimeOut = 211003;
     }
 }
