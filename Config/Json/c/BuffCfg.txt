@@ -1,4 +1,0 @@
-{"dict": [
-[100000001, {"_t":"BuffCfg","_id":100000001,"Name":"名称1","Desc":"描述1","Icon":"buff_1","ViewCmd":"die","Ms":3600,"Interval":1000,"EffectStr":"[{'Cmd': 'mass_add_buff',  'ViewCmd': 'hostile_buff', 'Args': [30015001, 5000, 999, 10000], 'SubList': []}, {'Cmd': 'mass_hurt', 'ViewCmd': 'mass_damage', 'Args': [3500, 1, 999, 1], 'SubList': []}]","AddType":3,"MaxLayer":1,"Classify":[25,3],"Mutex":[],"MutexLevel":2,"EffectType":1,"MasterId":100000,"Element":0}],
-[100001001, {"_t":"BuffCfg","_id":100001001,"Name":"名称2","Desc":"描述2","Icon":"buff_3","ViewCmd":"buff_xuanyun","Ms":0,"Interval":0,"EffectStr":"[{'Cmd': 'mass_add_buff',  'ViewCmd': 'hostile_buff', 'Args': [30015001, 5000, 999, 10000], 'SubList': []}, {'Cmd': 'mass_hurt', 'ViewCmd': 'mass_damage', 'Args': [3500, 1, 999, 1], 'SubList': []}]","AddType":3,"MaxLayer":1,"Classify":[17,24,1,101],"Mutex":[],"MutexLevel":1,"EffectType":2,"MasterId":100001,"Element":0}],
-]}

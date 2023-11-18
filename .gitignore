@@ -78,3 +78,6 @@ Publish/
 /Unity/*.vsconfig
 WebGL
 Unity/Bundles
+
+Config/Excel
+Config/Json
