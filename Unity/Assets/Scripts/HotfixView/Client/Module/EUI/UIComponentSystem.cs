@@ -261,11 +261,6 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(id).OnUnFocus(baseWindow);
             baseWindow.UIPrefabGameObject?.SetActive(false);
             UIEvent.Instance.GetUIEventHandler(id).OnHideWindow(baseWindow);
-            if (baseWindow.WindowData.NeedMask)
-            {
-                self.GetComponent<UIMask>().Hide();
-            }
-
             self.VisibleWindowsDic.Remove((int) id);
             for (int i = self.ShowWindowsList.Count - 1; i >= 0; i--)
             {
@@ -279,8 +274,13 @@ namespace ET.Client
             if (self.ShowWindowsList.Count > 0)
             {
                 var win = self.ShowWindowsList[0];
+                self.GetComponent<UIMask>().SetSibling(win.UITransform);
                 UIEvent.Instance.GetUIEventHandler(win.WindowID).OnFocus(win);
                 Log.Info("<color=magenta>### window Focus </color>" + win.WindowID);
+            }
+            else
+            {
+                self.GetComponent<UIMask>().Hide();
             }
 
             self.PopNextStackUIBaseWindow(id);

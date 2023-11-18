@@ -39,6 +39,13 @@ namespace ET.Client
             self.Mask.SetActive(true);
         }
 
+        public static void SetSibling(this UIMask self, Transform compare)
+        {
+            var index = compare.GetSiblingIndex();
+            self.Mask.SetParent(compare.parent, false);
+            self.Mask.SetSiblingIndex(index);
+        }
+
         public static void Hide(this UIMask self)
         {
             self.Mask.SetAsFirstSibling();

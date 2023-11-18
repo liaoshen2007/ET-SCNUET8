@@ -86,6 +86,17 @@ namespace ET.Client
 
         private static async ETTask<bool> QueryServer(this UILogin self)
         {
+            void SelectDefServer()
+            {
+                //默认选择服务器
+                if (self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId == 0)
+                {
+                    var server = self.Scene().GetComponent<ServerInfoComponent>().GetDefault();
+                    self.View.E_ServerTxtExtendText.text = server.ServerName;
+                    self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int) server.Id;
+                }
+            }
+
             var errno = await LoginHelper.GetServerInfos(self.Scene(), self.View.E_AccountInputInputField.text);
             if (errno != ErrorCode.ERR_Success)
             {
@@ -93,15 +104,15 @@ namespace ET.Client
                 return false;
             }
 
-            //默认选择服务器
-            if (self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId == 0)
-            {
-                var server = self.Scene().GetComponent<ServerInfoComponent>().GetDefault();
-                self.View.E_ServerTxtExtendText.text = server.ServerName;
-                self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int) server.Id;
-            }
+            SelectDefServer();
 
             var info = self.Scene().GetComponent<ServerInfoComponent>().GetCurServer();
+            if (info == null)
+            {
+                SelectDefServer();
+                info = self.Scene().GetComponent<ServerInfoComponent>().GetCurServer();
+            }
+
             await self.Scene().GetComponent<DataSaveComponent>().SaveAsync("LoginServer", info);
             switch (info.Status)
             {
@@ -135,6 +146,7 @@ namespace ET.Client
         private static async ETTask OnLoginClick(this UILogin self)
         {
             self.Root().GetComponent<UIComponent>().GetDlgLogic<UIPop>().PopMsg("哈哈哈哈哈哈哈哈, 我是你爸爸!");
+
             // var ok = await self.QueryAccount();
             // if (!ok)
             // {
@@ -164,7 +176,6 @@ namespace ET.Client
 
         private static void OnEnterGameClick(this UILogin self)
         {
-               
         }
     }
 }

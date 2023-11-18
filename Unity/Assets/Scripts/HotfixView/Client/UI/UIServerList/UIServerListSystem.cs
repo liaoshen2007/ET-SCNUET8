@@ -41,7 +41,7 @@ namespace ET.Client
         {
             self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int) serverId;
             Log.Debug($"当前选择的服务器 Id 是:{serverId}");
-            self.Scene().GetComponent<UIComponent>().CloseWindow(WindowID.Win_UIServerList);
+            self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_UIServerList);
         }
     }
 }
