@@ -9,11 +9,6 @@ namespace ET
     {
         #region Internal Methods
 
-        private void Start()
-        {
-            this.tween.TweenUpdate(this.OnUpdate);
-        }
-
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
             // 不可交互或没有缩放对象
@@ -27,17 +22,12 @@ namespace ET
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
-            this.tween.PlayForward();
+            this.tween.PlayReverse();
         }
 
         protected void OnDestroy()
         {
             this.tween.Kill();
-        }
-
-        private void OnUpdate(Tweener _)
-        {
-            scaleTarget.localScale = this.tween.transform.localScale;
         }
 
 #if UNITY_EDITOR
