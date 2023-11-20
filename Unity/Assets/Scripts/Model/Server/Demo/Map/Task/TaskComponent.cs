@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Server
 {
@@ -7,6 +9,8 @@ namespace ET.Server
         public int LogEvent { get; set; }
 
         public bool Replace { get; set; }
+        
+        public bool NotUpdate {get; set;}
 
         public object Arg1 { get; set; }
 
@@ -40,22 +44,28 @@ namespace ET.Server
     }
 
     [ComponentOf(typeof (Unit))]
-    public class TaskComponent: Entity, IAwake, IDestroy, ILoad
+    public class TaskComponent: Entity, IAwake, IDestroy, ILoad, ICache, ITransfer
     {
+        [BsonIgnore]
         public Dictionary<TaskEventType, TaskFunc> TaskFuncDict;
 
+        [BsonIgnore]
         public Dictionary<string, ATaskArgs> TaskArgDict;
+        [BsonIgnore]
         public Dictionary<string, ATaskHandler> TaskHanderDict;
+        [BsonIgnore]
         public Dictionary<string, ATaskProcess> TaskProcessDict;
 
         /// <summary>
         /// 所有的任务字典
         /// </summary>
-        public Dictionary<int, TaskData> TaskDict { get; } = new Dictionary<int, TaskData>();
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        public Dictionary<int, TaskData> TaskDict;
 
         /// <summary>
         /// 完成任务字典
         /// </summary>
-        public Dictionary<int, FinishTaskData> FinishTaskDict { get; } = new Dictionary<int, FinishTaskData>();
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        public Dictionary<int, FinishTaskData> FinishTaskDict;
     }
 }

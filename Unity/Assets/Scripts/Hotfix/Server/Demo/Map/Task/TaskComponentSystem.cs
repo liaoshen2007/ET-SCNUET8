@@ -11,6 +11,7 @@ public static partial class TaskComponentSystem
     private static void Awake(this TaskComponent self)
     {
         self.Load();
+        self.InitTask();
     }
 
     [EntitySystem]
@@ -21,6 +22,8 @@ public static partial class TaskComponentSystem
     [EntitySystem]
     private static void Load(this TaskComponent self)
     {
+        self.TaskDict = new Dictionary<int, TaskData>();
+        self.FinishTaskDict = new Dictionary<int, FinishTaskData>();
         self.TaskArgDict = new Dictionary<string, ATaskArgs>();
         self.TaskHanderDict = new Dictionary<string, ATaskHandler>();
         self.TaskProcessDict = new Dictionary<string, ATaskProcess>();
@@ -48,13 +51,26 @@ public static partial class TaskComponentSystem
             { TaskEventType.UseCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
             { TaskEventType.AddCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
             { TaskEventType.ConsumeCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
+            { TaskEventType.HomeLevel, new TaskFunc("Common1", KeyValuePair.Create(1, 1)) },
         };
+    }
+
+    private static void InitTask(this TaskComponent self)
+    {
+        var list = TaskConfigCategory.Instance.GetTaskList(TaskType.HomeAchievement);
+        foreach (int id in list)
+        {
+            if (!self.HasTask(id))
+            {
+                self.AddTask(id, new AddTaskData() { LogEvent = LogDef.TaskInit, NotUpdate = true });
+            }
+        }
     }
 
     private static void UpdateTask(this TaskComponent self, TaskData task)
     {
         var proto = task.ToTaskProto();
-        if (self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        if (self.TaskFuncDict.TryGetValue((TaskEventType)task.Config.EventType, out var tf))
         {
             var ff = self.TaskProcessDict[tf.TaskProcess];
             var pro = ff.Run(self, task, task.Config.Args);
@@ -75,9 +91,24 @@ public static partial class TaskComponentSystem
         return default;
     }
 
+    public static bool HasTask(this TaskComponent self, int taskId)
+    {
+        if (self.TaskDict.TryGetValue(taskId, out _))
+        {
+            return true;
+        }
+
+        if (self.FinishTaskDict.TryGetValue(taskId, out _))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private static bool ProcessArgs(this TaskComponent self, TaskData task, List<long> args)
     {
-        if (!self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        if (!self.TaskFuncDict.TryGetValue((TaskEventType)task.Config.EventType, out var tf))
         {
             return false;
         }
@@ -102,7 +133,7 @@ public static partial class TaskComponentSystem
 
     private static void ProcessHandler(this TaskComponent self, TaskData task)
     {
-        if (!self.TaskFuncDict.TryGetValue((TaskEventType) task.Config.EventType, out var tf))
+        if (!self.TaskFuncDict.TryGetValue((TaskEventType)task.Config.EventType, out var tf))
         {
             return;
         }
@@ -116,7 +147,7 @@ public static partial class TaskComponentSystem
         bool ok = ff.Run(self, task, task.Args, task.Config.Args);
         if (ok)
         {
-            self.FinishTask((int) task.Id);
+            self.FinishTask((int)task.Id);
         }
     }
 
@@ -142,7 +173,7 @@ public static partial class TaskComponentSystem
     public static void ProcessTaskEvent(this TaskComponent self, TaskEventType eventType, List<long> args = default)
     {
         var list = new List<int>();
-        int evt = (int) eventType;
+        int evt = (int)eventType;
         foreach (var t in self.TaskDict)
         {
             if (t.Value.Config.EventType == evt)
@@ -167,7 +198,7 @@ public static partial class TaskComponentSystem
     /// <param name="taskId">任务ID</param>
     /// <param name="data">任务数据</param>
     /// <returns></returns>
-    public static MessageReturn AddTsak(this TaskComponent self, int taskId, AddTaskData data)
+    public static MessageReturn AddTask(this TaskComponent self, int taskId, AddTaskData data)
     {
         if (data.Replace)
         {
@@ -191,8 +222,12 @@ public static partial class TaskComponentSystem
             task.Status = TaskStatus.Accept;
             task.AcceptTime = TimeInfo.Instance.ServerFrameTime();
             self.TaskDict.Add(taskId, task);
-            EventSystem.Instance.Publish(self.Scene(), new AddTask() { TaskData = task });
-            self.UpdateTask(task);
+            EventSystem.Instance.Publish(self.Scene(), new AddUpdateTask() { TaskData = task });
+            if (!data.NotUpdate)
+            {
+                self.UpdateTask(task);
+            }
+
             self.ProcessTask(task);
         }
 
@@ -241,17 +276,17 @@ public static partial class TaskComponentSystem
         EventSystem.Instance.Publish(self.Scene(), new CommitTask() { TaskData = task });
         if (!task.Config.FinishShow)
         {
-            self.DelTask((int) task.Id, LogDef.TaskCommit);
+            self.DelTask((int)task.Id, LogDef.TaskCommit);
         }
 
         if (task.Config.IsEnterFinish)
         {
-            self.FinishTaskDict.Add((int) task.Id, new FinishTaskData() { Args = task.Args, FinishTime = task.CommitTime });
+            self.FinishTaskDict.Add((int)task.Id, new FinishTaskData() { Args = task.Args, FinishTime = task.CommitTime });
         }
 
         foreach (int id in task.Config.NextList)
         {
-            self.AddTsak(id, new AddTaskData() { LogEvent = LogDef.TaskCommit });
+            self.AddTask(id, new AddTaskData() { LogEvent = LogDef.TaskCommit });
         }
 
         Cmd.Instance.ProcessCmdList(self.GetParent<Unit>(), task.Config.CommitCmdList, new List<long>() { task.Id }, true);
@@ -261,7 +296,7 @@ public static partial class TaskComponentSystem
 
     private static MessageReturn LeagueTaskCommit(this TaskComponent self, TaskData task, int logEvent)
     {
-        if (self.TaskIsCommit((int) task.Id))
+        if (self.TaskIsCommit((int)task.Id))
         {
             return MessageReturn.Create(ErrorCode.ERR_TaskIsCommit);
         }
@@ -271,7 +306,7 @@ public static partial class TaskComponentSystem
 
     private static MessageReturn ServerTaskCommit(this TaskComponent self, TaskData task, int logEvent)
     {
-        if (self.TaskIsCommit((int) task.Id))
+        if (self.TaskIsCommit((int)task.Id))
         {
             return MessageReturn.Create(ErrorCode.ERR_TaskIsCommit);
         }

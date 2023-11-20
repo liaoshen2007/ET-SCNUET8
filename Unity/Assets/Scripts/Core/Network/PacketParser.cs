@@ -17,7 +17,7 @@ namespace ET
 		private readonly AService service;
 		private readonly byte[] cache = new byte[8];
 		public const int InnerPacketSizeLength = 4;
-		public const int OuterPacketSizeLength = 2;
+		public const int OuterPacketSizeLength = 3;
 		public MemoryBuffer MemoryBuffer;
 
 		public PacketParser(CircularBuffer buffer, AService service)

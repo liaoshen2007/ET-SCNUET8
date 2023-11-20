@@ -1,9 +1,11 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET
 {
     /// <summary>
     /// 添加任务
     /// </summary>
-    public struct AddTask
+    public struct AddUpdateTask
     {
         public TaskData TaskData { get; set; }
     }
@@ -15,7 +17,7 @@
     {
         public TaskData TaskData { get; set; }
     }
-    
+
     /// <summary>
     /// 提交任务
     /// </summary>
@@ -23,7 +25,7 @@
     {
         public TaskData TaskData { get; set; }
     }
-    
+
     /// <summary>
     /// 删除任务
     /// </summary>

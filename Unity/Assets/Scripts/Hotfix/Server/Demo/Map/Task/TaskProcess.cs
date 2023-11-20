@@ -2,7 +2,7 @@
 
 namespace ET.Server
 {
-    [TaskArgs("Default")]
+    [TaskProcess("Default")]
     public class TaskProcessDefault: ATaskProcess
     {
         public override KeyValuePair<long, long> Run(TaskComponent self, TaskData task, long[] cfgArgs)
@@ -14,7 +14,7 @@ namespace ET.Server
     /// <summary>
     /// 默认成功
     /// </summary>
-    [TaskArgs("SubTask")]
+    [TaskProcess("SubTask")]
     public class TaskProcessSubTask: ATaskProcess
     {
         public override KeyValuePair<long, long> Run(TaskComponent self, TaskData task, long[] cfgArgs)

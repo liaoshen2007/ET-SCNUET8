@@ -14,5 +14,10 @@
                 Time = self.FinishTime,
             };
         }
+        
+        public static void ToTask(this TaskData self, TaskProto task)
+        {
+            
+        }
     }
 }

@@ -6,8 +6,13 @@
     public enum TaskType
     {
         /// <summary>
-        /// 每日任务
+        /// 成就
         /// </summary>
-        Day = 1,
+        HomeAchievement = 1,
+        
+        /// <summary>
+        /// 活动任务
+        /// </summary>
+        ActivityTask = 14,
     }
 }

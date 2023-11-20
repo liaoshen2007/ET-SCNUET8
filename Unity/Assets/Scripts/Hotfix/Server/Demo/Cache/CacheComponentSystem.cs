@@ -1,38 +1,36 @@
 ﻿namespace ET.Server
 {
-    public static class CacheComponentSystem
+    [EntitySystemOf(typeof (CacheComponent))]
+    public static partial class CacheComponentSystem
     {
-        public class CacheComponentAwakeSystem: AwakeSystem<CacheComponent>
+        [EntitySystem]
+        private static void Awake(this CacheComponent self)
         {
-            protected override void Awake(CacheComponent self)
-            {
-                self.CacheDict.Clear();
-                self.LoadCacheKey();
-            }
+            self.CacheDict.Clear();
+            self.LoadCacheKey();
+            Log.Info($"缓存服务器启动完成：{self.Zone()}");
         }
 
-        public class CacheComponentDestorySystem: DestroySystem<CacheComponent>
+        [EntitySystem]
+        private static void Destroy(this CacheComponent self)
         {
-            protected override void Destroy(CacheComponent self)
+            self.CacheKeyList.Clear();
+            foreach (var unitCache in self.CacheDict.Values)
             {
-                self.CacheKeyList.Clear();
-                foreach (var unitCache in self.CacheDict.Values)
-                {
-                    unitCache.Dispose();
-                }
-
-                self.CacheDict.Clear();
+                unitCache.Dispose();
             }
+
+            self.CacheDict.Clear();
         }
 
-        public static void LoadCacheKey(this CacheComponent self)
+        private static void LoadCacheKey(this CacheComponent self)
         {
             self.CacheKeyList.Clear();
             foreach (var type in CodeTypes.Instance.GetTypes().Values)
             {
                 if (!type.IsAbstract && type.IsAssignableTo(typeof (ICache)))
                 {
-                    self.CacheKeyList.Add(type.Name);
+                    self.CacheKeyList.Add(type.FullName);
                 }
             }
 
@@ -71,7 +69,6 @@
                     }
 
                     uniCache.AddOrUpdate(entity);
-                    Log.Info(entity.ToJson());
                     list.Add(entity);
                 }
 

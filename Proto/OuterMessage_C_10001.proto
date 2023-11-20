@@ -331,13 +331,13 @@ message TaskProto
 }
 
 // 更新任务
-message M2C_UpdateTask //ILocationMessage
+message M2C_UpdateTask //IMessage
 {
   repeated TaskProto List = 1;
 }
 
 // 删除任务
-message M2C_DeleteTask //ILocationMessage
+message M2C_DeleteTask //IMessage
 {
   repeated int32 List = 1;
 }

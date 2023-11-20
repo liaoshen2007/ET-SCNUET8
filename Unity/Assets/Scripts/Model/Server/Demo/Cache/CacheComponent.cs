@@ -8,8 +8,8 @@ namespace ET.Server
     [ComponentOf(typeof(Scene))]
     public class CacheComponent : Entity, IAwake, IDestroy
     {
-        public Dictionary<string, UnitCache> CacheDict { get; set; } = new Dictionary<string, UnitCache>();
+        public Dictionary<string, UnitCache> CacheDict { get; } = new Dictionary<string, UnitCache>();
 
-        public List<string> CacheKeyList { get; set; } = new ListComponent<string>();
+        public List<string> CacheKeyList { get; } = new ListComponent<string>();
     }
 }

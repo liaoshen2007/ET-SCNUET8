@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
@@ -144,7 +143,7 @@ namespace ET
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
                     string fileNameWithoutCS = fileNameWithoutExtension;
                     string cs = "cs";
-                    if (fileNameWithoutExtension.Contains("@"))
+                    if (fileNameWithoutExtension.Contains('@'))
                     {
                         string[] ss = fileNameWithoutExtension.Split("@");
                         fileNameWithoutCS = ss[0];
@@ -198,7 +197,6 @@ namespace ET
                 configAssemblies[(int) ConfigType.cs] = DynamicBuild(ConfigType.cs);
 
                 List<string> excels = FileHelper.GetAllFiles(excelDir, "*.xlsx");
-                
                 foreach (string path in excels)
                 {
                     ExportExcel(path);
@@ -208,6 +206,7 @@ namespace ET
                 {
                     Directory.Delete(clientProtoDir, true);
                 }
+                
                 FileHelper.CopyDirectory("../Config/Excel/c", clientProtoDir);
                 
                 Log.Console("Export Excel Sucess!");
@@ -237,7 +236,7 @@ namespace ET
             string dir = Path.GetDirectoryName(path);
             string relativePath = Path.GetRelativePath(excelDir, dir);
             string fileName = Path.GetFileName(path);
-            if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains("#"))
+            if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains('#'))
             {
                 return;
             }
@@ -245,7 +244,7 @@ namespace ET
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
             string fileNameWithoutCS = fileNameWithoutExtension;
             string cs = "cs";
-            if (fileNameWithoutExtension.Contains("@"))
+            if (fileNameWithoutExtension.Contains('@'))
             {
                 string[] ss = fileNameWithoutExtension.Split("@");
                 fileNameWithoutCS = ss[0];
@@ -264,11 +263,10 @@ namespace ET
             }
 
             Table table = GetTable(protoName);
-
             ExcelPackage p = GetPackage(Path.GetFullPath(path));
-
             if (cs.Contains('c'))
             {
+                relativePath = ".";
                 ExportExcelJson(p, fileNameWithoutCS, table, ConfigType.c, relativePath);
                 ExportExcelProtobuf(ConfigType.c, protoName, relativePath);
             }
@@ -278,6 +276,7 @@ namespace ET
                 ExportExcelJson(p, fileNameWithoutCS, table, ConfigType.s, relativePath);
                 ExportExcelProtobuf(ConfigType.s, protoName, relativePath);
             }
+            
             ExportExcelJson(p, fileNameWithoutCS, table, ConfigType.cs, relativePath);
             ExportExcelProtobuf(ConfigType.cs, protoName, relativePath);
         }
@@ -584,6 +583,8 @@ namespace ET
                     value = value.Replace("\\", "\\\\");
                     value = value.Replace("\"", "\\\"");
                     return $"\"{value}\"";
+                case "bool":
+                    return value.IsNullOrEmpty() ? "false" : "true";
                 default:
                     throw new Exception($"不支持此类型: {type}");
             }

@@ -91,6 +91,7 @@ namespace ET
                 catch (Exception exception)
                 {
                     response.Error = ErrorCore.ERR_RpcFail;
+                    Log.Error(exception);
                     response.Message = new List<string>() { exception.ToString() };
                 }
                 

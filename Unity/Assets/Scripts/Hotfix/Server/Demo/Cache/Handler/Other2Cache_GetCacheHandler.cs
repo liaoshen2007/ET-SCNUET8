@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace ET.Server
 {
@@ -13,6 +14,7 @@ namespace ET.Server
             {
                 if (request.ComponentNameList.Count == 0)
                 {
+                    dict.Add("ET.Unit", null);
                     foreach (string s in cacheCom.CacheKeyList)
                     {
                         dict.Add(s, null);

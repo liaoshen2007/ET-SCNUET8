@@ -705,6 +705,9 @@ namespace ET
 		[MemoryPackOrder(89)]
 		public int RpcId { get; set; }
 
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
 		[MemoryPackOrder(1)]
 		public long Key { get; set; }
 
@@ -715,6 +718,7 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
+			this.Id = default;
 			this.Key = default;
 			this.GateId = default;
 			
@@ -769,9 +773,6 @@ namespace ET
 		[MemoryPackOrder(-1)]
 		public long Id { get; set; }
 
-		[MemoryPackOrder(0)]
-		public string UserUid { get; set; }
-
 		[MemoryPackOrder(1)]
 		public int AccountType { get; set; }
 
@@ -782,7 +783,6 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.Id = default;
-			this.UserUid = default;
 			this.AccountType = default;
 			this.CreateTime = default;
 			
@@ -1565,15 +1565,12 @@ namespace ET
 	/// </summary>
 	[Message(OuterMessage.M2C_UpdateTask)]
 	[MemoryPackable]
-	public partial class M2C_UpdateTask: MessageObject, ILocationMessage
+	public partial class M2C_UpdateTask: MessageObject, IMessage
 	{
 		public static M2C_UpdateTask Create(bool isFromPool = true) 
 		{ 
 			return !isFromPool? new M2C_UpdateTask() : ObjectPool.Instance.Fetch(typeof(M2C_UpdateTask)) as M2C_UpdateTask; 
 		}
-
-		[MemoryPackOrder(89)]
-		public int RpcId { get; set; }
 
 		[MemoryPackOrder(0)]
 		public List<TaskProto> List { get; set; } = new();
@@ -1581,7 +1578,6 @@ namespace ET
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
-			this.RpcId = default;
 			this.List.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -1594,15 +1590,12 @@ namespace ET
 	/// </summary>
 	[Message(OuterMessage.M2C_DeleteTask)]
 	[MemoryPackable]
-	public partial class M2C_DeleteTask: MessageObject, ILocationMessage
+	public partial class M2C_DeleteTask: MessageObject, IMessage
 	{
 		public static M2C_DeleteTask Create(bool isFromPool = true) 
 		{ 
 			return !isFromPool? new M2C_DeleteTask() : ObjectPool.Instance.Fetch(typeof(M2C_DeleteTask)) as M2C_DeleteTask; 
 		}
-
-		[MemoryPackOrder(89)]
-		public int RpcId { get; set; }
 
 		[MemoryPackOrder(0)]
 		public List<int> List { get; set; } = new();
@@ -1610,7 +1603,6 @@ namespace ET
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
-			this.RpcId = default;
 			this.List.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 

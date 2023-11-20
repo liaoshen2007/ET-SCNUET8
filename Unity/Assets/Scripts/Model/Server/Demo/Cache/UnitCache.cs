@@ -15,6 +15,6 @@ namespace ET.Server
     {
         public string TypeName { get; set; }
 
-        public Dictionary<long, Entity> ComponentDict { get; set; } = new Dictionary<long, Entity>();
+        public Dictionary<long, Entity> ComponentDict { get; } = new Dictionary<long, Entity>();
     }
 }

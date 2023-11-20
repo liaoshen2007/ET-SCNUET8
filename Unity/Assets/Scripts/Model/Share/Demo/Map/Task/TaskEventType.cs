@@ -24,6 +24,11 @@
         /// 获得XX个XX道具
         /// </summary>
         ConsumeCountItem = 4,
+        
+        /// <summary>
+        /// 大本营升至XX级
+        /// </summary>
+        HomeLevel = 5,
 
         /// <summary>
         /// 联盟任任务事件类型

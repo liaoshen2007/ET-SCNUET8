@@ -63,7 +63,7 @@ namespace ET
 		/// <summary>任务事件类型</summary>
 		public int EventType { get; set; }
 		/// <summary>任务参数</summary>
-		public int[] Args { get; set; }
+		public long[] Args { get; set; }
 		/// <summary>完成是否显示</summary>
 		public bool FinishShow { get; set; }
 		/// <summary>是否显示进度</summary>
@@ -75,9 +75,15 @@ namespace ET
 		/// <summary>接取条件列表</summary>
 		public string GetConditionListStr { get; set; }
 		/// <summary>提交条件列表</summary>
+		public string CommitConditionListStr { get; set; }
+		/// <summary>提交条件列表</summary>
 		public string CommitCmdListStr { get; set; }
 		/// <summary>品质</summary>
 		public int Quality { get; set; }
+		/// <summary>后续任务列表</summary>
+		public int[] NextList { get; set; }
+		/// <summary>是否进入完成列表</summary>
+		public bool IsEnterFinish { get; set; }
 
 	}
 }

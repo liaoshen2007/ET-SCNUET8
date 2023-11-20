@@ -5,7 +5,7 @@ namespace ET.Server
     /// <summary>
     /// 默认成功
     /// </summary>
-    [TaskArgs("Default")]
+    [TaskHandler("Default")]
     [FriendOf(typeof (TaskComponent))]
     public class TaskHandlerDefault: ATaskHandler
     {

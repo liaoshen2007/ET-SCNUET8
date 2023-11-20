@@ -15,7 +15,7 @@ namespace ET.Server
             gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
 
             Scene scene = gateMapComponent.Scene;
-            Unit unit = await CacheHelper.GetCache(player.Scene(), player.Id);
+            Unit unit = await CacheHelper.GetCache(scene, player.Scene(), player.Id);
             bool isNewPlayer = unit == null;
             if (isNewPlayer)
             {
