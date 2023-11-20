@@ -122,7 +122,7 @@ namespace ET.Server
         /// <param name="addLayer">添加层级</param>
         public static Buff AddBuff(this BuffComponent self, int id, int ms = 0, long addRoleId = 0, int skillId = 0, int addLayer = 1)
         {
-            var buffConfig = BuffCfgCategory.Instance.Get(id);
+            var buffConfig = BuffConfigCategory.Instance.Get(id);
             if (buffConfig == null)
             {
                 Log.Error($"buff 配置不存在 {id}");
@@ -144,7 +144,7 @@ namespace ET.Server
                 {
                     if (buff.Id != id && IsValid(buff))
                     {
-                        var cfg = BuffCfgCategory.Instance.Get(buff.BuffId);
+                        var cfg = BuffConfigCategory.Instance.Get(buff.BuffId);
 
                         // 1 为免疫所有BUFF
                         if (cfg.MutexMap.Contains(1))
@@ -360,7 +360,7 @@ namespace ET.Server
             {
                 if (self.BuffDict.TryGetValue(id, out var buff))
                 {
-                    var buffCfg = BuffCfgCategory.Instance.Get(buff.BuffId);
+                    var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
                     if (buffCfg.ClassifyMap.Contains(classify))
                     {
                         self.RemoveBuff(id);
@@ -471,7 +471,7 @@ namespace ET.Server
             self.EventMap.Clear();
             foreach (var buff in self.BuffDict.Values)
             {
-                var buffCfg = BuffCfgCategory.Instance.Get(buff.BuffId);
+                var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
                 foreach (var c in buffCfg.ClassifyMap)
                 {
                     self.EventMap[c] = true;
@@ -500,7 +500,7 @@ namespace ET.Server
 
         private static void DoBuff(this BuffComponent self, Buff buff, BuffLife life, BuffEvent? buffEvent = null)
         {
-            var buffCfg = BuffCfgCategory.Instance.Get(buff.BuffId);
+            var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
             foreach (var effect in buffCfg.EffectList)
             {
                 switch (life)

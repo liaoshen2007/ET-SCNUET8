@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
@@ -51,16 +52,17 @@ namespace ET
         /// </summary>
         public TaskStatus Status { get; set; }
 
+        [BsonIgnore]
         public TaskObjType ObjType
         {
             get
             {
-                if (this.Config.EventType > (int) TaskEventType.ServerType)
+                if (this.Config.EventType > (int)TaskEventType.ServerType)
                 {
                     return TaskObjType.Server;
                 }
 
-                if (this.Config.EventType > (int) TaskEventType.LeagueType)
+                if (this.Config.EventType > (int)TaskEventType.LeagueType)
                 {
                     return TaskObjType.League;
                 }
@@ -101,11 +103,12 @@ namespace ET
         /// <summary>
         /// 任务配置
         /// </summary>
+        [BsonIgnore]
         public TaskConfig Config
         {
             get
             {
-                return TaskConfigCategory.Instance.Get((int) this.Id);
+                return TaskConfigCategory.Instance.Get((int)this.Id);
             }
         }
     }
