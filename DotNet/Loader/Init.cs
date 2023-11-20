@@ -35,11 +35,13 @@ namespace ET
 		public static void Update()
 		{
 			TimeInfo.Instance.Update();
+			World.Instance.Update();
 			FiberManager.Instance.Update();
 		}
 
 		public static void LateUpdate()
 		{
+			World.Instance.LateUpdate();
 			FiberManager.Instance.LateUpdate();
 		}
 	}

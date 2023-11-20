@@ -13,12 +13,9 @@
     [ChildOf]
     public class Account: Entity, IAwake
     {
-        /// <summary>
-        /// 用户uid
-        /// </summary>
-        public string UserUid;
-
         public string UidBack;
+        
+        public string ChannelUser;
 
         public string AccountName; //账户名
 

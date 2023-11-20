@@ -11,13 +11,14 @@ namespace ET.Client
         /// <param name="root"></param>
         /// <param name="account"></param>
         /// <param name="password"></param>
+        /// <param name="accountId"></param>
         /// <returns></returns>
-        public static async ETTask<int> Login(Scene root, string account, string password)
+        public static async ETTask<int> Login(Scene root, string account, string password, long accountId)
         {
             root.RemoveComponent<ClientSenderCompnent>();
             ClientSenderCompnent clientSenderCompnent = root.AddComponent<ClientSenderCompnent>();
 
-            long playerId = await clientSenderCompnent.LoginAsync(account, password);
+            long playerId = await clientSenderCompnent.LoginAsync(account, password, accountId);
 
             root.GetComponent<PlayerComponent>().MyId = playerId;
 
@@ -62,7 +63,6 @@ namespace ET.Client
             var acc = root.AddChildWithId<Account>(httpAcc.Account.Id);
             acc.AccountName = account;
             acc.Password = password;
-            acc.UserUid = httpAcc.Account.UserUid;
             acc.AccountType = (AccountType) httpAcc.Account.AccountType;
             acc.CreateTime = httpAcc.Account.CreateTime;
 

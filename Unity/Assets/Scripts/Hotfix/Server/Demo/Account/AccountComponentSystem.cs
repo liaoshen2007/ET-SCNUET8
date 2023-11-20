@@ -12,7 +12,7 @@ namespace ET.Server
             var collection = self.Scene().GetComponent<DBManagerComponent>().GetDB().GetCollection<Account>();
             collection.Indexes.CreateMany(new[]
             {
-                new CreateIndexModel<Account>(Builders<Account>.IndexKeys.Ascending(info => info.UserUid)),
+                new CreateIndexModel<Account>(Builders<Account>.IndexKeys.Ascending(info => info.Id)),
                 new CreateIndexModel<Account>(Builders<Account>.IndexKeys.Ascending(info => info.AccountName)),
             });
         }
@@ -31,7 +31,6 @@ namespace ET.Server
 
             var acc = self.AddChild<Account>();
             acc.AccountName = account;
-            acc.UserUid = account;
             acc.Password = password;
             acc.CreateTime = TimeInfo.Instance.ServerFrameTime();
             acc.AccountType = AccountType.General;

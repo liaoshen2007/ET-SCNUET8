@@ -9,6 +9,7 @@ message Main2NetClient_Login // IRequest
 	int32 OwnerFiberId = 2;
 	string Account = 3;
 	string Password = 4;
+	int64 Id = 5; //账号ID
 }
 
 message NetClient2Main_Login // IResponse

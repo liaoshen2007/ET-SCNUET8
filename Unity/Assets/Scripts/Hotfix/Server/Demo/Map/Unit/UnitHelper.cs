@@ -23,7 +23,6 @@ namespace ET.Server
                 CacheHelper.UpdateAllCache(player.Scene(), unit);
             }
 
-            unit.AddComponent<UnitGateComponent, long>(player.InstanceId);
             return (isNewPlayer, unit);
         }
 

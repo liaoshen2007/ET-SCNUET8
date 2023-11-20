@@ -22,8 +22,8 @@
 
         private static async ETTask TimeoutRemoveKey(this GateSessionKeyComponent self, long key)
         {
-            // 20S不登录就删除key
-            await self.Root().GetComponent<TimerComponent>().WaitAsync(20000);
+            // 10S不登录就删除key
+            await self.Root().GetComponent<TimerComponent>().WaitAsync(10000);
             self.sessionKey.Remove(key);
         }
     }

@@ -34,7 +34,7 @@ namespace ET.Client
             self.View.E_LoginBtnButton.AddListenerAsync(self.OnLoginClick);
             self.View.E_ServerBtnButton.AddListenerAsync(self.OnServerClick);
             self.View.E_BackBtnButton.AddListener(self.OnBackClick);
-            self.View.E_EnterGameBtnButton.AddListener(self.OnEnterGameClick);
+            self.View.E_EnterGameBtnButton.AddListenerAsync(self.OnEnterGameClick);
         }
 
         public static void OnFocus(this UILogin self)
@@ -145,22 +145,20 @@ namespace ET.Client
 
         private static async ETTask OnLoginClick(this UILogin self)
         {
-            self.Root().GetComponent<UIComponent>().GetDlgLogic<UIPop>().PopMsg("哈哈哈哈哈哈哈哈, 我是你爸爸!");
+            var ok = await self.QueryAccount();
+            if (!ok)
+            {
+                return;
+            }
 
-            // var ok = await self.QueryAccount();
-            // if (!ok)
-            // {
-            //     return;
-            // }
-            //
-            // ok = await self.QueryServer();
-            // if (!ok)
-            // {
-            //     return;
-            // }
-            //
-            // self.View.EG_AccountRectTransform.SetActive(false);
-            // self.View.EG_ServerRectTransform.SetActive(true);
+            ok = await self.QueryServer();
+            if (!ok)
+            {
+                return;
+            }
+
+            self.View.EG_AccountRectTransform.SetActive(false);
+            self.View.EG_ServerRectTransform.SetActive(true);
         }
 
         private static async ETTask OnServerClick(this UILogin self)
@@ -174,8 +172,17 @@ namespace ET.Client
             self.View.EG_ServerRectTransform.SetActive(false);
         }
 
-        private static void OnEnterGameClick(this UILogin self)
+        private static async ETTask OnEnterGameClick(this UILogin self)
         {
+            var account = self.Scene().GetChild<Account>();
+            var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
+            if (errno != ErrorCode.ERR_Success)
+            {
+                Log.Error($"登录失败: {errno}");
+                return;
+            }
+
+            errno = await EnterMapHelper.EnterMapAsync(self.Root());
         }
     }
 }

@@ -27,6 +27,17 @@ namespace ET
         }
         
         [Conditional("DEBUG")]
+        public static void Debug(object msg)
+        {
+            if (Options.Instance.LogLevel > DebugLevel)
+            {
+                return;
+            }
+
+            GetLog().Debug(msg.ToString());
+        }
+        
+        [Conditional("DEBUG")]
         public static void Trace(string msg)
         {
             if (Options.Instance.LogLevel > TraceLevel)
@@ -146,7 +157,9 @@ namespace ET
 
         public static void Error(ref System.Runtime.CompilerServices.DefaultInterpolatedStringHandler message)
         {
-            GetLog().Error(ref message);
+            StackTrace st = new(1, true);
+            var ss = $"{message.ToStringAndClear()}\n{st}";
+            GetLog().Error(ss);
         }
 #endif
     }

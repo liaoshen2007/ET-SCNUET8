@@ -39,7 +39,7 @@ namespace ET.Server
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations[key] = instanceId;
-                Log.Info($"location add key: {key} instanceId: {instanceId}");
+                Log.Info($"location add key: {self.LocationType} {key} instanceId: {instanceId}");
             }
         }
 
@@ -49,7 +49,7 @@ namespace ET.Server
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations.Remove(key);
-                Log.Info($"location remove key: {key}");
+                Log.Info($"location remove key: {self.LocationType} {key}");
             }
         }
 
@@ -61,7 +61,7 @@ namespace ET.Server
             LockInfo lockInfo = self.AddChild<LockInfo, ActorId, CoroutineLock>(actorId, coroutineLock);
             self.lockInfos.Add(key, lockInfo);
 
-            Log.Info($"location lock key: {key} instanceId: {actorId}");
+            Log.Info($"location lock key: {self.LocationType} {key} instanceId: {actorId}");
 
             if (time > 0)
             {
@@ -94,7 +94,7 @@ namespace ET.Server
                 return;
             }
 
-            Log.Info($"location unlock key: {key} instanceId: {oldActorId} newInstanceId: {newInstanceId}");
+            Log.Info($"location unlock key: {self.LocationType} {key} oldInstanceId: {oldActorId} newInstanceId: {newInstanceId}");
 
             self.locations[key] = newInstanceId;
 
@@ -110,7 +110,7 @@ namespace ET.Server
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations.TryGetValue(key, out ActorId actorId);
-                Log.Info($"location get key: {key} actorId: {actorId}");
+                Log.Info($"location get key: {self.LocationType} {key} actorId: {actorId}");
                 return actorId;
             }
         }

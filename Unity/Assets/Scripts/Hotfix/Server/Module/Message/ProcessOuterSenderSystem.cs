@@ -69,15 +69,15 @@ namespace ET.Server
                 case ILocationRequest:
                 case IRequest:
                 {
-                    async ETTask Call()
+                    async ETTask _Call()
                     {
                         IRequest request = (IRequest)message;
                         // 注意这里都不能抛异常，因为这里只是中转消息
-                        IResponse response = await fiber.Root.GetComponent<ProcessInnerSender>().Call(actorId, request, false);
+                        IResponse resp = await fiber.Root.GetComponent<ProcessInnerSender>().Call(actorId, request, false);
                         actorId.Process = fromProcess;
-                        self.Send(actorId, response);
+                        self.Send(actorId, resp);
                     }
-                    Call().Coroutine();
+                    _Call().Coroutine();
                     break;
                 }
                 default:

@@ -18,7 +18,7 @@
 
             await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
             
-            await LoginHelper.Login(root, root.Name, "");
+            await LoginHelper.Login(root, root.Name, "", 0);
             
             await EnterMapHelper.EnterMapAsync(root);
             

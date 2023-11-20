@@ -18,7 +18,7 @@ public class HttpAccountHandler: IHttpHandler
         }
 
         var acc = await scene.GetComponent<AccountComponent>().GetAccount(account);
-        resp.Account = new AccountProto() { Id = acc.Id, AccountType = (int) acc.AccountType, CreateTime = acc.CreateTime, UserUid = acc.UserUid };
+        resp.Account = new AccountProto() { Id = acc.Id, AccountType = (int) acc.AccountType, CreateTime = acc.CreateTime, };
         HttpHelper.Response(context, resp);
         await ETTask.CompletedTask;
     }

@@ -15,8 +15,16 @@
             EventSystem.Instance.Publish(self.Scene(), new LeaveGame() { Player = self.Player });
 
             // 发送断线消息
-            root.GetComponent<MessageLocationSenderComponent>().Get(LocationType.Unit).Send(self.Player.Id, new G2M_SessionDisconnect());
-            self.Scene().GetComponent<PlayerComponent>()?.Remove(self.Player);
+            SendLeaveMsg().Coroutine();
+
+            async ETTask SendLeaveMsg()
+            {
+                await root.GetComponent<MessageLocationSenderComponent>().Get(LocationType.Unit).Call(self.Player.Id, new G2M_SessionDisconnect());
+                await self.Player.RemoveLocation(LocationType.Player);
+                await self.Player.RemoveLocation(LocationType.Unit);
+                root.GetComponent<MessageLocationSenderComponent>().Get(LocationType.Unit).Remove(self.Player.Id);
+                root.GetComponent<PlayerComponent>()?.Remove(self.Player);
+            }
         }
 
         [EntitySystem]
