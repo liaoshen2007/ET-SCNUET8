@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace ET;
 
-public class CmdArg
+public struct CmdArg
 {
     public string Cmd { get; set; }
 
     public List<long> Args { get; set; }
 }
 
-public class ItemArg
+public struct ItemArg
 {
     public int Id;
 

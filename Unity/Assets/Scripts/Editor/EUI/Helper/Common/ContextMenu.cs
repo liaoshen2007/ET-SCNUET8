@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ET
+namespace ET.Client
 {
     /// <summary>
     /// 右键菜单

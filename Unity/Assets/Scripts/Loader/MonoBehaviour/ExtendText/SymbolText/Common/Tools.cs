@@ -351,7 +351,7 @@ namespace ET.Client
                 //DelayDestory.DestroyImmediate(go);
             }
 #else
-            Object.Destroy(go);
+            UnityEngine.Object.Destroy(go);
             //DelayDestory.Destroy(go);            
 #endif
         }

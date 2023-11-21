@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UObject = UnityEngine.Object;
 
-namespace ET
+namespace ET.Client
 {
     /// <summary>
     /// 场景编辑

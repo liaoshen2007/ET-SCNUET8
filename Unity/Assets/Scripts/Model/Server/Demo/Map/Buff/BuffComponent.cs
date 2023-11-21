@@ -5,7 +5,7 @@ namespace ET.Server
 {
     [ComponentOf(typeof (Unit))]
     [EnableMethod]
-    public class BuffComponent: Entity, IAwake, IUpdate
+    public class BuffComponent: Entity, IAwake, IUpdate, ITransfer
     {
         static BuffComponent()
         {

@@ -9,12 +9,8 @@ namespace ET.Server
         public int LogEvent { get; set; }
 
         public bool Replace { get; set; }
-        
-        public bool NotUpdate {get; set;}
 
-        public object Arg1 { get; set; }
-
-        public object Arg2 { get; set; }
+        public bool NotUpdate { get; set; }
     }
 
     public struct FinishTaskData
@@ -51,8 +47,10 @@ namespace ET.Server
 
         [BsonIgnore]
         public Dictionary<string, ATaskArgs> TaskArgDict;
+
         [BsonIgnore]
         public Dictionary<string, ATaskHandler> TaskHanderDict;
+
         [BsonIgnore]
         public Dictionary<string, ATaskProcess> TaskProcessDict;
 

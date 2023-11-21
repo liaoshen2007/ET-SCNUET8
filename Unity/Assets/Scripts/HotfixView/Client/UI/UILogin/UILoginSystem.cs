@@ -73,7 +73,7 @@ namespace ET.Client
                     if (server != null)
                     {
                         self.View.E_ServerTxtExtendText.text = server.ServerName;
-                        self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int) server.Id;
+                        self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int)server.Id;
                     }
 
                     self.QueryServer().Coroutine();
@@ -93,7 +93,7 @@ namespace ET.Client
                 {
                     var server = self.Scene().GetComponent<ServerInfoComponent>().GetDefault();
                     self.View.E_ServerTxtExtendText.text = server.ServerName;
-                    self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int) server.Id;
+                    self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int)server.Id;
                 }
             }
 
@@ -182,7 +182,12 @@ namespace ET.Client
                 return;
             }
 
+            await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
             errno = await EnterMapHelper.EnterMapAsync(self.Root());
+            if (errno != ErrorCode.ERR_Success)
+            {
+                self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.Win_UILoading);
+            }
         }
     }
 }

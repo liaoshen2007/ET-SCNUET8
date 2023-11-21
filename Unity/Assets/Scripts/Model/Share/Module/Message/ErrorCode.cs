@@ -51,5 +51,11 @@ namespace ET
         public const int ERR_TaskNotFinish = 211001;
         public const int ERR_TaskIsCommit = 211002;
         public const int ERR_TaskIsTimeOut = 211003;
+        
+        /// <summary>
+        /// 道具不足
+        /// </summary>
+        public const int ERR_ItemNotEnough = 212001;
+        
     }
 }

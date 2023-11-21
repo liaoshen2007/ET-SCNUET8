@@ -1,7 +1,7 @@
 ﻿namespace ET.Server;
 
 [ComponentOf(typeof (Unit))]
-public class AbilityComponent: Entity, IAwake
+public class AbilityComponent: Entity, IAwake, ITransfer
 {
     /// <summary>
     /// 能力值

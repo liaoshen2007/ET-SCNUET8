@@ -1,6 +1,5 @@
 using System;
 
-
 namespace ET.Client
 {
     public static partial class EnterMapHelper
@@ -15,20 +14,20 @@ namespace ET.Client
                 {
                     return g2CEnterMap.Error;
                 }
-                
+
                 // 等待场景切换完成
                 await root.GetComponent<ObjectWait>().Wait<Wait_SceneChangeFinish>();
-                
+
                 await EventSystem.Instance.PublishAsync(root, new EnterMapFinish());
             }
             catch (Exception e)
             {
                 Log.Error(e);
-            }	
-            
+            }
+
             return ErrorCode.ERR_Success;
         }
-        
+
         public static async ETTask Match(Fiber fiber)
         {
             try
@@ -38,7 +37,7 @@ namespace ET.Client
             catch (Exception e)
             {
                 Log.Error(e);
-            }	
+            }
         }
     }
 }

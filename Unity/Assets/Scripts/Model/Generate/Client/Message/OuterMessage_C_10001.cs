@@ -1575,10 +1575,14 @@ namespace ET
 		[MemoryPackOrder(0)]
 		public List<TaskProto> List { get; set; } = new();
 
+		[MemoryPackOrder(1)]
+		public bool EnterGame { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.List.Clear();
+			this.EnterGame = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1647,6 +1651,196 @@ namespace ET
 		public static M2C_CommitTask Create(bool isFromPool = true) 
 		{ 
 			return !isFromPool? new M2C_CommitTask() : ObjectPool.Instance.Fetch(typeof(M2C_CommitTask)) as M2C_CommitTask; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public List<string> Message { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///道具
+	/// </summary>
+	[Message(OuterMessage.ItemProto)]
+	[MemoryPackable]
+	public partial class ItemProto: MessageObject
+	{
+		public static ItemProto Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new ItemProto() : ObjectPool.Instance.Fetch(typeof(ItemProto)) as ItemProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long Count { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long ValidTime { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Count = default;
+			this.ValidTime = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 更新道具
+	/// </summary>
+	[Message(OuterMessage.M2C_UpdateItem)]
+	[MemoryPackable]
+	public partial class M2C_UpdateItem: MessageObject, IMessage
+	{
+		public static M2C_UpdateItem Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_UpdateItem() : ObjectPool.Instance.Fetch(typeof(M2C_UpdateItem)) as M2C_UpdateItem; 
+		}
+
+		[MemoryPackOrder(0)]
+		public List<ItemProto> List { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.List.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 使用道具
+	/// </summary>
+	[ResponseType(nameof(M2C_UseItem))]
+	[Message(OuterMessage.C2M_UseItem)]
+	[MemoryPackable]
+	public partial class C2M_UseItem: MessageObject, ILocationRequest
+	{
+		public static C2M_UseItem Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new C2M_UseItem() : ObjectPool.Instance.Fetch(typeof(C2M_UseItem)) as C2M_UseItem; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long Count { get; set; }
+
+		[MemoryPackOrder(2)]
+		public List<string> Args { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Id = default;
+			this.Count = default;
+			this.Args.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_UseItem)]
+	[MemoryPackable]
+	public partial class M2C_UseItem: MessageObject, ILocationResponse
+	{
+		public static M2C_UseItem Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_UseItem() : ObjectPool.Instance.Fetch(typeof(M2C_UseItem)) as M2C_UseItem; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public List<string> Message { get; set; } = new();
+
+		[MemoryPackOrder(2)]
+		public List<string> RetArgs { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message.Clear();
+			this.RetArgs.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 删除道具
+	/// </summary>
+	[ResponseType(nameof(M2C_DeleteItem))]
+	[Message(OuterMessage.C2M_DeleteItem)]
+	[MemoryPackable]
+	public partial class C2M_DeleteItem: MessageObject, ILocationRequest
+	{
+		public static C2M_DeleteItem Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new C2M_DeleteItem() : ObjectPool.Instance.Fetch(typeof(C2M_DeleteItem)) as C2M_DeleteItem; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public List<ItemProto> List { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.List.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_DeleteItem)]
+	[MemoryPackable]
+	public partial class M2C_DeleteItem: MessageObject, ILocationResponse
+	{
+		public static M2C_DeleteItem Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_DeleteItem() : ObjectPool.Instance.Fetch(typeof(M2C_DeleteItem)) as M2C_DeleteItem; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -2054,13 +2248,19 @@ namespace ET
 		 public const ushort M2C_DeleteTask = 10052;
 		 public const ushort C2M_CommitTask = 10053;
 		 public const ushort M2C_CommitTask = 10054;
-		 public const ushort RankRoleInfoProto = 10055;
-		 public const ushort RankInfoProto = 10056;
-		 public const ushort C2Rank_GetRankRequest = 10057;
-		 public const ushort Ran2C_GetRankResponse = 10058;
-		 public const ushort PlayerInfoProto = 10059;
-		 public const ushort C2Chat_SendRequest = 10060;
-		 public const ushort Chat2C_SendResponse = 10061;
-		 public const ushort Chat2C_UpdateChat = 10062;
+		 public const ushort ItemProto = 10055;
+		 public const ushort M2C_UpdateItem = 10056;
+		 public const ushort C2M_UseItem = 10057;
+		 public const ushort M2C_UseItem = 10058;
+		 public const ushort C2M_DeleteItem = 10059;
+		 public const ushort M2C_DeleteItem = 10060;
+		 public const ushort RankRoleInfoProto = 10061;
+		 public const ushort RankInfoProto = 10062;
+		 public const ushort C2Rank_GetRankRequest = 10063;
+		 public const ushort Ran2C_GetRankResponse = 10064;
+		 public const ushort PlayerInfoProto = 10065;
+		 public const ushort C2Chat_SendRequest = 10066;
+		 public const ushort Chat2C_SendResponse = 10067;
+		 public const ushort Chat2C_UpdateChat = 10068;
 	}
 }

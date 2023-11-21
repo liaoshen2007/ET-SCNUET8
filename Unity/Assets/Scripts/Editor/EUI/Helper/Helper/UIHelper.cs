@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ET
+namespace ET.Client
 {
     /// <summary>
     /// UI创建帮助类
@@ -136,12 +136,12 @@ namespace ET
                 return;
             }
 
-            GameObject go = new GameObject("Image", typeof(Image));
+            GameObject go = new GameObject("Image", typeof(ExtendImage));
             Undo.RegisterCreatedObjectUndo(go, "CreateImageObj");
             JudgeIsChild(isChild, go);
             Undo.RecordObject(go, "CreateImageObj");
 
-            var image = go.GetComponent<Image>();
+            var image = go.GetComponent<ExtendImage>();
             image.raycastTarget = false;
             image.rectTransform.localPosition = Vector3.zero;
             image.rectTransform.anchorMax = Vector2.one;
@@ -162,14 +162,15 @@ namespace ET
                 return;
             }
 
-            GameObject go = new GameObject("Text", typeof(Text));
+            GameObject go = new GameObject("Text", typeof(ExtendText));
             Undo.RegisterCreatedObjectUndo(go, "CreateTextObj");
-            Text txt = go.GetComponent<Text>();
+            var txt = go.GetComponent<ExtendText>();
             txt.raycastTarget = false;
             txt.text = "Template";
             txt.color = Color.black;
             txt.fontSize = 25;
             txt.alignment = TextAnchor.MiddleCenter;
+            txt.font = AssetDatabase.LoadAssetAtPath<Font>("Assets/Bundles/UI/Fonts/jdzy.ttf");
             JudgeIsChild(isChild, go);
             Undo.RecordObject(go, "CreateTextObj");
 

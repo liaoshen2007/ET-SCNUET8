@@ -30,7 +30,7 @@ namespace ET.Server
         {
             await ETTask.CompletedTask;
         }
-        
+
         public static UnitInfo CreateUnitInfo(Unit unit)
         {
             UnitInfo unitInfo = new();
@@ -90,7 +90,7 @@ namespace ET.Server
 
             return list;
         }
-        
+
         public static List<Unit> GetFoucslayers(this Unit self, FocusType fT, bool isCanAttack = true)
         {
             var list = self.GetSeePlayers();
@@ -109,8 +109,8 @@ namespace ET.Server
         {
             if (repairPos != 0)
             {
-                srcX = (float) Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
-                srcZ = (float) Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcX = (float)Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcZ = (float)Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
             }
 
             return new KeyValuePair<float, float>(srcX, srcZ);

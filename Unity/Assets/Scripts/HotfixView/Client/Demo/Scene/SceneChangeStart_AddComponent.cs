@@ -13,12 +13,19 @@ namespace ET.Client
                 Scene currentScene = root.CurrentScene();
 
                 ResourcesLoaderComponent resourcesLoaderComponent = currentScene.GetComponent<ResourcesLoaderComponent>();
-            
-                // 加载场景资源
-                await resourcesLoaderComponent.LoadSceneAsync($"Assets/Bundles/Scenes/{currentScene.Name}.unity", LoadSceneMode.Single);
-                // 切换到map场景
 
-                //await SceneManager.LoadSceneAsync(currentScene.Name);
+                // 加载场景资源
+                string path = $"Assets/Bundles/Scenes/{currentScene.Name}.unity";
+                var handler = resourcesLoaderComponent.LoadScene(path, LoadSceneMode.Single);
+                while (true)
+                {
+                    EventSystem.Instance.Publish(root, new LoadingProgress() { Progress = handler.Progress });
+                    await root.GetComponent<TimerComponent>().WaitFrameAsync();
+                    if (handler.IsDone)
+                    {
+                        break;
+                    }
+                }
 
                 currentScene.AddComponent<OperaComponent>();
             }
@@ -26,7 +33,6 @@ namespace ET.Client
             {
                 Log.Error(e);
             }
-
         }
     }
 }

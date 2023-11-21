@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using MongoDB.Bson;
 
 namespace ET.Server;
 
 [EntitySystemOf(typeof (ItemComponent))]
+[FriendOf(typeof (ItemComponent))]
+[FriendOf(typeof (ItemData))]
 public static partial class ItemComponentSystem
 {
     [EntitySystem]
@@ -21,7 +22,177 @@ public static partial class ItemComponentSystem
     [EntitySystem]
     private static void Load(this ItemComponent self)
     {
-        Log.Info(self.GetDropItemList(700001).ToJson());
+    }
+
+    public static void CheckItem(this ItemComponent self)
+    {
+        //检测默认道具
+        var list = new List<ItemArg>();
+        bool updateCache = false;
+        foreach (var config in InitItemConfigCategory.Instance.GetAll())
+        {
+            if (!self.InitItemIds.Contains(config.Key))
+            {
+                list.Add(new ItemArg() { Id = config.Key, Count = config.Value.Count });
+                self.InitItemIds.Add(config.Key);
+                updateCache = true;
+            }
+        }
+
+        if (list.Count > 0)
+        {
+            self.AddItemList(list, new AddItemData() { NotUpdate = true, LogEvent = LogDef.ItemInit });
+        }
+
+        //道具ID检测
+        foreach (var itemData in self.ItemDict.Values)
+        {
+            if (ItemConfigCategory.Instance.Contain((int)itemData.Id))
+            {
+                continue;
+            }
+
+            updateCache = true;
+            Log.Info($"道具因配置变化而删除, 道具ID: {itemData.Id}");
+            self.ValidItemDict.Remove((int)itemData.Id);
+            self.ClearItem((int)itemData.Id, LogDef.ItemConfigRemove);
+        }
+        
+        if (updateCache)
+        {
+            self.UpdateCache().Coroutine();
+        }
+    }
+
+    public static long GetItemCount(this ItemComponent self, int itemId)
+    {
+        if (self.ItemDict.TryGetValue(itemId, out var itemData))
+        {
+            return itemData.Count;
+        }
+
+        return 0;
+    }
+
+    private static void UpdateItem(this ItemComponent self, int itemId)
+    {
+    }
+
+    public static void AddItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
+    {
+        if (itemList.IsNullOrEmpty())
+        {
+            return;
+        }
+
+        foreach (var arg in itemList)
+        {
+            if (arg.Count <= 0)
+            {
+                continue;
+            }
+
+            var count = arg.Count;
+            if (self.ItemDict.TryGetValue(arg.Id, out var itemData))
+            {
+                itemData.Count += count;
+            }
+            else
+            {
+                itemData = self.AddChildWithId<ItemData>(arg.Id);
+                itemData.Count = count;
+                self.ItemDict.Add(arg.Id, itemData);
+            }
+
+            if (!data.NotUpdate)
+            {
+                self.UpdateItem(arg.Id);
+            }
+
+            EventSystem.Instance.Publish(self.Scene(), new AddItem() { ItemId = arg.Id, Count = count, LogEvent = data.LogEvent });
+        }
+    }
+
+    public static MessageReturn ConsumeItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
+    {
+        var ret = self.ItemEnough(itemList);
+        if (ret.Errno != ErrorCode.ERR_Success)
+        {
+            return ret;
+        }
+
+        foreach (var arg in itemList)
+        {
+            if (arg.Count <= 0)
+            {
+                continue;
+            }
+
+            self.ItemDict[arg.Id].Count -= arg.Count;
+            if (self.ItemDict[arg.Id].Count < 0)
+            {
+                Log.Error($"道具数量出现负数: {arg.Id}");
+            }
+
+            if (self.ItemDict[arg.Id].Count <= 0)
+            {
+                self.ItemDict.Remove(arg.Id);
+            }
+
+            self.UpdateItem(arg.Id);
+            EventSystem.Instance.Publish(self.Scene(), new RemoveItem() { ItemId = arg.Id, Count = arg.Count, LogEvent = data.LogEvent });
+        }
+
+        return MessageReturn.Success();
+    }
+
+    public static void ClearItem(this ItemComponent self, int itemId, int logEvent)
+    {
+        var count = self.GetItemCount(itemId);
+        self.ConsumeItemList(new List<ItemArg>() { new ItemArg() { Id = itemId, Count = count } }, new AddItemData() { LogEvent = logEvent });
+    }
+
+    private static List<string> GetItemError(this ItemComponent self, int id)
+    {
+        var itemCfg = ItemConfigCategory.Instance.Get(id);
+        if (itemCfg.LackTip > 0)
+        {
+            return new List<string>() { id.ToString(), itemCfg.LackTip.ToString() };
+        }
+
+        return new List<string>() { id.ToString() };
+    }
+
+    /// <summary>
+    /// 道具数量是否足够
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="itemList"></param>
+    /// <returns></returns>
+    public static MessageReturn ItemEnough(this ItemComponent self, List<ItemArg> itemList)
+    {
+        if (itemList.IsNullOrEmpty())
+        {
+            return MessageReturn.Success();
+        }
+
+        var map = new Dictionary<int, long>();
+        map = itemList.GroupBy(v => v.Id).ToDictionary(v => v.Key, v => v.Sum(v1 => v1.Count));
+        foreach ((int id, long count) in map)
+        {
+            if (count <= 0)
+            {
+                continue;
+            }
+
+            long owenCount = self.GetItemCount(id);
+            if (owenCount < count)
+            {
+                return MessageReturn.Create(ErrorCode.ERR_ItemNotEnough, self.GetItemError(id));
+            }
+        }
+
+        return MessageReturn.Success();
     }
 
     public static ReadOnlyCollection<ItemArg> GetDropItemList(this ItemComponent self, int dropId)

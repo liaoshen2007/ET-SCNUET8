@@ -29,5 +29,7 @@ namespace ET
 		Win_UIMain,
 
 		Win_UIPop,
+
+		Win_UILoading,
 	}
 }

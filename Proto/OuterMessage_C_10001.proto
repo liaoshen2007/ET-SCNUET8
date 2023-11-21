@@ -334,6 +334,7 @@ message TaskProto
 message M2C_UpdateTask //IMessage
 {
   repeated TaskProto List = 1;
+  bool EnterGame = 2;
 }
 
 // 删除任务
@@ -350,6 +351,45 @@ message C2M_CommitTask //ILocationRequest
 }
 
 message M2C_CommitTask //ILocationResponse
+{
+}
+
+//道具
+message ItemProto
+{
+  int32 Id = 1;
+  int64 Count = 2;
+  int64 ValidTime = 3;
+}
+
+// 更新道具
+message M2C_UpdateItem //IMessage
+{
+  repeated ItemProto List = 1;
+}
+
+// 使用道具
+//ResponseType M2C_UseItem
+message C2M_UseItem //ILocationRequest
+{
+  int32 Id = 1;
+  int64 Count = 2;
+  repeated string Args = 3;
+}
+
+message M2C_UseItem //ILocationResponse
+{
+  repeated string RetArgs = 3;
+}
+
+// 删除道具
+//ResponseType M2C_DeleteItem
+message C2M_DeleteItem //ILocationRequest
+{
+  repeated ItemProto List = 1;
+}
+
+message M2C_DeleteItem //ILocationResponse
 {
 }
 

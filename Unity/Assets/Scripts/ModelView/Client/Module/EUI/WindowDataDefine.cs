@@ -2,9 +2,9 @@
 {
     public enum UIWindowType
     {
-        Normal, // 普通主界面
-        Fixed, // 固定窗口
+        Normal, // 普通界面
         PopUp, // 弹出窗口
+        Fixed, // 固定窗口
         Other, //其他窗口
     }
 

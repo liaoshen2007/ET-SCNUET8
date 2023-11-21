@@ -108,13 +108,13 @@ namespace ETEditor
                     .AppendLine("\t\t}")
                     .AppendLine();
 
-            strBuilder.AppendFormat("\t\tpublic static void Foucs(this {0} self)\n", strDlgName)
+            strBuilder.AppendFormat("\t\tpublic static void Focus(this {0} self)\n", strDlgName)
                     .AppendLine("\t\t{")
                     .AppendLine("\t\t ")
                     .AppendLine("\t\t}")
                     .AppendLine();
 
-            strBuilder.AppendFormat("\t\tpublic static void UnFoucs(this {0} self)\n", strDlgName)
+            strBuilder.AppendFormat("\t\tpublic static void UnFocus(this {0} self)\n", strDlgName)
                     .AppendLine("\t\t{")
                     .AppendLine("\t\t ")
                     .AppendLine("\t\t}")
@@ -157,14 +157,14 @@ namespace ETEditor
             strBuilder.AppendLine("{");
             strBuilder.AppendLine("\t[FriendOf(typeof(WindowCoreData))]");
             strBuilder.AppendLine("\t[FriendOf(typeof(UIBaseWindow))]");
-            strBuilder.AppendFormat("\t[AUIEvent(WindowID.Win_{0})]\n", strDlgName.Substring(2));
+            strBuilder.AppendFormat("\t[AUIEvent(WindowID.Win_{0})]\n", strDlgName);
             strBuilder.AppendFormat("\tpublic  class {0}EventHandler : IAUIEventHandler\r\n", strDlgName);
             strBuilder.AppendLine("\t{");
 
             strBuilder.AppendLine("\t\tpublic void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)")
                     .AppendLine("\t\t{");
 
-            strBuilder.AppendFormat("\t\t\tuiBaseWindow.WindowData.windowType = UIWindowType.Normal; \r\n");
+            strBuilder.AppendFormat("\t\t\tuiBaseWindow.WindowData.WindowType = UIWindowType.Normal; \r\n");
 
             strBuilder.AppendLine("\t\t}")
                     .AppendLine();

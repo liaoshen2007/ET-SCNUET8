@@ -19,6 +19,8 @@ namespace ET
 
         private readonly Stack<Type> stack = new();
         private readonly Dictionary<Type, ASingleton> singletons = new();
+        private readonly List<ASingleton> updateSingletons = new();
+        private readonly List<ASingleton> lateUpdateSingletons = new();
         
         private World()
         {
@@ -30,6 +32,8 @@ namespace ET
             
             lock (this)
             {
+                updateSingletons.Clear();
+                lateUpdateSingletons.Clear();
                 while (this.stack.Count > 0)
                 {
                     Type type = this.stack.Pop();
@@ -85,9 +89,9 @@ namespace ET
 
         public void Update()
         {
-            foreach (var kv in this.singletons)
+            foreach (var kv in this.updateSingletons)
             {
-                if (kv.Value is ISingletonUpdate update)
+                if (kv is ISingletonUpdate update)
                 {
                     update.Update();
                 }
@@ -96,9 +100,9 @@ namespace ET
         
         public void LateUpdate()
         {
-            foreach (var kv in this.singletons)
+            foreach (var kv in this.lateUpdateSingletons)
             {
-                if (kv.Value is ISingletonLateUpdate update)
+                if (kv is ISingletonLateUpdate update)
                 {
                     update.LateUpdate();
                 }
@@ -114,6 +118,17 @@ namespace ET
                 {
                     this.stack.Push(type);
                 }
+
+                if (singleton is ISingletonUpdate)
+                {
+                    this.updateSingletons.Add(singleton);
+                }
+                
+                if (singleton is ISingletonLateUpdate)
+                {
+                    this.lateUpdateSingletons.Add(singleton);
+                }
+                
                 singletons[type] = singleton;
             }
 

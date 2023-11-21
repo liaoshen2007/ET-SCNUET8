@@ -81,6 +81,39 @@ public static partial class TaskComponentSystem
         self.GetParent<Unit>().SendToClient(new M2C_UpdateTask() { List = { proto } });
     }
 
+    public static void CheckTask(this TaskComponent self)
+    {
+        bool updateCache = false;
+        foreach (var task in self.TaskDict.Values)
+        {
+            if (TaskConfigCategory.Instance.Contain((int)task.Id))
+            {
+                continue;
+            }
+
+            updateCache = true;
+            Log.Info($"任务因配置变化而删除: {task.Id}");
+            self.DelTask((int)task.Id, LogDef.TaskConfigRemove);
+        }
+        
+        foreach (int id in self.FinishTaskDict.Keys)
+        {
+            if (TaskConfigCategory.Instance.Contain(id))
+            {
+                continue;
+            }
+
+            updateCache = true;
+            Log.Info($"完成任务因配置变化而删除: {id}");
+            self.FinishTaskDict.Remove(id);
+        }
+
+        if (updateCache)
+        {
+            self.UpdateCache().Coroutine();
+        }
+    }
+
     public static TaskData GetTask(this TaskComponent self, int taskId)
     {
         if (self.TaskDict.TryGetValue(taskId, out var task))

@@ -6,14 +6,19 @@
     public struct SceneChangeStart
     {
     }
-    
+
+    public struct LoadingProgress
+    {
+        public float Progress { get; set; }
+    }
+
     /// <summary>
     /// 场景切换结束
     /// </summary>
     public struct SceneChangeFinish
     {
     }
-    
+
     /// <summary>
     /// 场景创建成功事件
     /// </summary>

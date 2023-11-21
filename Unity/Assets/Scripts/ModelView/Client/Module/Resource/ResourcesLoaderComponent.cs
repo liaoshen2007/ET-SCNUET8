@@ -114,10 +114,22 @@ namespace ET.Client
                 return;
             }
 
-            handler = self.package.LoadSceneAsync(location);
+            handler = self.package.LoadSceneAsync(location, loadSceneMode);
 
             await handler.Task;
             self.handlers.Add(location, handler);
+        }
+        
+        public static OperationHandleBase LoadScene(this ResourcesLoaderComponent self, string location, LoadSceneMode loadSceneMode)
+        {
+            OperationHandleBase handler;
+            if (self.handlers.TryGetValue(location, out handler))
+            {
+                return handler;
+            }
+
+            handler = self.package.LoadSceneAsync(location, loadSceneMode);
+            return handler;
         }
     }
     
