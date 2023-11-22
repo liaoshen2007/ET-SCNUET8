@@ -1545,6 +1545,9 @@ namespace ET
 		[MemoryPackOrder(5)]
 		public long Time { get; set; }
 
+		[MemoryPackOrder(6)]
+		public long AcceptTime { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
@@ -1554,6 +1557,7 @@ namespace ET
 			this.Max = default;
 			this.Status = default;
 			this.Time = default;
+			this.AcceptTime = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1575,14 +1579,10 @@ namespace ET
 		[MemoryPackOrder(0)]
 		public List<TaskProto> List { get; set; } = new();
 
-		[MemoryPackOrder(1)]
-		public bool EnterGame { get; set; }
-
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.List.Clear();
-			this.EnterGame = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1858,6 +1858,74 @@ namespace ET
 			this.RpcId = default;
 			this.Error = default;
 			this.Message.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 请求玩家数据
+	/// </summary>
+	[ResponseType(nameof(M2C_GetPlayerData))]
+	[Message(OuterMessage.C2M_GetPlayerData)]
+	[MemoryPackable]
+	public partial class C2M_GetPlayerData: MessageObject, ILocationRequest
+	{
+		public static C2M_GetPlayerData Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new C2M_GetPlayerData() : ObjectPool.Instance.Fetch(typeof(C2M_GetPlayerData)) as C2M_GetPlayerData; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_GetPlayerData)]
+	[MemoryPackable]
+	public partial class M2C_GetPlayerData: MessageObject, ILocationResponse
+	{
+		public static M2C_GetPlayerData Create(bool isFromPool = true) 
+		{ 
+			return !isFromPool? new M2C_GetPlayerData() : ObjectPool.Instance.Fetch(typeof(M2C_GetPlayerData)) as M2C_GetPlayerData; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public List<string> Message { get; set; } = new();
+
+		[MemoryPackOrder(0)]
+		public List<ItemProto> ItemList { get; set; } = new();
+
+		[MemoryPackOrder(1)]
+		public List<TaskProto> TaskList { get; set; } = new();
+
+		[MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptions(MongoDB.Bson.Serialization.Options.DictionaryRepresentation.ArrayOfArrays)]
+		[MemoryPackOrder(2)]
+		public Dictionary<int, long> FinishDict { get; set; } = new();
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message.Clear();
+			this.ItemList.Clear();
+			this.TaskList.Clear();
+			this.FinishDict.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -2254,13 +2322,15 @@ namespace ET
 		 public const ushort M2C_UseItem = 10058;
 		 public const ushort C2M_DeleteItem = 10059;
 		 public const ushort M2C_DeleteItem = 10060;
-		 public const ushort RankRoleInfoProto = 10061;
-		 public const ushort RankInfoProto = 10062;
-		 public const ushort C2Rank_GetRankRequest = 10063;
-		 public const ushort Ran2C_GetRankResponse = 10064;
-		 public const ushort PlayerInfoProto = 10065;
-		 public const ushort C2Chat_SendRequest = 10066;
-		 public const ushort Chat2C_SendResponse = 10067;
-		 public const ushort Chat2C_UpdateChat = 10068;
+		 public const ushort C2M_GetPlayerData = 10061;
+		 public const ushort M2C_GetPlayerData = 10062;
+		 public const ushort RankRoleInfoProto = 10063;
+		 public const ushort RankInfoProto = 10064;
+		 public const ushort C2Rank_GetRankRequest = 10065;
+		 public const ushort Ran2C_GetRankResponse = 10066;
+		 public const ushort PlayerInfoProto = 10067;
+		 public const ushort C2Chat_SendRequest = 10068;
+		 public const ushort Chat2C_SendResponse = 10069;
+		 public const ushort Chat2C_UpdateChat = 10070;
 	}
 }

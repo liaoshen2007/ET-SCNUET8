@@ -12,16 +12,16 @@ namespace ET
             return new ActorId(root.Process, root.Id, self.InstanceId);
         }
     }
-    
+
     public class Fiber: IDisposable
     {
         // 该字段只能框架使用，绝对不能改成public，改了后果自负
         [StaticField]
         [ThreadStatic]
         internal static Fiber Instance;
-        
+
         public bool IsDisposed;
-        
+
         public int Id;
 
         public int Zone;
@@ -50,7 +50,7 @@ namespace ET
         public ILog Log { get; }
 
         private readonly Queue<ETTask> frameFinishTasks = new();
-        
+
         internal Fiber(int id, int zone, SceneType sceneType, string name)
         {
             this.Id = id;
@@ -77,14 +77,14 @@ namespace ET
                 this.Log.Error(e);
             }
         }
-        
+
         internal void LateUpdate()
         {
             try
             {
                 this.EntitySystem.LateUpdate();
                 FrameFinishUpdate();
-                
+
                 this.ThreadSynchronizationContext.Update();
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace ET
 
         internal void Load()
         {
-            this.EntitySystem.Load();
+            this.ThreadSynchronizationContext.Post(() => { this.EntitySystem.Load(); });
         }
 
         public async ETTask WaitFrameFinish()
@@ -120,8 +120,9 @@ namespace ET
             {
                 return;
             }
+
             this.IsDisposed = true;
-            
+
             this.Root.Dispose();
         }
     }

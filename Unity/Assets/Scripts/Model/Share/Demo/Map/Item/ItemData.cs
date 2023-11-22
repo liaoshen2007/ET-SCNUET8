@@ -18,9 +18,9 @@ namespace ET
     [ChildOf]
     public class ItemData: Entity, IAwake, IDestroy
     {
-        public long Count;
+        public long Count { get; set; }
 
-        public long ValidTime;
+        public long ValidTime { get; set; }
 
         [BsonIgnore]
         public ItemType ItemType => (ItemType)this.Config.Type;

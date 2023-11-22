@@ -28,8 +28,7 @@ namespace ET
             CodeTypes codeTypes = CodeTypes.Instance;
             foreach (Type type in codeTypes.GetTypes(typeof (EventAttribute)))
             {
-                IEvent obj = Activator.CreateInstance(type) as IEvent;
-                if (obj == null)
+                if (Activator.CreateInstance(type) is not IEvent obj)
                 {
                     throw new Exception($"type not is AEvent: {type.Name}");
                 }
@@ -54,8 +53,7 @@ namespace ET
             foreach (Type type in codeTypes.GetTypes(typeof (InvokeAttribute)))
             {
                 object obj = Activator.CreateInstance(type);
-                IInvoke iInvoke = obj as IInvoke;
-                if (iInvoke == null)
+                if (obj is not IInvoke iInvoke)
                 {
                     throw new Exception($"type not is callback: {type.Name}");
                 }
@@ -100,7 +98,7 @@ namespace ET
                     continue;
                 }
                     
-                if (!(eventInfo.IEvent is AEvent<S, T> aEvent))
+                if (eventInfo.IEvent is not AEvent<S, T> aEvent)
                 {
                     Log.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
                     continue;
@@ -128,7 +126,7 @@ namespace ET
             }
 
             SceneType sceneType = scene.SceneType;
-            foreach (EventInfo eventInfo in iEvents)
+            foreach (var eventInfo in iEvents)
             {
                 if (!sceneType.HasSameFlag(eventInfo.SceneType))
                 {
@@ -136,7 +134,7 @@ namespace ET
                 }
 
                 
-                if (!(eventInfo.IEvent is AEvent<S, T> aEvent))
+                if (eventInfo.IEvent is not AEvent<S, T> aEvent)
                 {
                     Log.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
                     continue;
@@ -157,7 +155,7 @@ namespace ET
             {
                 throw new Exception($"Invoke error1: {type} {typeof(A).FullName}");
             }
-            if (!invokeHandlers.TryGetValue(type, out var invokeHandler))
+            if (!invokeHandlers.TryGetValue(type, out object invokeHandler))
             {
                 throw new Exception($"Invoke error2: {type} {typeof(A).FullName}");
             }
@@ -178,13 +176,12 @@ namespace ET
                 throw new Exception($"Invoke error4: {type} {typeof(A).FullName}");
             }
             
-            if (!invokeHandlers.TryGetValue(type, out var invokeHandler))
+            if (!invokeHandlers.TryGetValue(type, out object invokeHandler))
             {
                 throw new Exception($"Invoke error5: {type} {typeof(A).FullName}");
             }
 
-            var aInvokeHandler = invokeHandler as AInvokeHandler<A, T>;
-            if (aInvokeHandler == null)
+            if (invokeHandler is not AInvokeHandler<A, T> aInvokeHandler)
             {
                 throw new Exception($"Invoke error6, not AInvokeHandler: {type} {typeof(A).FullName} {typeof(T).FullName} ");
             }

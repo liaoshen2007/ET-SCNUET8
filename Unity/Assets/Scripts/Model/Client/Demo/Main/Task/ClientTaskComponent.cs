@@ -15,6 +15,6 @@ namespace ET.Client
     {
         public Dictionary<int, TaskData> TaskDict;
 
-        public Dictionary<int, FinishTask> FinishTaskDict;
+        public Dictionary<int, long> FinishTaskDict;
     }
 }

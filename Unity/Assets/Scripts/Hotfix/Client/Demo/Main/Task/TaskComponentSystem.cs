@@ -10,7 +10,7 @@ public static partial class TaskComponentSystem
     private static void Awake(this ClientTaskComponent self)
     {
         self.TaskDict = new Dictionary<int, TaskData>();
-        self.FinishTaskDict = new Dictionary<int, FinishTask>();
+        self.FinishTaskDict = new Dictionary<int, long>();
     }
 
     [EntitySystem]
@@ -20,7 +20,7 @@ public static partial class TaskComponentSystem
         self.FinishTaskDict.Clear();
     }
 
-    public static void AddUpdateTask(this ClientTaskComponent self, TaskProto proto)
+    private static void AddUpdateTask(this ClientTaskComponent self, TaskProto proto)
     {
         var task = self.AddChildWithId<TaskData>(proto.Id);
         task.ToTask(proto);
@@ -33,6 +33,14 @@ public static partial class TaskComponentSystem
         foreach (var proto in list)
         {
             self.AddUpdateTask(proto);
+        }
+    }
+
+    public static void UpdateFinishTask(this ClientTaskComponent self, Dictionary<int, long> finishMap)
+    {
+        foreach (var pair in finishMap)
+        {
+            self.FinishTaskDict.Add(pair.Key, pair.Value);
         }
     }
 

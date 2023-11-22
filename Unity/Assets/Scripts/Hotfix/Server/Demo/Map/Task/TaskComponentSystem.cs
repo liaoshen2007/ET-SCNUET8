@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ET.Server;
 
@@ -24,6 +25,7 @@ public static partial class TaskComponentSystem
     {
         self.TaskDict = new Dictionary<int, TaskData>();
         self.FinishTaskDict = new Dictionary<int, FinishTaskData>();
+
         self.TaskArgDict = new Dictionary<string, ATaskArgs>();
         self.TaskHanderDict = new Dictionary<string, ATaskHandler>();
         self.TaskProcessDict = new Dictionary<string, ATaskProcess>();
@@ -95,7 +97,7 @@ public static partial class TaskComponentSystem
             Log.Info($"任务因配置变化而删除: {task.Id}");
             self.DelTask((int)task.Id, LogDef.TaskConfigRemove);
         }
-        
+
         foreach (int id in self.FinishTaskDict.Keys)
         {
             if (TaskConfigCategory.Instance.Contain(id))
@@ -122,6 +124,19 @@ public static partial class TaskComponentSystem
         }
 
         return default;
+    }
+
+    public static Pair<Dictionary<int, long>, List<TaskProto>> GetTaskList(this TaskComponent self)
+    {
+        var list = new List<TaskProto>();
+        foreach (var value in self.TaskDict.Values)
+        {
+            list.Add(value.ToTaskProto());
+        }
+
+        var finishDict = self.FinishTaskDict.ToDictionary(pair => pair.Key, pair => pair.Value.FinishTime);
+
+        return new Pair<Dictionary<int, long>, List<TaskProto>>(finishDict, list);
     }
 
     public static bool HasTask(this TaskComponent self, int taskId)

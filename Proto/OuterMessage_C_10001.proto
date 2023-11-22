@@ -328,13 +328,13 @@ message TaskProto
   int64 Max = 4;
   int32 Status = 5;
   int64 Time = 6;
+  int64 AcceptTime = 7;
 }
 
 // 更新任务
 message M2C_UpdateTask //IMessage
 {
   repeated TaskProto List = 1;
-  bool EnterGame = 2;
 }
 
 // 删除任务
@@ -391,6 +391,19 @@ message C2M_DeleteItem //ILocationRequest
 
 message M2C_DeleteItem //ILocationResponse
 {
+}
+
+// 请求玩家数据
+//ResponseType M2C_GetPlayerData
+message C2M_GetPlayerData //ILocationRequest
+{
+}
+
+message M2C_GetPlayerData //ILocationResponse
+{
+  repeated ItemProto ItemList = 1;
+  repeated TaskProto TaskList = 2;
+  map<int32, int64> FinishDict = 3;
 }
 
 message RankRoleInfoProto

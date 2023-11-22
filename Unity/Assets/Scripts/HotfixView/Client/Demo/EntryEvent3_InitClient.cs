@@ -13,6 +13,7 @@ namespace ET.Client
             root.AddComponent<ServerInfoComponent>();
             root.AddComponent<DataSaveComponent>();
             root.AddComponent<ClientTaskComponent>();
+            root.AddComponent<ClientItemComponent>();
 
             // 根据配置修改掉Main Fiber的SceneType
             SceneType sceneType = EnumHelper.FromString<SceneType>(Global.Instance.GlobalConfig.AppType.ToString());

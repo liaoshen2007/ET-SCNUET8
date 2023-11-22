@@ -9,6 +9,8 @@
 
         public long Count { get; set; }
 
+        public long ChangeCount { get; set; }
+
         public int LogEvent { get; set; }
     }
 

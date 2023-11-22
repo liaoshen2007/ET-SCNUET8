@@ -6,7 +6,6 @@ namespace ET.Server;
 
 [EntitySystemOf(typeof (ItemComponent))]
 [FriendOf(typeof (ItemComponent))]
-[FriendOf(typeof (ItemData))]
 public static partial class ItemComponentSystem
 {
     [EntitySystem]
@@ -22,6 +21,17 @@ public static partial class ItemComponentSystem
     [EntitySystem]
     private static void Load(this ItemComponent self)
     {
+    }
+
+    public static List<ItemProto> GetItemList(this ItemComponent self)
+    {
+        var list = new List<ItemProto>();
+        foreach (var value in self.ItemDict.Values)
+        {
+            list.Add(value.ToItemProto());
+        }
+
+        return list;
     }
 
     public static void CheckItem(this ItemComponent self)
@@ -57,7 +67,7 @@ public static partial class ItemComponentSystem
             self.ValidItemDict.Remove((int)itemData.Id);
             self.ClearItem((int)itemData.Id, LogDef.ItemConfigRemove);
         }
-        
+
         if (updateCache)
         {
             self.UpdateCache().Coroutine();
