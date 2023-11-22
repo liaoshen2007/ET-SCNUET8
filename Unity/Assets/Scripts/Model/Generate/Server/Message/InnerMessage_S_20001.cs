@@ -13,7 +13,7 @@ namespace ET
 	{
 		public static InnerPingRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new InnerPingRequest() : ObjectPool.Instance.Fetch(typeof(InnerPingRequest)) as InnerPingRequest; 
+			return ObjectPool.Instance.Fetch(typeof(InnerPingRequest), isFromPool) as InnerPingRequest; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -35,7 +35,7 @@ namespace ET
 	{
 		public static InnerPingResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new InnerPingResponse() : ObjectPool.Instance.Fetch(typeof(InnerPingResponse)) as InnerPingResponse; 
+			return ObjectPool.Instance.Fetch(typeof(InnerPingResponse), isFromPool) as InnerPingResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -692,7 +692,7 @@ namespace ET
 	{
 		public static G2M_RequestEnterGameState Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2M_RequestEnterGameState() : ObjectPool.Instance.Fetch(typeof(G2M_RequestEnterGameState)) as G2M_RequestEnterGameState; 
+			return ObjectPool.Instance.Fetch(typeof(G2M_RequestEnterGameState), isFromPool) as G2M_RequestEnterGameState; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -714,7 +714,7 @@ namespace ET
 	{
 		public static M2G_RequestEnterGameState Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new M2G_RequestEnterGameState() : ObjectPool.Instance.Fetch(typeof(M2G_RequestEnterGameState)) as M2G_RequestEnterGameState; 
+			return ObjectPool.Instance.Fetch(typeof(M2G_RequestEnterGameState), isFromPool) as M2G_RequestEnterGameState; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -847,7 +847,7 @@ namespace ET
 	{
 		public static Other2Cache_UpdateCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2Cache_UpdateCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_UpdateCache)) as Other2Cache_UpdateCache; 
+			return ObjectPool.Instance.Fetch(typeof(Other2Cache_UpdateCache), isFromPool) as Other2Cache_UpdateCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -884,7 +884,7 @@ namespace ET
 	{
 		public static Cache2Other_UpdateCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Cache2Other_UpdateCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_UpdateCache)) as Cache2Other_UpdateCache; 
+			return ObjectPool.Instance.Fetch(typeof(Cache2Other_UpdateCache), isFromPool) as Cache2Other_UpdateCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -918,7 +918,7 @@ namespace ET
 	{
 		public static Other2Cache_GetCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2Cache_GetCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_GetCache)) as Other2Cache_GetCache; 
+			return ObjectPool.Instance.Fetch(typeof(Other2Cache_GetCache), isFromPool) as Other2Cache_GetCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -948,7 +948,7 @@ namespace ET
 	{
 		public static Cache2Other_GetCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Cache2Other_GetCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_GetCache)) as Cache2Other_GetCache; 
+			return ObjectPool.Instance.Fetch(typeof(Cache2Other_GetCache), isFromPool) as Cache2Other_GetCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -990,7 +990,7 @@ namespace ET
 	{
 		public static Other2Cache_DeleteCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2Cache_DeleteCache() : ObjectPool.Instance.Fetch(typeof(Other2Cache_DeleteCache)) as Other2Cache_DeleteCache; 
+			return ObjectPool.Instance.Fetch(typeof(Other2Cache_DeleteCache), isFromPool) as Other2Cache_DeleteCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1016,7 +1016,7 @@ namespace ET
 	{
 		public static Cache2Other_DeleteCache Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Cache2Other_DeleteCache() : ObjectPool.Instance.Fetch(typeof(Cache2Other_DeleteCache)) as Cache2Other_DeleteCache; 
+			return ObjectPool.Instance.Fetch(typeof(Cache2Other_DeleteCache), isFromPool) as Cache2Other_DeleteCache; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1050,7 +1050,7 @@ namespace ET
 	{
 		public static G2Other_EnterRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2Other_EnterRequest() : ObjectPool.Instance.Fetch(typeof(G2Other_EnterRequest)) as G2Other_EnterRequest; 
+			return ObjectPool.Instance.Fetch(typeof(G2Other_EnterRequest), isFromPool) as G2Other_EnterRequest; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1076,7 +1076,7 @@ namespace ET
 	{
 		public static Other2G_EnterResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2G_EnterResponse() : ObjectPool.Instance.Fetch(typeof(Other2G_EnterResponse)) as Other2G_EnterResponse; 
+			return ObjectPool.Instance.Fetch(typeof(Other2G_EnterResponse), isFromPool) as Other2G_EnterResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1114,7 +1114,7 @@ namespace ET
 	{
 		public static G2Other_LeaveRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2Other_LeaveRequest() : ObjectPool.Instance.Fetch(typeof(G2Other_LeaveRequest)) as G2Other_LeaveRequest; 
+			return ObjectPool.Instance.Fetch(typeof(G2Other_LeaveRequest), isFromPool) as G2Other_LeaveRequest; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1140,7 +1140,7 @@ namespace ET
 	{
 		public static Other2G_LeaveResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2G_LeaveResponse() : ObjectPool.Instance.Fetch(typeof(Other2G_LeaveResponse)) as Other2G_LeaveResponse; 
+			return ObjectPool.Instance.Fetch(typeof(Other2G_LeaveResponse), isFromPool) as Other2G_LeaveResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1174,7 +1174,7 @@ namespace ET
 	{
 		public static W2Other_SaveDataRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new W2Other_SaveDataRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_SaveDataRequest)) as W2Other_SaveDataRequest; 
+			return ObjectPool.Instance.Fetch(typeof(W2Other_SaveDataRequest), isFromPool) as W2Other_SaveDataRequest; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1196,7 +1196,7 @@ namespace ET
 	{
 		public static Other2W_SaveDataResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Other2W_SaveDataResponse() : ObjectPool.Instance.Fetch(typeof(Other2W_SaveDataResponse)) as Other2W_SaveDataResponse; 
+			return ObjectPool.Instance.Fetch(typeof(Other2W_SaveDataResponse), isFromPool) as Other2W_SaveDataResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1230,7 +1230,7 @@ namespace ET
 	{
 		public static W2Other_CloseRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new W2Other_CloseRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_CloseRequest)) as W2Other_CloseRequest; 
+			return ObjectPool.Instance.Fetch(typeof(W2Other_CloseRequest), isFromPool) as W2Other_CloseRequest; 
 		}
 
 	/// <summary>
@@ -1259,7 +1259,7 @@ namespace ET
 	{
 		public static W2Other_CloseResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new W2Other_CloseResponse() : ObjectPool.Instance.Fetch(typeof(W2Other_CloseResponse)) as W2Other_CloseResponse; 
+			return ObjectPool.Instance.Fetch(typeof(W2Other_CloseResponse), isFromPool) as W2Other_CloseResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -1293,7 +1293,7 @@ namespace ET
 	{
 		public static W2Other_OpenRequest Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new W2Other_OpenRequest() : ObjectPool.Instance.Fetch(typeof(W2Other_OpenRequest)) as W2Other_OpenRequest; 
+			return ObjectPool.Instance.Fetch(typeof(W2Other_OpenRequest), isFromPool) as W2Other_OpenRequest; 
 		}
 
 	/// <summary>
@@ -1322,7 +1322,7 @@ namespace ET
 	{
 		public static W2Other_OpenResponse Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new W2Other_OpenResponse() : ObjectPool.Instance.Fetch(typeof(W2Other_OpenResponse)) as W2Other_OpenResponse; 
+			return ObjectPool.Instance.Fetch(typeof(W2Other_OpenResponse), isFromPool) as W2Other_OpenResponse; 
 		}
 
 		[MemoryPackOrder(89)]
