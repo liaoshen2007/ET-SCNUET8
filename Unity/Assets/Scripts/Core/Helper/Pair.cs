@@ -61,6 +61,11 @@
         /// </summary>
         [StaticField]
         public static readonly Pair<TKey, TValue> Default = new Pair<TKey, TValue>(default(TKey), default(TValue));
+        
+        public static Pair<TK, TV> Create<TK, TV>(TK tk, TV tv)
+        {
+            return new Pair<TK, TV>(tk, tv);
+        }
         #endregion
 
         #region Methods

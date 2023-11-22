@@ -26,34 +26,14 @@ public static partial class TaskComponentSystem
         self.TaskDict = new Dictionary<int, TaskData>();
         self.FinishTaskDict = new Dictionary<int, FinishTaskData>();
 
-        self.TaskArgDict = new Dictionary<string, ATaskArgs>();
-        self.TaskHanderDict = new Dictionary<string, ATaskHandler>();
-        self.TaskProcessDict = new Dictionary<string, ATaskProcess>();
-        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskArgsAttribute)))
-        {
-            var attr = v.GetCustomAttributes(typeof (TaskArgsAttribute), false)[0] as TaskArgsAttribute;
-            self.TaskArgDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskArgs);
-        }
-
-        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskHandlerAttribute)))
-        {
-            var attr = v.GetCustomAttributes(typeof (TaskHandlerAttribute), false)[0] as TaskHandlerAttribute;
-            self.TaskHanderDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskHandler);
-        }
-
-        foreach (var v in CodeTypes.Instance.GetTypes(typeof (TaskProcessAttribute)))
-        {
-            var attr = v.GetCustomAttributes(typeof (TaskProcessAttribute), false)[0] as TaskProcessAttribute;
-            self.TaskProcessDict.Add(attr.Key, Activator.CreateInstance(v) as ATaskProcess);
-        }
-
+        //为了可以重载放在Task组件上
         self.TaskFuncDict = new Dictionary<TaskEventType, TaskFunc>()
         {
-            { TaskEventType.Complete, new TaskFunc("Default", KeyValuePair.Create(0, 0)) },
-            { TaskEventType.UseCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
-            { TaskEventType.AddCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
-            { TaskEventType.ConsumeCountItem, new TaskFunc("Common2", KeyValuePair.Create(1, 1)) },
-            { TaskEventType.HomeLevel, new TaskFunc("Common1", KeyValuePair.Create(1, 1)) },
+            { TaskEventType.Complete, new TaskFunc("Default", Pair<int, int>.Create(0, 0)) },
+            { TaskEventType.UseCountItem, new TaskFunc("Common2", Pair<int, int>.Create(1, 1)) },
+            { TaskEventType.AddCountItem, new TaskFunc("Common2", Pair<int, int>.Create(1, 1)) },
+            { TaskEventType.ConsumeCountItem, new TaskFunc("Common2", Pair<int, int>.Create(1, 1)) },
+            { TaskEventType.HomeLevel, new TaskFunc("Common1", Pair<int, int>.Create(1, 1)) },
         };
     }
 
@@ -74,7 +54,7 @@ public static partial class TaskComponentSystem
         var proto = task.ToTaskProto();
         if (self.TaskFuncDict.TryGetValue((TaskEventType)task.Config.EventType, out var tf))
         {
-            var ff = self.TaskProcessDict[tf.TaskProcess];
+            var ff = TaskEffectSingleton.Instance.TaskProcessDict[tf.TaskProcess];
             var pro = ff.Run(self, task, task.Config.Args);
             proto.Min = pro.Key;
             proto.Max = pro.Value;
@@ -161,7 +141,7 @@ public static partial class TaskComponentSystem
             return false;
         }
 
-        if (!self.TaskArgDict.TryGetValue(tf.TaskArgs, out var ff))
+        if (!TaskEffectSingleton.Instance.TaskArgDict.TryGetValue(tf.TaskArgs, out var ff))
         {
             Log.Error($"不存在处理函数: {tf.TaskArgs}");
             return false;
@@ -186,7 +166,7 @@ public static partial class TaskComponentSystem
             return;
         }
 
-        if (!self.TaskHanderDict.TryGetValue(tf.TaskHandle, out var ff))
+        if (!TaskEffectSingleton.Instance.TaskHanderDict.TryGetValue(tf.TaskHandle, out var ff))
         {
             Log.Error($"不存在处理函数: {tf.TaskHandle}");
             return;

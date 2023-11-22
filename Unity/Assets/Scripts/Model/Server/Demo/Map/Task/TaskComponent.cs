@@ -25,7 +25,7 @@ namespace ET.Server
 
     public struct TaskFunc
     {
-        public TaskFunc(string taskArgs, KeyValuePair<int, int> process, string taskHandle = "Default", string taskProcess = "Default")
+        public TaskFunc(string taskArgs, Pair<int, int> process, string taskHandle = "Default", string taskProcess = "Default")
         {
             this.TaskArgs = taskArgs;
             this.Process = process;
@@ -33,7 +33,7 @@ namespace ET.Server
             this.TaskProcess = taskProcess;
         }
 
-        public KeyValuePair<int, int> Process { get; }
+        public Pair<int, int> Process { get; }
         public string TaskArgs { get; }
         public string TaskHandle { get; }
         public string TaskProcess { get; }
@@ -44,15 +44,6 @@ namespace ET.Server
     {
         [BsonIgnore]
         public Dictionary<TaskEventType, TaskFunc> TaskFuncDict;
-
-        [BsonIgnore]
-        public Dictionary<string, ATaskArgs> TaskArgDict;
-
-        [BsonIgnore]
-        public Dictionary<string, ATaskHandler> TaskHanderDict;
-
-        [BsonIgnore]
-        public Dictionary<string, ATaskProcess> TaskProcessDict;
 
         /// <summary>
         /// 所有的任务字典

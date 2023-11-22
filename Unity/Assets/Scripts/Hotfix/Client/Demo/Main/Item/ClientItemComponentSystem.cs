@@ -15,6 +15,7 @@ public static partial class ClientItemComponentSystem
     [EntitySystem]
     private static void Destroy(this ClientItemComponent self)
     {
+        self.ItemDict.Clear();
     }
 
     private static void AddUpdateItem(this ClientItemComponent self, ItemProto proto)

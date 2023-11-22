@@ -4,7 +4,7 @@ namespace ET.Client;
 
 [EntitySystemOf(typeof (ClientTaskComponent))]
 [FriendOf(typeof (ClientTaskComponent))]
-public static partial class TaskComponentSystem
+public static partial class ClientTaskComponentSystem
 {
     [EntitySystem]
     private static void Awake(this ClientTaskComponent self)
