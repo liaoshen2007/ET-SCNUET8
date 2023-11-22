@@ -13,7 +13,7 @@ namespace ET
 	{
 		public static G2Match_Match Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2Match_Match() : ObjectPool.Instance.Fetch(typeof(G2Match_Match)) as G2Match_Match; 
+			return ObjectPool.Instance.Fetch(typeof(G2Match_Match), isFromPool) as G2Match_Match; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -39,7 +39,7 @@ namespace ET
 	{
 		public static Match2G_Match Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Match2G_Match() : ObjectPool.Instance.Fetch(typeof(Match2G_Match)) as Match2G_Match; 
+			return ObjectPool.Instance.Fetch(typeof(Match2G_Match), isFromPool) as Match2G_Match; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -70,7 +70,7 @@ namespace ET
 	{
 		public static Match2Map_GetRoom Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Match2Map_GetRoom() : ObjectPool.Instance.Fetch(typeof(Match2Map_GetRoom)) as Match2Map_GetRoom; 
+			return ObjectPool.Instance.Fetch(typeof(Match2Map_GetRoom), isFromPool) as Match2Map_GetRoom; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -96,7 +96,7 @@ namespace ET
 	{
 		public static Map2Match_GetRoom Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Map2Match_GetRoom() : ObjectPool.Instance.Fetch(typeof(Map2Match_GetRoom)) as Map2Match_GetRoom; 
+			return ObjectPool.Instance.Fetch(typeof(Map2Match_GetRoom), isFromPool) as Map2Match_GetRoom; 
 		}
 
 	/// <summary>
@@ -134,7 +134,7 @@ namespace ET
 	{
 		public static G2Room_Reconnect Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2Room_Reconnect() : ObjectPool.Instance.Fetch(typeof(G2Room_Reconnect)) as G2Room_Reconnect; 
+			return ObjectPool.Instance.Fetch(typeof(G2Room_Reconnect), isFromPool) as G2Room_Reconnect; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -160,7 +160,7 @@ namespace ET
 	{
 		public static Room2G_Reconnect Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Room2G_Reconnect() : ObjectPool.Instance.Fetch(typeof(Room2G_Reconnect)) as Room2G_Reconnect; 
+			return ObjectPool.Instance.Fetch(typeof(Room2G_Reconnect), isFromPool) as Room2G_Reconnect; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -203,7 +203,7 @@ namespace ET
 	{
 		public static RoomManager2Room_Init Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new RoomManager2Room_Init() : ObjectPool.Instance.Fetch(typeof(RoomManager2Room_Init)) as RoomManager2Room_Init; 
+			return ObjectPool.Instance.Fetch(typeof(RoomManager2Room_Init), isFromPool) as RoomManager2Room_Init; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -229,7 +229,7 @@ namespace ET
 	{
 		public static Room2RoomManager_Init Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Room2RoomManager_Init() : ObjectPool.Instance.Fetch(typeof(Room2RoomManager_Init)) as Room2RoomManager_Init; 
+			return ObjectPool.Instance.Fetch(typeof(Room2RoomManager_Init), isFromPool) as Room2RoomManager_Init; 
 		}
 
 		[MemoryPackOrder(89)]

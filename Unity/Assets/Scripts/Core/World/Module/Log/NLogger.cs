@@ -7,11 +7,15 @@ namespace ET
     {
         private readonly NLog.Logger logger;
 
-        public NLogger(string name, int process, int fiber, string configPath)
+        static NLogger()
         {
-            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(configPath);
+            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration("../Config/NLog/NLog.config");
             LogManager.Configuration.Variables["currentDir"] = Environment.CurrentDirectory;
-            this.logger = LogManager.GetLogger($"{process:00}.{fiber:0000}.{name}");
+        }
+
+        public NLogger(string name, int process, int fiber)
+        {
+            this.logger = LogManager.GetLogger($"{(uint)process:00}.{(uint)fiber:0000}.{name}");
         }
 
         public void Trace(string message)

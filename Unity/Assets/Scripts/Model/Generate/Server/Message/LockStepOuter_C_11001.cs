@@ -10,7 +10,7 @@ namespace ET
 	{
 		public static C2G_Match Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new C2G_Match() : ObjectPool.Instance.Fetch(typeof(C2G_Match)) as C2G_Match; 
+			return ObjectPool.Instance.Fetch(typeof(C2G_Match), isFromPool) as C2G_Match; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -32,7 +32,7 @@ namespace ET
 	{
 		public static G2C_Match Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2C_Match() : ObjectPool.Instance.Fetch(typeof(G2C_Match)) as G2C_Match; 
+			return ObjectPool.Instance.Fetch(typeof(G2C_Match), isFromPool) as G2C_Match; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -65,7 +65,7 @@ namespace ET
 	{
 		public static Match2G_NotifyMatchSuccess Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Match2G_NotifyMatchSuccess() : ObjectPool.Instance.Fetch(typeof(Match2G_NotifyMatchSuccess)) as Match2G_NotifyMatchSuccess; 
+			return ObjectPool.Instance.Fetch(typeof(Match2G_NotifyMatchSuccess), isFromPool) as Match2G_NotifyMatchSuccess; 
 		}
 
 	/// <summary>
@@ -93,7 +93,7 @@ namespace ET
 	{
 		public static C2Room_ChangeSceneFinish Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new C2Room_ChangeSceneFinish() : ObjectPool.Instance.Fetch(typeof(C2Room_ChangeSceneFinish)) as C2Room_ChangeSceneFinish; 
+			return ObjectPool.Instance.Fetch(typeof(C2Room_ChangeSceneFinish), isFromPool) as C2Room_ChangeSceneFinish; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -115,7 +115,7 @@ namespace ET
 	{
 		public static LockStepUnitInfo Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new LockStepUnitInfo() : ObjectPool.Instance.Fetch(typeof(LockStepUnitInfo)) as LockStepUnitInfo; 
+			return ObjectPool.Instance.Fetch(typeof(LockStepUnitInfo), isFromPool) as LockStepUnitInfo; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -148,7 +148,7 @@ namespace ET
 	{
 		public static Room2C_Start Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Room2C_Start() : ObjectPool.Instance.Fetch(typeof(Room2C_Start)) as Room2C_Start; 
+			return ObjectPool.Instance.Fetch(typeof(Room2C_Start), isFromPool) as Room2C_Start; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -174,7 +174,7 @@ namespace ET
 	{
 		public static FrameMessage Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new FrameMessage() : ObjectPool.Instance.Fetch(typeof(FrameMessage)) as FrameMessage; 
+			return ObjectPool.Instance.Fetch(typeof(FrameMessage), isFromPool) as FrameMessage; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -204,7 +204,7 @@ namespace ET
 	{
 		public static OneFrameInputs Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new OneFrameInputs() : ObjectPool.Instance.Fetch(typeof(OneFrameInputs)) as OneFrameInputs; 
+			return ObjectPool.Instance.Fetch(typeof(OneFrameInputs), isFromPool) as OneFrameInputs; 
 		}
 
 		[MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptions(MongoDB.Bson.Serialization.Options.DictionaryRepresentation.ArrayOfArrays)]
@@ -226,7 +226,7 @@ namespace ET
 	{
 		public static Room2C_AdjustUpdateTime Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Room2C_AdjustUpdateTime() : ObjectPool.Instance.Fetch(typeof(Room2C_AdjustUpdateTime)) as Room2C_AdjustUpdateTime; 
+			return ObjectPool.Instance.Fetch(typeof(Room2C_AdjustUpdateTime), isFromPool) as Room2C_AdjustUpdateTime; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -248,7 +248,7 @@ namespace ET
 	{
 		public static C2Room_CheckHash Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new C2Room_CheckHash() : ObjectPool.Instance.Fetch(typeof(C2Room_CheckHash)) as C2Room_CheckHash; 
+			return ObjectPool.Instance.Fetch(typeof(C2Room_CheckHash), isFromPool) as C2Room_CheckHash; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -278,7 +278,7 @@ namespace ET
 	{
 		public static Room2C_CheckHashFail Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new Room2C_CheckHashFail() : ObjectPool.Instance.Fetch(typeof(Room2C_CheckHashFail)) as Room2C_CheckHashFail; 
+			return ObjectPool.Instance.Fetch(typeof(Room2C_CheckHashFail), isFromPool) as Room2C_CheckHashFail; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -304,7 +304,7 @@ namespace ET
 	{
 		public static G2C_Reconnect Create(bool isFromPool = true) 
 		{ 
-			return !isFromPool? new G2C_Reconnect() : ObjectPool.Instance.Fetch(typeof(G2C_Reconnect)) as G2C_Reconnect; 
+			return ObjectPool.Instance.Fetch(typeof(G2C_Reconnect), isFromPool) as G2C_Reconnect; 
 		}
 
 		[MemoryPackOrder(0)]
