@@ -49,5 +49,16 @@ namespace ET
 
             return true;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static V Get<T, V>(this Dictionary<T, V> dict, T key, V def = default)
+        {
+            if (dict.TryGetValue(key, out V v))
+            {
+                return v;
+            }
+
+            return default;
+        }
     }
 }

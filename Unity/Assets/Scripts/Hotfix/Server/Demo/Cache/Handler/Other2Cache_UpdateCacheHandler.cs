@@ -5,13 +5,6 @@
     {
         protected override async ETTask Run(Scene scene, Other2Cache_UpdateCache request, Cache2Other_UpdateCache response)
         {
-            RunAsync(scene, request).Coroutine();
-
-            await ETTask.CompletedTask;
-        }
-
-        private static async ETTask RunAsync(Scene scene, Other2Cache_UpdateCache request)
-        {
             var cacheCom = scene.GetComponent<CacheComponent>();
             using ListComponent<Entity> entityList = ListComponent<Entity>.Create();
             for (int i = 0; i < request.EntityTypeList.Count; i++)
@@ -22,7 +15,9 @@
                 entityList.Add(entity);
             }
 
-            await cacheCom.UpdateCache(request.UnitId, entityList);
+            cacheCom.UpdateCache(request.UnitId, entityList);
+
+            await ETTask.CompletedTask;
         }
     }
 }

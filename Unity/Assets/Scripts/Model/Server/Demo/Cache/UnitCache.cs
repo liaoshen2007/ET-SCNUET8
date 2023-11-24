@@ -16,5 +16,12 @@ namespace ET.Server
         public string TypeName { get; set; }
 
         public Dictionary<long, Entity> ComponentDict { get; } = new Dictionary<long, Entity>();
+        
+        public Dictionary<long, long> UpdateTimeDict { get; } = new Dictionary<long, long>();
+
+        /// <summary>
+        /// 数据缓存间隔
+        /// </summary>
+        public const int Interval = 3 * 3600;
     }
 }
