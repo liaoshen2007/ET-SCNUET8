@@ -86,6 +86,14 @@ public static partial class ItemComponentSystem
 
     private static void UpdateItem(this ItemComponent self, int itemId)
     {
+        if (!self.ItemDict.TryGetValue(itemId, out var itemData))
+        {
+            self.GetParent<Unit>().GetComponent<PacketComponent>().UpdateItem(new ItemProto() { Id = itemId, Count = 0 });
+            return;
+        }
+
+        var proto = itemData.ToItemProto();
+        self.GetParent<Unit>().GetComponent<PacketComponent>().UpdateItem(proto);
     }
 
     public static void AddItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)

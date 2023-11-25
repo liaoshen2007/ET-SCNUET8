@@ -60,7 +60,7 @@ public static partial class TaskComponentSystem
             proto.Max = pro.Value;
         }
 
-        self.GetParent<Unit>().SendToClient(new M2C_UpdateTask() { List = { proto } });
+        self.GetParent<Unit>().GetComponent<PacketComponent>().UpdateTask(proto);
     }
 
     public static void CheckTask(this TaskComponent self)
@@ -274,7 +274,7 @@ public static partial class TaskComponentSystem
         {
             self.TaskDict.Remove(taskId);
             EventSystem.Instance.Publish(self.Scene(), new DeleteTask() { TaskData = task });
-            self.GetParent<Unit>().SendToClient(new M2C_DeleteTask() { List = { taskId } });
+            self.GetParent<Unit>().GetComponent<PacketComponent>().UpdateTask(taskId);
             task.Dispose();
         }
     }
@@ -463,6 +463,7 @@ public static partial class TaskComponentSystem
         self.UpdateTask(task);
     }
 
+    
     public static void SetTaskArgs(this TaskComponent self, int taskId, List<long> args)
     {
         if (!self.TaskDict.TryGetValue(taskId, out var task))

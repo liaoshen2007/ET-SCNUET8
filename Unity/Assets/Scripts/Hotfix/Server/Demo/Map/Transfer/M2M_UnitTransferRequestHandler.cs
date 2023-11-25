@@ -37,6 +37,7 @@ namespace ET.Server
 
             // 加入aoi
             unit.AddComponent<AOIEntity, int, float3>(9 * 1000, unit.Position);
+            unit.AddComponent<PacketComponent>();
             EventSystem.Instance.Publish(scene, new UnitTransFinish() { Unit = unit });
 
             // 解锁location，可以接收发给Unit的消息

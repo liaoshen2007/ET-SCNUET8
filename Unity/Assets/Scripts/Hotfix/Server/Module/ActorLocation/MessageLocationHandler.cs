@@ -82,6 +82,12 @@ namespace ET.Server
                     response.Error = ErrorCore.ERR_RpcFail;
                     response.Message = new List<string>() { exception.ToString() };
                 }
+
+                if (entity is Unit unit)
+                {
+                    unit.GetComponent<PacketComponent>().SyncPacket();
+                }
+                
                 response.RpcId = rpcId;
                 fiber.Root.GetComponent<ProcessInnerSender>().Reply(fromAddress, response);
             }

@@ -11,6 +11,7 @@
         public const int TaskAutoCommit = 20003;
         public const int TaskCommit = 20004;
         public const int TaskConfigRemove = 20005;
+        public const int Client = 20006;
 
         /// <summary>
         /// 道具初始化

@@ -17,6 +17,7 @@
 
         public const int RoomUpdate = 301;
 
+        public const int PacketUpdate = 310;
         /// <summary>
         /// 保存排行榜
         /// </summary>
