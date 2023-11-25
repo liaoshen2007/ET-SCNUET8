@@ -67,7 +67,7 @@ namespace ET
         private const string clientProtoDir = "../Unity/Assets/Bundles/Config";
         private const string serverProtoDir = "../Config/Excel/{0}/{1}";
         private const string numericPath = "../Unity/Assets/Scripts/Model/Share/Module/Numeric/NumericType.cs";
-        private const string windowPath = "../Unity/Assets/Scripts/ModelView/Client/Module/EUI/WindowId.cs";
+        private const string windowPath = "../Unity/Assets/Scripts/ModelView/Client/Plugins/EUI/WindowId.cs";
         private const string replaceStr = "/{0}/{1}";
         private static Assembly[] configAssemblies = new Assembly[3];
 
