@@ -105,7 +105,7 @@ namespace ET.Server
         /// <param name="direct">方向</param>
         /// <param name="repairPos">修改距离</param>
         /// <returns></returns>
-        public static KeyValuePair<float, float> GetRepairPos(float srcX, float srcZ, float direct, float repairPos)
+        public static Pair<float, float> GetRepairPos(float srcX, float srcZ, float direct, float repairPos)
         {
             if (repairPos != 0)
             {
@@ -113,7 +113,7 @@ namespace ET.Server
                 srcZ = (float)Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
             }
 
-            return new KeyValuePair<float, float>(srcX, srcZ);
+            return new Pair<float, float>(srcX, srcZ);
         }
 
         public static Unit GetOwner(this Unit self)

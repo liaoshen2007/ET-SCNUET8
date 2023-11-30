@@ -14,6 +14,6 @@ namespace ET.Server
 
     public abstract class ATaskProcess
     {
-        public abstract KeyValuePair<long, long> Run(TaskComponent self, TaskData task, long[] cfgArgs);
+        public abstract Pair<long, long> Run(TaskComponent self, TaskData task, long[] cfgArgs);
     }
 }
