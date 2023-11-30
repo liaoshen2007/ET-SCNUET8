@@ -87,7 +87,7 @@ namespace ET.Server
             self.CacheKeyList.Clear();
             foreach (var type in CodeTypes.Instance.GetTypes().Values)
             {
-                if (!type.IsAbstract && type.IsAssignableTo(typeof (ICache)))
+                if (!type.IsAbstract && typeof (ICache).IsAssignableFrom(type))
                 {
                     self.CacheKeyList.Add(type.FullName);
                 }

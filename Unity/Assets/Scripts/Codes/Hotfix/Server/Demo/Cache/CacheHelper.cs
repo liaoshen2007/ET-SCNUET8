@@ -21,7 +21,7 @@
             foreach (var (id, entity) in unit.Components)
             {
                 var t = entity.GetType();
-                if (!t.IsAssignableTo(typeof (ICache)))
+                if (!typeof (ICache).IsAssignableFrom(t))
                 {
                     continue;
                 }
