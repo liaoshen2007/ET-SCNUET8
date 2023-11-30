@@ -49,6 +49,11 @@
                 return default;
             }
 
+            if (resp.Entitys[index] == null)
+            {
+                return default;
+            }
+
             var unit = MongoHelper.Deserialize<Unit>(resp.Entitys[index]);
             if (unit == null)
             {
