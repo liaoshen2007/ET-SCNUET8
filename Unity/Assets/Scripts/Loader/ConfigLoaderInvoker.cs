@@ -16,7 +16,7 @@ namespace ET
             if (Define.IsEditor)
             {
                 string ct = "cs";
-                GlobalConfig globalConfig = Resources.Load<GlobalConfig>("GlobalConfig");
+                GlobalConfig globalConfig = Resources.Load<GlobalConfig>(nameof (GlobalConfig));
                 CodeMode codeMode = globalConfig.CodeMode;
                 switch (codeMode)
                 {
@@ -72,7 +72,7 @@ namespace ET
         public override async ETTask<byte[]> Handle(ConfigLoader.GetOneConfigBytes args)
         {
             string ct = "cs";
-            GlobalConfig globalConfig = Resources.Load<GlobalConfig>("GlobalConfig");
+            GlobalConfig globalConfig = Resources.Load<GlobalConfig>(nameof (GlobalConfig));
             CodeMode codeMode = globalConfig.CodeMode;
             switch (codeMode)
             {
