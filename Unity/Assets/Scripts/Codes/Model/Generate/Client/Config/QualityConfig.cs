@@ -7,28 +7,28 @@ using System.ComponentModel;
 namespace ET
 {
     [Config]
-    public partial class LanguageCategory : Singleton<LanguageCategory>, IMerge
+    public partial class QualityConfigCategory : Singleton<QualityConfigCategory>, IMerge
     {
         [BsonElement]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        private Dictionary<int, Language> dict = new();
+        private Dictionary<int, QualityConfig> dict = new();
 		
         public void Merge(object o)
         {
-            LanguageCategory s = o as LanguageCategory;
+            QualityConfigCategory s = o as QualityConfigCategory;
             foreach (var kv in s.dict)
             {
                 this.dict.Add(kv.Key, kv.Value);
             }
         }
 		
-        public Language Get(int id)
+        public QualityConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out Language item);
+            this.dict.TryGetValue(id, out QualityConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (Language)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (QualityConfig)}，配置id: {id}");
             }
 
             return item;
@@ -39,12 +39,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, Language> GetAll()
+        public Dictionary<int, QualityConfig> GetAll()
         {
             return this.dict;
         }
 
-        public Language GetOne()
+        public QualityConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -54,14 +54,14 @@ namespace ET
         }
     }
 
-	public partial class Language: ProtoObject, IConfig
+	public partial class QualityConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		public int Id { get; set; }
-		/// <summary>内容</summary>
-		public string Msg { get; set; }
-		/// <summary>颜色</summary>
-		public string Color { get; set; }
+		/// <summary>道具品质颜色</summary>
+		public string ItemNameColor { get; set; }
+		/// <summary>道具品质框</summary>
+		public string ItemFrame { get; set; }
 
 	}
 }

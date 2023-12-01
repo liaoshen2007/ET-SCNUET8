@@ -60,6 +60,8 @@ namespace ET
 		public int Id { get; set; }
 		/// <summary>内容</summary>
 		public string Msg { get; set; }
+		/// <summary>颜色</summary>
+		public string Color { get; set; }
 
 	}
 }

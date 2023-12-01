@@ -21,9 +21,9 @@
             return $"Assets/Bundles/UI/Window/{winCfg.Path}.prefab";
         }
         
-        public static string ToUISpriteAtlasPath( this string fileName)
+        public static string ToUISpriteAtlasPath(this string fileName)
         {
-            return $"Assets/Res/UIAtlas/{fileName}.spriteatlas";
+            return $"Assets/Bundles/UI/Atlas/{fileName}.spriteatlas";
         }
         
         public static string GetNormalConfigPath(string fileName)

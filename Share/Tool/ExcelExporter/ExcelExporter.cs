@@ -135,7 +135,7 @@ namespace ET
                 foreach (string path in files)
                 {
                     string fileName = Path.GetFileName(path);
-                    if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains("#"))
+                    if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains('#'))
                     {
                         continue;
                     }

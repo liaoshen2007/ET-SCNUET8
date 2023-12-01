@@ -20,9 +20,17 @@ namespace ET.Client
         }
     }
 
+    public enum AtlasType
+    {
+        Icon,
+        Widget,
+        ArtText,
+    }
+
     [FriendOf(typeof (ShowWindowData))]
     [FriendOf(typeof (WindowCoreData))]
     [FriendOf(typeof (UIBaseWindow))]
+    [FriendOf(typeof (UIComponent))]
     public static class UIComponentSystem
     {
         public static void Awake(this UIComponent self)
@@ -33,6 +41,15 @@ namespace ET.Client
             self.VisibleWindowsDic?.Clear();
             self.StackWindowsQueue?.Clear();
             self.UIBaseWindowlistCached?.Clear();
+            foreach (var name in Enum.GetNames(typeof(AtlasType)))
+            {
+                self.AtlasPath.Add(name, name.ToUISpriteAtlasPath());
+            }
+        }
+
+        public static string GetAtlasPath(this UIComponent self, AtlasType t)
+        {
+            return self.AtlasPath[t.ToString()];
         }
 
         /// <summary>
