@@ -14,6 +14,7 @@
         public const int AITimer = 202;
         public const int SessionAcceptTimeout = 203;
         public const int InnerPing = 204;
+        public const int ActivityUpdate = 205;
 
         public const int RoomUpdate = 301;
 

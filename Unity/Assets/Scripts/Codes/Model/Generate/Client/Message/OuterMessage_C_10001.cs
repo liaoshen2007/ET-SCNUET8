@@ -2261,6 +2261,185 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.ActivityCfgProto)]
+	[MemoryPackable]
+	public partial class ActivityCfgProto: MessageObject
+	{
+		public static ActivityCfgProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ActivityCfgProto), isFromPool) as ActivityCfgProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int ActivityType { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Name { get; set; }
+
+		[MemoryPackOrder(3)]
+		public int Desc { get; set; }
+
+		[MemoryPackOrder(4)]
+		public string Icon { get; set; }
+
+		[MemoryPackOrder(5)]
+		public int HelpId { get; set; }
+
+		[MemoryPackOrder(6)]
+		public int WindowId { get; set; }
+
+		[MemoryPackOrder(7)]
+		public List<string> Args { get; set; } = new();
+
+		[MemoryPackOrder(8)]
+		public string ShowItemList { get; set; }
+
+		[MemoryPackOrder(9)]
+		public List<string> Ext { get; set; } = new();
+
+		[MemoryPackOrder(10)]
+		public List<string> DataList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.ActivityType = default;
+			this.Name = default;
+			this.Desc = default;
+			this.Icon = default;
+			this.HelpId = default;
+			this.WindowId = default;
+			this.Args.Clear();
+			this.ShowItemList = default;
+			this.Ext.Clear();
+			this.DataList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.ActivityProto)]
+	[MemoryPackable]
+	public partial class ActivityProto: MessageObject
+	{
+		public static ActivityProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ActivityProto), isFromPool) as ActivityProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Level { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long OpenTime { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long HideTime { get; set; }
+
+		[MemoryPackOrder(4)]
+		public long RealCloseTime { get; set; }
+
+		[MemoryPackOrder(5)]
+		public ActivityCfgProto Cfg { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Level = default;
+			this.OpenTime = default;
+			this.HideTime = default;
+			this.RealCloseTime = default;
+			this.Cfg = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///更新活动显示
+	/// </summary>
+	[Message(OuterMessage.M2C_UpdateActivityList)]
+	[MemoryPackable]
+	public partial class M2C_UpdateActivityList: MessageObject, IMessage
+	{
+		public static M2C_UpdateActivityList Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UpdateActivityList), isFromPool) as M2C_UpdateActivityList; 
+		}
+
+		[MemoryPackOrder(0)]
+		public List<ActivityProto> List { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.List.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///活动关闭
+	/// </summary>
+	[Message(OuterMessage.M2C_UpdateActivityClose)]
+	[MemoryPackable]
+	public partial class M2C_UpdateActivityClose: MessageObject, IMessage
+	{
+		public static M2C_UpdateActivityClose Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UpdateActivityClose), isFromPool) as M2C_UpdateActivityClose; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///活动显示
+	/// </summary>
+	[Message(OuterMessage.M2C_UpdateActivity)]
+	[MemoryPackable]
+	public partial class M2C_UpdateActivity: MessageObject, IMessage
+	{
+		public static M2C_UpdateActivity Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UpdateActivity), isFromPool) as M2C_UpdateActivity; 
+		}
+
+		[MemoryPackOrder(0)]
+		public ActivityProto Activity { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Activity = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -2332,5 +2511,10 @@ namespace ET
 		 public const ushort C2Chat_SendRequest = 10068;
 		 public const ushort Chat2C_SendResponse = 10069;
 		 public const ushort Chat2C_UpdateChat = 10070;
+		 public const ushort ActivityCfgProto = 10071;
+		 public const ushort ActivityProto = 10072;
+		 public const ushort M2C_UpdateActivityList = 10073;
+		 public const ushort M2C_UpdateActivityClose = 10074;
+		 public const ushort M2C_UpdateActivity = 10075;
 	}
 }

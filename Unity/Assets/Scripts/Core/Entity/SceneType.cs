@@ -62,14 +62,19 @@ namespace ET
         /// </summary>
         League = 1 << 25,
         
+        /// <summary>
+        /// 活动服
+        /// </summary>
+        Activity = 1 << 26,
+        
 
         // 客户端
-        Demo = 1 << 30,
-        Current = 1L << 31,
-        LockStep = 1L << 32,
-        LockStepView = 1L << 33,
-        DemoView = 1L << 34,
-        NetClient = 1L << 35,
+        Demo = 1L << 50,
+        Current = 1L << 51,
+        LockStep = 1L << 52,
+        LockStepView = 1L << 53,
+        DemoView = 1L << 54,
+        NetClient = 1L << 55,
 
         All = long.MaxValue,
     }
