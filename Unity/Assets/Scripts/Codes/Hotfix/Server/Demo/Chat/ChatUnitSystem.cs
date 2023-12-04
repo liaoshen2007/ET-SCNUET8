@@ -1,5 +1,6 @@
 ﻿namespace ET.Server;
 
+[FriendOf(typeof(ChatUnit))]
 public static class ChatUnitSystem
 {
     public class ChatUnitAwakeSystem : AwakeSystem<ChatUnit, long>
@@ -16,5 +17,14 @@ public static class ChatUnitSystem
         {
             self.PlayerId = 0;
         }
+    }
+
+    public static void UpdateInfo(this ChatUnit self, PlayerInfoProto playerInfo)
+    {
+        self.name = playerInfo.Name;
+        self.headIcon = playerInfo.HeadIcon;
+        self.level = playerInfo.Level;
+        self.fight = playerInfo.Fight;
+        self.sex = playerInfo.Sex;
     }
 }

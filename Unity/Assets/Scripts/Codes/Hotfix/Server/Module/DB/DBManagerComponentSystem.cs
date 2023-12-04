@@ -34,7 +34,7 @@ namespace ET.Server
             StartZoneConfig startZoneConfig = StartZoneConfigCategory.Instance.Get(0);
             if (startZoneConfig.DBConnection == "")
             {
-                throw new Exception($"zone: {0} not found mongo connect string");
+                throw new Exception($"common db not found mongo connect string");
             }
 
             self.CommonDB = self.AddChild<DBComponent, string, string, int>(startZoneConfig.DBConnection, startZoneConfig.DBName, 0);
