@@ -21,6 +21,14 @@ namespace ET
 		
         private readonly ConcurrentDictionary<Type, ASingleton> allConfig = new();
         
+        public ASingleton GetConfigSingleton(Type type)
+		{
+			lock (this)
+			{
+				return this.allConfig[type];
+			}
+		}
+        
         public void Awake()
         {
         }

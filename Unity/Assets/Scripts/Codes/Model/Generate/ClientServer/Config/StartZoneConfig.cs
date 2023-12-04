@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace ET
 {
     [Config]
-    public partial class StartZoneConfigCategory : Singleton<StartZoneConfigCategory>, IMerge
+    public partial class StartZoneConfigCategory : Singleton<StartZoneConfigCategory>, IMerge, IConfigCategory
     {
         [BsonElement]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
@@ -33,6 +33,11 @@ namespace ET
 
             return item;
         }
+        
+        public object GetConfig(int id)
+        {
+            return this.Get(id);
+        }
 		
         public bool Contain(int id)
         {
@@ -42,6 +47,11 @@ namespace ET
         public Dictionary<int, StartZoneConfig> GetAll()
         {
             return this.dict;
+        }
+        
+        public object GetAllConfig()
+        {
+            return this.dict.Values;
         }
 
         public StartZoneConfig GetOne()

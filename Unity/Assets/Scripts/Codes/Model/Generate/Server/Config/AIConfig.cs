@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace ET
 {
     [Config]
-    public partial class AIConfigCategory : Singleton<AIConfigCategory>, IMerge
+    public partial class AIConfigCategory : Singleton<AIConfigCategory>, IMerge, IConfigCategory
     {
         [BsonElement]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
@@ -33,6 +33,11 @@ namespace ET
 
             return item;
         }
+        
+        public object GetConfig(int id)
+        {
+            return this.Get(id);
+        }
 		
         public bool Contain(int id)
         {
@@ -42,6 +47,11 @@ namespace ET
         public Dictionary<int, AIConfig> GetAll()
         {
             return this.dict;
+        }
+        
+        public object GetAllConfig()
+        {
+            return this.dict.Values;
         }
 
         public AIConfig GetOne()

@@ -32,44 +32,13 @@ public enum OpenTimeType
     Date,
 }
 
-public class ActivityAttribute: BaseAttribute
-{
-    public ActivityType Activity { get; }
-
-    public ActivityAttribute(ActivityType activity)
-    {
-        this.Activity = activity;
-    }
-}
-
-public abstract class AActivityArgs
-{
-    public virtual void Misc(ActivityConfig self)
-    {
-    }
-
-    public virtual ActivityDataListItem Data(ActivityConfig self, string sourceData)
-    {
-        return default;
-    }
-
-    public virtual int Id(ActivityConfig self)
-    {
-        return 0;
-    }
-
-    public virtual void Finish(ActivityConfig self)
-    {
-    }
-}
-
 public partial class ActivityConfigCategory
 {
     private readonly Dictionary<ActivityType, AActivityArgs> actDic = new Dictionary<ActivityType, AActivityArgs>();
 
-    public int GetId()
+    public int GetId(ActivityConfig self, int k)
     {
-        return 0;
+        return 1400000000 + (self.Id % 100000) * 1000 + k % 1000;
     }
 
     public override void EndInit()
@@ -82,7 +51,7 @@ public partial class ActivityConfigCategory
 
         foreach (var config in this.dict.Values.ToList())
         {
-            if (!this.actDic.TryGetValue((ActivityType)config.ActivityType, out var act))
+            if (!this.actDic.TryGetValue((ActivityType) config.ActivityType, out var act))
             {
                 Log.Warning($"没有对应的活动处理函数: {config.Id} {config.ActivityType}");
                 continue;
@@ -91,16 +60,17 @@ public partial class ActivityConfigCategory
             try
             {
                 act.Misc(config);
-                foreach (string s in config.DataListSource)
+                for (int index = 0; index < config.DataListSource.Length; index++)
                 {
-                    var item = act.Data(config, s);
+                    string s = config.DataListSource[index];
+                    var item = act.Data(config, s, index);
                     if (item == default)
                     {
                         continue;
                     }
 
                     int id = act.Id(config);
-                    item.Id = id > 0? id : this.GetId();
+                    item.Id = id > 0? id : this.GetId(config, index);
                     config.DataList.Add(item);
                 }
 
@@ -143,10 +113,13 @@ public partial class ActivityConfig
 
     public override void EndInit()
     {
-        var list = this.OpenTime.Split(';');
-        Enum.TryParse<OpenTimeType>(list[0], out var t);
-        this.OpenType = t;
-        this.OpenArgs = list.Skip(1).ToList();
+        string[] list = this.OpenTime.Split(';');
+        if (Enum.TryParse(list[0], out OpenTimeType t))
+        {
+            this.OpenType = t;
+            this.OpenArgs = list.Skip(1).ToList();
+        }
+
         this.LastSec = this.LastSec > 0? this.LastSec : 315360000; //十年
         DataList = new List<ActivityDataListItem>();
     }

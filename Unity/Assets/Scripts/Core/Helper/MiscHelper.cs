@@ -60,5 +60,35 @@ namespace ET
 
             return default;
         }
+        
+        public static int ToInt(this string str, int def = 0)
+        {
+            if (int.TryParse(str, out int v))
+            {
+                return v;
+            }
+
+            return def;
+        }
+        
+        public static long ToLong(this string str, long def = 0)
+        {
+            if (long.TryParse(str, out long v))
+            {
+                return v;
+            }
+
+            return def;
+        }
+        
+        public static float ToFloat(this string str, float def = 0)
+        {
+            if (float.TryParse(str, out float v))
+            {
+                return v;
+            }
+
+            return def;
+        }
     }
 }
