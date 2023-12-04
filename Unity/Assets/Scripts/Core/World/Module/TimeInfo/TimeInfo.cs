@@ -73,5 +73,17 @@ namespace ET
         {
             return (d.Ticks - dt.Ticks) / 10000;
         }
+
+        public long GetSecondSinceZero(long time)
+        {
+            var d = ToDateTime(time);
+            return d.Hour * 3600 + d.Minute * 60 + d.Second;
+        }
+
+        public long GetZeroSecond(long? time)
+        {
+            time ??= this.ServerFrameTime();
+            return (long)time - GetSecondSinceZero(time.Value);
+        }
     }
 }

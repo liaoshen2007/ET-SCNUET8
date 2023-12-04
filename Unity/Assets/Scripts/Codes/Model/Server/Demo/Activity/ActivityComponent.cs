@@ -6,5 +6,6 @@ namespace ET.Server;
 public class ActivityComponent: Entity, IAwake, IDestroy, ILoad
 {
     public long Timer;
-    public Dictionary<string, ActivityData> ActivityDataDict = new(50);
+    public Dictionary<string, ActivityData> ActivityDataDict = new(500);
+    public Dictionary<string, ActivityData> RoleActivityDataDict = new(50);
 }

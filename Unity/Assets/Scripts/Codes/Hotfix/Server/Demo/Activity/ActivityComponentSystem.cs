@@ -2,12 +2,13 @@
 
 [EntitySystemOf(typeof (ActivityComponent))]
 [FriendOf(typeof (ActivityComponent))]
+[FriendOf(typeof (ActivityData))]
 public static partial class ActivityComponentSystem
 {
     [EntitySystem]
     private static void Awake(this ActivityComponent self)
     {
-        self.Timer = self.Scene().GetComponent<TimerComponent>().NewRepeatedTimer(5000, TimerInvokeType.ActivityUpdate, self);
+        self.Timer = self.Scene().GetComponent<TimerComponent>().NewRepeatedTimer(1000, TimerInvokeType.ActivityUpdate, self);
     }
 
     [EntitySystem]
@@ -35,7 +36,23 @@ public static partial class ActivityComponentSystem
     {
     }
 
-    private static void AddActivity(this ActivityComponent self)
+    private static void GetOpenTime()
     {
+        
+    }
+    
+    private static void AddActivity(this ActivityComponent self, ActivityConfig config, long roleId = 0)
+    {
+        var actData = self.AddChildWithId<ActivityData>(config.Id);
+        actData.Key = $"{self}_{roleId}";
+        actData.Type = (ActivityType) config.ActivityType;
+        actData.RoleId = roleId;
+        self.ActivityDataDict.Add(actData.Key, actData);
+        if (roleId > 0)
+        {
+            self.RoleActivityDataDict.Add(actData.Key, actData);
+        }
+        var status = ActivityStatus.Close;
+        long now = TimeInfo.Instance.ServerFrameTime();
     }
 }
