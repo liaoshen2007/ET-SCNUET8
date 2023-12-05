@@ -11,6 +11,7 @@
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<DBManagerComponent>();
+
             root.AddComponent<ChatComponent>();
 
             await ETTask.CompletedTask;
