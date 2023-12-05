@@ -464,7 +464,7 @@ message C2Chat_SendRequest // IChatRequest
 	int32 Channel = 1;
 	PlayerInfoProto RoleInfo = 2;
 	string Message = 3;
-	int64 GroupId = 4;
+	string GroupId = 4;
 }
 
 message Chat2C_SendResponse // IChatResponse
@@ -478,7 +478,7 @@ message Chat2C_UpdateChat // IChatMessage
 	int32 Channel = 1;
 	PlayerInfoProto RoleInfo = 2;
 	string Message = 3;
-	int64 GroupId = 4;
+	string GroupId = 4;
 }
 
 message ActivityCfgProto

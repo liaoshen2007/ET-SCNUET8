@@ -2178,7 +2178,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
-		public long GroupId { get; set; }
+		public string GroupId { get; set; }
 
 		public override void Dispose() 
 		{
@@ -2246,7 +2246,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
-		public long GroupId { get; set; }
+		public string GroupId { get; set; }
 
 		public override void Dispose() 
 		{

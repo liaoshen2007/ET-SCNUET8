@@ -36,7 +36,7 @@ public static partial class ActivityComponentSystem
     {
     }
 
-    private static void GetOpenTime()
+    private static void GetOpenTime(ActivityConfig config, long roleCreateTime = 0)
     {
         
     }

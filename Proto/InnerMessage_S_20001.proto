@@ -251,3 +251,17 @@ message W2Other_OpenResponse // IResponse
 {
 
 }
+
+//获取开服时间
+//ResponseType A2O_GetServerTime
+message O2A_GetServerTime // IRequest
+{
+	int32 ZoneId = 1;
+}
+
+message A2O_GetServerTime // IResponse
+{
+	int32 Status = 1;
+	int64 OpenTime = 2;
+	int64 EnterTime = 3;
+}

@@ -18,10 +18,10 @@
 
         public string ServerName { get; set; }
 
-        public int OpenTime { get; set; }
+        public long OpenTime { get; set; }
 
-        public int EnterTime { get; set; }
+        public long EnterTime { get; set; }
 
-        public int Debug { get; set; }
+        public long Debug { get; set; }
     }
 }

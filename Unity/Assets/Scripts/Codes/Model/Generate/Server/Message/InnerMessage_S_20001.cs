@@ -1346,6 +1346,78 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///获取开服时间
+	/// </summary>
+	[ResponseType(nameof(A2O_GetServerTime))]
+	[Message(InnerMessage.O2A_GetServerTime)]
+	[MemoryPackable]
+	public partial class O2A_GetServerTime: MessageObject, IRequest
+	{
+		public static O2A_GetServerTime Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(O2A_GetServerTime), isFromPool) as O2A_GetServerTime; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int ZoneId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.ZoneId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.A2O_GetServerTime)]
+	[MemoryPackable]
+	public partial class A2O_GetServerTime: MessageObject, IResponse
+	{
+		public static A2O_GetServerTime Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2O_GetServerTime), isFromPool) as A2O_GetServerTime; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public List<string> Message { get; set; } = new();
+
+		[MemoryPackOrder(0)]
+		public int Status { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long OpenTime { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long EnterTime { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message.Clear();
+			this.Status = default;
+			this.OpenTime = default;
+			this.EnterTime = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort InnerPingRequest = 20002;
@@ -1391,5 +1463,7 @@ namespace ET
 		 public const ushort W2Other_CloseResponse = 20042;
 		 public const ushort W2Other_OpenRequest = 20043;
 		 public const ushort W2Other_OpenResponse = 20044;
+		 public const ushort O2A_GetServerTime = 20045;
+		 public const ushort A2O_GetServerTime = 20046;
 	}
 }

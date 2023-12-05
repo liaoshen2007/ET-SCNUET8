@@ -73,10 +73,30 @@ namespace ET
         {
             return (d.Ticks - dt.Ticks) / 10000;
         }
-
+        
+        public long GetSecond()
+        {
+            return this.ServerFrameTime() / 1000;
+        }
+        
+        public long GetMinute()
+        {
+            return this.ServerFrameTime() / 1000 / 60;
+        }
+        
+        public long GetHour()
+        {
+            return this.ServerFrameTime() / 1000 / 3600;
+        }
+        
+        public long GetDay()
+        {
+            return this.ServerFrameTime() / 1000 / 3600 / 24;
+        }
+        
         public long GetSecondSinceZero(long time)
         {
-            var d = ToDateTime(time);
+            DateTime d = ToDateTime(time);
             return d.Hour * 3600 + d.Minute * 60 + d.Second;
         }
 

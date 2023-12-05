@@ -7,7 +7,9 @@ public class C2Chat_SendHandler: MessageHandler<Scene, C2Chat_SendRequest, Chat2
     {
         var chatUnit = scene.GetComponent<ChatComponent>().GetChild<ChatUnit>(request.RoleInfo.UnitId);
         chatUnit.UpdateInfo(request.RoleInfo);
-        scene.GetComponent<ChatComponent>().SendMessage(chatUnit.PlayerId, (ChatChannelType)request.Channel, request.Message, request.GroupId);
+        var r = scene.GetComponent<ChatComponent>().SendMessage(chatUnit.PlayerId, (ChatChannelType)request.Channel, request.Message, request.GroupId);
+        response.Error = r.Errno;
+        response.Message = r.Message;
         await ETTask.CompletedTask;
     }
 }

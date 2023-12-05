@@ -26,7 +26,7 @@ namespace ET.Server
         private static void Destroy(this ServerInfoComponent self)
         {
             self.Fiber().Root.GetComponent<TimerComponent>()?.Remove(ref self.Timer);
-            foreach (var serverInfo in self.ServerInfos)
+            foreach (ServerInfo serverInfo in self.ServerInfos)
             {
                 serverInfo?.Dispose();
             }
@@ -43,7 +43,7 @@ namespace ET.Server
         public static List<ServerInfoProto> GetServerList(this ServerInfoComponent self, int type)
         {
             var list = new List<ServerInfoProto>();
-            foreach (var info in self.ServerInfos)
+            foreach (ServerInfo info in self.ServerInfos)
             {
                 if ((int) info.Status == type)
                 {
@@ -55,6 +55,12 @@ namespace ET.Server
             return list;
         }
 
+        public static ServerInfo GetServerInfo(this ServerInfoComponent self, int zoneId)
+        {
+            var info = self.ServerInfos.Find(serverInfo => serverInfo.Id == zoneId);
+            return info;
+        }
+
         private static async ETTask Init(this ServerInfoComponent self)
         {
             var serverInfoList = await self.Scene().GetComponent<DBManagerComponent>().GetDB().Query<ServerInfo>(d => true);
@@ -64,7 +70,7 @@ namespace ET.Server
                 self.ServerInfos.Clear();
                 var serverInfoConfigs = ServerInfoConfigCategory.Instance.GetAll();
 
-                foreach (var info in serverInfoConfigs.Values)
+                foreach (ServerInfoConfig info in serverInfoConfigs.Values)
                 {
                     ServerInfo newServerInfo = self.AddChildWithId<ServerInfo>(info.Id);
                     newServerInfo.ServerName = info.ServerName;
@@ -76,7 +82,7 @@ namespace ET.Server
                 return;
             }
 
-            foreach (var info in self.ServerInfos)
+            foreach (ServerInfo info in self.ServerInfos)
             {
                 self.RemoveChild(info.Id);
             }
@@ -84,6 +90,11 @@ namespace ET.Server
             self.ServerInfos.Clear();
             foreach (var serverInfo in serverInfoList)
             {
+                if (serverInfo.OpenTime == 0)
+                {
+                    serverInfo.OpenTime = TimeInfo.Instance.ServerFrameTime();
+                }
+                
                 self.AddChild(serverInfo);
                 self.ServerInfos.Add(serverInfo);
             }

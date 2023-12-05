@@ -35,6 +35,8 @@ namespace ET
 
         public StartSceneConfig Benchmark;
         
+        public StartSceneConfig Account;
+        
         public List<StartSceneConfig> GetByProcess(int process)
         {
             return this.ProcessScenes[process];
@@ -87,6 +89,9 @@ namespace ET
                         break;
                     case SceneType.Cache:
                         this.Caches.Add(startSceneConfig.Zone, startSceneConfig);
+                        break;
+                    case SceneType.Account:
+                        this.Account = startSceneConfig;
                         break;
                 }
             }
