@@ -30,6 +30,7 @@
         public const int WatcherCheck = 312;
         public const int ServerCheck = 313;
         public const int CacheCheck = 314;
+        public const int ChatSaveCheck = 315;
         
         // 客户端1000起
         public const int ClientServerCheck = 1000;

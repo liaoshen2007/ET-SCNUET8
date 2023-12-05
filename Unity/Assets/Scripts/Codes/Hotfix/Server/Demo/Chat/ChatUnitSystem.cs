@@ -1,22 +1,19 @@
 ﻿namespace ET.Server;
 
+[EntitySystemOf(typeof(ChatUnit))]
 [FriendOf(typeof(ChatUnit))]
-public static class ChatUnitSystem
+public static partial class ChatUnitSystem
 {
-    public class ChatUnitAwakeSystem : AwakeSystem<ChatUnit, long>
+    [EntitySystem]
+    private static void Awake(this ChatUnit self)
     {
-        protected override void Awake(ChatUnit self, long pId)
-        {
-            self.PlayerId = pId;
-        }
+
     }
-    
-    public class ChatUnitDestroySystem : DestroySystem<ChatUnit>
+
+    [EntitySystem]
+    private static void Destroy(this ChatUnit self)
     {
-        protected override void Destroy(ChatUnit self)
-        {
-            self.PlayerId = 0;
-        }
+
     }
 
     public static void UpdateInfo(this ChatUnit self, PlayerInfoProto playerInfo)
@@ -26,5 +23,17 @@ public static class ChatUnitSystem
         self.level = playerInfo.Level;
         self.fight = playerInfo.Fight;
         self.sex = playerInfo.Sex;
+    }
+
+    public static PlayerInfoProto ToPlayerInfo(this ChatUnit self)
+    {
+        var playerInfo = PlayerInfoProto.Create(false);
+        playerInfo.Id = self.Id;
+        playerInfo.Name = self.name;
+        playerInfo.HeadIcon = self.headIcon;
+        playerInfo.Level = self.level;
+        playerInfo.Fight = self.fight;
+        playerInfo.Sex = self.sex;
+        return playerInfo;
     }
 }

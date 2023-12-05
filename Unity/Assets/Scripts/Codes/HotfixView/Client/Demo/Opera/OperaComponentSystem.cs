@@ -43,6 +43,21 @@ namespace ET.Client
             if (Input.GetKeyDown(KeyCode.S))
             {
                 self.Root().GetComponent<ClientSenderCompnent>().Send(new C2M_Stop());
+                self.Root().GetComponent<ClientSenderCompnent>().Send(new C2Chat_SendRequest()
+                {
+                    Channel = (int)ChatChannelType.Personal,
+                    GroupId = self.Root().GetComponent<PlayerComponent>().MyId.ToString(), 
+                    Message = "----------------",
+                    RoleInfo = new PlayerInfoProto()
+                    {
+                        Id = self.Root().GetComponent<PlayerComponent>().MyId,
+                        Name = "",
+                        HeadIcon = "",
+                        Level = 0,
+                        Fight = 0,
+                        Sex = 0,
+                    }
+                });
             }
         }
     }

@@ -57,5 +57,8 @@ namespace ET
         /// </summary>
         public const int ERR_ItemNotEnough = 212001;
         
+        //聊天
+        public const int ERR_ChatCantFindGroup = 220001; //找不到讨论组
+        
     }
 }

@@ -2,6 +2,20 @@
 
 namespace ET.Server;
 
+[ChildOf(typeof (ChatComponent))]
+public class ChatSaveItem: Entity, IAwake
+{
+    public long Time { get; set; }
+    
+    public int Channel { get; set; }
+    
+    public string Message { get; set; }
+    
+    public string GroupId { get; set; }
+    
+    public PlayerInfoProto RoleInfo { get; set; }
+}
+
 [ComponentOf(typeof (Scene))]
 public class ChatComponent: Entity, IAwake, IDestroy
 {
@@ -18,6 +32,8 @@ public class ChatComponent: Entity, IAwake, IDestroy
     public string worldId;
     public Dictionary<string, ChatGroup> groupDict = new Dictionary<string, ChatGroup>();
     public Dictionary<string, string> relataDict = new Dictionary<string, string>();
+    public List<ChatSaveItem> saveList = new List<ChatSaveItem>();
+    public long timer;
 
     public long lastMsgTime;
     public long count;

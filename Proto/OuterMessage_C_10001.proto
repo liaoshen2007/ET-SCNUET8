@@ -449,16 +449,28 @@ message Ran2C_GetRankResponse // IRankResponse
 
 message PlayerInfoProto
 {
-	int64 UnitId = 6;
-	string Name = 1;
-	string HeadIcon = 2;
-	int32 Level = 3;
-	int64 Fight = 4;
-	int32 Sex = 5;
+	int64 Id = 1;
+  string Name = 2;
+	string HeadIcon = 3;
+	int32 Level = 4;
+	int64 Fight = 5;
+	int32 Sex = 6;
+}
+
+message ChatMsgProto
+{
+  int64 Id = 1;
+  int64 Time = 2;
+  int32 Channel = 3;
+  //发送方信息
+  PlayerInfoProto RoleInfo = 4;
+  string Message = 5;
+  //讨论组id
+  string GroupId = 6;
 }
 
 //发送聊天消息
-//ResponseType Chat2C_SendResponse
+//ResponseType C2C_SendResponse
 message C2Chat_SendRequest // IChatRequest
 {
 	int32 Channel = 1;
@@ -467,18 +479,15 @@ message C2Chat_SendRequest // IChatRequest
 	string GroupId = 4;
 }
 
-message Chat2C_SendResponse // IChatResponse
+message C2C_SendResponse // IChatResponse
 {
 
 }
 
 //收到聊天信息
-message Chat2C_UpdateChat // IChatMessage
+message C2C_UpdateChat // IChatMessage
 {
-	int32 Channel = 1;
-	PlayerInfoProto RoleInfo = 2;
-	string Message = 3;
-	string GroupId = 4;
+	repeated ChatMsgProto List = 1;
 }
 
 message ActivityCfgProto

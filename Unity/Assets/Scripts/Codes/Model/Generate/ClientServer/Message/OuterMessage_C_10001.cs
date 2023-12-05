@@ -2119,28 +2119,28 @@ namespace ET
 			return ObjectPool.Instance.Fetch(typeof(PlayerInfoProto), isFromPool) as PlayerInfoProto; 
 		}
 
-		[MemoryPackOrder(5)]
-		public long UnitId { get; set; }
-
 		[MemoryPackOrder(0)]
-		public string Name { get; set; }
+		public long Id { get; set; }
 
 		[MemoryPackOrder(1)]
-		public string HeadIcon { get; set; }
+		public string Name { get; set; }
 
 		[MemoryPackOrder(2)]
-		public int Level { get; set; }
+		public string HeadIcon { get; set; }
 
 		[MemoryPackOrder(3)]
-		public long Fight { get; set; }
+		public int Level { get; set; }
 
 		[MemoryPackOrder(4)]
+		public long Fight { get; set; }
+
+		[MemoryPackOrder(5)]
 		public int Sex { get; set; }
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
-			this.UnitId = default;
+			this.Id = default;
 			this.Name = default;
 			this.HeadIcon = default;
 			this.Level = default;
@@ -2152,10 +2152,58 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.ChatMsgProto)]
+	[MemoryPackable]
+	public partial class ChatMsgProto: MessageObject
+	{
+		public static ChatMsgProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ChatMsgProto), isFromPool) as ChatMsgProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long Time { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int Channel { get; set; }
+
+	/// <summary>
+	///发送方信息
+	/// </summary>
+		[MemoryPackOrder(3)]
+		public PlayerInfoProto RoleInfo { get; set; }
+
+		[MemoryPackOrder(4)]
+		public string Message { get; set; }
+
+	/// <summary>
+	///讨论组id
+	/// </summary>
+		[MemoryPackOrder(5)]
+		public string GroupId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Time = default;
+			this.Channel = default;
+			this.RoleInfo = default;
+			this.Message = default;
+			this.GroupId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	/// <summary>
 	///发送聊天消息
 	/// </summary>
-	[ResponseType(nameof(Chat2C_SendResponse))]
+	[ResponseType(nameof(C2C_SendResponse))]
 	[Message(OuterMessage.C2Chat_SendRequest)]
 	[MemoryPackable]
 	public partial class C2Chat_SendRequest: MessageObject, IChatRequest
@@ -2194,13 +2242,13 @@ namespace ET
 
 	}
 
-	[Message(OuterMessage.Chat2C_SendResponse)]
+	[Message(OuterMessage.C2C_SendResponse)]
 	[MemoryPackable]
-	public partial class Chat2C_SendResponse: MessageObject, IChatResponse
+	public partial class C2C_SendResponse: MessageObject, IChatResponse
 	{
-		public static Chat2C_SendResponse Create(bool isFromPool = true) 
+		public static C2C_SendResponse Create(bool isFromPool = true) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(Chat2C_SendResponse), isFromPool) as Chat2C_SendResponse; 
+			return ObjectPool.Instance.Fetch(typeof(C2C_SendResponse), isFromPool) as C2C_SendResponse; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -2227,34 +2275,22 @@ namespace ET
 	/// <summary>
 	///收到聊天信息
 	/// </summary>
-	[Message(OuterMessage.Chat2C_UpdateChat)]
+	[Message(OuterMessage.C2C_UpdateChat)]
 	[MemoryPackable]
-	public partial class Chat2C_UpdateChat: MessageObject, IChatMessage
+	public partial class C2C_UpdateChat: MessageObject, IChatMessage
 	{
-		public static Chat2C_UpdateChat Create(bool isFromPool = true) 
+		public static C2C_UpdateChat Create(bool isFromPool = true) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(Chat2C_UpdateChat), isFromPool) as Chat2C_UpdateChat; 
+			return ObjectPool.Instance.Fetch(typeof(C2C_UpdateChat), isFromPool) as C2C_UpdateChat; 
 		}
 
 		[MemoryPackOrder(0)]
-		public int Channel { get; set; }
-
-		[MemoryPackOrder(1)]
-		public PlayerInfoProto RoleInfo { get; set; }
-
-		[MemoryPackOrder(2)]
-		public string Message { get; set; }
-
-		[MemoryPackOrder(3)]
-		public string GroupId { get; set; }
+		public List<ChatMsgProto> List { get; set; } = new();
 
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
-			this.Channel = default;
-			this.RoleInfo = default;
-			this.Message = default;
-			this.GroupId = default;
+			this.List.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -2508,13 +2544,14 @@ namespace ET
 		 public const ushort C2Rank_GetRankRequest = 10065;
 		 public const ushort Ran2C_GetRankResponse = 10066;
 		 public const ushort PlayerInfoProto = 10067;
-		 public const ushort C2Chat_SendRequest = 10068;
-		 public const ushort Chat2C_SendResponse = 10069;
-		 public const ushort Chat2C_UpdateChat = 10070;
-		 public const ushort ActivityCfgProto = 10071;
-		 public const ushort ActivityProto = 10072;
-		 public const ushort M2C_UpdateActivityList = 10073;
-		 public const ushort M2C_UpdateActivityClose = 10074;
-		 public const ushort M2C_UpdateActivity = 10075;
+		 public const ushort ChatMsgProto = 10068;
+		 public const ushort C2Chat_SendRequest = 10069;
+		 public const ushort C2C_SendResponse = 10070;
+		 public const ushort C2C_UpdateChat = 10071;
+		 public const ushort ActivityCfgProto = 10072;
+		 public const ushort ActivityProto = 10073;
+		 public const ushort M2C_UpdateActivityList = 10074;
+		 public const ushort M2C_UpdateActivityClose = 10075;
+		 public const ushort M2C_UpdateActivity = 10076;
 	}
 }

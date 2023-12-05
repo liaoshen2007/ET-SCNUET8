@@ -76,33 +76,33 @@ namespace ET
         
         public long GetSecond()
         {
-            return this.ServerFrameTime() / 1000;
+            return this.FrameTime / 1000;
         }
         
         public long GetMinute()
         {
-            return this.ServerFrameTime() / 1000 / 60;
+            return this.FrameTime / 1000 / 60;
         }
         
         public long GetHour()
         {
-            return this.ServerFrameTime() / 1000 / 3600;
+            return this.FrameTime / 1000 / 3600;
         }
         
         public long GetDay()
         {
-            return this.ServerFrameTime() / 1000 / 3600 / 24;
+            return this.FrameTime / 1000 / 3600 / 24;
         }
         
         public long GetSecondSinceZero(long time)
         {
-            DateTime d = ToDateTime(time);
+            var d = ToDateTime(time);
             return d.Hour * 3600 + d.Minute * 60 + d.Second;
         }
 
-        public long GetZeroSecond(long? time)
+        public long GetZeroSecond(long? time = null)
         {
-            time ??= this.ServerFrameTime();
+            time ??= FrameTime;
             return (long)time - GetSecondSinceZero(time.Value);
         }
     }

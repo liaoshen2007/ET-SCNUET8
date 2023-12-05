@@ -2,7 +2,12 @@
 
 namespace ET;
 
-public class ChatGroup: Entity, IAwake
+[ChildOf]
+public class ChatGroup: Entity, IAwake<string>
 {
-    public List<long> RoleList { get; set; } = new List<long>();
+    public string guid;
+    public string name;
+    public long leaderId;
+    public List<long> roleList = new();
+    public int channel;
 }

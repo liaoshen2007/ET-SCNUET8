@@ -52,7 +52,7 @@ public static partial class ActivityComponentSystem
         {
             self.RoleActivityDataDict.Add(actData.Key, actData);
         }
-        var status = ActivityStatus.Close;
+        // var status = ActivityStatus.Close;
         long now = TimeInfo.Instance.ServerFrameTime();
     }
 }

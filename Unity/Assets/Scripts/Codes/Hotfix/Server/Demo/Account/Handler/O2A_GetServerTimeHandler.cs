@@ -1,7 +1,6 @@
 ﻿namespace ET.Server
 {
-    [MessageSessionHandler(SceneType.Account)]
-    [FriendOf(typeof (RoleInfo))]
+    [MessageHandler(SceneType.Account)]
     public class O2A_GetServerTimeHandler: MessageHandler<Scene, O2A_GetServerTime, A2O_GetServerTime>
     {
         protected override async ETTask Run(Scene scene, O2A_GetServerTime request, A2O_GetServerTime response)
