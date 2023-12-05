@@ -187,6 +187,28 @@ public static partial class ChatComponentSystem
 
         return MessageReturn.Success();
     }
+    
+    public static MessageReturn SetGroupName(this ChatComponent self, string groupId, string groupName)
+    {
+        if (groupName.IsNullOrEmpty())
+        {
+            return MessageReturn.Create(ErrorCode.ERR_InputInvaid);
+        }
+        
+        if (!self.groupDict.TryGetValue(groupId, out var group))
+        {
+            return MessageReturn.Create(ErrorCode.ERR_ChatCantFindGroup);
+        }
+        
+        group.name = groupName;
+        self.GroupUpdate(groupId);
+        return MessageReturn.Success();
+    }
+    
+    private static void GroupUpdate(this ChatComponent self, string groupId, long roleId = 0)
+    {
+        
+    }
 
     private static void Send2Client(this ChatComponent self, long id, List<ChatMsgProto> list)
     {
