@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace ET;
 
@@ -21,6 +22,7 @@ public class RankComponent: Entity, IAwake, IDestroy, ILoad
 {
     public long Timer = 0;
 
+    [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
     public Dictionary<RankType, List<int>> LoadRankDict;
 
     /// <summary>
@@ -34,6 +36,7 @@ public class RankComponent: Entity, IAwake, IDestroy, ILoad
     /// <summary>
     /// 角色数据
     /// </summary>
+    [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
     public Dictionary<long, IRankObj> RankObjDict { get; set; } = new();
 
     public Dictionary<string, RankItemComponent> RankItem { get; set; } = new();

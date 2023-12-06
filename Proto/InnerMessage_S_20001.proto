@@ -15,12 +15,21 @@ message InnerPingResponse // IResponse
 //ResponseType ObjectQueryResponse
 message ObjectQueryRequest // IRequest
 {
-	int64 Key = 2;
-	int64 InstanceId = 3;
+	int64 InstanceId = 1;
 }
 message ObjectQueryResponse // IResponse
 {
-	bytes Entity = 4;
+	bytes Entity = 1;
+}
+
+//ResponseType ComponentQueryResponse
+message ConmponentQueryRequest // IRequest
+{
+	string ComponentName = 1;
+}
+message ComponentQueryResponse // IResponse
+{
+	bytes Entity = 1;
 }
 
 //ResponseType A2M_Reload
@@ -195,6 +204,7 @@ message Cache2Other_DeleteCache // IResponse
 message G2Other_EnterRequest // IRequest
 {
 	int64 PlayerId = 1;
+	PlayerInfoProto RoleInfo = 2;
 }
 
 message Other2G_EnterResponse // IResponse

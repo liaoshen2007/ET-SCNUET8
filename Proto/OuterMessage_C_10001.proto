@@ -496,6 +496,7 @@ message ChatGroupMemberProto
   string HeadIcon = 2;
   //消息免打扰
   bool NoDisturbing = 3;
+  int64 Sort = 4;
 }
 
 message ChatGroupProto

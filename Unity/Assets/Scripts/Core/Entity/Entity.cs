@@ -608,6 +608,16 @@ namespace ET
             child.Dispose();
         }
 
+        public bool HasChild(long id)
+        {
+            if (this.children == null)
+            {
+                return false;
+            }
+
+            return this.Children.ContainsKey(id);
+        }
+
         public void RemoveComponent<K>() where K : Entity
         {
             if (this.IsDisposed)
@@ -719,6 +729,25 @@ namespace ET
             }
 
             return component;
+        }
+
+        public Entity GetComponent(string typeName)
+        {
+            if (this.components == null)
+            {
+                return null;
+            }
+            
+            foreach (var v in this.components.Values)
+            {
+                var t = v.GetType();
+                if (t.Name == typeName)
+                {
+                    return GetComponent(t);
+                }
+            }
+            
+            return default;
         }
 
         private static Entity Create(Type type, bool isFromPool)

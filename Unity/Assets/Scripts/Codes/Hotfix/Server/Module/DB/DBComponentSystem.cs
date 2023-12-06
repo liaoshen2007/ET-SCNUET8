@@ -48,6 +48,17 @@ namespace ET.Server
 			    return await cursor.ToListAsync();
 		    }
 	    }
+	    
+	    public static async ETTask<List<T>> Query<T>(this DBComponent self, Expression<Func<T, bool>> filter, FindOptions<T> options)
+			    where T : Entity
+	    {
+		    using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.DB, RandomGenerator.RandInt64() % DBComponent.TaskCount))
+		    {
+			    IAsyncCursor<T> cursor = await self.GetCollection<T>().FindAsync(filter, options);
+
+			    return await cursor.ToListAsync();
+		    }
+	    }
 
 	    public static async ETTask<List<T>> Query<T>(this DBComponent self, long taskId, Expression<Func<T, bool>> filter, string collection = null)
 			    where T : Entity

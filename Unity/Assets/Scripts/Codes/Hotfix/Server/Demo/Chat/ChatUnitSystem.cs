@@ -1,7 +1,7 @@
 ﻿namespace ET.Server;
 
 [EntitySystemOf(typeof(ChatUnit))]
-[FriendOf(typeof(ChatUnit))]
+[FriendOf(typeof (ChatUnit))]
 public static partial class ChatUnitSystem
 {
     [EntitySystem]

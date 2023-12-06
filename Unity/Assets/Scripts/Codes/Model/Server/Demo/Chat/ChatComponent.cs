@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Server;
 
@@ -13,7 +15,7 @@ public class ChatSaveItem: Entity, IAwake
     
     public string GroupId { get; set; }
     
-    public PlayerInfoProto RoleInfo { get; set; }
+    public long SendRoleId {get; set;}
 }
 
 [ComponentOf(typeof (Scene))]
@@ -29,6 +31,9 @@ public class ChatComponent: Entity, IAwake, IDestroy
     /// </summary>
     public HashSet<ChatChannelType> useWolrdChannel;
 
+    [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+    public Dictionary<long, ChatUnit> unitDict = new Dictionary<long, ChatUnit>();
+    
     public string worldId;
     public Dictionary<string, ChatGroup> groupDict = new Dictionary<string, ChatGroup>();
     public Dictionary<string, string> relataDict = new Dictionary<string, string>();

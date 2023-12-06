@@ -11,6 +11,7 @@
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<DBManagerComponent>();
+            root.AddComponent<MessageSender>();
 
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
             root.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.Port}/");

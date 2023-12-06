@@ -2318,12 +2318,16 @@ namespace ET
 		[MemoryPackOrder(2)]
 		public bool NoDisturbing { get; set; }
 
+		[MemoryPackOrder(3)]
+		public long Sort { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RoleId = default;
 			this.HeadIcon = default;
 			this.NoDisturbing = default;
+			this.Sort = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
