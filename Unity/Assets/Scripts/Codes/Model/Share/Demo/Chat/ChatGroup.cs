@@ -9,5 +9,5 @@ public class ChatGroup: Entity, IAwake<string>
     public string name;
     public long leaderId;
     public List<long> roleList = new();
-    public int channel;
+    public ChatChannelType channel;
 }

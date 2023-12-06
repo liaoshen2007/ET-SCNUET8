@@ -24,6 +24,7 @@ public static partial class ChatComponentSystem
         });
 
         self.timer = self.Root().GetComponent<TimerComponent>().NewRepeatedTimer(30 * 1000, TimerInvokeType.ChatSaveCheck, self);
+        self.CreateGroup(ChatChannelType.World);
     }
 
     [EntitySystem]
@@ -147,7 +148,7 @@ public static partial class ChatComponentSystem
 
         var proto = ChatMsgProto.Create();
         proto.Message = message;
-        proto.Channel = (int)channel;
+        proto.Channel = (int) channel;
         long now = TimeInfo.Instance.FrameTime;
         proto.Time = now;
         if (now != self.lastMsgTime)
@@ -187,27 +188,107 @@ public static partial class ChatComponentSystem
 
         return MessageReturn.Success();
     }
-    
+
     public static MessageReturn SetGroupName(this ChatComponent self, string groupId, string groupName)
     {
         if (groupName.IsNullOrEmpty())
         {
             return MessageReturn.Create(ErrorCode.ERR_InputInvaid);
         }
-        
+
         if (!self.groupDict.TryGetValue(groupId, out var group))
         {
             return MessageReturn.Create(ErrorCode.ERR_ChatCantFindGroup);
         }
-        
+
         group.name = groupName;
         self.GroupUpdate(groupId);
         return MessageReturn.Success();
     }
-    
+
+    public static MessageReturn CreateGroup(this ChatComponent self, ChatChannelType channel, long leaderId = 0, string groupId = default,
+    List<long> memebrList = default)
+    {
+        if (self.useWolrdChannel.Contains(channel))
+        {
+            groupId = self.worldId;
+        }
+
+        if (groupId != default && self.relataDict.ContainsKey(groupId))
+        {
+            return MessageReturn.Create(ErrorCode.ERR_ChatGroupExist);
+        }
+
+        string guid = IdGenerater.Instance.GenerateId().ToString();
+        var group = self.AddChild<ChatGroup, string>(guid);
+        group.leaderId = leaderId;
+        group.channel = channel;
+        group.name = GetGroupName(channel, leaderId, memebrList);
+
+        self.groupDict.Add(guid, group);
+        if (groupId != null)
+        {
+            self.relataDict.Add(groupId, guid);
+        }
+
+        if (leaderId > 0)
+        {
+            memebrList.Add(leaderId);
+            self.AddMember(guid, memebrList);
+        }
+
+        Log.Info($"创建讨论组: {channel} {guid}");
+        return MessageReturn.Success();
+    }
+
+    public static void AddMember(this ChatComponent self, string groupId, List<long> memebrList)
+    {
+        if (self.relataDict.TryGetValue(groupId, out string uid))
+        {
+            groupId = uid;
+        }
+
+        if (!self.groupDict.TryGetValue(groupId, out ChatGroup group))
+        {
+            return;
+        }
+
+        foreach (long l in memebrList)
+        {
+            if (group.roleList.Contains(l))
+            {
+                continue;
+            }
+
+            group.leaderId = group.leaderId == 0 ? l : group.leaderId; 
+            group.roleList.Add(l);
+        }
+
+        self.GroupUpdate(groupId);
+    }
+
+    private static string GetGroupName(ChatChannelType channel, long leaderId, List<long> memebrList)
+    {
+        if (channel == ChatChannelType.Group)
+        {
+        }
+
+        return string.Empty;
+    }
+
     private static void GroupUpdate(this ChatComponent self, string groupId, long roleId = 0)
     {
-        
+        if (!self.groupDict.TryGetValue(groupId, out var group))
+        {
+            return;
+        }
+
+        if (roleId > 0)
+        {
+        }
+        else
+        {
+        }
     }
 
     private static void Send2Client(this ChatComponent self, long id, List<ChatMsgProto> list)

@@ -2297,6 +2297,123 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.ChatGroupMemberProto)]
+	[MemoryPackable]
+	public partial class ChatGroupMemberProto: MessageObject
+	{
+		public static ChatGroupMemberProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ChatGroupMemberProto), isFromPool) as ChatGroupMemberProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long RoleId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string HeadIcon { get; set; }
+
+	/// <summary>
+	///消息免打扰
+	/// </summary>
+		[MemoryPackOrder(2)]
+		public bool NoDisturbing { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RoleId = default;
+			this.HeadIcon = default;
+			this.NoDisturbing = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.ChatGroupProto)]
+	[MemoryPackable]
+	public partial class ChatGroupProto: MessageObject
+	{
+		public static ChatGroupProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ChatGroupProto), isFromPool) as ChatGroupProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public string GroupId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long LeaderId { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(3)]
+		public List<ChatGroupMemberProto> MemberList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.GroupId = default;
+			this.LeaderId = default;
+			this.Name = default;
+			this.MemberList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 更新群组列表(上线和新进群聊时)
+	/// </summary>
+	[Message(OuterMessage.C2C_GroupUpdate)]
+	[MemoryPackable]
+	public partial class C2C_GroupUpdate: MessageObject, IChatMessage
+	{
+		public static C2C_GroupUpdate Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2C_GroupUpdate), isFromPool) as C2C_GroupUpdate; 
+		}
+
+		[MemoryPackOrder(0)]
+		public List<ChatGroupProto> List { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.List.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	/// 删除群聊
+	/// </summary>
+	[Message(OuterMessage.C2C_GroupDel)]
+	[MemoryPackable]
+	public partial class C2C_GroupDel: MessageObject, IChatMessage
+	{
+		public static C2C_GroupDel Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2C_GroupDel), isFromPool) as C2C_GroupDel; 
+		}
+
+		[MemoryPackOrder(0)]
+		public string GroupId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.GroupId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	[Message(OuterMessage.ActivityCfgProto)]
 	[MemoryPackable]
 	public partial class ActivityCfgProto: MessageObject
@@ -2548,10 +2665,14 @@ namespace ET
 		 public const ushort C2Chat_SendRequest = 10069;
 		 public const ushort C2C_SendResponse = 10070;
 		 public const ushort C2C_UpdateChat = 10071;
-		 public const ushort ActivityCfgProto = 10072;
-		 public const ushort ActivityProto = 10073;
-		 public const ushort M2C_UpdateActivityList = 10074;
-		 public const ushort M2C_UpdateActivityClose = 10075;
-		 public const ushort M2C_UpdateActivity = 10076;
+		 public const ushort ChatGroupMemberProto = 10072;
+		 public const ushort ChatGroupProto = 10073;
+		 public const ushort C2C_GroupUpdate = 10074;
+		 public const ushort C2C_GroupDel = 10075;
+		 public const ushort ActivityCfgProto = 10076;
+		 public const ushort ActivityProto = 10077;
+		 public const ushort M2C_UpdateActivityList = 10078;
+		 public const ushort M2C_UpdateActivityClose = 10079;
+		 public const ushort M2C_UpdateActivity = 10080;
 	}
 }

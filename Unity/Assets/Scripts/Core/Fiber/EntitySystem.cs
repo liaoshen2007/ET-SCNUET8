@@ -6,6 +6,7 @@ namespace ET
     public class EntitySystem
     {
         private readonly Queue<EntityRef<Entity>>[] queues = new Queue<EntityRef<Entity>>[InstanceQueueIndex.Max];
+        private readonly Dictionary<long, Entity> entitys = new Dictionary<long, Entity>(1000);
 
         public EntitySystem()
         {
@@ -13,6 +14,11 @@ namespace ET
             {
                 this.queues[i] = new Queue<EntityRef<Entity>>();
             }
+        }
+        
+        public Entity GetEntity(long instanceId)
+        {
+            return this.entitys.Get(instanceId);
         }
 
         public virtual void RegisterSystem(Entity component)

@@ -18,6 +18,10 @@ message ObjectQueryRequest // IRequest
 	int64 Key = 2;
 	int64 InstanceId = 3;
 }
+message ObjectQueryResponse // IResponse
+{
+	bytes Entity = 4;
+}
 
 //ResponseType A2M_Reload
 message M2A_Reload // IRequest
@@ -133,11 +137,6 @@ message G2M_RequestEnterGameState // ILocationRequest
 message M2G_RequestEnterGameState // ILocationResponse
 {
 
-}
-
-message ObjectQueryResponse // IResponse
-{
-	bytes Entity = 4;
 }
 
 //ResponseType M2M_UnitTransferResponse

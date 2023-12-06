@@ -490,6 +490,34 @@ message C2C_UpdateChat // IChatMessage
 	repeated ChatMsgProto List = 1;
 }
 
+message ChatGroupMemberProto
+{
+  int64 RoleId = 1;
+  string HeadIcon = 2;
+  //消息免打扰
+  bool NoDisturbing = 3;
+}
+
+message ChatGroupProto
+{
+  string GroupId = 1;
+  int64 LeaderId = 2;
+  string Name = 3;
+  repeated ChatGroupMemberProto MemberList = 4;
+}
+
+// 更新群组列表(上线和新进群聊时)
+message C2C_GroupUpdate // IChatMessage
+{
+  repeated ChatGroupProto List = 1;
+}
+
+// 删除群聊
+message C2C_GroupDel // IChatMessage
+{
+  string GroupId = 1;
+}
+
 message ActivityCfgProto
 {
   int32 Id = 1;
