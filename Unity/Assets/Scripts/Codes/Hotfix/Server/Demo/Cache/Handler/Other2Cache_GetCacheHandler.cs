@@ -30,12 +30,12 @@ namespace ET.Server
 
                 foreach (string s in dict.Keys)
                 {
-                    var entity = await cacheCom.Get(request.UnitId, s);
+                    Entity entity = await cacheCom.Get(request.UnitId, s);
                     dict[s] = entity;
                 }
 
                 response.ComponentNameList.AddRange(dict.Keys);
-                foreach (var value in dict.Values)
+                foreach (Entity value in dict.Values)
                 {
                     response.Entitys.Add(value?.ToBson());
                 }

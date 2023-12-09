@@ -154,8 +154,8 @@ message M2M_UnitTransferRequest // IRequest
 	ActorId OldActorId = 2;
 	bytes Unit = 3;
 	repeated bytes Entitys = 4;
+	bool IsEnterGame = 5;
 }
-
 message M2M_UnitTransferResponse // IResponse
 {
 }
@@ -204,7 +204,6 @@ message Cache2Other_DeleteCache // IResponse
 message G2Other_EnterRequest // IRequest
 {
 	int64 PlayerId = 1;
-	PlayerInfoProto RoleInfo = 2;
 }
 
 message Other2G_EnterResponse // IResponse

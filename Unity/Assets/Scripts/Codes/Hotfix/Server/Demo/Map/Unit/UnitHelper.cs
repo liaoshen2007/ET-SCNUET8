@@ -10,17 +10,11 @@ namespace ET.Server
     {
         public static async ETTask<(bool, Unit)> LoadUnit(Player player)
         {
-            // 在Gate上动态创建一个Map Scene，把Unit从DB中加载放进来，然后传送到真正的Map中，这样登陆跟传送的逻辑就完全一样了
-            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-            gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
-
-            Scene scene = gateMapComponent.Scene;
-            Unit unit = await CacheHelper.GetCache(scene, player.Scene(), player.Id);
+            Unit unit = await CacheHelper.GetCache(player.Scene(), player.Id);
             bool isNewPlayer = unit == null;
             if (isNewPlayer)
             {
-                unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
-                CacheHelper.UpdateAllCache(player.Scene(), unit);
+                unit = UnitFactory.Create(player.Scene(), player.Id, UnitType.Player);
             }
 
             return (isNewPlayer, unit);
@@ -28,6 +22,26 @@ namespace ET.Server
 
         public static async ETTask InitUnit(Unit unit, bool isNewPlayer)
         {
+            string[] list =
+            {
+                "UnitExtra", "UnitLucky", "ItemComponent", "TaskComponent", 
+                "BuffComponent", "AbilityComponent", "ShieldComponent",
+            };
+            foreach (string s in list)
+            {
+                if (unit.GetComponentByName(s) == null)
+                {
+                    var t = CodeTypes.Instance.GetType($"ET.Server.{s}");
+                    unit.AddComponent(t);
+                    isNewPlayer = true;
+                }
+            }
+
+            if (isNewPlayer)
+            {
+                CacheHelper.UpdateAllCache(unit.Scene(), unit);
+            }
+
             await ETTask.CompletedTask;
         }
 
@@ -37,7 +51,7 @@ namespace ET.Server
             NumericComponent nc = unit.GetComponent<NumericComponent>();
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
-            unitInfo.Type = (int)unit.Type();
+            unitInfo.Type = (int) unit.Type();
             unitInfo.Position = unit.Position;
             unitInfo.Forward = unit.Forward;
 
@@ -109,8 +123,8 @@ namespace ET.Server
         {
             if (repairPos != 0)
             {
-                srcX = (float)Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
-                srcZ = (float)Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcX = (float) Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcZ = (float) Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
             }
 
             return new Pair<float, float>(srcX, srcZ);

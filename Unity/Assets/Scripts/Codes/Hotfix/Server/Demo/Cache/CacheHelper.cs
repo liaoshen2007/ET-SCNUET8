@@ -33,10 +33,10 @@
             scene.GetComponent<MessageSender>().Send(cacheCfg.ActorId, message);
         }
 
-        public static async ETTask<Unit> GetCache(Scene gateScene, Scene scene, long unitId)
+        public static async ETTask<Unit> GetCache(Scene scene, long unitId)
         {
             var cacheCfg = StartSceneConfigCategory.Instance.GetCache(scene.Zone());
-            var resp = (Cache2Other_GetCache)await scene.GetComponent<MessageSender>()
+            var resp = (Cache2Other_GetCache) await scene.GetComponent<MessageSender>()
                     .Call(cacheCfg.ActorId, new Other2Cache_GetCache() { UnitId = unitId });
             if (resp.Error != ErrorCode.ERR_Success || resp.Entitys.IsNullOrEmpty())
             {
@@ -60,8 +60,8 @@
                 return default;
             }
 
-            gateScene.GetComponent<UnitComponent>().AddChild(unit);
-            gateScene.GetComponent<UnitComponent>().Add(unit);
+            scene.GetComponent<UnitComponent>().AddChild(unit);
+            scene.GetComponent<UnitComponent>().Add(unit);
             foreach (var bytes in resp.Entitys)
             {
                 if (bytes == null)
@@ -85,11 +85,32 @@
         {
             var cacheCfg = StartSceneConfigCategory.Instance.GetCache(self.Zone());
             var message = new Other2Cache_GetCache() { UnitId = self.Id, };
-            message.ComponentNameList.Add(typeof (T).Name);
-            var resp = (Cache2Other_GetCache)await self.Scene().GetComponent<MessageSender>().Call(cacheCfg.ActorId, message);
+            message.ComponentNameList.Add(typeof (T).FullName);
+            var resp = (Cache2Other_GetCache) await self.Scene().GetComponent<MessageSender>().Call(cacheCfg.ActorId, message);
             if (resp.Error == ErrorCode.ERR_Success && resp.Entitys.Count > 0)
             {
-                return resp.Entitys[0] as T;
+                return MongoHelper.Deserialize<T>(resp.Entitys[0]);
+            }
+
+            return default;
+        }
+
+        /// <summary>
+        /// 查询玩家简要信息
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static async ETTask<PlayerInfoProto> GetPlayerInfo(Entity self, long unitId)
+        {
+            var cacheCfg = StartSceneConfigCategory.Instance.GetCache(self.Zone());
+            var message = new Other2Cache_GetCache() { UnitId = unitId, };
+            message.ComponentNameList.Add(typeof (UnitExtra).FullName);
+            var resp = (Cache2Other_GetCache) await self.Scene().GetComponent<MessageSender>().Call(cacheCfg.ActorId, message);
+            if (resp.Error == ErrorCode.ERR_Success && resp.Entitys.Count > 0)
+            {
+                UnitExtra extra = MongoHelper.Deserialize<UnitExtra>(resp.Entitys[0]);
+                return extra.ToPlayerInfo();
             }
 
             return default;

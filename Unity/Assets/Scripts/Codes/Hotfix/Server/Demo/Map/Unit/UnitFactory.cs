@@ -31,11 +31,6 @@ namespace ET.Server
                     throw new Exception($"not such unit type: {unitType}");
             }
 
-            unit.AddComponent<ItemComponent>();
-            unit.AddComponent<TaskComponent>();
-            unit.AddComponent<BuffComponent>();
-            unit.AddComponent<AbilityComponent>();
-            unit.AddComponent<ShieldComponent>();
             return unit;
         }
     }

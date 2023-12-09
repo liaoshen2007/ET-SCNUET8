@@ -1,21 +1,25 @@
 ﻿namespace ET.Server
 {
     [FriendOf(typeof (UnitCache))]
-    public static class UnitCacheSystem
+    [EntitySystemOf(typeof (UnitCache))]
+    public static partial class UnitCacheSystem
     {
-        public class UnitCacheDestorySystem: DestroySystem<UnitCache>
+        [EntitySystem]
+        private static void Awake(this UnitCache self)
         {
-            protected override void Destroy(UnitCache self)
-            {
-                foreach (Entity entity in self.ComponentDict.Values)
-                {
-                    entity.Dispose();
-                }
+        }
 
-                self.UpdateTimeDict.Clear();
-                self.ComponentDict.Clear();
-                self.TypeName = null;
+        [EntitySystem]
+        private static void Destroy(this UnitCache self)
+        {
+            foreach (Entity entity in self.componentDict.Values)
+            {
+                entity.Dispose();
             }
+
+            self.updateTimeDict.Clear();
+            self.componentDict.Clear();
+            self.TypeName = null;
         }
 
         /// <summary>
@@ -25,51 +29,52 @@
         public static void Check(this UnitCache self)
         {
             using ListComponent<long> ids = ListComponent<long>.Create();
-            ids.AddRange(self.ComponentDict.Keys);
+            ids.AddRange(self.componentDict.Keys);
             foreach (long id in ids)
             {
-                if (!self.ComponentDict.TryGetValue(id, out Entity entity))
+                if (!self.componentDict.TryGetValue(id, out Entity entity))
                 {
                     continue;
                 }
 
-                if (TimeInfo.Instance.ServerFrameTime() - self.UpdateTimeDict.Get(id) <= UnitCache.Interval)
+                if (TimeInfo.Instance.ServerFrameTime() - self.updateTimeDict.Get(id) <= UnitCache.Interval)
                 {
                     continue;
                 }
 
                 entity.Dispose();
-                self.ComponentDict.Remove(id);
-                self.UpdateTimeDict.Remove(id);
+                self.componentDict.Remove(id);
+                self.updateTimeDict.Remove(id);
             }
         }
 
         public static void AddOrUpdate(this UnitCache self, Entity entity)
         {
-            if (entity == null || entity.IsDisposed)
+            if (entity == null)
             {
                 return;
             }
 
-            if (self.ComponentDict.TryGetValue(entity.Id, out var old))
+            if (self.componentDict.TryGetValue(entity.Id, out var old))
             {
                 if (old != entity)
                 {
                     old.Dispose();
                 }
 
-                self.ComponentDict.Remove(entity.Id);
+                self.updateTimeDict.Remove(entity.Id);
+                self.componentDict.Remove(entity.Id);
             }
 
-            self.ComponentDict.Add(entity.Id, entity);
-            self.UpdateTimeDict.Add(entity.Id, TimeInfo.Instance.ServerFrameTime());
+            self.componentDict.Add(entity.Id, entity);
+            self.updateTimeDict.Add(entity.Id, TimeInfo.Instance.ServerFrameTime());
         }
 
         public static async ETTask<Entity> Get(this UnitCache self, long id)
         {
-            if (self.ComponentDict.TryGetValue(id, out var entity))
+            if (self.componentDict.TryGetValue(id, out var entity))
             {
-                self.UpdateTimeDict[entity.Id] = TimeInfo.Instance.ServerFrameTime();
+                self.updateTimeDict[entity.Id] = TimeInfo.Instance.ServerFrameTime();
                 return entity;
             }
 
@@ -81,14 +86,14 @@
 
         public static void Delete(this UnitCache self, long id)
         {
-            if (!self.ComponentDict.TryGetValue(id, out var cache))
+            if (!self.componentDict.TryGetValue(id, out var cache))
             {
                 return;
             }
 
             cache.Dispose();
-            self.ComponentDict.Remove(id);
-            self.UpdateTimeDict.Remove(id);
+            self.componentDict.Remove(id);
+            self.updateTimeDict.Remove(id);
         }
     }
 }

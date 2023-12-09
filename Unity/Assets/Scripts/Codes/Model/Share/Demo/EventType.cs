@@ -1,4 +1,4 @@
-﻿namespace ET.Client
+﻿namespace ET
 {
     /// <summary>
     /// 开始切换场景
@@ -53,5 +53,14 @@
     public struct AfterUnitCreate
     {
         public Unit Unit;
+    }
+
+    /// <summary>
+    /// 战力改变
+    /// </summary>
+    public struct FightChange
+    {
+        public FightType FightType;
+        public long Value;
     }
 }

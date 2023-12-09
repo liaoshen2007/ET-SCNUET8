@@ -11,7 +11,7 @@ namespace ET.Server
             Entity root = null;
             for (int i = 0; i < list.Length; i++)
             {
-                root = (root ?? scene.Root()).GetComponent(list[i]);
+                root = (root ?? scene.Root()).GetComponentByName(list[i]);
                 if (root == null)
                 {
                     break;

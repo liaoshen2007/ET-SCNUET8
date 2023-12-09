@@ -851,6 +851,9 @@ namespace ET
 		[MemoryPackOrder(3)]
 		public List<byte[]> Entitys { get; set; } = new();
 
+		[MemoryPackOrder(4)]
+		public bool IsEnterGame { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
@@ -858,6 +861,7 @@ namespace ET
 			this.OldActorId = default;
 			this.Unit = default;
 			this.Entitys.Clear();
+			this.IsEnterGame = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1116,15 +1120,11 @@ namespace ET
 		[MemoryPackOrder(0)]
 		public long PlayerId { get; set; }
 
-		[MemoryPackOrder(1)]
-		public PlayerInfoProto RoleInfo { get; set; }
-
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.PlayerId = default;
-			this.RoleInfo = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}

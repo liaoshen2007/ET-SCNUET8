@@ -72,7 +72,7 @@ public static partial class ChatComponentSystem
 
         child.isOnline = true;
         self.AddMember(self.worldId, new List<long>() { playerId });
-        self.unitDict.Add(playerId, child);
+        self.unitDict.TryAdd(playerId, child);
         return child;
     }
 
@@ -148,7 +148,7 @@ public static partial class ChatComponentSystem
 
         var proto = ChatMsgProto.Create();
         proto.Message = message;
-        proto.Channel = (int)channel;
+        proto.Channel = (int) channel;
         long now = TimeInfo.Instance.FrameTime;
         proto.Time = now;
         if (now != self.lastMsgTime)
@@ -348,13 +348,13 @@ public static partial class ChatComponentSystem
         string group = groupId;
         switch (channel)
         {
-            case (int)ChatChannelType.World:
+            case (int) ChatChannelType.World:
                 group = self.worldId;
                 break;
-            case (int)ChatChannelType.League:
+            case (int) ChatChannelType.League:
                 group = "league";
                 break;
-            case (int)ChatChannelType.Personal:
+            case (int) ChatChannelType.Personal:
                 group = self.GetPersonGroup(roleId, groupId.ToLong());
                 break;
         }
@@ -370,7 +370,7 @@ public static partial class ChatComponentSystem
         var result = new List<ChatMsgProto>();
         foreach (var item in list)
         {
-            var roleInfo = item.Channel == (int)ChatChannelType.Personal? self.GetPlayerInfo(group.ToLong()) : self.GetPlayerInfo(item.SendRoleId);
+            var roleInfo = item.Channel == (int) ChatChannelType.Personal? self.GetPlayerInfo(group.ToLong()) : self.GetPlayerInfo(item.SendRoleId);
             result.Add(new ChatMsgProto()
             {
                 Id = item.Id,
@@ -425,7 +425,7 @@ public static partial class ChatComponentSystem
                 proto.MemberList = new List<ChatGroupMemberProto>();
                 foreach (var entity in group.Children.Values)
                 {
-                    var member = (ChatGroupMember)entity;
+                    var member = (ChatGroupMember) entity;
                     proto.MemberList.Add(new ChatGroupMemberProto()
                     {
                         RoleId = member.Id, HeadIcon = member.headIcon, NoDisturbing = member.noDisturbing, Sort = member.sort,
@@ -449,6 +449,12 @@ public static partial class ChatComponentSystem
 
     private static void Send2Client(this ChatComponent self, long id, IMessage message)
     {
+        ChatUnit child = self.GetChild<ChatUnit>(id);
+        if (child is not { isOnline: true })
+        {
+            return;
+        }
+
         self.Root().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession)
                 .Send(id, message);
     }
@@ -460,6 +466,12 @@ public static partial class ChatComponentSystem
                 self.Root().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession);
         foreach (long id in roelList)
         {
+            ChatUnit child = self.GetChild<ChatUnit>(id);
+            if (child is not { isOnline: true })
+            {
+                continue;
+            }
+
             oneTypeMessageLocationType.Send(id, message);
         }
     }

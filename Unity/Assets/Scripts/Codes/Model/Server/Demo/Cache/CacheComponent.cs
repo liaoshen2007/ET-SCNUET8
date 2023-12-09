@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Server
 {
@@ -8,12 +10,15 @@ namespace ET.Server
     [ComponentOf(typeof (Scene))]
     public class CacheComponent: Entity, IAwake, IDestroy, ILoad
     {
-        public Dictionary<string, UnitCache> CacheDict { get; } = new(10);
+        public Dictionary<string, UnitCache> cacheDict = new(10);
 
-        public List<string> CacheKeyList { get; } = new ListComponent<string>();
+        [BsonIgnore]
+        public List<string> CacheKeyList => cacheKeyList;
 
+        public List<string> cacheKeyList = new ListComponent<string>();
+
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<long, List<Entity>> needSaveDict = new(100);
-        public long lastSaveTime;
 
         public long checkExpireTimer;
     }

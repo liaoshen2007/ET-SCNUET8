@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Server
 {
@@ -15,13 +17,15 @@ namespace ET.Server
     {
         public string TypeName { get; set; }
 
-        public Dictionary<long, Entity> ComponentDict { get; } = new Dictionary<long, Entity>();
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        public Dictionary<long, Entity> componentDict = new Dictionary<long, Entity>();
         
-        public Dictionary<long, long> UpdateTimeDict { get; } = new Dictionary<long, long>();
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        public Dictionary<long, long> updateTimeDict = new Dictionary<long, long>();
 
         /// <summary>
         /// 数据缓存间隔
         /// </summary>
-        public const int Interval = 3 * 3600;
+        public const int Interval = 3 * 3600 * 1000;
     }
 }

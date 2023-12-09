@@ -1,5 +1,5 @@
-using System;
 using System.Net;
+using System.Reflection;
 
 namespace ET.Server
 {
@@ -31,7 +31,23 @@ namespace ET.Server
             }
 
             byte[] data = (rep as ComponentQueryResponse).Entity;
-            HttpHelper.Response(context, MongoHelper.Deserialize<Entity>(data));
+            var entity = MongoHelper.Deserialize<Entity>(data);
+            string field = context.Request.QueryString["field"];
+            if (!field.IsNullOrEmpty())
+            {
+                var f = entity.GetType().GetField(field,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.NonPublic);
+                if (f == null)
+                {
+                    HttpHelper.Response(context, "field not found");
+                    return;
+                }
+
+                HttpHelper.Response(context, f.GetValue(entity));
+                return;
+            }
+
+            HttpHelper.Response(context, entity);
         }
     }
 }

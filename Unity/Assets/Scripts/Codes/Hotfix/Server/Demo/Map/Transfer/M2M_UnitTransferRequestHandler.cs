@@ -1,5 +1,4 @@
-﻿using System;
-using Unity.Mathematics;
+﻿using Unity.Mathematics;
 
 namespace ET.Server
 {
@@ -38,7 +37,10 @@ namespace ET.Server
             // 加入aoi
             unit.AddComponent<AOIEntity, int, float3>(9 * 1000, unit.Position);
             unit.AddComponent<PacketComponent>();
-            EventSystem.Instance.Publish(scene, new UnitTransFinish() { Unit = unit });
+            if (request.IsEnterGame)
+            {
+                EventSystem.Instance.Publish(scene, new UnitEnterGame() { Unit = unit });
+            }
 
             // 解锁location，可以接收发给Unit的消息
             await scene.Root().GetComponent<LocationProxyComponent>().UnLock(LocationType.Unit, unit.Id, request.OldActorId, unit.GetActorId());

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ET.Server
+﻿namespace ET.Server
 {
     [MessageHandler(SceneType.Cache)]
     public class Other2Cache_DeleteCacheHandler: MessageHandler<Scene, Other2Cache_DeleteCache, Cache2Other_DeleteCache>

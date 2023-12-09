@@ -1,6 +1,6 @@
 ﻿namespace ET.Server;
 
-public struct UnitTransFinish
+public struct UnitEnterGame
 {
     public Unit Unit { get; set; }
 }

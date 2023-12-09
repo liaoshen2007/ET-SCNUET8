@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ET.Server
 {
@@ -10,7 +11,7 @@ namespace ET.Server
         [EntitySystem]
         private static void Awake(this CacheComponent self)
         {
-            self.CacheDict.Clear();
+            self.cacheDict.Clear();
             self.LoadCacheKey();
             self.checkExpireTimer = self.Scene().GetComponent<TimerComponent>().NewRepeatedTimer(10 * 1000, TimerInvokeType.CacheCheck, self);
             Log.Info($"缓存服务器启动完成：{self.Zone()}");
@@ -20,13 +21,13 @@ namespace ET.Server
         private static void Destroy(this CacheComponent self)
         {
             self.Scene().GetComponent<TimerComponent>().Remove(ref self.checkExpireTimer);
-            self.CacheKeyList.Clear();
-            foreach (var unitCache in self.CacheDict.Values)
+            self.cacheKeyList.Clear();
+            foreach (UnitCache unitCache in self.cacheDict.Values)
             {
                 unitCache.Dispose();
             }
 
-            self.CacheDict.Clear();
+            self.cacheDict.Clear();
         }
 
         [EntitySystem]
@@ -48,28 +49,22 @@ namespace ET.Server
         private static async ETTask Check(this CacheComponent self)
         {
             //需要保存的数据
-            if (TimeInfo.Instance.ServerFrameTime() - self.lastSaveTime >= 30)
+            if (self.needSaveDict.Count > 0)
             {
-                if (self.needSaveDict.Count > 0)
+                var dict = self.needSaveDict.ToDictionary(x => x.Key, x => x.Value);
+                self.needSaveDict.Clear();
+                using ListComponent<ETTask> taskList = ListComponent<ETTask>.Create();
+                foreach ((long id, var list) in dict)
                 {
-                    using (ListComponent<ETTask> taskList = ListComponent<ETTask>.Create())
-                    {
-                        foreach ((long id, var list) in self.needSaveDict)
-                        {
-                            ETTask t = self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).Save(id, list);
-                            taskList.Add(t);
-                        }
-
-                        await ETTaskHelper.WaitAll(taskList);
-                    }
-
-                    self.lastSaveTime = TimeInfo.Instance.ServerFrameTime();
-                    self.needSaveDict.Clear();
+                    ETTask t = self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).Save(id, list);
+                    taskList.Add(t);
                 }
+
+                await ETTaskHelper.WaitAll(taskList);
             }
 
             //检测过期的数据
-            foreach (UnitCache unitCache in self.CacheDict.Values)
+            foreach (UnitCache unitCache in self.cacheDict.Values)
             {
                 try
                 {
@@ -84,33 +79,33 @@ namespace ET.Server
 
         private static void LoadCacheKey(this CacheComponent self)
         {
-            self.CacheKeyList.Clear();
-            foreach (var type in CodeTypes.Instance.GetTypes().Values)
+            self.cacheKeyList.Clear();
+            foreach (Type type in CodeTypes.Instance.GetTypes().Values)
             {
                 if (!type.IsAbstract && typeof (ICache).IsAssignableFrom(type))
                 {
-                    self.CacheKeyList.Add(type.FullName);
+                    self.cacheKeyList.Add(type.FullName);
                 }
             }
 
-            foreach (string s in self.CacheKeyList)
+            foreach (string s in self.cacheKeyList)
             {
-                var unitCache = self.AddChild<UnitCache>();
+                UnitCache unitCache = self.AddChild<UnitCache>();
                 unitCache.TypeName = s;
-                self.CacheDict.Add(s, unitCache);
+                self.cacheDict.Add(s, unitCache);
             }
         }
 
         public static async ETTask<Entity> Get(this CacheComponent self, long id, string key)
         {
-            if (self.CacheDict.TryGetValue(key, out var unitCache))
+            if (self.cacheDict.TryGetValue(key, out var unitCache))
             {
                 return await unitCache.Get(id);
             }
 
             unitCache = self.AddChild<UnitCache>();
             unitCache.TypeName = key;
-            self.CacheDict.Add(key, unitCache);
+            self.cacheDict.Add(key, unitCache);
 
             return await unitCache.Get(id);
         }
@@ -119,12 +114,12 @@ namespace ET.Server
         {
             foreach (Entity entity in listComponent)
             {
-                string name = entity.GetType().Name;
-                if (!self.CacheDict.TryGetValue(name, out UnitCache uniCache))
+                string name = entity.GetType().FullName;
+                if (!self.cacheDict.TryGetValue(name, out UnitCache uniCache))
                 {
                     uniCache = self.AddChild<UnitCache>();
                     uniCache.TypeName = name;
-                    self.CacheDict.Add(name, uniCache);
+                    self.cacheDict.Add(name, uniCache);
                 }
 
                 uniCache.AddOrUpdate(entity);
@@ -140,7 +135,7 @@ namespace ET.Server
 
         public static void DeleteCache(this CacheComponent self, long id)
         {
-            foreach (UnitCache unitCach in self.CacheDict.Values)
+            foreach (UnitCache unitCach in self.cacheDict.Values)
             {
                 unitCach.Delete(id);
             }

@@ -731,7 +731,7 @@ namespace ET
             return component;
         }
 
-        public Entity GetComponent(string typeName)
+        public Entity GetComponentByName(string typeName)
         {
             if (this.components == null)
             {
