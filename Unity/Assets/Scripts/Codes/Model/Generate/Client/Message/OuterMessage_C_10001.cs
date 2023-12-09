@@ -2110,6 +2110,42 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.HeadProto)]
+	[MemoryPackable]
+	public partial class HeadProto: MessageObject
+	{
+		public static HeadProto Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(HeadProto), isFromPool) as HeadProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public string HeadIcon { get; set; }
+
+	/// <summary>
+	///头像框ID
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public int ChatFrame { get; set; }
+
+	/// <summary>
+	///气泡Id
+	/// </summary>
+		[MemoryPackOrder(2)]
+		public int ChatBubble { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.HeadIcon = default;
+			this.ChatFrame = default;
+			this.ChatBubble = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	[Message(OuterMessage.PlayerInfoProto)]
 	[MemoryPackable]
 	public partial class PlayerInfoProto: MessageObject
@@ -2126,7 +2162,7 @@ namespace ET
 		public string Name { get; set; }
 
 		[MemoryPackOrder(2)]
-		public string HeadIcon { get; set; }
+		public HeadProto HeadIcon { get; set; }
 
 		[MemoryPackOrder(3)]
 		public int Level { get; set; }
@@ -2310,7 +2346,7 @@ namespace ET
 		public long RoleId { get; set; }
 
 		[MemoryPackOrder(1)]
-		public string HeadIcon { get; set; }
+		public HeadProto HeadIcon { get; set; }
 
 	/// <summary>
 	///消息免打扰
@@ -2664,19 +2700,20 @@ namespace ET
 		 public const ushort RankInfoProto = 10064;
 		 public const ushort C2Rank_GetRankRequest = 10065;
 		 public const ushort Ran2C_GetRankResponse = 10066;
-		 public const ushort PlayerInfoProto = 10067;
-		 public const ushort ChatMsgProto = 10068;
-		 public const ushort C2Chat_SendRequest = 10069;
-		 public const ushort C2C_SendResponse = 10070;
-		 public const ushort C2C_UpdateChat = 10071;
-		 public const ushort ChatGroupMemberProto = 10072;
-		 public const ushort ChatGroupProto = 10073;
-		 public const ushort C2C_GroupUpdate = 10074;
-		 public const ushort C2C_GroupDel = 10075;
-		 public const ushort ActivityCfgProto = 10076;
-		 public const ushort ActivityProto = 10077;
-		 public const ushort M2C_UpdateActivityList = 10078;
-		 public const ushort M2C_UpdateActivityClose = 10079;
-		 public const ushort M2C_UpdateActivity = 10080;
+		 public const ushort HeadProto = 10067;
+		 public const ushort PlayerInfoProto = 10068;
+		 public const ushort ChatMsgProto = 10069;
+		 public const ushort C2Chat_SendRequest = 10070;
+		 public const ushort C2C_SendResponse = 10071;
+		 public const ushort C2C_UpdateChat = 10072;
+		 public const ushort ChatGroupMemberProto = 10073;
+		 public const ushort ChatGroupProto = 10074;
+		 public const ushort C2C_GroupUpdate = 10075;
+		 public const ushort C2C_GroupDel = 10076;
+		 public const ushort ActivityCfgProto = 10077;
+		 public const ushort ActivityProto = 10078;
+		 public const ushort M2C_UpdateActivityList = 10079;
+		 public const ushort M2C_UpdateActivityClose = 10080;
+		 public const ushort M2C_UpdateActivity = 10081;
 	}
 }

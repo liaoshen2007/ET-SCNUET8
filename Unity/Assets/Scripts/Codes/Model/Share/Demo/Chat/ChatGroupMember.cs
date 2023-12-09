@@ -10,5 +10,5 @@ public class ChatGroupMember: Entity, IAwake
     /// </summary>
     public bool noDisturbing;
 
-    public string headIcon;
+    public HeadProto headIcon;
 }

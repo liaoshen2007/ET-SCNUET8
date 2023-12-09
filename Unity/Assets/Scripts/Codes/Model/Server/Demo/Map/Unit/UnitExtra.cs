@@ -31,7 +31,7 @@ namespace ET.Server
         /// <summary>
         /// 头像
         /// </summary>
-        public string HeadIcon { get; set; }
+        public HeadProto HeadIcon { get; set; }
 
         /// <summary>
         /// 性别

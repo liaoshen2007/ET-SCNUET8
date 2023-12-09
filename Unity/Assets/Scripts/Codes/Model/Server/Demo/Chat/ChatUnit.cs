@@ -4,7 +4,7 @@
 public class ChatUnit: Entity, IAwake, IDestroy
 {
     public string name;
-    public string headIcon;
+    public HeadProto headIcon;
     public int level;
     public long fight;
     public int sex;

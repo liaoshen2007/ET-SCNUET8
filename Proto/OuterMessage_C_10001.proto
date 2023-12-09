@@ -447,11 +447,20 @@ message Ran2C_GetRankResponse // IRankResponse
 	int32 Page = 3;
 }
 
+message HeadProto
+{
+  string HeadIcon = 1;
+  //头像框ID
+  int32 ChatFrame = 2;
+  //气泡Id
+  int32 ChatBubble = 3;
+}
+
 message PlayerInfoProto
 {
 	int64 Id = 1;
   string Name = 2;
-	string HeadIcon = 3;
+	HeadProto HeadIcon = 3;
 	int32 Level = 4;
 	int64 Fight = 5;
 	int32 Sex = 6;
@@ -493,7 +502,7 @@ message C2C_UpdateChat // IChatMessage
 message ChatGroupMemberProto
 {
   int64 RoleId = 1;
-  string HeadIcon = 2;
+  HeadProto HeadIcon = 2;
   //消息免打扰
   bool NoDisturbing = 3;
   int64 Sort = 4;

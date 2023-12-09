@@ -52,7 +52,7 @@ namespace ET.Client
                     {
                         Id = self.Root().GetComponent<PlayerComponent>().MyId,
                         Name = "",
-                        HeadIcon = "",
+                        HeadIcon = null,
                         Level = 0,
                         Fight = 0,
                         Sex = 0,
