@@ -14,6 +14,7 @@ public static partial class ChatComponentSystem
     [EntitySystem]
     private static void Awake(this ChatComponent self)
     {
+        self.zone = self.Zone();
         self.worldId = "world";
         self.nSaveChannel = new HashSet<ChatChannelType>() { ChatChannelType.TV };
         self.useWolrdChannel = new HashSet<ChatChannelType>() { ChatChannelType.World, ChatChannelType.TV };
@@ -28,6 +29,7 @@ public static partial class ChatComponentSystem
 
         self.timer = self.Root().GetComponent<TimerComponent>().NewRepeatedTimer(1000, TimerInvokeType.ChatSaveCheck, self);
         self.CreateGroup(ChatChannelType.World);
+        self.LoadData().Coroutine();
     }
 
     [EntitySystem]
@@ -45,7 +47,52 @@ public static partial class ChatComponentSystem
         }
     }
 
-    public static async ETTask SaveChat(this ChatComponent self)
+    /// <summary>
+    /// 保存聊天服数据
+    /// </summary>
+    /// <param name="self"></param>
+    public static async ETTask Save(this ChatComponent self)
+    {
+        await self.SaveChat();
+        var zoneDB = self.Scene().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone());
+        await zoneDB.Save(self);
+    }
+
+    private static async ETTask LoadData(this ChatComponent self)
+    {
+        var list = await self.Scene().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).Query<ChatComponent>(d => d.zone == self.Zone());
+        if (list.Count == 0)
+        {
+            return;
+        }
+
+        var chat = list[0];
+        foreach ((long id, ChatUnit unit) in chat.unitDict)
+        { 
+            unit.isOnline = false;
+            self.AddChild(unit);
+            self.unitDict.Add(id, unit);
+        }
+        
+        foreach ((string guid, ChatGroup group) in chat.groupDict)
+        {
+            if (group.channel == ChatChannelType.Group)
+            {
+                self.AddChild(group);
+                self.groupDict.Add(guid, group);
+            }
+        }
+
+        foreach ((string guid, string group) in chat.relataDict)
+        {
+            if (guid != self.worldId)
+            {
+                self.relataDict.Add(guid, group);
+            }
+        }
+    }
+
+    private static async ETTask SaveChat(this ChatComponent self)
     {
         if (self.saveList.Count == 0)
         {

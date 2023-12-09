@@ -214,6 +214,28 @@ namespace ET.Server
 
 	    #endregion
 
+	    #region Update
+	    
+	    public static async ETTask Update<T>(this DBComponent self, Expression<Func<T, bool>> filter, UpdateDefinition<T> update) where T : Entity
+	    {
+		    string collection = typeof(T).FullName;
+		    using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.DB, RandomGenerator.RandInt64() % DBComponent.TaskCount))
+		    {
+			    await self.GetCollection<T>(collection).UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+		    }
+	    }
+	    
+	    public static async ETTask UpdateMany<T>(this DBComponent self, Expression<Func<T, bool>> filter, UpdateDefinition<T> update) where T : Entity
+	    {
+		    string collection = typeof(T).FullName;
+		    using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.DB, RandomGenerator.RandInt64() % DBComponent.TaskCount))
+		    {
+			    await self.GetCollection<T>(collection).UpdateManyAsync(filter, update, new UpdateOptions { IsUpsert = true });
+		    }
+	    }
+	    
+	    #endregion
+	    
 	    #region Remove
 	    
 	    public static async ETTask<long> Remove<T>(this DBComponent self, long id, string collection = null) where T : Entity
