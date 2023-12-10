@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace ET.Client
 {
-    public class Tweener
+    public class TextTweener
     {
         public enum Method
         {

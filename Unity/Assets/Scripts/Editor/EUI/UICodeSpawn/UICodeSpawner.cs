@@ -334,7 +334,7 @@ namespace ETEditor
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIBehaviour/" + strDlgName + "/" + strDlgComponentName + ".cs";
+            strFilePath = strFilePath + "/" + strDlgComponentName + ".cs";
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.AppendLine("using UnityEngine;");

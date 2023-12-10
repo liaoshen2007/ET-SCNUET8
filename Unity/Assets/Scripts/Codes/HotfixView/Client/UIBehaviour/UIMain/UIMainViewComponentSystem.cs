@@ -16,6 +16,7 @@
 		protected override void Destroy(UIMainViewComponent self)
 		{
 			self.DestroyWidget();
+
 		}
 	}
 }

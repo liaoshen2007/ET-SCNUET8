@@ -50,21 +50,6 @@ namespace ET.Client
             }
         }
         
-        public static T LoadAsset<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
-        {
-            OperationHandleBase handler;
-            if (!self.handlers.TryGetValue(location, out handler))
-            {
-                handler = self.package.LoadAssetAsync<T>(location);
-            
-                handler.Task.Wait();
-
-                self.handlers.Add(location, handler);
-            }
-            
-            return (T)((AssetOperationHandle)handler).AssetObject;
-        }
-
         public static async ETTask<T> LoadAssetAsync<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
         {
             using CoroutineLock coroutineLock = await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());

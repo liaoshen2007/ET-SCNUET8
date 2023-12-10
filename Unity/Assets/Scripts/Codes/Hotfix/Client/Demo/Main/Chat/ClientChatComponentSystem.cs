@@ -10,17 +10,14 @@ public static partial class ClientChatComponentSystem
     private static void Awake(this ClientChatComponent self)
     {
     }
-    
-    public static void CheckMsgCount(this ClientChatComponent self)
-    {
-        if (self.chatMsgList.Count > 100)
-        {
-            self.chatMsgList.RemoveRange(0, self.chatMsgList.Count - 100);
-        }
-    }
 
     public static void UpdateMsg(this ClientChatComponent self, List<ChatMsgProto> msgList)
     {
+        if (self.chatMsgList.Count > ConstValue.MsgMaxCount)
+        {
+            self.chatMsgList.RemoveRange(0, self.chatMsgList.Count - ConstValue.MsgMaxCount);
+        }
+
         foreach (var proto in msgList)
         {
             using var chatUnit = self.AddChildWithId<ClientChatUnit>(proto.Id);

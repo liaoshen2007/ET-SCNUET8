@@ -147,10 +147,10 @@ namespace ET
         public bool IsComplete { get; protected set; }
 
         /// <summary>
-        /// 动画目标对象
+        /// 是否正方向播放动画
         /// </summary>
-        public object Target { get; set; }
-
+        public bool IsReverse { get; private set; }
+        
         #endregion
 
         #region Methods
@@ -529,15 +529,6 @@ namespace ET
             UpdateFactor = null;
             OnReset = null;
         }
-        #endregion
-
-        #region Internal Properies
-
-        /// <summary>
-        /// 是否反方向播放动画
-        /// </summary>
-        protected bool IsReverse { get; private set; }
-
         #endregion
 
         #region Internal Fields

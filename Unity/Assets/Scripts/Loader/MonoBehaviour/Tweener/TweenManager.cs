@@ -90,27 +90,6 @@ namespace ET
             ObjectPool.Instance.Recycle(tweener);
         }
 
-        internal Tweener GetTween(object target)
-        {
-            foreach (var tweener in updatedList)
-            {
-                if (tweener.Target == target)
-                {
-                    return tweener;
-                }
-            }
-
-            foreach (var tweener in fixedUpdatedList)
-            {
-                if (tweener.Target == target)
-                {
-                    return tweener;
-                }
-            }
-
-            return null;
-        }
-
         void ISingletonUpdate.Update()
         {
             var deltaTime = Time.deltaTime;

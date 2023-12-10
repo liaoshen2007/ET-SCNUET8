@@ -31,5 +31,10 @@ namespace ET
 		Win_UIPop,
 
 		Win_UILoading,
+
+		/// <summary>
+		/// 聊天
+		/// </summary>
+		Win_UIChat,
 	}
 }

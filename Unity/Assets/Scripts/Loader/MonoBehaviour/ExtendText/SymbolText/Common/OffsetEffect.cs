@@ -14,7 +14,7 @@ namespace ET.Client
 
         public float speed = 2f;
 
-        Tweener tweener;
+        TextTweener tweener;
 
         Draw current = null;
 
@@ -22,9 +22,9 @@ namespace ET.Client
         {
             if (tweener == null)
             {
-                tweener = new Tweener();
-                tweener.method = Tweener.Method.EaseInOut;
-                tweener.style = Tweener.Style.PingPong;
+                tweener = new TextTweener();
+                tweener.method = TextTweener.Method.EaseInOut;
+                tweener.style = TextTweener.Style.PingPong;
                 tweener.duration = 1f;
 
                 tweener.OnUpdate = UpdateOffset;
@@ -45,8 +45,8 @@ namespace ET.Client
         {
             if (tweener != null)
             {
-                tweener.method = Tweener.Method.EaseInOut;
-                tweener.style = Tweener.Style.PingPong;
+                tweener.method = TextTweener.Method.EaseInOut;
+                tweener.style = TextTweener.Style.PingPong;
                 tweener.duration = 1f;
             }
 

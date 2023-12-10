@@ -169,7 +169,7 @@ namespace ET.Client
             if (self.StackWindowsQueue.Count > 0)
             {
                 WindowID windowID = self.StackWindowsQueue.Dequeue();
-                self.ShowWindow(windowID);
+                self.ShowWindowAsync(windowID).Coroutine();
                 UIBaseWindow uiBaseWindow = self.GetUIBaseWindow(windowID);
                 uiBaseWindow.IsInStackQueue = true;
             }
@@ -195,29 +195,15 @@ namespace ET.Client
         }
 
         /// <summary>
-        /// 根据指定Id的显示UI窗口
-        /// </summary>
-        /// <OtherParam name="id">窗口类型ID</OtherParam>
-        /// <OtherParam name="showData">窗口透传参数</OtherParam>
-        public static void ShowWindow(this UIComponent self, WindowID id, ShowWindowData showData = null)
-        {
-            UIBaseWindow baseWindow = self.ReadyToShowBaseWindow(id);
-            if (null != baseWindow)
-            {
-                self.RealShowWindow(baseWindow, id, showData);
-            }
-        }
-
-        /// <summary>
         /// 根据泛型类型显示UI窗口
         /// </summary>
         /// <param name="self">UI组件</param>
         /// <param name="showData">窗口透传参数</param>
         /// <typeparam name="T"></typeparam>
-        public static void ShowWindow<T>(this UIComponent self, ShowWindowData showData = null) where T : Entity, IUILogic
+        public static async ETTask ShowWindow<T>(this UIComponent self, ShowWindowData showData = null) where T : Entity, IUILogic
         {
             WindowID windowsId = self.GetWindowIdByGeneric<T>();
-            self.ShowWindow(windowsId, showData);
+            await self.ShowWindowAsync(windowsId, showData);
         }
 
         /// <summary>
@@ -364,26 +350,6 @@ namespace ET.Client
             self.UnLoadWindow(hideWindowId);
         }
 
-        private static UIBaseWindow ReadyToShowBaseWindow(this UIComponent self, WindowID id)
-        {
-            UIBaseWindow baseWindow = self.GetUIBaseWindow(id);
-
-            // 如果UI不存在开始实例化新的窗口
-            if (baseWindow == null)
-            {
-                baseWindow = self.AddChild<UIBaseWindow>();
-                baseWindow.WindowID = id;
-                self.LoadBaseWindows(baseWindow);
-            }
-
-            if (!baseWindow.IsPreLoad)
-            {
-                self.LoadBaseWindows(baseWindow);
-            }
-
-            return baseWindow;
-        }
-
         private static async ETTask<UIBaseWindow> ShowBaseWindowAsync(this UIComponent self, WindowID id)
         {
             CoroutineLock coroutineLock = null;
@@ -391,7 +357,7 @@ namespace ET.Client
             {
                 coroutineLock = await self.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoadUIBaseWindows, (int) id);
                 UIBaseWindow baseWindow = self.GetUIBaseWindow(id);
-                if (null == baseWindow)
+                if (baseWindow == null)
                 {
                     if (UIPath.Instance.WindowPrefabPath.ContainsKey((int) id))
                     {
@@ -575,32 +541,6 @@ namespace ET.Client
                     Log.Error("uiroot type is error: " + type);
                     return null;
             }
-        }
-
-        /// <summary>
-        /// 同步加载UI窗口实例
-        /// </summary>
-        private static void LoadBaseWindows(this UIComponent self, UIBaseWindow baseWindow)
-        {
-            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) baseWindow.WindowID, out string value))
-            {
-                Log.Error($"{baseWindow.WindowID} uiPath is not Exist!");
-                return;
-            }
-
-            GameObject go = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAsset<GameObject>(value.ToUIPath());
-            baseWindow.UIPrefabGameObject = UnityEngine.Object.Instantiate(go);
-            baseWindow.UIPrefabGameObject.name = go.name;
-
-            UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
-
-            var root = self.GetTargetRoot(baseWindow.WindowData.WindowType);
-            baseWindow.SetRoot(root);
-
-            UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
-            UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnRegisterUIEvent(baseWindow);
-
-            self.AllWindowsDic[(int) baseWindow.WindowID] = baseWindow;
         }
 
         /// <summary>

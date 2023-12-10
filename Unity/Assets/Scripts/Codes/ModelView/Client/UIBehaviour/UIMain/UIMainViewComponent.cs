@@ -6,32 +6,49 @@ namespace ET.Client
 	[EnableMethod]
 	public  class UIMainViewComponent : Entity, IAwake, IDestroy 
 	{
-		public Image E_HeadImage
+		public Button E_ChatButton
      	{
      		get
      		{
-     			if (uiTransform == null)
+     			if (this.uiTransform == null)
      			{
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-
-     			if( m_E_HeadImage == null )
+     			if( this.m_E_ChatButton == null )
      			{
-		    		m_E_HeadImage = UIFindHelper.FindDeepChild<Image>(uiTransform.gameObject,"Head/E_Head");
+		    		this.m_E_ChatButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Chat");
      			}
+     			return this.m_E_ChatButton;
+     		}
+     	}
 
-     			return m_E_HeadImage;
+		public ExtendImage E_ChatExtendImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_ChatExtendImage == null )
+     			{
+		    		this.m_E_ChatExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Chat");
+     			}
+     			return this.m_E_ChatExtendImage;
      		}
      	}
 
 		public void DestroyWidget()
 		{
-			m_E_HeadImage = null;
+			this.m_E_ChatButton = null;
+			this.m_E_ChatExtendImage = null;
 			uiTransform = null;
 		}
 
-		private Image m_E_HeadImage = null;
+		private Button m_E_ChatButton = null;
+		private ExtendImage m_E_ChatExtendImage = null;
 		public Transform uiTransform = null;
 	}
 }
