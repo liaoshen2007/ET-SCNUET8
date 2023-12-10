@@ -7,7 +7,7 @@ namespace UnityEngine.UI
     [DisallowMultipleComponent]
     public class LoopHorizontalScrollRectMulti : LoopScrollRectMulti
     {
-        protected override float GetSize(RectTransform item, bool includeSpacing)
+        protected override float GetSize(RectTransform item, bool includeSpacing = true)
         {
             float size = includeSpacing ? contentSpacing : 0;
             if (m_GridLayout != null)

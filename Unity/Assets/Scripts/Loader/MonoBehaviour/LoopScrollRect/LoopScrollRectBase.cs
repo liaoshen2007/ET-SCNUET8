@@ -7,15 +7,15 @@ using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
-    [AddComponentMenu("")]
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(RectTransform))]
     /// <summary>
     /// A component for making a child RectTransform scroll with reuseable content.
     /// </summary>
     /// <remarks>
     /// LoopScrollRect will not do any clipping on its own. Combined with a Mask component, it can be turned into a loop scroll view.
     /// </remarks>
+    [AddComponentMenu("")]
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(RectTransform))]
     public abstract class LoopScrollRectBase : UIBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IScrollHandler, ICanvasElement, ILayoutElement, ILayoutGroup
     {
         //==========LoopScrollRect==========
@@ -33,7 +33,6 @@ namespace UnityEngine.UI
         /// <summary>
         /// [Optional] Helper for accurate size so we can achieve better scrolling.
         /// </summary>
-        [HideInInspector]
         [NonSerialized]
         public LoopScrollSizeHelper sizeHelper = null;
 

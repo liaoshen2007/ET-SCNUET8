@@ -1,23 +1,17 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 
 namespace UnityEngine.UI
 {
-    public abstract class LoopScrollRect : LoopScrollRectBase
+    public abstract class LoopScrollRect: LoopScrollRectBase
     {
-        [HideInInspector]
         [NonSerialized]
         public LoopScrollDataSourceInstance dataSource = new LoopScrollDataSourceInstance();
-        
+
         protected override void ProvideData(Transform transform, int index)
         {
             dataSource.ProvideData(transform, index);
         }
-        
+
         protected override RectTransform GetFromTempPool(int itemIdx)
         {
             RectTransform nextItem = null;
@@ -35,10 +29,11 @@ namespace UnityEngine.UI
             }
             else
             {
-                nextItem = prefabSource.GetObject(itemIdx).transform as RectTransform;
+                nextItem = prefabSource.GetObject().transform as RectTransform;
                 nextItem.transform.SetParent(m_Content, false);
                 nextItem.gameObject.SetActive(true);
             }
+
             ProvideData(nextItem, itemIdx);
             return nextItem;
         }
@@ -60,8 +55,10 @@ namespace UnityEngine.UI
                 {
                     prefabSource.ReturnObject(m_Content.GetChild(i));
                 }
+
                 deletedItemTypeStart = 0;
             }
+
             if (deletedItemTypeEnd > 0)
             {
                 int t = m_Content.childCount - deletedItemTypeEnd;
@@ -69,19 +66,31 @@ namespace UnityEngine.UI
                 {
                     prefabSource.ReturnObject(m_Content.GetChild(i));
                 }
+
                 deletedItemTypeEnd = 0;
             }
         }
-        
-        public void AddItemRefreshListener(Action<Transform,int> scrollMoveEvent)
+
+        public void AddItemRefreshListener(Action<Transform, int> scrollMoveEvent)
         {
-            if ( null == this.dataSource || scrollMoveEvent == null )
+            if (this.dataSource == null || scrollMoveEvent == null)
             {
-                ET.Log.Error("dataSource or scrollMoveEvent is error!");
                 Debug.LogError("dataSource or scrollMoveEvent is error!");
             }
-            this.dataSource.scrollMoveEvent = null;
-            this.dataSource.scrollMoveEvent = scrollMoveEvent;
+
+            this.dataSource.ScrollMoveEvent = null;
+            this.dataSource.ScrollMoveEvent = scrollMoveEvent;
+        }
+
+        public void AddPrefabListener(Func<int, string> prefabEvent)
+        {
+            if (this.dataSource == null || prefabEvent == null)
+            {
+                Debug.LogError("dataSource or scrollMoveEvent is error!");
+            }
+
+            this.dataSource.PrefabEvent = null;
+            this.dataSource.PrefabEvent = prefabEvent;
         }
     }
 }

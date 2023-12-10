@@ -1,27 +1,22 @@
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
-    public abstract class LoopScrollRectMulti : LoopScrollRectBase
+    public abstract class LoopScrollRectMulti: LoopScrollRectBase
     {
-        [HideInInspector]
         [NonSerialized]
         public LoopScrollDataSourceInstance dataSource = new LoopScrollDataSourceInstance();
-        
+
         protected override void ProvideData(Transform transform, int index)
         {
             dataSource.ProvideData(transform, index);
         }
-        
+
         // Multi Data Source cannot support TempPool
         protected override RectTransform GetFromTempPool(int itemIdx)
         {
-            RectTransform nextItem = prefabSource.GetObject(itemIdx).transform as RectTransform;
+            var prefabName = this.dataSource.PrefabEvent.Invoke(itemIdx);
+            RectTransform nextItem = prefabSource.GetObject(prefabName).transform as RectTransform;
             nextItem.transform.SetParent(m_Content, false);
             nextItem.gameObject.SetActive(true);
 

@@ -1,20 +1,28 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 
 namespace UnityEngine.UI
 {
     public interface LoopScrollDataSource
     {
         void ProvideData(Transform transform, int idx);
+
+        string ProvidePrefab(int idx);
     }
-    
+
     public class LoopScrollDataSourceInstance: LoopScrollDataSource
     {
-        public Action<Transform,int> scrollMoveEvent;
+        public Action<Transform, int> ScrollMoveEvent;
+
+        public Func<int, string> PrefabEvent;
+
         public void ProvideData(Transform transform, int idx)
         {
-            scrollMoveEvent?.Invoke(transform,idx);
+            this.ScrollMoveEvent?.Invoke(transform, idx);
+        }
+
+        public string ProvidePrefab(int idx)
+        {
+            return this.PrefabEvent?.Invoke(idx);
         }
     }
 }

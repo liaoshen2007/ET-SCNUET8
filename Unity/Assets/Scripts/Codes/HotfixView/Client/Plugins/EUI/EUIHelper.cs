@@ -20,7 +20,42 @@ namespace ET.Client
 
             Label.text = content;
         }
+        
+        public static void SetText(this Text Label, int id)
+        {
+            if (null == Label)
+            {
+                Log.Error("label is null");
+                return;
+            }
 
+            var language = LanguageCategory.Instance.Get(id);
+            if (language == null)
+            {
+                Label.text = id.ToString();
+                return;
+            }
+            
+            Label.text = language.Msg;
+            Label.color = language.ColorBytes.BytesColor();
+        }
+
+        /// <summary>
+        /// 设置窗口标题
+        /// </summary>
+        /// <param name="Label"></param>
+        /// <param name="windowID"></param>
+        public static void SetTitle(this Text Label, WindowID windowID)
+        {
+            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) windowID, out string value))
+            {
+                return;
+            }
+            
+            var winCfg = WindowCategory.Instance.GetWindow(value);
+            Label.SetText(winCfg.Title);
+        }
+        
         public static void SetVisibleWithScale(this UIBehaviour uiBehaviour, bool isVisible)
         {
             if (null == uiBehaviour)
@@ -169,7 +204,10 @@ namespace ET.Client
 
         public static void ClearPool(this LoopVerticalScrollRect scrollRect)
         {
-            GameObjectPoolHelper.ClearPool(scrollRect.prefabSource.prefabName);
+            foreach (var item in scrollRect.prefabSource.PrefabList)
+            {
+                GameObjectPoolHelper.ClearPool(item.prefabName);
+            }
         }
         #endregion
 

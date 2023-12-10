@@ -452,6 +452,22 @@ PrefabInstance:
       propertyPath: prefabSource.prefabName
       value: Item_Server
       objectReference: {fileID: 0}
+    - target: {fileID: 4426505161676453488, guid: 3f516942cf21681469ed7ecd38c3f215,
+        type: 3}
+      propertyPath: prefabSource.PrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426505161676453488, guid: 3f516942cf21681469ed7ecd38c3f215,
+        type: 3}
+      propertyPath: prefabSource.PrefabList.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 6059314308666114737, guid: 5f05da3c5276a5745be9f8abe3fb589e,
+        type: 3}
+    - target: {fileID: 4426505161676453488, guid: 3f516942cf21681469ed7ecd38c3f215,
+        type: 3}
+      propertyPath: prefabSource.PrefabList.Array.data[0].prefabName
+      value: ItemServer
+      objectReference: {fileID: 0}
     - target: {fileID: 8924488172906194201, guid: 3f516942cf21681469ed7ecd38c3f215,
         type: 3}
       propertyPath: m_Pivot.x

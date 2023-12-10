@@ -14,26 +14,32 @@ namespace ET
 		Win_Invaild = 0,
 
 		/// <summary>
-		/// 登录
+		/// 3001
 		/// </summary>
 		Win_UILogin,
 
 		/// <summary>
-		/// 服务器列表
+		/// 3002
 		/// </summary>
 		Win_UIServerList,
 
 		/// <summary>
-		/// 主窗口
+		/// 3003
 		/// </summary>
 		Win_UIMain,
 
+		/// <summary>
+		/// 3004
+		/// </summary>
 		Win_UIPop,
 
+		/// <summary>
+		/// 3005
+		/// </summary>
 		Win_UILoading,
 
 		/// <summary>
-		/// 聊天
+		/// 3006
 		/// </summary>
 		Win_UIChat,
 	}

@@ -46,5 +46,12 @@ namespace ET
 
             }
         }
+        
+        public static string NormalizePath(string path) 
+        {
+            if (string.IsNullOrEmpty(path)) return path;
+
+            return path.Replace('\\', '/');
+        }
     }
 }

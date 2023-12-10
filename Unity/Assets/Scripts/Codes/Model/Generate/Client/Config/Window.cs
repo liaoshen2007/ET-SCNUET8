@@ -69,7 +69,7 @@ namespace ET
 		/// <summary>Id</summary>
 		public int Id { get; set; }
 		/// <summary>标题名称</summary>
-		public string Title { get; set; }
+		public int Title { get; set; }
 		/// <summary>窗口类型</summary>
 		public string Type { get; set; }
 		/// <summary>帮助ID</summary>
