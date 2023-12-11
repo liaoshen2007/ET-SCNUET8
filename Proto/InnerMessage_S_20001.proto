@@ -12,16 +12,7 @@ message InnerPingResponse // IResponse
 {
 }
 
-//ResponseType ObjectQueryResponse
-message ObjectQueryRequest // IRequest
-{
-	int64 InstanceId = 1;
-}
-message ObjectQueryResponse // IResponse
-{
-	bytes Entity = 1;
-}
-
+//通过名字查询组件数据
 //ResponseType ComponentQueryResponse
 message ConmponentQueryRequest // IRequest
 {
