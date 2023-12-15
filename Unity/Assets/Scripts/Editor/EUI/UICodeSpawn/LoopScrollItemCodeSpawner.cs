@@ -27,31 +27,49 @@ namespace ETEditor
             }
 
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIItemBehaviour";
+            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIItemBehaviour";
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIItemBehaviour/" + strDlgName + "ViewSystem.cs";
+            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIItemBehaviour/" + strDlgName + "ViewSystem.cs";
+            if (File.Exists(strFilePath))
+            {
+                return;
+            }
+            
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
-
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.AppendLine("using UnityEngine;");
             strBuilder.AppendLine("using UnityEngine.UI;");
             strBuilder.AppendLine();
             strBuilder.AppendLine("namespace ET.Client");
             strBuilder.AppendLine("{");
-
-            strBuilder.AppendFormat("\tpublic class Scroll_{0}DestroySystem : DestroySystem<Scroll_{1}> \r\n", strDlgName, strDlgName);
+            strBuilder.AppendFormat("\t[EntitySystemOf(typeof(Scroll_{0}))]\n",strDlgName);
+            strBuilder.AppendFormat("\t[FriendOf(typeof(Scroll_{0}))]\n",strDlgName);
+            strBuilder.AppendFormat("\tpublic static partial class Scroll_{0}System \r\n", strDlgName);
             strBuilder.AppendLine("\t{");
-            strBuilder.AppendFormat("\t\tprotected override void Destroy(Scroll_{0} self)", strDlgName);
-            strBuilder.AppendLine("\n\t\t{");
-
-            strBuilder.AppendFormat("\t\t\tself.DestroyWidget();\r\n");
-
+            
+            strBuilder.AppendLine("\t\t[EntitySystem]");
+            strBuilder.AppendFormat("\t\tprivate static void Awake(this Scroll_{0} self)\n",strDlgName);
+            strBuilder.AppendLine("\t\t{");
+            strBuilder.AppendLine("\t\t}\n");
+            
+            strBuilder.AppendLine("\t\t[EntitySystem]");
+            strBuilder.AppendFormat("\t\tprivate static void Destroy(this Scroll_{0} self)\n",strDlgName);
+            strBuilder.AppendLine("\t\t{");
+            strBuilder.AppendLine("\t\t\tself.DestroyWidget();");
             strBuilder.AppendLine("\t\t}");
+            strBuilder.AppendLine();
+            
+            strBuilder.AppendFormat("\t\tpublic static Scroll_{0} BindTrans(this Scroll_{0} self, Transform trans)\r\n", strDlgName);
+            strBuilder.AppendLine("\t\t{");
+            strBuilder.AppendLine("\t\t\tself.uiTransform = trans;");
+            strBuilder.AppendLine("\t\t\treturn self;");
+            strBuilder.AppendLine("\t\t}");
+            
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("}");
 
@@ -68,13 +86,13 @@ namespace ETEditor
             }
 
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIItemBehaviour";
+            string strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIItemBehaviour";
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIItemBehaviour/" + strDlgName + ".cs";
+            strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIItemBehaviour/" + strDlgName + ".cs";
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
 
             StringBuilder strBuilder = new StringBuilder();
@@ -84,7 +102,7 @@ namespace ETEditor
             strBuilder.AppendLine("namespace ET.Client");
             strBuilder.AppendLine("{");
             strBuilder.AppendLine("\t[EnableMethod]");
-            strBuilder.AppendFormat("\tpublic  class Scroll_{0} : Entity, IAwake, IDestroy, IUIScrollItem \r\n", strDlgName)
+            strBuilder.AppendFormat("\tpublic partial class Scroll_{0} : Entity, IAwake, IDestroy, IUIScrollItem \r\n", strDlgName)
                     .AppendLine("\t{");
 
             strBuilder.AppendLine("\t\tpublic long DataId {get;set;}");
@@ -92,11 +110,6 @@ namespace ETEditor
             strBuilder.AppendLine("\t\tpublic void SetCacheMode(bool isCache)");
             strBuilder.AppendLine("\t\t{");
             strBuilder.AppendLine("\t\t\tthis.isCacheNode = isCache;");
-            strBuilder.AppendLine("\t\t}\n");
-            strBuilder.AppendFormat("\t\tpublic Scroll_{0} BindTrans(Transform trans)\r\n", strDlgName);
-            strBuilder.AppendLine("\t\t{");
-            strBuilder.AppendLine("\t\t\tthis.uiTransform = trans;");
-            strBuilder.AppendLine("\t\t\treturn this;");
             strBuilder.AppendLine("\t\t}\n");
 
             CreateWidgetBindCode(ref strBuilder, gameObject.transform);

@@ -29,7 +29,7 @@ namespace UnityEngine.UI
             }
             else
             {
-                nextItem = prefabSource.GetObject().transform as RectTransform;
+                nextItem = prefabSource.GetObject(itemIdx).transform as RectTransform;
                 nextItem.transform.SetParent(m_Content, false);
                 nextItem.gameObject.SetActive(true);
             }
@@ -80,17 +80,6 @@ namespace UnityEngine.UI
 
             this.dataSource.ScrollMoveEvent = null;
             this.dataSource.ScrollMoveEvent = scrollMoveEvent;
-        }
-
-        public void AddPrefabListener(Func<int, string> prefabEvent)
-        {
-            if (this.dataSource == null || prefabEvent == null)
-            {
-                Debug.LogError("dataSource or scrollMoveEvent is error!");
-            }
-
-            this.dataSource.PrefabEvent = null;
-            this.dataSource.PrefabEvent = prefabEvent;
         }
     }
 }

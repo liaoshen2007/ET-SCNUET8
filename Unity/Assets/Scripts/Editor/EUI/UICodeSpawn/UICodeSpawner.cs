@@ -589,6 +589,7 @@ namespace ETEditor
             WidgetInterfaceList = new List<string>();
             WidgetInterfaceList.Add("Button");
             WidgetInterfaceList.Add("ExtendText");
+            WidgetInterfaceList.Add("SymbolText");
             WidgetInterfaceList.Add("Input");
             WidgetInterfaceList.Add("InputField");
             WidgetInterfaceList.Add("Scrollbar");

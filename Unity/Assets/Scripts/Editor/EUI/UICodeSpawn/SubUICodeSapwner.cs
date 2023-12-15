@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using ET.Client;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,11 +44,12 @@ namespace ETEditor
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.AppendLine("using UnityEngine;");
             strBuilder.AppendLine("using UnityEngine.UI;");
-            strBuilder.AppendLine("namespace ET.Client").AppendLine();
+            strBuilder.AppendLine();
+            strBuilder.AppendLine("namespace ET.Client");
             strBuilder.AppendLine("{");
             strBuilder.AppendFormat("\t[EntitySystemOf(typeof({0}))]\n",strDlgName);
             strBuilder.AppendFormat("\t[FriendOf(typeof({0}))]\n",strDlgName);
-            strBuilder.AppendFormat("\tpublic static partial class {0}System \r\n", strDlgName, strDlgName);
+            strBuilder.AppendFormat("\tpublic static partial class {0}System \r\n", strDlgName);
             strBuilder.AppendLine("\t{");
             strBuilder.AppendLine("\t\t[EntitySystem]");
             strBuilder.AppendFormat("\t\tprivate static void Awake(this {0} self, Transform transform)\n",strDlgName);
@@ -90,7 +92,8 @@ namespace ETEditor
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.AppendLine("using UnityEngine;");
-            strBuilder.AppendLine("using UnityEngine.UI;").AppendLine();
+            strBuilder.AppendLine("using UnityEngine.UI;");
+            strBuilder.AppendLine();
             strBuilder.AppendLine("namespace ET.Client");
             strBuilder.AppendLine("{");
             strBuilder.AppendLine("\t[ChildOf]");

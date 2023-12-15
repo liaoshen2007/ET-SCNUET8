@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace ET.Client
 {
 	[EnableMethod]
-	public  class Scroll_Item_Server : Entity, IAwake, IDestroy, IUIScrollItem 
+	public partial class Scroll_Item_Server : Entity, IAwake, IDestroy, IUIScrollItem 
 	{
 		public long DataId {get;set;}
 		private bool isCacheNode = false;
@@ -12,12 +12,6 @@ namespace ET.Client
 		public void SetCacheMode(bool isCache)
 		{
 			this.isCacheNode = isCache;
-		}
-
-		public Scroll_Item_Server BindTrans(Transform trans)
-		{
-			this.uiTransform = trans;
-			return this;
 		}
 
 		public Button E_ServerButton

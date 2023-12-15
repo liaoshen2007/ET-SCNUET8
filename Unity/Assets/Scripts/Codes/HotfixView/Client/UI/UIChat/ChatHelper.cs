@@ -5,10 +5,11 @@ namespace ET.Client;
 
 public static class ChatHelper
 {
-    public static string Encode(this ChatMsgData msgData)
+    public static string Encode(ChatMsgData msgData)
     {
         using ListComponent<string> list = ListComponent<string>.Create();
         list.Add(msgData.Msg);
+
         //表情表
         if (msgData.Emjo != 0)
         {
@@ -30,6 +31,11 @@ public static class ChatHelper
             list.Add(str);
         }
 
+        //道具
+        foreach (var data in msgData.ItemList)
+        {
+        }
+
         if (list.Count > 1)
         {
             list.Insert(1, UIChat.SpecSep);
@@ -38,7 +44,7 @@ public static class ChatHelper
         return string.Concat(list);
     }
 
-    public static ChatMsgData Decode(this string msgData)
+    public static ChatMsgData Decode(string msgData)
     {
         var data = new ChatMsgData();
 

@@ -1411,8 +1411,11 @@ namespace ET
 			return ObjectPool.Instance.Fetch(typeof(ItemProto), isFromPool) as ItemProto; 
 		}
 
+		[MemoryPackOrder(-1)]
+		public long Id { get; set; }
+
 		[MemoryPackOrder(0)]
-		public int Id { get; set; }
+		public int CfgId { get; set; }
 
 		[MemoryPackOrder(1)]
 		public long Count { get; set; }
@@ -1424,6 +1427,7 @@ namespace ET
 		{
 			if (!this.IsFromPool) return;
 			this.Id = default;
+			this.CfgId = default;
 			this.Count = default;
 			this.ValidTime = default;
 			

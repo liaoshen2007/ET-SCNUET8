@@ -37,6 +37,7 @@
 
         public void OnHideWindow(UIBaseWindow uiBaseWindow)
         {
+            uiBaseWindow.GetComponent<UIChat>().HideWindow();
         }
 
         public void BeforeUnload(UIBaseWindow uiBaseWindow)

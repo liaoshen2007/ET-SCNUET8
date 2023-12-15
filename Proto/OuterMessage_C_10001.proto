@@ -303,7 +303,8 @@ message M2C_CommitTask //ILocationResponse
 //道具
 message ItemProto
 {
-  int32 Id = 1;
+  int64 Id = 0;
+  int32 CfgId = 1;
   int64 Count = 2;
   int64 ValidTime = 3;
 }
@@ -322,7 +323,6 @@ message C2M_UseItem //ILocationRequest
   int64 Count = 2;
   repeated string Args = 3;
 }
-
 message M2C_UseItem //ILocationResponse
 {
   repeated string RetArgs = 3;
@@ -334,7 +334,6 @@ message C2M_DeleteItem //ILocationRequest
 {
   repeated ItemProto List = 1;
 }
-
 message M2C_DeleteItem //ILocationResponse
 {
 }

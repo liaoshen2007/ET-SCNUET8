@@ -71,6 +71,7 @@ namespace ET
         private const string numericPath = "../Unity/Assets/Scripts/Codes/Model/Share/Module/Numeric/NumericType.cs";
         private const string windowPath = "../Unity/Assets/Scripts/Codes/ModelView/Client/Plugins/EUI/WindowId.cs";
         private const string constPath = "../Unity/Assets/Scripts/Codes/Hotfix/Share/ConstCfgValue.cs";
+        private const string menuPath = "../Unity/Assets/Scripts/Codes/ModelView/Client/Demo/Menu/SystemMenuType.cs";
         private const string replaceStr = "/{0}/{1}";
         private static Assembly[] configAssemblies = new Assembly[3];
 
@@ -221,6 +222,8 @@ namespace ET
                 Log.Console("Export Window Sucess!");
                 ExportConst();
                 Log.Console("Export Const Sucess!");
+                ExportMenuType();
+                Log.Console("Export Menu Sucess!");
             }
             catch (Exception e)
             {
@@ -829,6 +832,70 @@ namespace ET
 
             sb.Remove(sb.Length - 3, 3);
             using FileStream txt = new FileStream(constPath, FileMode.Create);
+            using StreamWriter sw = new StreamWriter(txt);
+            var result = template.Replace("(fields)", sb.ToString());
+            sw.Write(result);
+        }
+        
+        /// <summary>
+        /// 导出菜单
+        /// </summary>
+        private static void ExportMenuType()
+        {
+            static void AppendDesc(string desc, StringBuilder stringBuilder)
+            {
+                if (!desc.IsNullOrEmpty())
+                {
+                    stringBuilder.Append("\t\t/// <summary>\n");
+                    stringBuilder.AppendFormat($"\t\t/// {desc}\n");
+                    stringBuilder.Append("\t\t/// </summary>\n");
+                }
+            }
+
+            var path = Path.GetFullPath(excelDir + "/SystemMenu@c.xlsx");
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            ExcelPackage p = GetPackage(Path.GetFullPath(path));
+            template = File.ReadAllText("SystemMenuType.txt");
+            var sb = new StringBuilder();
+            const string format = "\t\t{0} = {1},\n";
+            foreach (ExcelWorksheet worksheet in p.Workbook.Worksheets)
+            {
+                if (worksheet.Name.StartsWith("#"))
+                {
+                    continue;
+                }
+
+                var dict = new Dictionary<string, int>();
+                var dd = new Dictionary<int, string>();
+                for (int row = 6; row <= worksheet.Dimension.End.Row; ++row)
+                {
+                    var classify = worksheet.Cells[row, 7].Text.Trim();
+                    if (classify.IsNullOrEmpty() || classify == "0")
+                    {
+                        continue;
+                    }
+
+                    var t = worksheet.Cells[row, 8].Text.Trim();
+                    dict.TryAdd(t, classify.ToInt());
+                    var desc = worksheet.Cells[row, 9].Text.Trim();
+                    dd.TryAdd(classify.ToInt(), desc);
+                }
+
+                foreach ((string key, int value) in dict)
+                {
+                    var desc = dd[value];
+                    AppendDesc(desc, sb);
+                    sb.AppendFormat(format, key, value);
+                    sb.AppendLine();
+                }
+            }
+
+            sb.Remove(sb.Length - 3, 3);
+            using FileStream txt = new FileStream(menuPath, FileMode.Create);
             using StreamWriter sw = new StreamWriter(txt);
             var result = template.Replace("(fields)", sb.ToString());
             sw.Write(result);

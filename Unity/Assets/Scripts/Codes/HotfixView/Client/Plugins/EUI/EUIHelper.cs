@@ -88,10 +88,15 @@ namespace ET.Client
             uiBehaviour.gameObject.SetActive(isVisible);
         }
 
-        public static void SetVisible(this LoopScrollRect loopScrollRect, bool isVisible, int count = 0)
+        public static void SetVisible(this LoopScrollRect loopScrollRect, bool isVisible, int count = 0, bool isEnd = false)
         {
             loopScrollRect.gameObject.SetActive(isVisible);
             loopScrollRect.totalCount = count;
+            if (isEnd)
+            {
+                loopScrollRect.RefillCellsFromEnd();
+            }
+            
             loopScrollRect.RefillCells();
         }
 
@@ -204,10 +209,7 @@ namespace ET.Client
 
         public static void ClearPool(this LoopVerticalScrollRect scrollRect)
         {
-            foreach (var item in scrollRect.prefabSource.PrefabList)
-            {
-                GameObjectPoolHelper.ClearPool(item.prefabName);
-            }
+            GameObjectPoolHelper.ClearPool(scrollRect.prefabSource.prefabName);
         }
         #endregion
 

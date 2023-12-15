@@ -13,7 +13,7 @@ public enum ChatChannelType
     League,
 
     /// <summary>
-    /// 个人频道
+    /// 私聊频道
     /// </summary>
     Personal,
 
@@ -26,9 +26,4 @@ public enum ChatChannelType
     /// 公告
     /// </summary>
     TV,
-
-    /// <summary>
-    /// 全服频道
-    /// </summary>
-    Server,
 }

@@ -21,4 +21,5 @@ public struct ChatMsgData
     public int Emjo;
     public QuoteData Quote;
     public List<AtData> AtList;
+    public List<ItemProto> ItemList;
 }

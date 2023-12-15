@@ -20,15 +20,15 @@ public static partial class ClientItemComponentSystem
 
     private static void AddUpdateItem(this ClientItemComponent self, ItemProto proto)
     {
-        if (!self.ItemDict.TryGetValue(proto.Id, out var item))
-        {
-            item = self.AddChildWithId<ItemData>(proto.Id);
-            self.ItemDict.Add(proto.Id, item);
-        }
-
-        long oldCount = item.Count;
-        item.ToItem(proto);
-        EventSystem.Instance.Publish(self.Scene(), new AddItem() { ItemId = proto.Id, Count = proto.Count, ChangeCount = proto.Count - oldCount });
+        // if (!self.ItemDict.TryGetValue(proto.CfgId, out var item))
+        // {
+        //     item = self.AddChildWithId<ItemData>(proto.Id);
+        //     self.ItemDict.Add(proto.CfgId, item);
+        // }
+        //
+        // long oldCount = item.Count;
+        // item.ToItem(proto);
+        // EventSystem.Instance.Publish(self.Scene(), new AddItem() { ItemId = proto.CfgId, Count = proto.Count, ChangeCount = proto.Count - oldCount });
     }
 
     /// <summary>

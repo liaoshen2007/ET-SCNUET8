@@ -23,9 +23,10 @@ namespace ET.Client
         /// <summary>
         /// 群组列表
         /// </summary>
-        public Dictionary<string, ChatGroup> groupDict = new Dictionary<string, ChatGroup>();
+        public Dictionary<string, ChatGroup> groupDict = new();
 
-        public List<ClientChatUnit> chatMsgList = new List<ClientChatUnit>();
-        public Dictionary<long, ClientChatUnit> chatMsgDict = new Dictionary<long, ClientChatUnit>();
+        public List<ClientChatUnit> worldMsgList = new();
+        public List<ClientChatUnit> leagueMsgList = new();
+        public Dictionary<string, List<ClientChatUnit>> groupMsgDict = new();
     }
 }

@@ -66,7 +66,7 @@ namespace ET.Client
         /// 根据泛型获得UI窗口逻辑组件
         /// </summary>
         /// <param name="self"></param>
-        /// <param name="isNeedShowState"></param>
+        /// <param name="isNeedShowState">界面是否处于打开状态</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T GetDlgLogic<T>(this UIComponent self, bool isNeedShowState = false) where T : Entity, IUILogic
@@ -89,7 +89,6 @@ namespace ET.Client
             {
                 if (!self.IsWindowVisible(windowsId))
                 {
-                    Log.Warning($"{windowsId} is need show state!");
                     return null;
                 }
             }
