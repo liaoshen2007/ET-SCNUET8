@@ -41,12 +41,11 @@ namespace ET
                 return;
             }
             
+            queue.Notify(level);
             if (queue.Count == 0)
             {
                 self.Remove(key);
             }
-
-            queue.Notify(level);
         }
     }
     
