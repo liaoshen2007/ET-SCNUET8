@@ -26,6 +26,7 @@ namespace ET.Client
 
         public static void Refresh(this Scroll_Item_Menu self, MeunData data, int selectId)
         {
+            self.meunData = data;
             bool select = self.DataId == selectId;
             self.EG_SelectRectTransform.SetActive(select);
             if (self.E_TextExtendText != null)
@@ -33,9 +34,14 @@ namespace ET.Client
                 self.E_TextExtendText.SetText(data.Config.Name);
             }
 
+            if (self.EG_LockRectTransform != null)
+            {
+                self.EG_LockRectTransform.SetActive(false);
+            }
+
             if (self.E_IconExtendImage != null)
             {
-                UIHelper.SetSprite(self, self.E_IconExtendImage, data.Config.Icon, AtlasType.Emotion).Coroutine();
+                IconHelper.SetSprite(self, self.E_IconExtendImage, data.Config.Icon, AtlasType.Emotion).Coroutine();
             }
 
             if (select)

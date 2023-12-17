@@ -15,6 +15,20 @@ namespace ET.Client
     [FriendOf(typeof (ClientChatComponent))]
     public static partial class UIChatSystem
     {
+        private static async ETTask LoadData(this UIChat self)
+        {
+            UIChat data = await self.Scene().GetComponent<DataSaveComponent>().GetAsync<UIChat>("historyEmjiList");
+            if (data != null)
+            {
+                self.historyEmojList.Clear();
+                self.historyEmojList.AddRange(data.historyEmojList);
+                data.Dispose();
+
+                self.AddUIScrollItems(self.emojHistoryDict, self.historyEmojList.Count);
+                self.View.E_HistoryListLoopHorizontalScrollRect.SetVisible(true, self.historyEmojList.Count);
+            }
+        }
+
         public static void RegisterUIEvent(this UIChat self)
         {
             self.moveTween = self.View.EG_ChatRectTransform.GetComponent<TweenAnchorPosition>();
@@ -31,10 +45,15 @@ namespace ET.Client
             self.View.E_MenuListLoopHorizontalScrollRect.AddMenuRefreshListener(self, SystemMenuType.Chat);
             self.View.E_MsgListLoopVerticalScrollRect.AddItemRefreshListener(self.MsgListRefresh);
             self.View.E_EmotionMeuListLoopHorizontalScrollRect.AddMenuRefreshListener(self, SystemMenuType.ChatEmojMenu);
+            self.View.E_HistoryListLoopHorizontalScrollRect.AddItemRefreshListener(self.EmojHistoryRefresh);
+            self.View.E_EmojListLoopVerticalScrollRect.AddItemRefreshListener(self.EmojRefresh);
+
+            self.LoadData().Coroutine();
         }
 
         public static void ShowWindow(this UIChat self, Entity contextData = null)
         {
+            self.temphistoryEmojList.Clear();
             self.View.E_CloseEmojButton.SetActive(false);
             self.moveTween.PlayForward();
             self.View.E_TitleExtendText.SetTitle(WindowID.Win_UIChat);
@@ -58,16 +77,13 @@ namespace ET.Client
         {
         }
 
-        private static void SendBtnClick(this UIChat self)
+        private static void SendInnner(this UIChat self)
         {
-            string msg = self.View.E_InputInputField.text;
-            if (string.IsNullOrEmpty(msg))
-            {
-                return;
-            }
-
+            self.data.Msg = ChatHelper.RevertEmojiName(self.data.Msg, EmojiConfigCategory.Instance.GetEmojiName);
             int index = self.GetChild<MenuDict>(SystemMenuType.Chat).SelectId;
             C2Chat_SendRequest chat = C2Chat_SendRequest.Create();
+
+            string msg = ChatHelper.Encode(self.data);
             chat.Message = msg;
             chat.RoleInfo = new PlayerInfoProto()
             {
@@ -94,6 +110,37 @@ namespace ET.Client
             self.View.E_InputInputField.text = string.Empty;
         }
 
+        private static void SendBtnClick(this UIChat self)
+        {
+            string msg = self.View.E_InputInputField.text;
+            if (string.IsNullOrEmpty(msg))
+            {
+                return;
+            }
+
+            //刷新历史表情
+            if (self.temphistoryEmojList.Count > 0)
+            {
+                self.historyEmojList.InsertRange(0, self.temphistoryEmojList);
+                if (self.historyEmojList.Count > 8)
+                {
+                    self.historyEmojList.RemoveRange(0, self.historyEmojList.Count - 8);
+                }
+
+                self.temphistoryEmojList.Clear();
+            }
+
+            if (self.GetChild<MenuDict>(SystemMenuType.ChatEmojMenu).SelectId == 0)
+            {
+                self.AddUIScrollItems(self.emojHistoryDict, self.historyEmojList.Count);
+                self.View.E_HistoryListLoopHorizontalScrollRect.SetVisible(true, self.historyEmojList.Count);
+            }
+
+            self.data.Msg = self.View.E_InputInputField.text;
+            self.SendInnner();
+            self.View.E_InputInputField.text = string.Empty;
+        }
+
         private static void EmjoBtnClick(this UIChat self)
         {
             self.emojiTween.PlayForward();
@@ -102,6 +149,8 @@ namespace ET.Client
 
         private static void CloseEmjoBtnClick(this UIChat self)
         {
+            self.Scene().GetComponent<DataSaveComponent>().SaveAsync("historyEmjiList", self).Coroutine();
+            self.temphistoryEmojList.Clear();
             self.View.E_CloseEmojButton.SetActive(false);
             self.emojiTween.PlayReverse();
         }
@@ -183,9 +232,63 @@ namespace ET.Client
             self.View.E_MsgListLoopVerticalScrollRect.SetVisible(true, chatUnitList.Count, true);
         }
 
-        public static void RefreshEmojiList(this UIChat self, int index)
+        private static void EmojHistoryRefresh(this UIChat self, Transform transform, int idx)
         {
-            
+            Scroll_Item_Emoj item = self.emojHistoryDict[idx].BindTrans(transform);
+            item.DataId = idx;
+            int id = self.historyEmojList[idx];
+            item.Refresh(id);
+            item.E_BtnButton.AddListener(() => { self.EmojiItemClick(id); });
+        }
+
+        private static void EmojRefresh(this UIChat self, Transform transform, int idx)
+        {
+            Scroll_Item_Emoj item = self.emojDict[idx].BindTrans(transform);
+            item.DataId = idx;
+            int group = self.GetChild<MenuDict>(SystemMenuType.ChatEmojMenu).GetGroupId();
+            var list = EmojiConfigCategory.Instance.GetGroupList(group);
+            int id = list[idx].Id;
+            item.Refresh(id);
+            item.E_BtnButton.AddListener(() => { self.EmojiItemClick(id); });
+        }
+
+        private static void EmojiItemClick(this UIChat self, int id)
+        {
+            var cfg = EmojiConfigCategory.Instance.Get(id);
+            var l = LanguageCategory.Instance.Get(cfg.Name);
+            self.View.E_InputInputField.text = $"{self.View.E_InputInputField.text}[{l.Msg}]";
+            if (!self.historyEmojList.Contains(id))
+            {
+                self.temphistoryEmojList.Remove(id);
+                self.temphistoryEmojList.Insert(0, id);
+            }
+            else
+            {
+                self.historyEmojList.Remove(id);
+                self.historyEmojList.Insert(0, id);
+            }
+        }
+
+        public static void RefreshEmojiList(this UIChat self, MenuSelectEvent a)
+        {
+            //第一页才有历史记录
+            self.View.E_HistoryListLoopHorizontalScrollRect.SetActive(a.Index == 0);
+            if (a.Index == 0)
+            {
+                if (self.historyEmojList.Count == 0)
+                {
+                    self.View.E_HistoryListLoopHorizontalScrollRect.SetActive(false);
+                }
+                else
+                {
+                    self.AddUIScrollItems(self.emojHistoryDict, self.historyEmojList.Count);
+                    self.View.E_HistoryListLoopHorizontalScrollRect.SetVisible(true, self.historyEmojList.Count);
+                }
+            }
+
+            var list = EmojiConfigCategory.Instance.GetGroupList(a.Data.Config.GroupId);
+            self.AddUIScrollItems(self.emojDict, list.Count);
+            self.View.E_EmojListLoopVerticalScrollRect.SetVisible(true, list.Count);
         }
     }
 }

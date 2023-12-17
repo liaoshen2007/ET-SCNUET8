@@ -6,6 +6,13 @@ namespace ET.Client
 {
     public static class IconHelper
     {
+        public static async ETTask SetSprite(Entity entity, ExtendImage image, string spriteName, AtlasType atlasType)
+        {
+            var path = entity.Scene().GetComponent<UIComponent>().GetAtlasPath(atlasType);
+            var sp = await entity.LoadSpriteAsync(path, spriteName);
+            image.sprite = sp;
+        }
+        
         public static async ETTask<Sprite> LoadIconSpriteAsync(this Entity self, string spriteName)
         {
             var path = self.Scene().GetComponent<UIComponent>().GetAtlasPath(AtlasType.Icon);

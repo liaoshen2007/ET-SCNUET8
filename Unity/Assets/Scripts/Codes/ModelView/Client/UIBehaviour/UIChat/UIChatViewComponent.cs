@@ -278,7 +278,7 @@ namespace ET.Client
      		}
      	}
 
-		public ExtendImage E_IconExtendImage
+		public LoopVerticalScrollRect E_EmojListLoopVerticalScrollRect
      	{
      		get
      		{
@@ -287,45 +287,11 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_IconExtendImage == null )
+     			if( this.m_E_EmojListLoopVerticalScrollRect == null )
      			{
-		    		this.m_E_IconExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"EG_Chat/EG_Anim/Emotion/List/View/Content/E_HistoryList/Viewport/Content/Item_Emoj/E_Icon");
+		    		this.m_E_EmojListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(this.uiTransform.gameObject,"EG_Chat/EG_Anim/Emotion/List/View/Content/E_EmojList");
      			}
-     			return this.m_E_IconExtendImage;
-     		}
-     	}
-
-		public Button E_BtnButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_BtnButton == null )
-     			{
-		    		this.m_E_BtnButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"EG_Chat/EG_Anim/Emotion/List/View/Content/E_HistoryList/Viewport/Content/Item_Emoj/E_Btn");
-     			}
-     			return this.m_E_BtnButton;
-     		}
-     	}
-
-		public LoopHorizontalScrollRect E_EmojListLoopHorizontalScrollRect
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_EmojListLoopHorizontalScrollRect == null )
-     			{
-		    		this.m_E_EmojListLoopHorizontalScrollRect = UIFindHelper.FindDeepChild<LoopHorizontalScrollRect>(this.uiTransform.gameObject,"EG_Chat/EG_Anim/Emotion/List/View/Content/E_EmojList");
-     			}
-     			return this.m_E_EmojListLoopHorizontalScrollRect;
+     			return this.m_E_EmojListLoopVerticalScrollRect;
      		}
      	}
 
@@ -347,9 +313,7 @@ namespace ET.Client
 			this.m_EmotionExtendImage = null;
 			this.m_E_EmotionMeuListLoopHorizontalScrollRect = null;
 			this.m_E_HistoryListLoopHorizontalScrollRect = null;
-			this.m_E_IconExtendImage = null;
-			this.m_E_BtnButton = null;
-			this.m_E_EmojListLoopHorizontalScrollRect = null;
+			this.m_E_EmojListLoopVerticalScrollRect = null;
 			uiTransform = null;
 		}
 
@@ -369,9 +333,7 @@ namespace ET.Client
 		private ExtendImage m_EmotionExtendImage = null;
 		private LoopHorizontalScrollRect m_E_EmotionMeuListLoopHorizontalScrollRect = null;
 		private LoopHorizontalScrollRect m_E_HistoryListLoopHorizontalScrollRect = null;
-		private ExtendImage m_E_IconExtendImage = null;
-		private Button m_E_BtnButton = null;
-		private LoopHorizontalScrollRect m_E_EmojListLoopHorizontalScrollRect = null;
+		private LoopVerticalScrollRect m_E_EmojListLoopVerticalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }

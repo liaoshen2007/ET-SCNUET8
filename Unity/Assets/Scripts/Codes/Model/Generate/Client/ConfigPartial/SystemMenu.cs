@@ -65,6 +65,8 @@ namespace ET
 
     public partial class SystemMenu
     {
+        public int GroupId { get; set; }
+
         public List<CmdArg> ShowCmdList { get; private set; }
 
         public List<CmdArg> OpenCmdList { get; private set; }

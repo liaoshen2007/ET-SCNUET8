@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ET
@@ -52,8 +53,20 @@ namespace ET
 
 			using ListComponent<Task> listTasks = ListComponent<Task>.Create();
 			
+			// 首先加载语言配置
+			Type t = configBytes.Keys.FirstOrDefault(t => t.Name == "LanguageCategory");
+			if (t != null)
+			{
+				await Task.Run(() => LoadOneInThread(t, configBytes[t]));
+			}
+			
 			foreach (Type type in configBytes.Keys)
 			{
+				if (type.Name == "LanguageCategory")
+				{
+					continue;
+				}
+				
 				byte[] oneConfigBytes = configBytes[type];
 				Task task = Task.Run(() => LoadOneInThread(type, oneConfigBytes));
 				listTasks.Add(task);

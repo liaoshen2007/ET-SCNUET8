@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace ET.Client;
@@ -109,5 +110,23 @@ public static class ChatHelper
         }
 
         return data;
+    }
+
+    public static string RevertEmojiName(string str, Func<string, int> filter)
+    {
+        return Regex.Replace(str, @"\[[^\]]+\]", match =>
+        {
+            // 从匹配的字符串中移除前后的方括号
+            string emojiName = match.Value.Substring(1, match.Value.Length - 2);
+
+            // 检查键是否存在于字典中
+            int id = filter(emojiName);
+            if (id != 0)
+            {
+                return "#" + id;
+            }
+
+            return match.Value;
+        });
     }
 }

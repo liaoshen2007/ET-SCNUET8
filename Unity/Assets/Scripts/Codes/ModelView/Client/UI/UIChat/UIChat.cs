@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET.Client
 {
@@ -10,14 +11,47 @@ namespace ET.Client
             get => GetParent<UIBaseWindow>().GetComponent<UIChatViewComponent>();
         }
 
+        [BsonIgnore]
+        public ChatMsgData data = new ChatMsgData()
+        {
+            AtList = new List<AtData>(),
+            ItemList = new List<ItemProto>()
+        };
+
+        [BsonIgnore]
         public const float Gap = 5;
+
+        [BsonIgnore]
         public const float InitWidth = 372;
+
+        [BsonIgnore]
         public const string Sep = "$blz$";
+
+        [BsonIgnore]
         public const string SpecSep = "\\u{2042}";
+
+        [BsonIgnore]
         public UComTweener emojiTween;
+
+        [BsonIgnore]
         public UComTweener moveTween;
 
-        public Dictionary<int, Scroll_Item_Menu> menuDic = new Dictionary<int, Scroll_Item_Menu>();
-        public Dictionary<int, Scroll_Item_Chat> msgDic = new Dictionary<int, Scroll_Item_Chat>();
+        //历史记录
+        public List<int> historyEmojList = new();
+
+        [BsonIgnore]
+        public List<int> temphistoryEmojList = new();
+
+        [BsonIgnore]
+        public Dictionary<int, Scroll_Item_Menu> menuDic = new();
+
+        [BsonIgnore]
+        public Dictionary<int, Scroll_Item_Chat> msgDic = new();
+
+        [BsonIgnore]
+        public Dictionary<int, Scroll_Item_Emoj> emojHistoryDict = new();
+
+        [BsonIgnore]
+        public Dictionary<int, Scroll_Item_Emoj> emojDict = new();
     }
 }

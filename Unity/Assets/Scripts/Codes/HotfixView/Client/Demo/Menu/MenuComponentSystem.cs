@@ -19,7 +19,10 @@ public static partial class MenuComponentSystem
         foreach (var v in EmojiConfigCategory.Instance.GetAll().Values.GroupBy(v => v.GroupId))
         {
             EmojiConfig cfg = v.FirstOrDefault();
-            self.AddDynamicMenu(SystemMenuType.ChatEmojMenu, new SystemMenu() { Icon = cfg.Icon, Rank = cfg.Weight, Name = cfg.Name, });
+            self.AddDynamicMenu(SystemMenuType.ChatEmojMenu, new SystemMenu()
+            {
+                Icon = cfg.Icon, Rank = cfg.Weight, Name = cfg.Name, GroupId = v.Key,
+            });
         }
     }
 
