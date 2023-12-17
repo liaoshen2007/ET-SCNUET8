@@ -49,6 +49,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// ET.AEvent<object,ET.SceneChangeFinish>
 	// ET.AEvent<object,ET.SceneChangeStart>
 	// ET.AInvokeHandler<ET.FiberInit,object>
+	// ET.AInvokeHandler<ET.LanguageLoader.GetLanguageCfg,ET.Pair<UnityEngine.Color,object>>
 	// ET.AInvokeHandler<ET.MailBoxInvoker>
 	// ET.AInvokeHandler<ET.NetComponentOnRead>
 	// ET.AInvokeHandler<ET.TimerCallback>
@@ -99,6 +100,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// ET.LateUpdateSystem<object>
 	// ET.ListComponent<Unity.Mathematics.float3>
 	// ET.ListComponent<object>
+	// ET.Pair<UnityEngine.Color,object>
 	// ET.Singleton<object>
 	// ET.StateMachineWrap<object>
 	// ET.StructBsonSerialize<ET.LSInput>
@@ -525,6 +527,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Linq.Buffer<ET.RpcInfo>
 	// System.Linq.Buffer<object>
 	// System.Linq.GroupedEnumerable<object,int,object>
+	// System.Linq.IGrouping<int,object>
 	// System.Linq.IdentityFunction.<>c<object>
 	// System.Linq.IdentityFunction<object>
 	// System.Linq.Lookup.<GetEnumerator>d__12<int,object>
@@ -670,6 +673,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object ET.MongoHelper.FromJson<object>(string)
 		// System.Void ET.ObjectHelper.Swap<object>(object&,object&)
 		// object ET.ObjectPool.Fetch<object>()
+		// ET.Pair<UnityEngine.Color,object> ET.Pair<UnityEngine.Color,object>.Create<UnityEngine.Color,object>(UnityEngine.Color,object)
 		// System.Void ET.RandomGenerator.BreakRank<object>(System.Collections.Generic.List<object>)
 		// object ET.World.AddSingleton<object>()
 		// System.Collections.Generic.List<object> MemoryPack.Formatters.ListFormatter.DeserializePackable<object>(MemoryPack.MemoryPackReader&)

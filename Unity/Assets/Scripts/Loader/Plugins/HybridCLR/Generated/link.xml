@@ -48,6 +48,7 @@
     <type fullname="System.Text.RegularExpressions.Group" preserve="all" />
     <type fullname="System.Text.RegularExpressions.GroupCollection" preserve="all" />
     <type fullname="System.Text.RegularExpressions.Match" preserve="all" />
+    <type fullname="System.Text.RegularExpressions.MatchEvaluator" preserve="all" />
     <type fullname="System.Text.RegularExpressions.Regex" preserve="all" />
     <type fullname="System.Text.RegularExpressions.RegexOptions" preserve="all" />
   </assembly>
@@ -162,6 +163,7 @@
     <type fullname="ET.ObjectHelper" preserve="all" />
     <type fullname="ET.ObjectPool" preserve="all" />
     <type fullname="ET.OpcodeType" preserve="all" />
+    <type fullname="ET.Pair`2" preserve="all" />
     <type fullname="ET.ProcessInnerSender" preserve="all" />
     <type fullname="ET.ProcessInnerSenderSystem" preserve="all" />
     <type fullname="ET.ProtoObject" preserve="all" />
@@ -200,6 +202,8 @@
     <type fullname="ET.GameObjectPoolHelper" preserve="all" />
     <type fullname="ET.Global" preserve="all" />
     <type fullname="ET.GlobalConfig" preserve="all" />
+    <type fullname="ET.LanguageLoader" preserve="all" />
+    <type fullname="ET.LanguageLoader/GetLanguageCfg" preserve="all" />
     <type fullname="ET.PoolInflationType" preserve="all" />
     <type fullname="ET.TweenAnchorPosition" preserve="all" />
     <type fullname="ET.Tweener" preserve="all" />
