@@ -27,7 +27,7 @@ public static partial class ChatUnitSystem
 
     public static PlayerInfoProto ToPlayerInfo(this ChatUnit self)
     {
-        var playerInfo = PlayerInfoProto.Create(false);
+        var playerInfo = PlayerInfoProto.Create();
         playerInfo.Id = self.Id;
         playerInfo.Name = self.name;
         playerInfo.HeadIcon = self.headIcon;

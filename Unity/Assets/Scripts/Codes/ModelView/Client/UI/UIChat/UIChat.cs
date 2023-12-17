@@ -10,8 +10,11 @@ namespace ET.Client
             get => GetParent<UIBaseWindow>().GetComponent<UIChatViewComponent>();
         }
 
+        public const float Gap = 5;
+        public const float InitWidth = 372;
         public const string Sep = "$blz$";
         public const string SpecSep = "\\u{2042}";
+        public UComTweener emojiTween;
         public UComTweener moveTween;
 
         public Dictionary<int, Scroll_Item_Menu> menuDic = new Dictionary<int, Scroll_Item_Menu>();

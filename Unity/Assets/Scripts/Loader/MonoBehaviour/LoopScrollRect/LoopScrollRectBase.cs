@@ -669,13 +669,6 @@ namespace UnityEngine.UI
             base.Awake();
             if (Application.isPlaying)
             {
-                float value = (reverseDirection ^ (direction == LoopScrollRectDirection.Horizontal)) ? 0 : 1;
-                if (m_Content != null)
-                {
-                    Debug.Assert(GetAbsDimension(m_Content.pivot) == value, this);
-                    Debug.Assert(GetAbsDimension(m_Content.anchorMin) == value, this);
-                    Debug.Assert(GetAbsDimension(m_Content.anchorMax) == value, this);
-                }
                 if (direction == LoopScrollRectDirection.Vertical)
                     Debug.Assert(m_Vertical && !m_Horizontal, this);
                 else

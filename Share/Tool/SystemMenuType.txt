@@ -6,7 +6,7 @@ namespace ET.Client
 	/// <summary>
     /// 菜单枚举定义(此文件由代码生成, 禁止修改)
     /// </summary>
-	public enum SystemMenuType
+	public static partial class SystemMenuType
 	{
 (fields)
 	}

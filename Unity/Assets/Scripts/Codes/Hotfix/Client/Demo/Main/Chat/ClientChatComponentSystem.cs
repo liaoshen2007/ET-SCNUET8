@@ -16,7 +16,7 @@ public static partial class ClientChatComponentSystem
     {
         foreach (var proto in msgList)
         {
-            using var chatUnit = self.AddChildWithId<ClientChatUnit>(proto.Id);
+            ClientChatUnit chatUnit = self.AddChildWithId<ClientChatUnit>(proto.Id);
             chatUnit.FromProto(proto);
             switch (chatUnit.Channel)
             {

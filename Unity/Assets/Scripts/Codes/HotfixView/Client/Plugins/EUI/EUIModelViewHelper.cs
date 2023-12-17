@@ -27,28 +27,28 @@ namespace ET.Client
             }
         }
 
-        public static void SetMenuVisible<T>(this LoopScrollRect self, T entity, SystemMenuType menu) where T : Entity, IUILogic
+        public static void SetMenuVisible<T>(this LoopScrollRect self, T entity, int menu) where T : Entity, IUILogic
         {
             var list = entity.Scene().GetComponent<MenuComponent>().GetMenuList(menu);
-            MenuDictComponent c = entity.GetComponent<MenuDictComponent>();
+            MenuDict c = entity.GetChild<MenuDict>(menu);
             entity.AddUIScrollItems(c.MenuDic, list.Count);
             self.SetVisible(true, list.Count);
         }
 
-        public static void AddMenuRefreshListener<T>(this LoopScrollRect self, T entity, SystemMenuType menu) where T : Entity
+        public static void AddMenuRefreshListener<T>(this LoopScrollRect self, T entity, int menu) where T : Entity, IAwake
         {
-            if (entity.GetComponent<MenuDictComponent>() == null)
+            if (!entity.HasChild(menu))
             {
-                entity.AddComponent<MenuDictComponent>();
+                entity.AddChildWithId<MenuDict>(menu);
             }
 
             self.AddItemRefreshListener((transform, i) => { MenuListRefresh(entity, transform, i, menu); });
         }
 
-        private static void MenuListRefresh<T>(T self, Transform transform, int i, SystemMenuType menu) where T : Entity
+        private static void MenuListRefresh<T>(T self, Transform transform, int i, int menu) where T : Entity
         {
             var list = self.Scene().GetComponent<MenuComponent>().GetMenuList(menu);
-            MenuDictComponent c = self.GetComponent<MenuDictComponent>();
+            MenuDict c = self.GetChild<MenuDict>(menu);
             Scroll_Item_Menu item = c.MenuDic[i].BindTrans(transform);
             item.DataId = i;
             item.SetCacheMode(true);
@@ -56,14 +56,14 @@ namespace ET.Client
             item.Refresh(list[i], c.SelectId);
         }
 
-        private static void MenuBtnClick<T>(T self, int i, SystemMenuType menu) where T : Entity
+        private static void MenuBtnClick<T>(T self, int i, int menu) where T : Entity
         {
             var list = self.Scene().GetComponent<MenuComponent>().GetMenuList(menu);
-            MenuDictComponent c = self.GetComponent<MenuDictComponent>();
+            MenuDict c = self.GetChild<MenuDict>(menu);
             c.SelectId = i;
             Scroll_Item_Menu item = c.MenuDic[i];
             item.Refresh(list[i], c.SelectId);
-            item.RefreshAll(i);
+            item.RefreshAll(i, menu);
         }
     }
 }

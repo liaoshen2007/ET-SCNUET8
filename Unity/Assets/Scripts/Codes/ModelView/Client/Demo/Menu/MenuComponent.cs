@@ -7,8 +7,6 @@ namespace ET.Client;
 /// </summary>
 public struct MenuSelectEvent
 {
-    public SystemMenuType MenuType;
-
     public int Index;
 
     public MeunData Data;
@@ -22,5 +20,5 @@ public struct MenuSelectEvent
 [ComponentOf(typeof (Scene))]
 public class MenuComponent: Entity, IAwake
 {
-    public Dictionary<SystemMenuType, List<MeunData>> menuDict = new();
+    public Dictionary<int, List<MeunData>> menuDict = new();
 }

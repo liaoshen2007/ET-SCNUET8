@@ -24,7 +24,7 @@ namespace ET.Client
         {
             self.RefreshSprite(item.Data.Emjo).Coroutine();
             RectTransform trans = self.E_IconExtendImage.rectTransform;
-            return new Vector2(trans.sizeDelta.x, trans.rect.height + Mathf.Abs(trans.anchoredPosition.y) + ES_SelfImage.gap);
+            return new Vector2(trans.sizeDelta.x, trans.rect.height + Mathf.Abs(trans.anchoredPosition.y) + UIChat.Gap);
         }
 
         private static async ETTask RefreshSprite(this ES_OtherImage self, int id)

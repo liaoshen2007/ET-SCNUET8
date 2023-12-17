@@ -4,26 +4,61 @@ namespace ET
 {
     public partial class SystemMenuCategory
     {
-        private Dictionary<int, List<SystemMenu>> classifyDict = new Dictionary<int, List<SystemMenu>>();
+        public Dictionary<int, List<SystemMenu>> ClassifyDict { get; } = new Dictionary<int, List<SystemMenu>>();
 
         public List<SystemMenu> GetList(int classify)
         {
-            this.classifyDict.TryGetValue(classify, out List<SystemMenu> list);
+            this.ClassifyDict.TryGetValue(classify, out List<SystemMenu> list);
             return list;
+        }
+
+        private void AddClassifyMenu(SystemMenu config)
+        {
+            var classify = config.Classify;
+            if (!this.ClassifyDict.TryGetValue(classify, out var list))
+            {
+                list = new List<SystemMenu>();
+                this.ClassifyDict.Add(classify, list);
+            }
+
+            list.Add(config);
+        }
+
+        public void AddDynamicMeun(SystemMenu config)
+        {
+            this.dict.Add(config.Id, config);
+            this.AddClassifyMenu(config);
+        }
+
+        public void RemoveDynamicMeun(int id)
+        {
+            if (!this.dict.Remove(id, out SystemMenu config))
+            {
+                return;
+            }
+
+            if (this.ClassifyDict.TryGetValue(config.Classify, out var list))
+            {
+                list.Remove(config);
+            }
+        }
+
+        public void RemoveDynamicClassify(int classify)
+        {
+            if (this.ClassifyDict.Remove(classify, out List<SystemMenu> list))
+            {
+                foreach (SystemMenu menu in list)
+                {
+                    this.dict.Remove(menu.Id);
+                }
+            }
         }
 
         public override void EndInit()
         {
-            foreach (var config in this.dict.Values)
+            foreach (SystemMenu config in this.dict.Values)
             {
-                var classify = config.Classify;
-                if (!this.classifyDict.TryGetValue(classify, out var list))
-                {
-                    list = new List<SystemMenu>();
-                    this.classifyDict.Add(classify, list);
-                }
-
-                list.Add(config);
+                this.AddClassifyMenu(config);
             }
         }
     }

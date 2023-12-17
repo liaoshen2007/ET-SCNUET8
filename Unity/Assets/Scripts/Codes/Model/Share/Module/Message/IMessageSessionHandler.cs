@@ -7,9 +7,12 @@ namespace ET
     {
         public int Errno { get; private set; }
 
-        public List<string> Message { get; private set;}
+        public List<string> Message { get; private set; }
 
-        public static MessageReturn Create(int errco, List<string> message = default) => new() { Errno = errco, Message = message, };
+        public static MessageReturn Create(int errco, List<string> message = default) => new()
+        {
+            Errno = errco, Message = message ?? new List<string>(),
+        };
 
         public static MessageReturn Success() => new() { Errno = ErrorCode.ERR_Success, Message = new List<string>(), };
     }

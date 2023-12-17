@@ -1,6 +1,6 @@
 namespace ET.Client;
 
-[Event(SceneType.Demo)]
+[Event(SceneType.Client)]
 public class UpdateMsgHandler: AEvent<Scene, UpdateMsg>
 {
     protected override async ETTask Run(Scene scene, UpdateMsg a)

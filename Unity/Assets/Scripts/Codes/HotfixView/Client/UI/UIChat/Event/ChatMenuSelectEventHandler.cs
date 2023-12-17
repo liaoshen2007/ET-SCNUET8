@@ -1,11 +1,11 @@
 namespace ET.Client;
 
-[Event(SceneType.Demo)]
+[Event(SceneType.Client)]
 public class ChatMenuSelectEventHandler: AEvent<Scene, MenuSelectEvent>
 {
     protected override async ETTask Run(Scene scene, MenuSelectEvent a)
     {
-        if (a.MenuType != SystemMenuType.Chat)
+        if (a.Data.Config.Classify != SystemMenuType.Chat)
         {
             return;
         }

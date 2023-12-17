@@ -14,7 +14,7 @@ namespace ET.Client
 			this.isCacheNode = isCache;
 		}
 
-		public ExtendImage E_NormalExtendImage
+		public RectTransform EG_SelectRectTransform
      	{
      		get
      		{
@@ -25,39 +25,15 @@ namespace ET.Client
      			}
      			if (this.isCacheNode)
      			{
-     				if( this.m_E_NormalExtendImage == null )
+     				if( this.m_EG_SelectRectTransform == null )
      				{
-		    			this.m_E_NormalExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Normal");
+		    			this.m_EG_SelectRectTransform = UIFindHelper.FindDeepChild<RectTransform>(this.uiTransform.gameObject,"EG_Select");
      				}
-     				return this.m_E_NormalExtendImage;
+     				return this.m_EG_SelectRectTransform;
      			}
      			else
      			{
-		    		return UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Normal");
-     			}
-     		}
-     	}
-
-		public ExtendImage E_SelectExtendImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_SelectExtendImage == null )
-     				{
-		    			this.m_E_SelectExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Select");
-     				}
-     				return this.m_E_SelectExtendImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Select");
+		    		return UIFindHelper.FindDeepChild<RectTransform>(this.uiTransform.gameObject,"EG_Select");
      			}
      		}
      	}
@@ -82,6 +58,54 @@ namespace ET.Client
      			else
      			{
 		    		return UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"E_Text");
+     			}
+     		}
+     	}
+
+		public ExtendImage E_IconExtendImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_E_IconExtendImage == null )
+     				{
+		    			this.m_E_IconExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Icon");
+     				}
+     				return this.m_E_IconExtendImage;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Icon");
+     			}
+     		}
+     	}
+
+		public RectTransform EG_LockRectTransform
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_EG_LockRectTransform == null )
+     				{
+		    			this.m_EG_LockRectTransform = UIFindHelper.FindDeepChild<RectTransform>(this.uiTransform.gameObject,"EG_Lock");
+     				}
+     				return this.m_EG_LockRectTransform;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<RectTransform>(this.uiTransform.gameObject,"EG_Lock");
      			}
      		}
      	}
@@ -112,17 +136,19 @@ namespace ET.Client
 
 		public void DestroyWidget()
 		{
-			this.m_E_NormalExtendImage = null;
-			this.m_E_SelectExtendImage = null;
+			this.m_EG_SelectRectTransform = null;
 			this.m_E_TextExtendText = null;
+			this.m_E_IconExtendImage = null;
+			this.m_EG_LockRectTransform = null;
 			this.m_E_BtnButton = null;
 			uiTransform = null;
 			this.DataId = 0;
 		}
 
-		private ExtendImage m_E_NormalExtendImage = null;
-		private ExtendImage m_E_SelectExtendImage = null;
+		private RectTransform m_EG_SelectRectTransform = null;
 		private ExtendText m_E_TextExtendText = null;
+		private ExtendImage m_E_IconExtendImage = null;
+		private RectTransform m_EG_LockRectTransform = null;
 		private Button m_E_BtnButton = null;
 		public Transform uiTransform = null;
 	}

@@ -3,7 +3,7 @@
     /// <summary>
     /// 更新群组列表
     /// </summary>
-    [MessageHandler(SceneType.Demo)]
+    [MessageHandler(SceneType.Client)]
     public class C2C_GroupUpdateHandler: MessageHandler<Scene, C2C_GroupUpdate>
     {
         protected override async ETTask Run(Scene scene, C2C_GroupUpdate message)

@@ -5,9 +5,7 @@ namespace ET.Client
 {
     public partial class ES_SelfText
     {
-        public float xOffset = 0;
-        public float yOffset = 0;
-        public float initWidth = 0;
-        public const float gap = 5;
+        public const float xOffset = 80;
+        public const float yOffset = 66;
     }
 }

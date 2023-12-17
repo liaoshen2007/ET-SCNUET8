@@ -13,6 +13,7 @@ namespace ET.Client
             self.anchorMax = Vector2.one;
             self.anchoredPosition = Vector2.zero;
             self.sizeDelta = Vector2.zero;
+            self.anchoredPosition3D = Vector3.zero;
         }
 
         public static void SetActive(this Transform self, bool active)

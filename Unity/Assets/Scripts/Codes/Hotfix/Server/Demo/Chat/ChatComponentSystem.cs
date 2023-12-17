@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MongoDB.Driver;
 
 namespace ET.Server;
@@ -15,9 +14,11 @@ public static partial class ChatComponentSystem
     private static void Awake(this ChatComponent self)
     {
         self.zone = self.Zone();
-        self.worldId = "world";
+        self.worldId = ConstValue.ChatSendId;
         self.nSaveChannel = new HashSet<ChatChannelType>() { ChatChannelType.TV };
         self.useWolrdChannel = new HashSet<ChatChannelType>() { ChatChannelType.World, ChatChannelType.TV };
+        self.findOption =
+                new FindOptions<ChatSaveItem>() { Limit = ConstValue.ChatGetCount, Sort = Builders<ChatSaveItem>.Sort.Descending(item => item.Id), };
 
         var collection = self.Scene().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).GetCollection<ChatSaveItem>();
         collection.Indexes.CreateMany(new[]
@@ -68,26 +69,18 @@ public static partial class ChatComponentSystem
 
         var chat = list[0];
         foreach ((long id, ChatUnit unit) in chat.unitDict)
-        { 
+        {
             unit.isOnline = false;
             self.AddChild(unit);
             self.unitDict.Add(id, unit);
         }
-        
+
         foreach ((string guid, ChatGroup group) in chat.groupDict)
         {
             if (group.channel == ChatChannelType.Group)
             {
                 self.AddChild(group);
                 self.groupDict.Add(guid, group);
-            }
-        }
-
-        foreach ((string guid, string group) in chat.relataDict)
-        {
-            if (guid != self.worldId)
-            {
-                self.relataDict.Add(guid, group);
             }
         }
     }
@@ -112,6 +105,13 @@ public static partial class ChatComponentSystem
         await ETTaskHelper.WaitAll(list);
     }
 
+    private static async ETTask UpdateAllGroupChat(this ChatComponent self, long playerId)
+    {
+        ChatUnit unit = self.GetChild<ChatUnit>(playerId);
+        var list = await self.CacheGet(playerId, (int)ChatChannelType.World, self.worldId, 0);
+        self.Send2Client(playerId, new C2C_UpdateChat() { List = list });
+    }
+
     // 进入聊天服
     public static ChatUnit Enter(this ChatComponent self, long playerId)
     {
@@ -120,6 +120,7 @@ public static partial class ChatComponentSystem
         child.isOnline = true;
         self.AddMember(self.worldId, new List<long>() { playerId });
         self.unitDict.TryAdd(playerId, child);
+        self.UpdateAllGroupChat(playerId).Coroutine();
         return child;
     }
 
@@ -133,6 +134,7 @@ public static partial class ChatComponentSystem
         var child = self.GetChild<ChatUnit>(playerId);
         child.isOnline = false;
         self.RemoveMember(self.worldId, false, new List<long>() { playerId });
+        self.Scene().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession).Remove(playerId);
     }
 
     private static string GetPersonGroup(this ChatComponent self, long dstId, long roleId)
@@ -179,12 +181,6 @@ public static partial class ChatComponentSystem
         }
         else
         {
-            if (self.relataDict.TryGetValue(groupId, out string uid))
-            {
-                groupId = uid;
-            }
-
-            group = groupId;
             if (!self.groupDict.TryGetValue(group, out var g))
             {
                 return MessageReturn.Create(ErrorCode.ERR_ChatCantFindGroup);
@@ -195,7 +191,7 @@ public static partial class ChatComponentSystem
 
         var proto = ChatMsgProto.Create();
         proto.Message = message;
-        proto.Channel = (int) channel;
+        proto.Channel = (int)channel;
         long now = TimeInfo.Instance.FrameTime;
         proto.Time = now;
         if (now != self.lastMsgTime)
@@ -261,23 +257,13 @@ public static partial class ChatComponentSystem
             groupId = self.worldId;
         }
 
-        if (groupId != default && self.relataDict.ContainsKey(groupId))
-        {
-            return MessageReturn.Create(ErrorCode.ERR_ChatGroupExist);
-        }
-
-        string guid = IdGenerater.Instance.GenerateId().ToString();
-        var group = self.AddChild<ChatGroup, string>(guid);
+        string guid = groupId ?? IdGenerater.Instance.GenerateId().ToString();
+        ChatGroup group = self.AddChild<ChatGroup, string>(guid);
         group.leaderId = leaderId;
         group.channel = channel;
         group.name = self.GetGroupName(channel, leaderId, memebrList);
 
         self.groupDict.Add(guid, group);
-        if (groupId != null)
-        {
-            self.relataDict.Add(groupId, guid);
-        }
-
         if (leaderId > 0)
         {
             memebrList.Add(leaderId);
@@ -290,11 +276,6 @@ public static partial class ChatComponentSystem
 
     public static void AddMember(this ChatComponent self, string groupId, List<long> memebrList)
     {
-        if (self.relataDict.TryGetValue(groupId, out string uid))
-        {
-            groupId = uid;
-        }
-
         if (!self.groupDict.TryGetValue(groupId, out ChatGroup group))
         {
             return;
@@ -322,11 +303,6 @@ public static partial class ChatComponentSystem
 
     public static MessageReturn RemoveMember(this ChatComponent self, string groupId, bool isKick, List<long> memebrList)
     {
-        if (self.relataDict.TryGetValue(groupId, out string uid))
-        {
-            groupId = uid;
-        }
-
         if (!self.groupDict.TryGetValue(groupId, out ChatGroup group))
         {
             return MessageReturn.Create(ErrorCode.ERR_ChatCantFindGroup);
@@ -377,12 +353,6 @@ public static partial class ChatComponentSystem
             {
                 group.Dispose();
                 self.groupDict.Remove(groupId);
-                foreach (var pair in self.relataDict.Where(pair => pair.Value == groupId))
-                {
-                    self.relataDict.Remove(pair.Key);
-                    break;
-                }
-
                 Log.Info($"删除讨论组: {groupId}");
             }
         }
@@ -395,13 +365,13 @@ public static partial class ChatComponentSystem
         string group = groupId;
         switch (channel)
         {
-            case (int) ChatChannelType.World:
+            case (int)ChatChannelType.World:
                 group = self.worldId;
                 break;
-            case (int) ChatChannelType.League:
+            case (int)ChatChannelType.League:
                 group = "league";
                 break;
-            case (int) ChatChannelType.Personal:
+            case (int)ChatChannelType.Personal:
                 group = self.GetPersonGroup(roleId, groupId.ToLong());
                 break;
         }
@@ -412,12 +382,21 @@ public static partial class ChatComponentSystem
         }
 
         var zoneDB = self.Scene().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone());
-        var findOpetion = new FindOptions<ChatSaveItem>() { Limit = 10, Sort = Builders<ChatSaveItem>.Sort.Ascending(item => item.Id), };
-        var list = await zoneDB.Query(item => item.Channel == channel && item.GroupId == group && item.Id < id, findOpetion);
-        var result = new List<ChatMsgProto>();
-        foreach (var item in list)
+        List<ChatSaveItem> list = default;
+        if (id == 0)
         {
-            var roleInfo = item.Channel == (int) ChatChannelType.Personal? self.GetPlayerInfo(group.ToLong()) : self.GetPlayerInfo(item.SendRoleId);
+            list = await zoneDB.Query(item => item.Channel == channel && item.GroupId == group, self.findOption);
+        }
+        else
+        {
+            list = await zoneDB.Query(item => item.Channel == channel && item.GroupId == group && item.Id < id, self.findOption);
+        }
+
+        list.Reverse();
+        var result = new List<ChatMsgProto>();
+        foreach (ChatSaveItem item in list)
+        {
+            var roleInfo = item.Channel == (int)ChatChannelType.Personal? self.GetPlayerInfo(group.ToLong()) : self.GetPlayerInfo(item.SendRoleId);
             result.Add(new ChatMsgProto()
             {
                 Id = item.Id,
@@ -472,7 +451,7 @@ public static partial class ChatComponentSystem
                 proto.MemberList = new List<ChatGroupMemberProto>();
                 foreach (var entity in group.Children.Values)
                 {
-                    var member = (ChatGroupMember) entity;
+                    var member = (ChatGroupMember)entity;
                     proto.MemberList.Add(new ChatGroupMemberProto()
                     {
                         RoleId = member.Id, HeadIcon = member.headIcon, NoDisturbing = member.noDisturbing, Sort = member.sort,

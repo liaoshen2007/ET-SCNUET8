@@ -861,7 +861,7 @@ namespace ET
             ExcelPackage p = GetPackage(Path.GetFullPath(path));
             template = File.ReadAllText("SystemMenuType.txt");
             var sb = new StringBuilder();
-            const string format = "\t\t{0} = {1},\n";
+            const string format = "\t\tpublic const int {0} = {1};\n";
             foreach (ExcelWorksheet worksheet in p.Workbook.Worksheets)
             {
                 if (worksheet.Name.StartsWith("#"))

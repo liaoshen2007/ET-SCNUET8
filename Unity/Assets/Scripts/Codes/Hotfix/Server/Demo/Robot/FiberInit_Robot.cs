@@ -14,7 +14,7 @@
             root.AddComponent<CurrentScenesComponent>();
             root.AddComponent<ObjectWait>();
             
-            root.SceneType = SceneType.Demo;
+            root.SceneType = SceneType.Client;
 
             await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
             

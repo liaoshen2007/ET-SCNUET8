@@ -50,13 +50,14 @@ namespace ET
 
         private void AddObjectToPool(PoolObject po)
         {
-            po.gameObject.SetActive(false);
-            po.gameObject.name = poolName;
+            var go = po.gameObject;
+            go.SetActive(false);
+            go.name = poolName;
             availableObjStack.Push(po);
             po.isPooled = true;
 
             //add to a root obj
-            po.gameObject.transform.SetParent(rootObj.transform, false);
+            go.transform.SetParent(rootObj.transform, false);
         }
 
         private void populatePool(int initialCount)

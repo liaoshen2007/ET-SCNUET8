@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [Event(SceneType.Demo)]
+    [Event(SceneType.Client)]
     public class SceneChangeFinish_GetUnitData: AEvent<Scene, SceneChangeFinish>
     {
         protected override async ETTask Run(Scene scene, SceneChangeFinish a)

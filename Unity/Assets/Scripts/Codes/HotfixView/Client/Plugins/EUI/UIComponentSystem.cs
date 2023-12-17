@@ -25,6 +25,7 @@ namespace ET.Client
         Icon,
         Widget,
         ArtText,
+        Emotion,
     }
 
     [FriendOf(typeof (ShowWindowData))]
@@ -41,7 +42,7 @@ namespace ET.Client
             self.VisibleWindowsDic?.Clear();
             self.StackWindowsQueue?.Clear();
             self.UIBaseWindowlistCached?.Clear();
-            foreach (var name in Enum.GetNames(typeof(AtlasType)))
+            foreach (var name in Enum.GetNames(typeof (AtlasType)))
             {
                 self.AtlasPath.Add(name, name.ToUISpriteAtlasPath());
             }
@@ -59,7 +60,7 @@ namespace ET.Client
         /// <returns></returns>
         public static bool IsWindowVisible(this UIComponent self, WindowID id)
         {
-            return self.VisibleWindowsDic.ContainsKey((int) id);
+            return self.VisibleWindowsDic.ContainsKey((int)id);
         }
 
         /// <summary>
@@ -73,9 +74,8 @@ namespace ET.Client
         {
             WindowID windowsId = self.GetWindowIdByGeneric<T>();
             UIBaseWindow baseWindow = self.GetUIBaseWindow(windowsId);
-            if (null == baseWindow)
+            if (baseWindow == null)
             {
-                Log.Warning($"{windowsId} is not created!");
                 return null;
             }
 
@@ -106,7 +106,7 @@ namespace ET.Client
         {
             if (UIPath.Instance.WindowTypeIdDict.TryGetValue(typeof (T).Name, out int windowsId))
             {
-                return (WindowID) windowsId;
+                return (WindowID)windowsId;
             }
 
             Log.Error($"{typeof (T).FullName} is not have any windowId!");
@@ -123,7 +123,7 @@ namespace ET.Client
         {
             if (UIPath.Instance.WindowTypeIdDict.TryGetValue(type.Name, out int windowsId))
             {
-                return (WindowID) windowsId;
+                return (WindowID)windowsId;
             }
 
             Log.Error($"{type.FullName} is not have any windowId!");
@@ -247,13 +247,13 @@ namespace ET.Client
         /// <OtherParam name="onComplete"></OtherParam>
         public static void HideWindow(this UIComponent self, WindowID id)
         {
-            if (!self.VisibleWindowsDic.ContainsKey((int) id))
+            if (!self.VisibleWindowsDic.ContainsKey((int)id))
             {
                 Log.Warning($"检测关闭 WindowsID: {id} 失败！");
                 return;
             }
 
-            UIBaseWindow baseWindow = self.VisibleWindowsDic[(int) id];
+            UIBaseWindow baseWindow = self.VisibleWindowsDic[(int)id];
             if (baseWindow == null || baseWindow.IsDisposed)
             {
                 Log.Error($"UIBaseWindow is null  or isDisposed ,  WindowsID: {id} 失败！");
@@ -267,8 +267,8 @@ namespace ET.Client
             {
                 self.GetComponent<UIMask>().Hide();
             }
-            
-            self.VisibleWindowsDic.Remove((int) id);
+
+            self.VisibleWindowsDic.Remove((int)id);
             for (int i = self.ShowWindowsList.Count - 1; i >= 0; i--)
             {
                 if (self.ShowWindowsList[i].WindowID == id)
@@ -332,8 +332,8 @@ namespace ET.Client
 
             if (isDispose)
             {
-                self.AllWindowsDic.Remove((int) id);
-                self.VisibleWindowsDic.Remove((int) id);
+                self.AllWindowsDic.Remove((int)id);
+                self.VisibleWindowsDic.Remove((int)id);
                 baseWindow.Dispose();
             }
         }
@@ -354,11 +354,11 @@ namespace ET.Client
             CoroutineLock coroutineLock = null;
             try
             {
-                coroutineLock = await self.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoadUIBaseWindows, (int) id);
+                coroutineLock = await self.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoadUIBaseWindows, (int)id);
                 UIBaseWindow baseWindow = self.GetUIBaseWindow(id);
                 if (baseWindow == null)
                 {
-                    if (UIPath.Instance.WindowPrefabPath.ContainsKey((int) id))
+                    if (UIPath.Instance.WindowPrefabPath.ContainsKey((int)id))
                     {
                         baseWindow = self.AddChild<UIBaseWindow>();
                         baseWindow.WindowID = id;
@@ -405,7 +405,7 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(id).OnFocus(baseWindow);
 
             self.ShowWindowsList.Add(baseWindow);
-            self.VisibleWindowsDic[(int) id] = baseWindow;
+            self.VisibleWindowsDic[(int)id] = baseWindow;
             Log.Info("<color=magenta>### current Navigation window </color>" + baseWindow.WindowID);
         }
 
@@ -422,9 +422,9 @@ namespace ET.Client
         /// <returns></returns>
         private static UIBaseWindow GetUIBaseWindow(this UIComponent self, WindowID id)
         {
-            if (self.AllWindowsDic.ContainsKey((int) id))
+            if (self.AllWindowsDic.ContainsKey((int)id))
             {
-                return self.AllWindowsDic[(int) id];
+                return self.AllWindowsDic[(int)id];
             }
 
             return null;
@@ -437,7 +437,7 @@ namespace ET.Client
         /// <param name="windowId"></param>
         public static void CloseWindow(this UIComponent self, WindowID windowId)
         {
-            if (!self.VisibleWindowsDic.ContainsKey((int) windowId))
+            if (!self.VisibleWindowsDic.ContainsKey((int)windowId))
             {
                 return;
             }
@@ -508,7 +508,7 @@ namespace ET.Client
                     continue;
                 }
 
-                self.UIBaseWindowlistCached.Add((WindowID) window.Key);
+                self.UIBaseWindowlistCached.Add((WindowID)window.Key);
                 window.Value.UIPrefabGameObject?.SetActive(false);
                 UIEvent.Instance.GetUIEventHandler(window.Value.WindowID).OnHideWindow(window.Value);
             }
@@ -517,7 +517,7 @@ namespace ET.Client
             {
                 for (int i = 0; i < self.UIBaseWindowlistCached.Count; i++)
                 {
-                    self.VisibleWindowsDic.Remove((int) self.UIBaseWindowlistCached[i]);
+                    self.VisibleWindowsDic.Remove((int)self.UIBaseWindowlistCached[i]);
                 }
             }
 
@@ -547,7 +547,7 @@ namespace ET.Client
         /// </summary>
         private static async ETTask LoadBaseWindowsAsync(this UIComponent self, UIBaseWindow baseWindow)
         {
-            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) baseWindow.WindowID, out string value))
+            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int)baseWindow.WindowID, out string value))
             {
                 Log.Error($"{baseWindow.WindowID} is not Exist!");
                 return;
@@ -565,7 +565,7 @@ namespace ET.Client
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitComponent(baseWindow);
             UIEvent.Instance.GetUIEventHandler(baseWindow.WindowID).OnRegisterUIEvent(baseWindow);
 
-            self.AllWindowsDic[(int) baseWindow.WindowID] = baseWindow;
+            self.AllWindowsDic[(int)baseWindow.WindowID] = baseWindow;
         }
     }
 }

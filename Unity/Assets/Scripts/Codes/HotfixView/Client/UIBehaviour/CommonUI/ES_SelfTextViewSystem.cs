@@ -12,14 +12,6 @@ namespace ET.Client
         private static void Awake(this ES_SelfText self, Transform transform)
         {
             self.uiTransform = transform;
-            if (self.initWidth == 0)
-            {
-                Rect textRect = self.E_MsgSymbolText.rectTransform.rect;
-                Rect imageTrans = self.E_BgExtendImage.rectTransform.rect;
-                self.xOffset = imageTrans.width - textRect.width;
-                self.yOffset = imageTrans.height - textRect.height;
-                self.initWidth = textRect.width;
-            }
         }
 
         [EntitySystem]
@@ -33,19 +25,21 @@ namespace ET.Client
             self.E_MsgSymbolText.text = item.Data.Msg;
             self.E_MsgLongClickButton.OnLongClick.AddListener(self.OnLongClick);
 
-            self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, self.E_MsgSymbolText.preferredHeight);
-            self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
-                self.E_MsgSymbolText.preferredHeight + self.yOffset);
             float width = self.E_MsgSymbolText.preferredWidth;
-            if (width > self.initWidth)
+            if (width > UIChat.InitWidth)
             {
-                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, self.initWidth + self.xOffset);
+                self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIChat.InitWidth);
+                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIChat.InitWidth + ES_SelfText.xOffset);
             }
             else
             {
-                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
-                    self.E_MsgSymbolText.preferredWidth + self.xOffset);
+                self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width + ES_SelfText.xOffset);
             }
+
+            float height = self.E_MsgSymbolText.preferredHeight;
+            self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+            self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height + ES_SelfText.yOffset);
 
             return self.GetSize();
         }
@@ -54,11 +48,12 @@ namespace ET.Client
         {
             RectTransform imageTrans = self.E_BgExtendImage.rectTransform;
             float x = (self.uiTransform as RectTransform).sizeDelta.x;
-            return new Vector2(x, imageTrans.rect.height + Mathf.Abs(imageTrans.anchoredPosition.y) + ES_SelfText.gap);
+            return new Vector2(x, imageTrans.rect.height + Mathf.Abs(imageTrans.anchoredPosition.y) + UIChat.Gap);
         }
 
         private static void OnLongClick(this ES_SelfText self, bool isOver)
         {
+            Log.Info("OnLongClick");
         }
     }
 }

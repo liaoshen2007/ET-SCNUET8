@@ -10,6 +10,7 @@ namespace ET.Client
     public static class EUIHelper
     {
         #region UI辅助方法
+
         public static void SetText(this Text Label, string content)
         {
             if (null == Label)
@@ -20,7 +21,7 @@ namespace ET.Client
 
             Label.text = content;
         }
-        
+
         public static void SetText(this Text Label, int id)
         {
             if (null == Label)
@@ -35,7 +36,7 @@ namespace ET.Client
                 Label.text = id.ToString();
                 return;
             }
-            
+
             Label.text = language.Msg;
             Label.color = language.ColorBytes.BytesColor();
         }
@@ -47,15 +48,15 @@ namespace ET.Client
         /// <param name="windowID"></param>
         public static void SetTitle(this Text Label, WindowID windowID)
         {
-            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int) windowID, out string value))
+            if (!UIPath.Instance.WindowPrefabPath.TryGetValue((int)windowID, out string value))
             {
                 return;
             }
-            
+
             var winCfg = WindowCategory.Instance.GetWindow(value);
             Label.SetText(winCfg.Title);
         }
-        
+
         public static void SetVisibleWithScale(this UIBehaviour uiBehaviour, bool isVisible)
         {
             if (null == uiBehaviour)
@@ -95,8 +96,9 @@ namespace ET.Client
             if (isEnd)
             {
                 loopScrollRect.RefillCellsFromEnd();
+                return;
             }
-            
+
             loopScrollRect.RefillCells();
         }
 
@@ -211,6 +213,7 @@ namespace ET.Client
         {
             GameObjectPoolHelper.ClearPool(scrollRect.prefabSource.prefabName);
         }
+
         #endregion
 
         #region UI按钮事件

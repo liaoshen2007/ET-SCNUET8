@@ -71,7 +71,7 @@ MonoBehaviour:
         CollectorType: 0
         AddressRuleName: AddressByFileName
         PackRuleName: PackSeparately
-        FilterRuleName: CollectPrefab
+        FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
     - GroupName: Unit

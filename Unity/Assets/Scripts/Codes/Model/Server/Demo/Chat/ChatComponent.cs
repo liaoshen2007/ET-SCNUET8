@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
+using MongoDB.Driver;
 
 namespace ET.Server;
 
@@ -21,6 +22,9 @@ public class ChatSaveItem: Entity, IAwake
 [ComponentOf(typeof (Scene))]
 public class ChatComponent: Entity, IAwake, IDestroy
 {
+    [BsonIgnore]
+    public FindOptions<ChatSaveItem> findOption;
+    
     /// <summary>
     /// 不保存记录的频道
     /// </summary>
@@ -42,7 +46,6 @@ public class ChatComponent: Entity, IAwake, IDestroy
     public int zone = 0;
 
     public Dictionary<string, ChatGroup> groupDict = new Dictionary<string, ChatGroup>();
-    public Dictionary<string, string> relataDict = new Dictionary<string, string>();
 
     [BsonIgnore]
     public List<ChatSaveItem> saveList = new List<ChatSaveItem>();

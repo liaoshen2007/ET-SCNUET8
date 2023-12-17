@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ET.Client;
 
@@ -10,21 +11,32 @@ public static partial class MenuComponentSystem
     [EntitySystem]
     private static void Awake(this MenuComponent self)
     {
-        foreach (SystemMenuType value in Enum.GetValues(typeof (SystemMenuType)))
+        foreach (var v in SystemMenuCategory.Instance.ClassifyDict)
         {
-            var list = new List<MeunData>();
-            foreach (var cfg in SystemMenuCategory.Instance.GetList((int)value))
-            {
-                var menu = self.AddChild<MeunData, int>(cfg.Id);
-                list.Add(menu);
-            }
+            self.InitMenu(v.Key, v.Value);
+        }
 
-            list.Sort((a, b) => a.Config.Rank.CompareTo(b.Config.Rank));
-            self.menuDict.Add(value, list);
+        foreach (var v in EmojiConfigCategory.Instance.GetAll().Values.GroupBy(v => v.GroupId))
+        {
+            EmojiConfig cfg = v.FirstOrDefault();
+            self.AddDynamicMenu(SystemMenuType.ChatEmojMenu, new SystemMenu() { Icon = cfg.Icon, Rank = cfg.Weight, Name = cfg.Name, });
         }
     }
 
-    public static List<MeunData> GetMenuList(this MenuComponent self, SystemMenuType type)
+    private static void InitMenu(this MenuComponent self, int classify, List<SystemMenu> list)
+    {
+        var ll = new List<MeunData>();
+        foreach (SystemMenu cfg in list)
+        {
+            var menu = self.AddChild<MeunData, int>(cfg.Id);
+            ll.Add(menu);
+        }
+
+        ll.Sort((a, b) => a.Config.Rank.CompareTo(b.Config.Rank));
+        self.menuDict.Add(classify, ll);
+    }
+
+    public static List<MeunData> GetMenuList(this MenuComponent self, int type)
     {
         if (self.menuDict.TryGetValue(type, out var list))
         {
@@ -32,5 +44,58 @@ public static partial class MenuComponentSystem
         }
 
         return new List<MeunData>();
+    }
+
+    public static void AddDynamicMenu(this MenuComponent self, int type, SystemMenu config)
+    {
+        config.Classify = type;
+        config.Id = RandomGenerator.RandInt32();
+        SystemMenuCategory.Instance.AddDynamicMeun(config);
+        if (!self.menuDict.TryGetValue(type, out var list))
+        {
+            list = new List<MeunData>();
+            self.menuDict.Add(type, list);
+        }
+
+        var menu = self.AddChild<MeunData, int>(config.Id);
+        list.Add(menu);
+        list.Sort((a, b) => a.Config.Rank.CompareTo(b.Config.Rank));
+    }
+
+    public static void RemoveDynamicClassify(this MenuComponent self, int classify)
+    {
+        SystemMenuCategory.Instance.RemoveDynamicClassify(classify);
+        if (!self.menuDict.Remove(classify, out var list))
+        {
+            return;
+        }
+
+        foreach (MeunData v in list)
+        {
+            self.RemoveChild(v.Id);
+        }
+    }
+
+    public static void RemoveDynamicMenu(this MenuComponent self, int id)
+    {
+        var cfg = SystemMenuCategory.Instance.Get(id);
+        if (cfg == null)
+        {
+            return;
+        }
+
+        self.RemoveChild(id);
+        if (!self.menuDict.TryGetValue(cfg.Classify, out var list))
+        {
+            return;
+        }
+
+        MeunData d = list.FirstOrDefault(data => data.Id == id);
+        if (d != null)
+        {
+            list.Remove(d);
+        }
+
+        SystemMenuCategory.Instance.RemoveDynamicMeun(id);
     }
 }

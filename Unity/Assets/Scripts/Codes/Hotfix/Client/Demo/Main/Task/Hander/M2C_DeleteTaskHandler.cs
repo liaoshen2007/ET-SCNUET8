@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [MessageHandler(SceneType.Demo)]
+    [MessageHandler(SceneType.Client)]
     public class M2C_DeleteTaskHandler: MessageHandler<Scene, M2C_DeleteTask>
     {
         protected override async ETTask Run(Scene root, M2C_DeleteTask message)

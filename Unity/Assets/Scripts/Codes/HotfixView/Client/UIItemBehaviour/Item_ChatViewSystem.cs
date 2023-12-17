@@ -24,12 +24,17 @@ namespace ET.Client
             self.uiTransform = trans;
             self.collector = trans.GetComponent<ReferenceCollector>();
             self.element = trans.GetComponent<LayoutElement>();
+            for (int i = 0; i < trans.childCount; i++)
+            {
+                GameObjectPoolHelper.ReturnTransformToPool(trans.GetChild(i));
+            }
+
             return self;
         }
 
         private static void SetMsgType(this Scroll_Item_Chat self, ClientChatUnit unit)
         {
-            if (unit.RoleInfo.Id == ConstValue.ChatSendId)
+            if (unit.RoleInfo.Id.ToString() == ConstValue.ChatSendId)
             {
                 self.msgType = ChatMsgType.System;
                 return;
@@ -41,11 +46,11 @@ namespace ET.Client
                 return;
             }
 
-            if (self.Data.ItemList.Count > 0)
-            {
-                self.msgType = ChatMsgType.Item;
-                return;
-            }
+            // if (self.Data.ItemList.Count > 0)
+            // {
+            //     self.msgType = ChatMsgType.Item;
+            //     return;
+            // }
 
             self.msgType = ChatMsgType.Text;
         }
@@ -85,17 +90,15 @@ namespace ET.Client
                 return;
             }
 
+            self.Item?.Dispose();
+            self.item = null;
+
             string prefabName = t.ToString();
             var prefab = self.collector.Get<GameObject>(prefabName);
             GameObjectPoolHelper.InitPool(prefabName, prefab, 5);
             GameObject go = GameObjectPoolHelper.GetObjectFromPool(prefabName);
             go.transform.SetParent(self.uiTransform);
-
-            if (self.Item != null)
-            {
-                self.Item.Dispose();
-                self.item = null;
-            }
+            (go.transform as RectTransform).Normalize();
 
             Entity item = null;
             Vector2 size = new Vector2();

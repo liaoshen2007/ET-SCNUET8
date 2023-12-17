@@ -5,6 +5,5 @@ namespace ET.Client
 {
     public partial class ES_SelfImage
     {
-        public const float gap = 5;
     }
 }

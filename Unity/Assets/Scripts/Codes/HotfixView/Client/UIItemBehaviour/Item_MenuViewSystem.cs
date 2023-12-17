@@ -27,20 +27,26 @@ namespace ET.Client
         public static void Refresh(this Scroll_Item_Menu self, MeunData data, int selectId)
         {
             bool select = self.DataId == selectId;
-            self.E_SelectExtendImage.SetActive(select);
-            self.E_TextExtendText.SetText(data.Config.Name);
+            self.EG_SelectRectTransform.SetActive(select);
+            if (self.E_TextExtendText != null)
+            {
+                self.E_TextExtendText.SetText(data.Config.Name);
+            }
+
+            if (self.E_IconExtendImage != null)
+            {
+                UIHelper.SetSprite(self, self.E_IconExtendImage, data.Config.Icon, AtlasType.Emotion).Coroutine();
+            }
+
             if (select)
             {
-                EventSystem.Instance.Publish(self.Scene(), new MenuSelectEvent()
-                {
-                    ItemMenu = self, Data = data, Index = selectId, MenuType = SystemMenuType.Chat,
-                });
+                EventSystem.Instance.Publish(self.Scene(), new MenuSelectEvent() { ItemMenu = self, Data = data, Index = selectId, });
             }
         }
 
-        public static void RefreshAll(this Scroll_Item_Menu self, int i)
+        public static void RefreshAll(this Scroll_Item_Menu self, int i, int menuClassify)
         {
-            MenuDictComponent menu = self.GetParent<UIChat>().GetComponent<MenuDictComponent>();
+            MenuDict menu = self.GetParent<UIChat>().GetChild<MenuDict>(menuClassify);
             foreach ((int o, Scroll_Item_Menu item) in menu.MenuDic)
             {
                 if (o == i)
@@ -49,7 +55,7 @@ namespace ET.Client
                 }
 
                 bool select = item.DataId == menu.SelectId;
-                item.E_SelectExtendImage.SetActive(select);
+                item.EG_SelectRectTransform.SetActive(select);
             }
         }
     }

@@ -69,7 +69,7 @@ namespace ET
         
 
         // 客户端
-        Demo = 1L << 50,
+        Client = 1L << 50,
         Current = 1L << 51,
         LockStep = 1L << 52,
         LockStepView = 1L << 53,

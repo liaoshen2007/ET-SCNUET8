@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [MessageHandler(SceneType.Demo)]
+    [MessageHandler(SceneType.Client)]
     public class M2C_UpdateItemHandler: MessageHandler<Scene, M2C_UpdateItem>
     {
         protected override async ETTask Run(Scene entity, M2C_UpdateItem message)

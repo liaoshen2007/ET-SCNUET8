@@ -1,6 +1,6 @@
 namespace ET.Client;
 
-[Event(SceneType.Demo)]
+[Event(SceneType.Client)]
 public class DelGroupHandler: AEvent<Scene, DelGroup>
 {
     protected override async ETTask Run(Scene scene, DelGroup a)

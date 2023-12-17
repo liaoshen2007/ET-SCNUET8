@@ -5,6 +5,5 @@ namespace ET.Client
 {
     public partial class ES_OtherImage
     {
-        public const float gap = 5;
     }
 }

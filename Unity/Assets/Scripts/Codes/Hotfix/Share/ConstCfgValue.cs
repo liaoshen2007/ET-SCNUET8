@@ -21,6 +21,11 @@ namespace ET
 		/// <summary>
 		/// 聊天系统消息uid
 		/// </summary>
-		public const int ChatSendId = 0;
+		public const string ChatSendId = "0";
+
+		/// <summary>
+		/// 聊天消息单次拉取数量
+		/// </summary>
+		public const int ChatGetCount = 10;
 	}
 }
