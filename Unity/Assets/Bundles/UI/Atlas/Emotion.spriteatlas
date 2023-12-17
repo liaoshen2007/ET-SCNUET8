@@ -63,12 +63,10 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 43dac4404fc36464da2520aaa1035850, type: 3}
-  - {fileID: 21300000, guid: 824afe8087092704ba71040b8737940b, type: 3}
   - {fileID: 21300000, guid: 6ac5c1c07387c7649b6339bea57ccee0, type: 3}
   - {fileID: 21300000, guid: bd198ef0e602160459c7f66d8b4216f5, type: 3}
   - {fileID: 21300000, guid: 7589fb016188d304082f69f2fecb01c9, type: 3}
   - {fileID: 21300000, guid: fcbc42d16a1b0c14d8eba8473f5c7e4d, type: 3}
-  - {fileID: 21300000, guid: e0dc2be161a3a8c40aa265d4d978b5b8, type: 3}
   - {fileID: 21300000, guid: 69225fe16e53b494baa887facf03647e, type: 3}
   - {fileID: 21300000, guid: 58b011f1e0f45fa40b2f203d411a41d6, type: 3}
   - {fileID: 21300000, guid: b6117f3241792d94caaf61efd042b56b, type: 3}
@@ -110,7 +108,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 58b6f91e7a426f442a71eb538adc8f9c, type: 3}
   - {fileID: 21300000, guid: 8932354e46cb7b649b50cc31ad076e15, type: 3}
   - {fileID: 21300000, guid: 9c1cf85e32829f14b9273d2d8731d57f, type: 3}
-  - {fileID: 21300000, guid: b4fb259e8b1264242bc83d88de0d29af, type: 3}
   - {fileID: 21300000, guid: 6281f4ce3c8a11e4f9b522d02a07e5e3, type: 3}
   - {fileID: 21300000, guid: 7bcf871f3d5b28845baf1b7db9dca58d, type: 3}
   - {fileID: 21300000, guid: e30d5f3f0fc22094898cbe2658d1e143, type: 3}
@@ -119,12 +116,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6b9f4bbfcd6d01c48a36eea52580bf32, type: 3}
   m_PackedSpriteNamesToIndex:
   - 21
-  - big_emoji_2007
   - 26
   - 41
   - 18
   - 47
-  - big_emoji_2006
   - 38
   - 42
   - 23
@@ -166,7 +161,6 @@ SpriteAtlas:
   - big_emoji_2002
   - big_emoji_2004
   - 11
-  - big_emoji_2005
   - 12
   - 31
   - 35

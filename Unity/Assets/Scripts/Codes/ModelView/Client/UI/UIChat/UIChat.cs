@@ -12,23 +12,7 @@ namespace ET.Client
         }
 
         [BsonIgnore]
-        public ChatMsgData data = new ChatMsgData()
-        {
-            AtList = new List<AtData>(),
-            ItemList = new List<ItemProto>()
-        };
-
-        [BsonIgnore]
-        public const float Gap = 5;
-
-        [BsonIgnore]
-        public const float InitWidth = 372;
-
-        [BsonIgnore]
-        public const string Sep = "$blz$";
-
-        [BsonIgnore]
-        public const string SpecSep = "\\u{2042}";
+        public ChatMsgData data = new ChatMsgData() { AtList = new List<AtData>(), ItemList = new List<ItemProto>() };
 
         [BsonIgnore]
         public UComTweener emojiTween;

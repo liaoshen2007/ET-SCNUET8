@@ -22,16 +22,10 @@ namespace ET.Client
 
         public static Vector2 Refresh(this ES_SelfImage self, Scroll_Item_Chat item)
         {
-            self.RefreshSprite(item.Data.Emjo).Coroutine();
+            EmojiConfig config = EmojiConfigCategory.Instance.Get(item.Data.Emjo);
+            IconHelper.SetSprite(self, self.E_IconExtendImage, config.Icon, AtlasType.Emotion).Coroutine();
             RectTransform trans = self.E_IconExtendImage.rectTransform;
-            return new Vector2(trans.sizeDelta.x, trans.rect.height + Mathf.Abs(trans.anchoredPosition.y) + UIChat.Gap);
-        }
-
-        private static async ETTask RefreshSprite(this ES_SelfImage self, int id)
-        {
-            EmojiConfig config = EmojiConfigCategory.Instance.Get(id);
-            Sprite sprite = await self.LoadIconSpriteAsync(config.Icon);
-            self.E_IconExtendImage.sprite = sprite;
+            return new Vector2(trans.sizeDelta.x, trans.rect.height + Mathf.Abs(trans.anchoredPosition.y) + ClientChatComponent.Gap);
         }
     }
 }

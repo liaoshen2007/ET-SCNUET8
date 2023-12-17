@@ -15,5 +15,6 @@ public static partial class ClientChatUnitSystem
         self.Message = proto.Message;
         self.GroupId = proto.GroupId;
         self.RoleInfo = proto.RoleInfo;
+        self.Data = ChatHelper.Decode(self.Message);
     }
 }

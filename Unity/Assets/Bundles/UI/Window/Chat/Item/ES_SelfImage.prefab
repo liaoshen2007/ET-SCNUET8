@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -150, y: -46}
-  m_SizeDelta: {x: 128, y: 128}
+  m_AnchoredPosition: {x: -156, y: -63.5}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &802296976368090551
 CanvasRenderer:
@@ -126,6 +126,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6396418775520641987}
     m_Modifications:
+    - target: {fileID: 908120439321105496, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 908120439321105496, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 908120439321105496, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 908120439321105496, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387226323532214207, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387226323532214207, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387226323532214207, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387226323532214207, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1676967814330408892, guid: b2322be05f98f5f44a73c0a6f4911a99,
         type: 3}
       propertyPath: m_Pivot.x
@@ -235,6 +275,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ES_ChatLite
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562118758760949151, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562118758760949151, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562118758760949151, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562118758760949151, guid: b2322be05f98f5f44a73c0a6f4911a99,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2322be05f98f5f44a73c0a6f4911a99, type: 3}

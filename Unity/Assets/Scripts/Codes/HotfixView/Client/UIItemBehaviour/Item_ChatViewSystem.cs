@@ -58,7 +58,7 @@ namespace ET.Client
         public static void Refresh(this Scroll_Item_Chat self, ClientChatUnit unit)
         {
             self.chatUnit = unit;
-            self.Data = ChatHelper.Decode(unit.Message);
+            self.Data = unit.Data;
             self.SetMsgType(unit);
             UIChatPrefabType t = UIChatPrefabType.None;
             if (self.msgType == ChatMsgType.Time)

@@ -26,10 +26,10 @@ namespace ET.Client
             self.E_MsgLongClickButton.OnLongClick.AddListener(self.OnLongClick);
 
             float width = self.E_MsgSymbolText.preferredWidth;
-            if (width > UIChat.InitWidth)
+            if (width > ClientChatComponent.InitWidth)
             {
-                self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIChat.InitWidth);
-                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIChat.InitWidth + ES_OtherText.xOffset);
+                self.E_MsgSymbolText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ClientChatComponent.InitWidth);
+                self.E_BgExtendImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ClientChatComponent.InitWidth + ES_OtherText.xOffset);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace ET.Client
         {
             RectTransform imageTrans = self.E_BgExtendImage.rectTransform;
             float x = (self.uiTransform as RectTransform).sizeDelta.x;
-            return new Vector2(x, imageTrans.rect.height + Mathf.Abs(imageTrans.anchoredPosition.y) + UIChat.Gap);
+            return new Vector2(x, imageTrans.rect.height + Mathf.Abs(imageTrans.anchoredPosition.y) + ClientChatComponent.Gap);
         }
 
         private static void OnLongClick(this ES_OtherText self, bool isOver)

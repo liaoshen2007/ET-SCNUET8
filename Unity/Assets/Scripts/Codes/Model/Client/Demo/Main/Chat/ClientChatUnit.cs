@@ -12,5 +12,7 @@
         public string Message { get; set; }
 
         public string GroupId { get; set; }
+
+        public ChatMsgData Data { get; set; }
     }
 }

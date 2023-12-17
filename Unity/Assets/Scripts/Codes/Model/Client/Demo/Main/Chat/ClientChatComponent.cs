@@ -28,5 +28,10 @@ namespace ET.Client
         public List<ClientChatUnit> worldMsgList = new();
         public List<ClientChatUnit> leagueMsgList = new();
         public Dictionary<string, List<ClientChatUnit>> groupMsgDict = new();
+        
+        public const float Gap = 5;
+        public const float InitWidth = 372;
+        public const string Sep = "$blz$";
+        public const string SpecSep = "\\u{2042}";
     }
 }

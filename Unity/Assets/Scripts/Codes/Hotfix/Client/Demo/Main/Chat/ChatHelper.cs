@@ -20,7 +20,7 @@ public static class ChatHelper
         //回复
         if (msgData.Quote.Id != 0)
         {
-            string str = $"{msgData.Quote.Id}{UIChat.Sep}{msgData.Quote.Name}{UIChat.Sep}{msgData.Quote.Msg}";
+            string str = $"{msgData.Quote.Id}{ClientChatComponent.Sep}{msgData.Quote.Name}{ClientChatComponent.Sep}{msgData.Quote.Msg}";
             string quoteStr = $"<{ChatMsgKeyWord.Quote}>{str}</{ChatMsgKeyWord.Quote}>";
             list.Add(quoteStr);
         }
@@ -28,7 +28,7 @@ public static class ChatHelper
         //at
         foreach (var data in msgData.AtList)
         {
-            string str = $"<{ChatMsgKeyWord.At}>{data.Id}{UIChat.Sep}{data.Name}</{ChatMsgKeyWord.At}>";
+            string str = $"<{ChatMsgKeyWord.At}>{data.Id}{ClientChatComponent.Sep}{data.Name}</{ChatMsgKeyWord.At}>";
             list.Add(str);
         }
 
@@ -39,7 +39,7 @@ public static class ChatHelper
 
         if (list.Count > 1)
         {
-            list.Insert(1, UIChat.SpecSep);
+            list.Insert(1, ClientChatComponent.SpecSep);
         }
 
         return string.Concat(list);
@@ -49,10 +49,10 @@ public static class ChatHelper
     {
         var data = new ChatMsgData();
 
-        int sepIndex = msgData.IndexOf(UIChat.SpecSep, StringComparison.Ordinal);
+        int sepIndex = msgData.IndexOf(ClientChatComponent.SpecSep, StringComparison.Ordinal);
         while (sepIndex != -1)
         {
-            int r = msgData.IndexOf(UIChat.SpecSep, sepIndex + 1, StringComparison.Ordinal);
+            int r = msgData.IndexOf(ClientChatComponent.SpecSep, sepIndex + 1, StringComparison.Ordinal);
             if (r == -1) break;
 
             sepIndex = r;
@@ -69,11 +69,11 @@ public static class ChatHelper
             return data;
         }
 
-        string msg = msgData.Substring(0, sepIndex - 1);
-        string custom = msgData.Substring(sepIndex);
+        string msg = msgData.Substring(0, sepIndex + ClientChatComponent.SpecSep.Length);
+        string custom = msgData.Substring(sepIndex + ClientChatComponent.SpecSep.Length);
         data.Msg = msg;
 
-        const string regex = @"<(\w+)>(.?)</(\w+)>";
+        const string regex = @"<(\w+)>(.*?)</(\w+)>";
         int index = 1;
         while (index < custom.Length)
         {
@@ -83,23 +83,23 @@ public static class ChatHelper
                 break;
             }
 
-            var keyWord = Enum.Parse<ChatMsgKeyWord>(match.Groups[0].Value);
+            var keyWord = Enum.Parse<ChatMsgKeyWord>(match.Groups[1].Value);
             if (keyWord == ChatMsgKeyWord.Emjo)
             {
-                data.Emjo = match.Groups[1].Value.ToInt();
+                data.Emjo = match.Groups[2].Value.ToInt();
                 break;
             }
 
             if (keyWord == ChatMsgKeyWord.Quote)
             {
-                var ll = match.Groups[1].Value.Split(UIChat.Sep);
+                var ll = match.Groups[2].Value.Split(ClientChatComponent.Sep);
                 data.Quote.Id = ll[0].ToInt();
                 data.Quote.Name = ll[1];
                 data.Quote.Msg = ll[2];
             }
             else if (keyWord == ChatMsgKeyWord.At)
             {
-                var ll = match.Groups[1].Value.Split(UIChat.Sep);
+                var ll = match.Groups[2].Value.Split(ClientChatComponent.Sep);
                 data.AtList.Add(new AtData() { Id = ll[0].ToInt(), Name = ll[1], });
             }
             else if (keyWord == ChatMsgKeyWord.Item)
@@ -114,6 +114,11 @@ public static class ChatHelper
 
     public static string RevertEmojiName(string str, Func<string, int> filter)
     {
+        if (str.IsNullOrEmpty())
+        {
+            return default;
+        }
+
         return Regex.Replace(str, @"\[[^\]]+\]", match =>
         {
             // 从匹配的字符串中移除前后的方括号

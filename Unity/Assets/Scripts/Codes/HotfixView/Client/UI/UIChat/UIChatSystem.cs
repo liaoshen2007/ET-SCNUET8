@@ -3,14 +3,6 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public enum ChatMsgKeyWord
-    {
-        Emjo,
-        Quote,
-        At,
-        Item,
-    }
-
     [FriendOf(typeof (UIChat))]
     [FriendOf(typeof (ClientChatComponent))]
     public static partial class UIChatSystem
@@ -254,18 +246,27 @@ namespace ET.Client
 
         private static void EmojiItemClick(this UIChat self, int id)
         {
-            var cfg = EmojiConfigCategory.Instance.Get(id);
-            var l = LanguageCategory.Instance.Get(cfg.Name);
-            self.View.E_InputInputField.text = $"{self.View.E_InputInputField.text}[{l.Msg}]";
-            if (!self.historyEmojList.Contains(id))
+            if (self.GetChild<MenuDict>(SystemMenuType.ChatEmojMenu).SelectId == 0)
             {
-                self.temphistoryEmojList.Remove(id);
-                self.temphistoryEmojList.Insert(0, id);
+                self.data.Emjo = 0;
+                var cfg = EmojiConfigCategory.Instance.Get(id);
+                var l = LanguageCategory.Instance.Get(cfg.Name);
+                self.View.E_InputInputField.text = $"{self.View.E_InputInputField.text}[{l.Msg}]";
+                if (!self.historyEmojList.Contains(id))
+                {
+                    self.temphistoryEmojList.Remove(id);
+                    self.temphistoryEmojList.Insert(0, id);
+                }
+                else
+                {
+                    self.historyEmojList.Remove(id);
+                    self.historyEmojList.Insert(0, id);
+                }
             }
             else
             {
-                self.historyEmojList.Remove(id);
-                self.historyEmojList.Insert(0, id);
+                self.data.Emjo = id;
+                self.SendInnner();
             }
         }
 

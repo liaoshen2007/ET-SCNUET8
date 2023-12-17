@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace ET.Client;
 
+public enum ChatMsgKeyWord
+{
+    Emjo,
+    Quote,
+    At,
+    Item,
+}
+
 [EntitySystemOf(typeof (ClientChatComponent))]
 [FriendOf(typeof (ClientChatComponent))]
 public static partial class ClientChatComponentSystem
