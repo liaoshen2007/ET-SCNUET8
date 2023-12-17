@@ -23,25 +23,31 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// }} 
 
 	// {{ AOT generic types
+	// ET.AEvent<object,ET.AddItem>
 	// ET.AEvent<object,ET.AddUpdateTask>
+	// ET.AEvent<object,ET.AfterCreateCurrentScene>
+	// ET.AEvent<object,ET.AfterUnitCreate>
+	// ET.AEvent<object,ET.AppStartInitFinish>
 	// ET.AEvent<object,ET.ChangePosition>
 	// ET.AEvent<object,ET.ChangeRotation>
-	// ET.AEvent<object,ET.Client.AfterCreateCurrentScene>
-	// ET.AEvent<object,ET.Client.AfterUnitCreate>
-	// ET.AEvent<object,ET.Client.AppStartInitFinish>
-	// ET.AEvent<object,ET.Client.EnterMapFinish>
+	// ET.AEvent<object,ET.Client.DelGroup>
 	// ET.AEvent<object,ET.Client.InitTask>
 	// ET.AEvent<object,ET.Client.LSSceneChangeStart>
 	// ET.AEvent<object,ET.Client.LSSceneInitFinish>
-	// ET.AEvent<object,ET.Client.LoginFinish>
-	// ET.AEvent<object,ET.Client.SceneChangeFinish>
-	// ET.AEvent<object,ET.Client.SceneChangeStart>
+	// ET.AEvent<object,ET.Client.MenuSelectEvent>
+	// ET.AEvent<object,ET.Client.UpdateGroup>
+	// ET.AEvent<object,ET.Client.UpdateMsg>
 	// ET.AEvent<object,ET.DeleteTask>
+	// ET.AEvent<object,ET.EnterMapFinish>
 	// ET.AEvent<object,ET.EntryEvent1>
 	// ET.AEvent<object,ET.EntryEvent3>
+	// ET.AEvent<object,ET.LoadingProgress>
+	// ET.AEvent<object,ET.LoginFinish>
 	// ET.AEvent<object,ET.MoveStart>
 	// ET.AEvent<object,ET.MoveStop>
 	// ET.AEvent<object,ET.NumbericChange>
+	// ET.AEvent<object,ET.SceneChangeFinish>
+	// ET.AEvent<object,ET.SceneChangeStart>
 	// ET.AInvokeHandler<ET.FiberInit,object>
 	// ET.AInvokeHandler<ET.MailBoxInvoker>
 	// ET.AInvokeHandler<ET.NetComponentOnRead>
@@ -118,6 +124,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// MemoryPack.Formatters.ListFormatter<long>
 	// MemoryPack.Formatters.ListFormatter<object>
 	// MemoryPack.IMemoryPackFormatter<Unity.Mathematics.float3>
+	// MemoryPack.IMemoryPackFormatter<byte>
 	// MemoryPack.IMemoryPackFormatter<int>
 	// MemoryPack.IMemoryPackFormatter<long>
 	// MemoryPack.IMemoryPackFormatter<object>
@@ -150,6 +157,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// MongoDB.Bson.Serialization.Serializers.StructSerializerBase<Unity.Mathematics.quaternion>
 	// MongoDB.Bson.Serialization.Serializers.StructSerializerBase<object>
 	// System.Action<DotRecast.Detour.StraightPathItem>
+	// System.Action<ET.Client.AtData>
 	// System.Action<ET.CmdArg>
 	// System.Action<ET.ItemArg>
 	// System.Action<System.Collections.Generic.KeyValuePair<int,object>>
@@ -176,6 +184,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Concurrent.ConcurrentQueue.Segment<object>
 	// System.Collections.Concurrent.ConcurrentQueue<object>
 	// System.Collections.Generic.ArraySortHelper<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.ArraySortHelper<ET.Client.AtData>
 	// System.Collections.Generic.ArraySortHelper<ET.CmdArg>
 	// System.Collections.Generic.ArraySortHelper<ET.ItemArg>
 	// System.Collections.Generic.ArraySortHelper<System.Collections.Generic.KeyValuePair<int,object>>
@@ -186,6 +195,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ArraySortHelper<object>
 	// System.Collections.Generic.Comparer<DotRecast.Detour.StraightPathItem>
 	// System.Collections.Generic.Comparer<ET.ActorId>
+	// System.Collections.Generic.Comparer<ET.Client.AtData>
 	// System.Collections.Generic.Comparer<ET.CmdArg>
 	// System.Collections.Generic.Comparer<ET.ItemArg>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -198,6 +208,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<ushort>
 	// System.Collections.Generic.ComparisonComparer<DotRecast.Detour.StraightPathItem>
 	// System.Collections.Generic.ComparisonComparer<ET.ActorId>
+	// System.Collections.Generic.ComparisonComparer<ET.Client.AtData>
 	// System.Collections.Generic.ComparisonComparer<ET.CmdArg>
 	// System.Collections.Generic.ComparisonComparer<ET.ItemArg>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -208,7 +219,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ComparisonComparer<object>
 	// System.Collections.Generic.ComparisonComparer<uint>
 	// System.Collections.Generic.ComparisonComparer<ushort>
-	// System.Collections.Generic.Dictionary.Enumerator<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary.Enumerator<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary.Enumerator<int,long>
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
@@ -219,7 +229,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.Enumerator<ushort,object>
-	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,long>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
@@ -230,7 +239,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<ushort,object>
-	// System.Collections.Generic.Dictionary.KeyCollection<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,long>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
@@ -241,7 +249,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<object,long>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<ushort,object>
-	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,long>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
@@ -252,7 +259,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<ushort,object>
-	// System.Collections.Generic.Dictionary.ValueCollection<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,long>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
@@ -263,7 +269,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<object,long>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<ushort,object>
-	// System.Collections.Generic.Dictionary<int,ET.FinishTask>
 	// System.Collections.Generic.Dictionary<int,ET.RpcInfo>
 	// System.Collections.Generic.Dictionary<int,long>
 	// System.Collections.Generic.Dictionary<int,object>
@@ -276,7 +281,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<ushort,object>
 	// System.Collections.Generic.EqualityComparer<ET.ActorId>
 	// System.Collections.Generic.EqualityComparer<ET.EntityRef<object>>
-	// System.Collections.Generic.EqualityComparer<ET.FinishTask>
 	// System.Collections.Generic.EqualityComparer<ET.LSInput>
 	// System.Collections.Generic.EqualityComparer<ET.RpcInfo>
 	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -293,10 +297,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.HashSetEqualityComparer<object>
 	// System.Collections.Generic.HashSetEqualityComparer<ushort>
 	// System.Collections.Generic.ICollection<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.ICollection<ET.Client.AtData>
 	// System.Collections.Generic.ICollection<ET.CmdArg>
 	// System.Collections.Generic.ICollection<ET.ItemArg>
 	// System.Collections.Generic.ICollection<ET.RpcInfo>
-	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,ET.FinishTask>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,ET.RpcInfo>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,long>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
@@ -313,6 +317,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<object>
 	// System.Collections.Generic.ICollection<ushort>
 	// System.Collections.Generic.IComparer<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.IComparer<ET.Client.AtData>
 	// System.Collections.Generic.IComparer<ET.CmdArg>
 	// System.Collections.Generic.IComparer<ET.ItemArg>
 	// System.Collections.Generic.IComparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -323,10 +328,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<object>
 	// System.Collections.Generic.IDictionary<object,object>
 	// System.Collections.Generic.IEnumerable<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.IEnumerable<ET.Client.AtData>
 	// System.Collections.Generic.IEnumerable<ET.CmdArg>
 	// System.Collections.Generic.IEnumerable<ET.ItemArg>
 	// System.Collections.Generic.IEnumerable<ET.RpcInfo>
-	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,ET.FinishTask>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,ET.RpcInfo>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,long>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
@@ -343,10 +348,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<object>
 	// System.Collections.Generic.IEnumerable<ushort>
 	// System.Collections.Generic.IEnumerator<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.IEnumerator<ET.Client.AtData>
 	// System.Collections.Generic.IEnumerator<ET.CmdArg>
 	// System.Collections.Generic.IEnumerator<ET.ItemArg>
 	// System.Collections.Generic.IEnumerator<ET.RpcInfo>
-	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,ET.FinishTask>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,ET.RpcInfo>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,long>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
@@ -369,6 +374,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEqualityComparer<object>
 	// System.Collections.Generic.IEqualityComparer<ushort>
 	// System.Collections.Generic.IList<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.IList<ET.Client.AtData>
 	// System.Collections.Generic.IList<ET.CmdArg>
 	// System.Collections.Generic.IList<ET.ItemArg>
 	// System.Collections.Generic.IList<System.Collections.Generic.KeyValuePair<int,object>>
@@ -377,7 +383,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<int>
 	// System.Collections.Generic.IList<long>
 	// System.Collections.Generic.IList<object>
-	// System.Collections.Generic.KeyValuePair<int,ET.FinishTask>
 	// System.Collections.Generic.KeyValuePair<int,ET.RpcInfo>
 	// System.Collections.Generic.KeyValuePair<int,long>
 	// System.Collections.Generic.KeyValuePair<int,object>
@@ -389,6 +394,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<object,object>
 	// System.Collections.Generic.KeyValuePair<ushort,object>
 	// System.Collections.Generic.List.Enumerator<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.List.Enumerator<ET.Client.AtData>
 	// System.Collections.Generic.List.Enumerator<ET.CmdArg>
 	// System.Collections.Generic.List.Enumerator<ET.ItemArg>
 	// System.Collections.Generic.List.Enumerator<System.Collections.Generic.KeyValuePair<int,object>>
@@ -398,6 +404,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List.Enumerator<long>
 	// System.Collections.Generic.List.Enumerator<object>
 	// System.Collections.Generic.List<DotRecast.Detour.StraightPathItem>
+	// System.Collections.Generic.List<ET.Client.AtData>
 	// System.Collections.Generic.List<ET.CmdArg>
 	// System.Collections.Generic.List<ET.ItemArg>
 	// System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<int,object>>
@@ -408,6 +415,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.List<object>
 	// System.Collections.Generic.ObjectComparer<DotRecast.Detour.StraightPathItem>
 	// System.Collections.Generic.ObjectComparer<ET.ActorId>
+	// System.Collections.Generic.ObjectComparer<ET.Client.AtData>
 	// System.Collections.Generic.ObjectComparer<ET.CmdArg>
 	// System.Collections.Generic.ObjectComparer<ET.ItemArg>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -420,7 +428,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<ushort>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.ActorId>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.EntityRef<object>>
-	// System.Collections.Generic.ObjectEqualityComparer<ET.FinishTask>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.LSInput>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.RpcInfo>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
@@ -487,6 +494,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.TreeWalkPredicate<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.TreeWalkPredicate<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.ObjectModel.ReadOnlyCollection<DotRecast.Detour.StraightPathItem>
+	// System.Collections.ObjectModel.ReadOnlyCollection<ET.Client.AtData>
 	// System.Collections.ObjectModel.ReadOnlyCollection<ET.CmdArg>
 	// System.Collections.ObjectModel.ReadOnlyCollection<ET.ItemArg>
 	// System.Collections.ObjectModel.ReadOnlyCollection<System.Collections.Generic.KeyValuePair<int,object>>
@@ -497,6 +505,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.ObjectModel.ReadOnlyCollection<object>
 	// System.Comparison<DotRecast.Detour.StraightPathItem>
 	// System.Comparison<ET.ActorId>
+	// System.Comparison<ET.Client.AtData>
 	// System.Comparison<ET.CmdArg>
 	// System.Comparison<ET.ItemArg>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<int,object>>
@@ -509,12 +518,21 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<ushort>
 	// System.Func<int,object>
 	// System.Func<object,byte>
+	// System.Func<object,int>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
 	// System.Linq.Buffer<ET.RpcInfo>
 	// System.Linq.Buffer<object>
+	// System.Linq.GroupedEnumerable<object,int,object>
+	// System.Linq.IdentityFunction.<>c<object>
+	// System.Linq.IdentityFunction<object>
+	// System.Linq.Lookup.<GetEnumerator>d__12<int,object>
+	// System.Linq.Lookup.Grouping.<GetEnumerator>d__7<int,object>
+	// System.Linq.Lookup.Grouping<int,object>
+	// System.Linq.Lookup<int,object>
 	// System.Predicate<DotRecast.Detour.StraightPathItem>
+	// System.Predicate<ET.Client.AtData>
 	// System.Predicate<ET.CmdArg>
 	// System.Predicate<ET.ItemArg>
 	// System.Predicate<System.Collections.Generic.KeyValuePair<int,object>>
@@ -557,6 +575,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	public void RefMethods()
 	{
+		// object ET.Client.ItemMonoView.GetChild<object>(ET.Client.ItemTagType)
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<ET.ETTaskCompleted,object>(ET.ETTaskCompleted&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,object>(System.Runtime.CompilerServices.TaskAwaiter&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,object>(System.Runtime.CompilerServices.TaskAwaiter<object>&,object&)
@@ -570,13 +589,14 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,object>(System.Runtime.CompilerServices.TaskAwaiter<object>&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<uint>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.Client.AppStartInitFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.Client.AppStartInitFinish>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.Client.EnterMapFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.Client.EnterMapFinish>&)
+		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.AppStartInitFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.AppStartInitFinish>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LSSceneChangeStart>>(ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LSSceneChangeStart>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LoginFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LoginFinish>&)
+		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EnterMapFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EnterMapFinish>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent1>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent1>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent2>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent2>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent3>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent3>&)
+		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.LoginFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.LoginFinish>&)
+		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.SceneChangeFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.SceneChangeFinish>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.WaitType.Wait_Room2C_Start>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_CreateMyUnit>.Start<object>(object&)
@@ -588,6 +608,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void ET.ETAsyncTaskMethodBuilder<long>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<uint>.Start<object>(object&)
+		// object ET.Entity.AddChild<object,int>(int,bool)
 		// object ET.Entity.AddChild<object,object>(object,bool)
 		// object ET.Entity.AddChild<object>(bool)
 		// object ET.Entity.AddChildWithId<object,int>(long,int,bool)
@@ -623,24 +644,29 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// long ET.EnumHelper.FromString<long>(string)
 		// System.Void ET.EventSystem.Invoke<ET.NetComponentOnRead>(long,ET.NetComponentOnRead)
 		// System.Void ET.EventSystem.Publish<object,ET.AddUpdateTask>(object,ET.AddUpdateTask)
+		// System.Void ET.EventSystem.Publish<object,ET.AfterCreateCurrentScene>(object,ET.AfterCreateCurrentScene)
+		// System.Void ET.EventSystem.Publish<object,ET.AfterUnitCreate>(object,ET.AfterUnitCreate)
 		// System.Void ET.EventSystem.Publish<object,ET.ChangePosition>(object,ET.ChangePosition)
 		// System.Void ET.EventSystem.Publish<object,ET.ChangeRotation>(object,ET.ChangeRotation)
-		// System.Void ET.EventSystem.Publish<object,ET.Client.AfterCreateCurrentScene>(object,ET.Client.AfterCreateCurrentScene)
-		// System.Void ET.EventSystem.Publish<object,ET.Client.AfterUnitCreate>(object,ET.Client.AfterUnitCreate)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.DelGroup>(object,ET.Client.DelGroup)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.LSSceneInitFinish>(object,ET.Client.LSSceneInitFinish)
-		// System.Void ET.EventSystem.Publish<object,ET.Client.SceneChangeFinish>(object,ET.Client.SceneChangeFinish)
-		// System.Void ET.EventSystem.Publish<object,ET.Client.SceneChangeStart>(object,ET.Client.SceneChangeStart)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.MenuSelectEvent>(object,ET.Client.MenuSelectEvent)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.UpdateGroup>(object,ET.Client.UpdateGroup)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.UpdateMsg>(object,ET.Client.UpdateMsg)
 		// System.Void ET.EventSystem.Publish<object,ET.DeleteTask>(object,ET.DeleteTask)
+		// System.Void ET.EventSystem.Publish<object,ET.LoadingProgress>(object,ET.LoadingProgress)
 		// System.Void ET.EventSystem.Publish<object,ET.MoveStart>(object,ET.MoveStart)
 		// System.Void ET.EventSystem.Publish<object,ET.MoveStop>(object,ET.MoveStop)
 		// System.Void ET.EventSystem.Publish<object,ET.NumbericChange>(object,ET.NumbericChange)
-		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.Client.AppStartInitFinish>(object,ET.Client.AppStartInitFinish)
-		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.Client.EnterMapFinish>(object,ET.Client.EnterMapFinish)
+		// System.Void ET.EventSystem.Publish<object,ET.SceneChangeStart>(object,ET.SceneChangeStart)
+		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.AppStartInitFinish>(object,ET.AppStartInitFinish)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.Client.LSSceneChangeStart>(object,ET.Client.LSSceneChangeStart)
-		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.Client.LoginFinish>(object,ET.Client.LoginFinish)
+		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.EnterMapFinish>(object,ET.EnterMapFinish)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.EntryEvent1>(object,ET.EntryEvent1)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.EntryEvent2>(object,ET.EntryEvent2)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.EntryEvent3>(object,ET.EntryEvent3)
+		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.LoginFinish>(object,ET.LoginFinish)
+		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.SceneChangeFinish>(object,ET.SceneChangeFinish)
 		// object ET.MongoHelper.FromJson<object>(string)
 		// System.Void ET.ObjectHelper.Swap<object>(object&,object&)
 		// object ET.ObjectPool.Fetch<object>()
@@ -651,6 +677,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.Formatters.ListFormatter.SerializePackable<object>(MemoryPack.MemoryPackWriter&,System.Collections.Generic.List<object>&)
 		// byte[] MemoryPack.Internal.MemoryMarshalEx.AllocateUninitializedArray<byte>(int,bool)
 		// byte& MemoryPack.Internal.MemoryMarshalEx.GetArrayDataReference<byte>(byte[])
+		// MemoryPack.MemoryPackFormatter<byte> MemoryPack.MemoryPackFormatterProvider.GetFormatter<byte>()
+		// MemoryPack.MemoryPackFormatter<long> MemoryPack.MemoryPackFormatterProvider.GetFormatter<long>()
 		// MemoryPack.MemoryPackFormatter<object> MemoryPack.MemoryPackFormatterProvider.GetFormatter<object>()
 		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<ET.LSInput>()
 		// bool MemoryPack.MemoryPackFormatterProvider.IsRegistered<object>()
@@ -658,6 +686,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackFormatterProvider.Register<object>(MemoryPack.MemoryPackFormatter<object>)
 		// System.Void MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<byte>(byte[]&)
 		// byte[] MemoryPack.MemoryPackReader.DangerousReadUnmanagedArray<byte>()
+		// MemoryPack.IMemoryPackFormatter<byte> MemoryPack.MemoryPackReader.GetFormatter<byte>()
+		// MemoryPack.IMemoryPackFormatter<long> MemoryPack.MemoryPackReader.GetFormatter<long>()
 		// MemoryPack.IMemoryPackFormatter<object> MemoryPack.MemoryPackReader.GetFormatter<object>()
 		// System.Void MemoryPack.MemoryPackReader.ReadPackable<object>(object&)
 		// object MemoryPack.MemoryPackReader.ReadPackable<object>()
@@ -670,10 +700,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<Unity.Mathematics.quaternion>(Unity.Mathematics.quaternion&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,ET.ActorId>(byte&,ET.ActorId&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,Unity.Mathematics.float3,int>(byte&,Unity.Mathematics.float3&,int&)
-		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int,int>(byte&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int,int,int>(byte&,int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int,long,long,long>(byte&,int&,int&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int>(byte&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,long,ET.LSInput>(byte&,int&,long&,ET.LSInput&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,long,Unity.Mathematics.float3,Unity.Mathematics.quaternion>(byte&,int&,long&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,long>(byte&,int&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int>(byte&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,TrueSync.TSVector,TrueSync.TSQuaternion>(byte&,long&,TrueSync.TSVector&,TrueSync.TSQuaternion&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,Unity.Mathematics.float3>(byte&,long&,Unity.Mathematics.float3&)
@@ -682,6 +714,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,int,int>(byte&,long&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,int,long>(byte&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,int>(byte&,long&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,int>(byte&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,int>(byte&,long&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long,byte,byte,byte,byte,byte>(byte&,long&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long>(byte&,long&,long&,long&,long&)
@@ -690,44 +723,56 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte>(byte&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int,int>(int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int>(int&,int&)
-		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,long,int,long>(int&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,long,int>(int&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int>(int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,ET.LSInput>(long&,ET.LSInput&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,TrueSync.TSVector,TrueSync.TSQuaternion>(long&,TrueSync.TSVector&,TrueSync.TSQuaternion&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,byte,int,long,long>(long&,byte&,int&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,byte,int,long>(long&,byte&,int&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,int,int>(long&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,int>(long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,long,int,int>(long&,long&,int&,int&)
-		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,long,int,long>(long&,long&,int&,long&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,long,int,long,long>(long&,long&,int&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,long,int>(long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long,long>(long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<long>(long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<uint>(uint&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanagedArray<byte>(byte[]&)
 		// byte[] MemoryPack.MemoryPackReader.ReadUnmanagedArray<byte>()
 		// System.Void MemoryPack.MemoryPackReader.ReadValue<object>(object&)
+		// byte MemoryPack.MemoryPackReader.ReadValue<byte>()
+		// long MemoryPack.MemoryPackReader.ReadValue<long>()
 		// object MemoryPack.MemoryPackReader.ReadValue<object>()
 		// System.Void MemoryPack.MemoryPackWriter.DangerousWriteUnmanagedArray<byte>(byte[])
+		// MemoryPack.IMemoryPackFormatter<byte> MemoryPack.MemoryPackWriter.GetFormatter<byte>()
+		// MemoryPack.IMemoryPackFormatter<long> MemoryPack.MemoryPackWriter.GetFormatter<long>()
 		// MemoryPack.IMemoryPackFormatter<object> MemoryPack.MemoryPackWriter.GetFormatter<object>()
 		// System.Void MemoryPack.MemoryPackWriter.WritePackable<object>(object&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<ET.LSInput>(ET.LSInput&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<Unity.Mathematics.quaternion,int>(Unity.Mathematics.quaternion&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<byte,long>(byte&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,int,int>(int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,int>(int&,int&)
-		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,long,int,long>(int&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,long,int>(int&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int>(int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,ET.LSInput>(long&,ET.LSInput&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,TrueSync.TSVector,TrueSync.TSQuaternion>(long&,TrueSync.TSVector&,TrueSync.TSQuaternion&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,int,int>(long&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,int>(long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,long,int,int>(long&,long&,int&,int&)
-		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,long,int,long>(long&,long&,int&,long&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,long,int,long,long>(long&,long&,int&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,long,int>(long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long,long>(long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<long>(long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedArray<byte>(byte[])
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,ET.ActorId>(byte,byte&,ET.ActorId&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,Unity.Mathematics.float3,int>(byte,byte&,Unity.Mathematics.float3&,int&)
-		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int,int>(byte,byte&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int,int,int>(byte,byte&,int&,int&,int&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int,long,long,long>(byte,byte&,int&,int&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int>(byte,byte&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,long,ET.LSInput>(byte,byte&,int&,long&,ET.LSInput&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,long,Unity.Mathematics.float3,Unity.Mathematics.quaternion>(byte,byte&,int&,long&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,long>(byte,byte&,int&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int>(byte,byte&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,TrueSync.TSVector,TrueSync.TSQuaternion>(byte,byte&,long&,TrueSync.TSVector&,TrueSync.TSQuaternion&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,Unity.Mathematics.float3>(byte,byte&,long&,Unity.Mathematics.float3&)
@@ -736,13 +781,17 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,int,int>(byte,byte&,long&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,int,long>(byte,byte&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,int>(byte,byte&,long&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,int>(byte,byte&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,int>(byte,byte&,long&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long,byte,byte,byte,byte,byte>(byte,byte&,long&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long>(byte,byte&,long&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long>(byte,byte&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,uint>(byte,byte&,uint&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte>(byte,byte&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<long,byte,int,long,long>(byte,long&,byte&,int&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<long,byte,int,long>(byte,long&,byte&,int&,long&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteValue<byte>(byte&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteValue<long>(long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteValue<object>(object&)
 		// object MongoDB.Bson.Serialization.BsonSerializer.Deserialize<object>(MongoDB.Bson.IO.IBsonReader,System.Action<MongoDB.Bson.Serialization.BsonDeserializationContext.Builder>)
 		// object MongoDB.Bson.Serialization.BsonSerializer.Deserialize<object>(string,System.Action<MongoDB.Bson.Serialization.BsonDeserializationContext.Builder>)
@@ -752,13 +801,21 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object System.Activator.CreateInstance<object>()
 		// byte[] System.Array.Empty<byte>()
 		// object[] System.Array.Empty<object>()
+		// int System.Enum.Parse<int>(string)
+		// int System.Enum.Parse<int>(string,bool)
 		// int System.HashCode.Combine<TrueSync.TSVector2,int>(TrueSync.TSVector2,int)
 		// int System.HashCode.Combine<object>(object)
+		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>)
+		// object System.Linq.Enumerable.FirstOrDefault<object>(System.Collections.Generic.IEnumerable<object>,System.Func<object,bool>)
+		// System.Collections.Generic.IEnumerable<System.Linq.IGrouping<int,object>> System.Linq.Enumerable.GroupBy<object,int>(System.Collections.Generic.IEnumerable<object>,System.Func<object,int>)
 		// ET.RpcInfo[] System.Linq.Enumerable.ToArray<ET.RpcInfo>(System.Collections.Generic.IEnumerable<ET.RpcInfo>)
 		// object[] System.Linq.Enumerable.ToArray<object>(System.Collections.Generic.IEnumerable<object>)
 		// System.Span<byte> System.MemoryExtensions.AsSpan<byte>(byte[])
 		// byte& System.Runtime.CompilerServices.Unsafe.Add<byte>(byte&,int)
 		// byte& System.Runtime.CompilerServices.Unsafe.As<byte,byte>(byte&)
+		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
+		// byte& System.Runtime.CompilerServices.Unsafe.AsRef<byte>(byte&)
+		// long& System.Runtime.CompilerServices.Unsafe.AsRef<long>(long&)
 		// object& System.Runtime.CompilerServices.Unsafe.AsRef<object>(object&)
 		// ET.ActorId System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ET.ActorId>(byte&)
 		// ET.LSInput System.Runtime.CompilerServices.Unsafe.ReadUnaligned<ET.LSInput>(byte&)

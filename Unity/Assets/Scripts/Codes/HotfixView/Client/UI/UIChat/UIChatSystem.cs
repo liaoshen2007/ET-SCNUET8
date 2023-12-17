@@ -182,5 +182,10 @@ namespace ET.Client
             self.AddUIScrollItems(self.msgDic, chatUnitList.Count);
             self.View.E_MsgListLoopVerticalScrollRect.SetVisible(true, chatUnitList.Count, true);
         }
+
+        public static void RefreshEmojiList(this UIChat self, int index)
+        {
+            
+        }
     }
 }

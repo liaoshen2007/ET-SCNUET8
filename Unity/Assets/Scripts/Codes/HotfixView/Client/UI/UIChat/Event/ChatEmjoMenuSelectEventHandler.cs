@@ -10,7 +10,7 @@ public class ChatEmojoMenuSelectEventHandler: AEvent<Scene, MenuSelectEvent>
             return;
         }
 
-        Log.Info("---------------");
+        scene.GetComponent<UIComponent>().GetDlgLogic<UIChat>().RefreshEmojiList(a.Index);
         await ETTask.CompletedTask;
     }
 }
