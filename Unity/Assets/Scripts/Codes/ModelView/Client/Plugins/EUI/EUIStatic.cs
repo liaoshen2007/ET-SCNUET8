@@ -33,16 +33,16 @@ namespace ET.Client
 
         public static uint ColorToInt(Color col)
         {
-            return (uint) (col.b * 255) | ((uint) (col.g * 255) << 8 & 0xff00) | ((uint) (col.r * 255) << 16 & 0xff0000) |
-                    ((uint) (col.a * 255) << 24 & 0xff000000);
+            return (uint)(col.b * 255) | ((uint)(col.g * 255) << 8 & 0xff00) | ((uint)(col.r * 255) << 16 & 0xff0000) |
+                    ((uint)(col.a * 255) << 24 & 0xff000000);
         }
 
         public static Color IntToColor(uint col)
         {
-            var b = (byte) (col & 0xff);
-            var g = (byte) (col >> 8 & 0xff);
-            var r = (byte) (col >> 16 & 0xff);
-            var a = (byte) (col >> 24 & 0xff);
+            var b = (byte)(col & 0xff);
+            var g = (byte)(col >> 8 & 0xff);
+            var r = (byte)(col >> 16 & 0xff);
+            var a = (byte)(col >> 24 & 0xff);
             return new Color32(r, g, b, a);
         }
 
@@ -61,23 +61,23 @@ namespace ET.Client
                 return Color.white;
             }
 
-            var b = (byte) (colorValue & 0xff);
-            var g = (byte) (colorValue >> 8 & 0xff);
-            var r = (byte) (colorValue >> 16 & 0xff);
+            var b = (byte)(colorValue & 0xff);
+            var g = (byte)(colorValue >> 8 & 0xff);
+            var r = (byte)(colorValue >> 16 & 0xff);
             return new Color32(r, g, b, byte.MaxValue);
         }
 
         public static string ColorToHexString(this Color col)
         {
-            int c = (int) (col.b * 255) |
-                    ((int) (col.g * 255) << 8 & 0xff00) |
-                    ((int) (col.r * 255) << 16 & 0xff0000);
+            int c = (int)(col.b * 255) |
+                    ((int)(col.g * 255) << 8 & 0xff00) |
+                    ((int)(col.r * 255) << 16 & 0xff0000);
             return c.ToString("X6");
         }
-        
+
         public static Color BytesColor(this byte[] bytes)
         {
-            return new Color(bytes[0], bytes[1], bytes[2], bytes[3]);
+            return new Color(bytes[0] / 255f, bytes[1] / 255f, bytes[2] / 255f, bytes[3] / 255f);
         }
     }
 }
