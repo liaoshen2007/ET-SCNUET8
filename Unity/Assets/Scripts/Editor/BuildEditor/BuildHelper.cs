@@ -99,7 +99,7 @@ namespace ET
 
             AssetDatabase.Refresh();
             string[] levels = {
-                "Assets/Scenes/Init.unity",
+                "Assets/Init.unity",
             };
             Debug.Log("start build exe");
             BuildPipeline.BuildPlayer(levels, $"{relativeDirPrefix}/{exeName}", buildTarget, buildOptions);
