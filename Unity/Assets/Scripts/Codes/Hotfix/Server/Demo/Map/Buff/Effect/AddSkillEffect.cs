@@ -7,12 +7,12 @@
     [Buff("AddSkill")]
     public class AddSkillEffect: ABuffEffect
     {
-        protected override void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected override void OnCreate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             
         }
 
-        protected override void OnRemove(BuffComponent sel, Buff buff, EffectArg effectArgf)
+        protected override void OnRemove(BuffComponent sel, BuffUnit buff, EffectArg effectArgf)
         {
             
         }

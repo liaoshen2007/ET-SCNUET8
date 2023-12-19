@@ -515,3 +515,18 @@ message M2C_UpdateActivity //IMessage
 {
   ActivityProto Activity = 1;
 }
+
+//释放技能
+message C2M_UseSkill //ILocationMessage
+{
+  int32 Id = 1;
+  Unity.Mathematics.float3 Position = 2;
+  Unity.Mathematics.float3 Forward = 3;
+  repeated int64 DstList = 4;
+}
+
+message M2C_UseSkill //IMessage
+{
+  int32 Id = 1;
+  int64 RoleId = 2;
+}

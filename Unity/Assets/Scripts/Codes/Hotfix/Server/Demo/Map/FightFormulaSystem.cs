@@ -1,6 +1,6 @@
 ﻿namespace ET.Server;
 
-[EntitySystemOf(typeof (FightFormula))]
+[EntitySystemOf(typeof(FightFormula))]
 public static partial class FightFormulaSystem
 {
     [EntitySystem]
@@ -8,6 +8,12 @@ public static partial class FightFormulaSystem
     {
         self.CirtDamage = 25000;
         self.K = 0.5f;
+    }
+    
+    [EntitySystem]
+    private static void Load(this FightFormula self)
+    {
+        self.Awake();
     }
 
     /// <summary>
@@ -24,7 +30,7 @@ public static partial class FightFormulaSystem
     bool isCrit = false,
     bool isSymptom = false)
     {
-        int dmgRate = isCrit? self.CirtDamage : 10000;
+        int dmgRate = isCrit ? self.CirtDamage : 10000;
         var att = attack.GetAsLong(NumericType.Attack) + extraAttack;
         var defense = dst.GetAsLong(NumericType.Defense);
         var hp = attack.GetAsLong(NumericType.MaxHp);
@@ -65,7 +71,7 @@ public static partial class FightFormulaSystem
     private static float GetElementRate(this FightFormula self, NumericComponent attack,
     NumericComponent dst, int element)
     {
-        var el = (ElementType) element;
+        var el = (ElementType)element;
         switch (el)
         {
             case ElementType.None:

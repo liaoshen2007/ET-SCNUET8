@@ -2362,6 +2362,73 @@ namespace ET
 
 	}
 
+	/// <summary>
+	///释放技能
+	/// </summary>
+	[Message(OuterMessage.C2M_UseSkill)]
+	[MemoryPackable]
+	public partial class C2M_UseSkill: MessageObject, ILocationMessage
+	{
+		public static C2M_UseSkill Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2M_UseSkill), isFromPool) as C2M_UseSkill; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public Unity.Mathematics.float3 Position { get; set; }
+
+		[MemoryPackOrder(2)]
+		public Unity.Mathematics.float3 Forward { get; set; }
+
+		[MemoryPackOrder(3)]
+		public List<long> DstList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Id = default;
+			this.Position = default;
+			this.Forward = default;
+			this.DstList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_UseSkill)]
+	[MemoryPackable]
+	public partial class M2C_UseSkill: MessageObject, IMessage
+	{
+		public static M2C_UseSkill Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UseSkill), isFromPool) as M2C_UseSkill; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long RoleId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.RoleId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -2434,5 +2501,7 @@ namespace ET
 		 public const ushort M2C_UpdateActivityList = 10069;
 		 public const ushort M2C_UpdateActivityClose = 10070;
 		 public const ushort M2C_UpdateActivity = 10071;
+		 public const ushort C2M_UseSkill = 10072;
+		 public const ushort M2C_UseSkill = 10073;
 	}
 }

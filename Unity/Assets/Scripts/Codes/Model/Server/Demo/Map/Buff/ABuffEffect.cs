@@ -2,7 +2,7 @@
 
 namespace ET.Server
 {
-    public abstract class ABuffEffect : IBuffEffect
+    public abstract partial class ABuffEffect : IBuffEffect
     {
         public bool IsBsEffect { get; set; }
 
@@ -16,7 +16,7 @@ namespace ET.Server
             
         }
 
-        public void Create(BuffComponent self, Buff buff, EffectArg effectArg)
+        public void Create(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ET.Server
             }
         }
 
-        public void Update(BuffComponent self, Buff buff, EffectArg effectArg)
+        public void Update(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace ET.Server
             }
         }
 
-        public void Event(BuffComponent self, BuffEvent buffEvent, Buff buff, EffectArg effectArg)
+        public void Event(BuffComponent self, BuffEvent buffEvent, BuffUnit buff, EffectArg effectArg)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ET.Server
             }
         }
 
-        public void TimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
+        public void TimeOut(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace ET.Server
             }
         }
 
-        public void Remove(BuffComponent self, Buff buff, EffectArg effectArg)
+        public void Remove(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             try
             {
@@ -76,23 +76,23 @@ namespace ET.Server
             }
         }
 
-        protected virtual void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected virtual void OnCreate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnUpdate(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected virtual void OnUpdate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnEvent(BuffComponent self, BuffEvent buffEvent, Buff buff, EffectArg effectArg)
+        protected virtual void OnEvent(BuffComponent self, BuffEvent buffEvent, BuffUnit buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnTimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected virtual void OnTimeOut(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
         }
 
-        protected virtual void OnRemove(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected virtual void OnRemove(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
         }
     }

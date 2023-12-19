@@ -15,7 +15,7 @@ namespace ET.Server
     }
 
     [ChildOf(typeof (BuffComponent))]
-    public class Buff: Entity, IAwake<int, long, long>
+    public class BuffUnit: Entity, IAwake<int, long, long>
     {
         /// <summary>
         /// BuffId
@@ -72,7 +72,7 @@ namespace ET.Server
         public int Interval { get; set; }
 
         /// <summary>
-        /// Buff最大间隔
+        /// Buff最大层级
         /// </summary>
         public int MaxLayer { get; set; }
 

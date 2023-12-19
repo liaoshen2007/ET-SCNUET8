@@ -7,7 +7,7 @@
     [Buff("MassAddBuff")]
     public class MassAddBuffEffect: ABuffEffect
     {
-        protected override void OnTimeOut(BuffComponent self, Buff buff, EffectArg effectArg)
+        protected override void OnTimeOut(BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             int buffId = effectArg.Args[0];
             int time = effectArg.Args[1];

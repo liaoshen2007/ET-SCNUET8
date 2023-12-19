@@ -7,7 +7,7 @@ namespace ET.Server
     {
         public Unit Unit { get; set; }
 
-        public Buff Buff { get; set; }
+        public BuffUnit Buff { get; set; }
     }
 
     public static class BuffComponentSystem
@@ -20,13 +20,13 @@ namespace ET.Server
             }
         }
 
-        public static Buff GetBuff(this BuffComponent self, long id)
+        public static BuffUnit GetBuff(this BuffComponent self, long id)
         {
-            self.BuffDict.TryGetValue(id, out Buff buff);
+            self.BuffDict.TryGetValue(id, out BuffUnit buff);
             return buff;
         }
 
-        public static Buff GetBuff(this BuffComponent self, int idOrMasterId)
+        public static BuffUnit GetBuff(this BuffComponent self, int idOrMasterId)
         {
             foreach (var buff in self.BuffDict.Values)
             {
@@ -77,7 +77,7 @@ namespace ET.Server
             list.AddRange(self.BuffDict.Keys);
             foreach (long id in list)
             {
-                if (self.BuffDict.TryGetValue(id, out Buff buff))
+                if (self.BuffDict.TryGetValue(id, out BuffUnit buff))
                 {
                     if (IsValid(buff))
                     {
@@ -120,7 +120,7 @@ namespace ET.Server
         /// <param name="addRoleId"></param>
         /// <param name="skillId"></param>
         /// <param name="addLayer">添加层级</param>
-        public static Buff AddBuff(this BuffComponent self, int id, int ms = 0, long addRoleId = 0, int skillId = 0, int addLayer = 1)
+        public static BuffUnit AddBuff(this BuffComponent self, int id, int ms = 0, long addRoleId = 0, int skillId = 0, int addLayer = 1)
         {
             var buffConfig = BuffConfigCategory.Instance.Get(id);
             if (buffConfig == null)
@@ -291,17 +291,6 @@ namespace ET.Server
             self.DoBuff(buff, BuffLife.OnRemove);
             self.BuffDict.Remove(id);
             self.CalcBuffClassify();
-            foreach (var v in buff.EffectDict.Values) //回收buff效果
-            {
-                try
-                {
-                    v.OnCheckIn();
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e);
-                }
-            }
 
             buff.EffectDict.Clear();
             EventSystem.Instance.Publish(self.Root(), new BuffCreate() { Unit = self.GetParent<Unit>(), Buff = buff });
@@ -479,7 +468,7 @@ namespace ET.Server
             }
         }
 
-        private static bool IsValid(Buff buff)
+        private static bool IsValid(BuffUnit buff)
         {
             if (buff.Id > 0 && (buff.ValidTime >= TimeInfo.Instance.ServerFrameTime() || buff.Ms < 0))
             {
@@ -489,16 +478,16 @@ namespace ET.Server
             return false;
         }
 
-        private static Buff CreateBuff(this BuffComponent self, int id, long addRoleId, int ms)
+        private static BuffUnit CreateBuff(this BuffComponent self, int id, long addRoleId, int ms)
         {
-            var playerBuff = self.AddChild<Buff, int, long, long>(id, TimeInfo.Instance.ServerFrameTime(), addRoleId);
+            var playerBuff = self.AddChild<BuffUnit, int, long, long>(id, TimeInfo.Instance.ServerFrameTime(), addRoleId);
             playerBuff.EffectDict = new Dictionary<string, IBuffEffect>();
             playerBuff.Ms = ms;
 
             return playerBuff;
         }
 
-        private static void DoBuff(this BuffComponent self, Buff buff, BuffLife life, BuffEvent? buffEvent = null)
+        private static void DoBuff(this BuffComponent self, BuffUnit buff, BuffLife life, BuffEvent? buffEvent = null)
         {
             var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
             foreach (var effect in buffCfg.EffectList)
@@ -563,25 +552,15 @@ namespace ET.Server
 
         private static IBuffEffect CreateBuffEffect(this BuffComponent self, string cmd)
         {
-            if (!BuffComponent.BuffEffectDict.TryGetValue(cmd, out Type t))
+            if (!SkillEffectSingleton.Instance.BuffEffectDict.TryGetValue(cmd, out Type t))
             {
                 return default;
             }
 
-            var effect = (IBuffEffect) ObjectPool.Instance.Fetch(t);
-            try
-            {
-                effect.OnCheckOut();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
-
-            return effect;
+            return Activator.CreateInstance(t) as IBuffEffect;
         }
 
-        private static void CheckBsEffect(this BuffComponent self, Buff buff, EffectArg effectArg)
+        private static void CheckBsEffect(this BuffComponent self, BuffUnit buff, EffectArg effectArg)
         {
             buff.EffectMap ??= new Dictionary<string, BuffDyna>();
             if (!buff.EffectMap.TryGetValue(effectArg.Cmd, out var dyna))

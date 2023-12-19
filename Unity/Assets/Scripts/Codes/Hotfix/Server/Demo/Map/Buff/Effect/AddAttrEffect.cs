@@ -6,7 +6,7 @@
 [Buff("AddAttr")]
 public class AddAttrEffect: ABuffEffect
 {
-    protected override void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnCreate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         var numericCom = self.GetParent<Unit>().GetComponent<NumericComponent>();
         for (int i = 0; i < effectArg.Args.Count / 2; i++)
@@ -22,7 +22,7 @@ public class AddAttrEffect: ABuffEffect
         }
     }
 
-    protected override void OnRemove(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnRemove(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         var numericCom = self.GetParent<Unit>().GetComponent<NumericComponent>();
         for (int i = 0; i < effectArg.Args.Count / 2; i++)

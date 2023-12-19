@@ -7,7 +7,7 @@
 [Buff("AbsorbHp")]
 public class AbsorbHpEffect: ABuffEffect
 {
-    protected override void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnCreate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         var effect = effectArg.Args;
         var rate = effect[0];
@@ -22,7 +22,7 @@ public class AbsorbHpEffect: ABuffEffect
         unit.GetComponent<ShieldComponent>().AddShield(buff.BuffId, value);
     }
 
-    protected override void OnRemove(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnRemove(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         self.GetParent<Unit>().GetComponent<ShieldComponent>().RemoveShield(buff.BuffId);
     }

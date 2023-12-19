@@ -6,7 +6,7 @@
 [Buff("AddAbility")]
 public class AddAbilityEffect: ABuffEffect
 {
-    protected override void OnCreate(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnCreate(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         foreach (int arg in effectArg.Args)
         {
@@ -14,7 +14,7 @@ public class AddAbilityEffect: ABuffEffect
         }
     }
 
-    protected override void OnRemove(BuffComponent self, Buff buff, EffectArg effectArg)
+    protected override void OnRemove(BuffComponent self, BuffUnit buff, EffectArg effectArg)
     {
         foreach (int arg in effectArg.Args)
         {

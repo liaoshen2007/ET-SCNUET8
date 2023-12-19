@@ -2,9 +2,9 @@
 {
     public static class BuffSystem
     {
-        public class BuffAwakeSystem: AwakeSystem<Buff, int, long, long>
+        public class BuffAwakeSystem: AwakeSystem<BuffUnit, int, long, long>
         {
-            protected override void Awake(Buff self, int id, long time, long addUnitId)
+            protected override void Awake(BuffUnit self, int id, long time, long addUnitId)
             {
                 self.BuffId = id;
                 self.AddTime = time;

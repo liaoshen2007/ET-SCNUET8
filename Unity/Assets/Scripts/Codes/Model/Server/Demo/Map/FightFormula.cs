@@ -4,7 +4,7 @@
 /// 战斗公式
 /// </summary>
 [ComponentOf(typeof (Scene))]
-public class FightFormula: Entity, IAwake
+public class FightFormula: Entity, IAwake, ILoad
 {
     public int CirtDamage { get; set; }
     
