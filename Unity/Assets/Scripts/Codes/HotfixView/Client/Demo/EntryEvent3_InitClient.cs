@@ -15,7 +15,9 @@ namespace ET.Client
             root.AddComponent<ClientTaskComponent>();
             root.AddComponent<ClientItemComponent>();
             root.AddComponent<ClientChatComponent>();
-
+            
+            await IconHelper.LoadAtlas(root, AtlasType.Widget);
+            
             // 根据配置修改掉Main Fiber的SceneType
             SceneType sceneType = EnumHelper.FromString<SceneType>(Global.Instance.GlobalConfig.AppType.ToString());
             root.SceneType = sceneType;

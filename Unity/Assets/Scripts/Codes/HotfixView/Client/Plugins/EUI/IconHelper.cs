@@ -12,7 +12,7 @@ namespace ET.Client
             var sp = await entity.LoadSpriteAsync(path, spriteName);
             image.sprite = sp;
         }
-        
+
         public static async ETTask<Sprite> LoadIconSpriteAsync(this Entity self, string spriteName)
         {
             var path = self.Scene().GetComponent<UIComponent>().GetAtlasPath(AtlasType.Icon);
@@ -23,6 +23,12 @@ namespace ET.Client
         {
             var path = self.Scene().GetComponent<UIComponent>().GetAtlasPath(AtlasType.Widget);
             return await self.LoadSpriteAsync(path, spriteName);
+        }
+
+        public static async ETTask LoadAtlas(Entity entity, AtlasType atlasType)
+        {
+            var path = entity.Scene().GetComponent<UIComponent>().GetAtlasPath(atlasType);
+            await entity.Scene().GetComponent<ResourcesLoaderComponent>().LoadAssetAsync<SpriteAtlas>(path);
         }
 
         /// <summary>
