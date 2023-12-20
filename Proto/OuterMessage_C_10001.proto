@@ -520,13 +520,19 @@ message M2C_UpdateActivity //IMessage
 message C2M_UseSkill //ILocationMessage
 {
   int32 Id = 1;
+  //自己的坐标
   Unity.Mathematics.float3 Position = 2;
-  Unity.Mathematics.float3 Forward = 3;
+  repeated Unity.Mathematics.float3 DstPosition = 3;
   repeated int64 DstList = 4;
+  int32 Direct = 5;
 }
 
 message M2C_UseSkill //IMessage
 {
   int32 Id = 1;
   int64 RoleId = 2;
+  repeated int64 DstList = 3;
+  repeated Unity.Mathematics.float3 DstPosition = 4;
+  int32 Direct = 5;
+  Unity.Mathematics.float3 Position = 6;
 }

@@ -2380,14 +2380,20 @@ namespace ET
 		[MemoryPackOrder(0)]
 		public int Id { get; set; }
 
+	/// <summary>
+	///自己的坐标
+	/// </summary>
 		[MemoryPackOrder(1)]
 		public Unity.Mathematics.float3 Position { get; set; }
 
 		[MemoryPackOrder(2)]
-		public Unity.Mathematics.float3 Forward { get; set; }
+		public List<Unity.Mathematics.float3> DstPosition { get; set; } = new();
 
 		[MemoryPackOrder(3)]
 		public List<long> DstList { get; set; } = new();
+
+		[MemoryPackOrder(4)]
+		public int Direct { get; set; }
 
 		public override void Dispose() 
 		{
@@ -2395,8 +2401,9 @@ namespace ET
 			this.RpcId = default;
 			this.Id = default;
 			this.Position = default;
-			this.Forward = default;
+			this.DstPosition.Clear();
 			this.DstList.Clear();
+			this.Direct = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -2418,11 +2425,27 @@ namespace ET
 		[MemoryPackOrder(1)]
 		public long RoleId { get; set; }
 
+		[MemoryPackOrder(2)]
+		public List<long> DstList { get; set; } = new();
+
+		[MemoryPackOrder(3)]
+		public List<Unity.Mathematics.float3> DstPosition { get; set; } = new();
+
+		[MemoryPackOrder(4)]
+		public int Direct { get; set; }
+
+		[MemoryPackOrder(5)]
+		public Unity.Mathematics.float3 Position { get; set; }
+
 		public override void Dispose() 
 		{
 			if (!this.IsFromPool) return;
 			this.Id = default;
 			this.RoleId = default;
+			this.DstList.Clear();
+			this.DstPosition.Clear();
+			this.Direct = default;
+			this.Position = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
