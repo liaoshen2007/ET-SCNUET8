@@ -1,6 +1,39 @@
-﻿namespace ET.Server;
+﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
+
+namespace ET.Server;
+
+public struct UseSKill
+{
+    public SkillUnit Skill;
+}
 
 [ComponentOf(typeof (Unit))]
 public class SkillComponent: Entity, IAwake
 {
+    [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+    public Dictionary<int, SkillUnit> skillDict = new();
+    
+    
+    public int oft;
+    public int usingSkillId;
+    public long singTimer;
+    public long effectTimer;
+    public ASkillEffect skillEffect;
+
+    /// <summary>
+    /// 减CD比例(万比)
+    /// </summary>
+    public int reduceCdRate = 0;
+
+    /// <summary>
+    /// 技能ID减Cd比例
+    /// </summary>
+    public Dictionary<int, int> cdRateDict = new();
+
+    /// <summary>
+    /// 技能ID减Cd时间
+    /// </summary>
+    public Dictionary<int, int> cdSecDict = new();
 }

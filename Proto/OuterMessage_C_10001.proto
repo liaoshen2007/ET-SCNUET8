@@ -536,3 +536,15 @@ message M2C_UseSkill //IMessage
   int32 Direct = 5;
   Unity.Mathematics.float3 Position = 6;
 }
+
+message M2C_UpdateSkill //IMessage
+{
+  int32 Id = 1;
+  repeated int64 CdList = 2;
+}
+
+message M2C_BreakSkill //IMessage
+{
+  int32 Id = 1;
+  int64 RoleId = 2;
+}

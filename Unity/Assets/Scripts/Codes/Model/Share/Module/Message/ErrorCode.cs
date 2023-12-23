@@ -61,5 +61,7 @@ namespace ET
         public const int ERR_ChatCantFindGroup = 220001; //找不到讨论组
         public const int ERR_ChatGroupExist = 220002; //讨论组已存在
         
+        //场景
+        public const int ERR_UnitDead = 230001; //对象死亡
     }
 }

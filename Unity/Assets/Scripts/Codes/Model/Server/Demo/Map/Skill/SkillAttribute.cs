@@ -1,6 +1,8 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET.Server
 {
-    public class SkillAttribute : BaseAttribute
+    public class SkillAttribute: BaseAttribute
     {
         public string Cmd { get; }
 
@@ -12,6 +14,6 @@
 
     public abstract class ASkillEffect
     {
-        
+        public abstract void Run(SkillComponent self, SkillUnit skill, EffectArg effectArg, List<long> RoleList);
     }
 }

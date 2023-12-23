@@ -60,7 +60,20 @@ namespace ET
 
             return default;
         }
-        
+
+        public static bool Exists<T>(this IEnumerable<T> itor, T key)
+        {
+            foreach (T t in itor)
+            {
+                if (t.Equals(key))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static int ToInt(this string str, int def = 0)
         {
             if (int.TryParse(str, out int v))
@@ -70,7 +83,7 @@ namespace ET
 
             return def;
         }
-        
+
         public static long ToLong(this string str, long def = 0)
         {
             if (long.TryParse(str, out long v))
@@ -80,7 +93,7 @@ namespace ET
 
             return def;
         }
-        
+
         public static float ToFloat(this string str, float def = 0)
         {
             if (float.TryParse(str, out float v))

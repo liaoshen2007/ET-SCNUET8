@@ -15,6 +15,10 @@
         public const int SessionAcceptTimeout = 203;
         public const int InnerPing = 204;
         public const int ActivityUpdate = 205;
+        
+        
+        public const int SkillSing = 210;
+        public const int SKillEffect = 211;
 
         public const int RoomUpdate = 301;
 

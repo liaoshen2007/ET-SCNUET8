@@ -10,14 +10,14 @@ public class SkillEffectSingleton: Singleton<SkillEffectSingleton>, ISingletonAw
 
     public Dictionary<string, Type> BuffEffectDict => buffDict;
 
-    private Dictionary<string, Type> skillDict;
+    private Dictionary<string, ASkillEffect> skillDict;
 
-    public Dictionary<string, Type> SkillEffectDict => skillDict;
+    public Dictionary<string, ASkillEffect> SkillEffectDict => skillDict;
 
     public void Awake()
     {
         buffDict = new Dictionary<string, Type>();
-        skillDict = new Dictionary<string, Type>();
+        skillDict = new Dictionary<string, ASkillEffect>();
         foreach (var v in CodeTypes.Instance.GetTypes(typeof (BuffAttribute)))
         {
             var attr = v.GetCustomAttributes(typeof (BuffAttribute), false)[0] as BuffAttribute;
@@ -27,7 +27,7 @@ public class SkillEffectSingleton: Singleton<SkillEffectSingleton>, ISingletonAw
         foreach (var v in CodeTypes.Instance.GetTypes(typeof (SkillAttribute)))
         {
             var attr = v.GetCustomAttributes(typeof (SkillAttribute), false)[0] as SkillAttribute;
-            skillDict.Add(attr.Cmd, v);
+            skillDict.Add(attr.Cmd, Activator.CreateInstance(v) as ASkillEffect);
         }
     }
 }

@@ -22,11 +22,7 @@ namespace ET.Server
 
         public static async ETTask InitUnit(Unit unit, bool isNewPlayer)
         {
-            string[] list =
-            {
-                "UnitExtra", "UnitLucky", "ItemComponent", "TaskComponent", 
-                "BuffComponent", "AbilityComponent", "ShieldComponent",
-            };
+            string[] list = { "UnitExtra", "UnitLucky", "ItemComponent", "TaskComponent", "BuffComponent", "AbilityComponent", "ShieldComponent", };
             foreach (string s in list)
             {
                 if (unit.GetComponentByName(s) == null)
@@ -51,7 +47,7 @@ namespace ET.Server
             NumericComponent nc = unit.GetComponent<NumericComponent>();
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
-            unitInfo.Type = (int) unit.Type();
+            unitInfo.Type = (int)unit.Type();
             unitInfo.Position = unit.Position;
             unitInfo.Forward = unit.Forward;
 
@@ -76,6 +72,17 @@ namespace ET.Server
             }
 
             return unitInfo;
+        }
+
+        public static bool IsAlive(this Unit self)
+        {
+            if (self == null || self.IsDisposed)
+            {
+                return false;
+            }
+
+            var numeric = self.GetComponent<NumericComponent>();
+            return numeric.GetAsLong(NumericType.Hp) > 0;
         }
 
         /// <summary>
@@ -123,8 +130,8 @@ namespace ET.Server
         {
             if (repairPos != 0)
             {
-                srcX = (float) Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
-                srcZ = (float) Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcX = (float)Math.Floor(srcX + Math.Cos(Math.Atan(direct)) * repairPos);
+                srcZ = (float)Math.Floor(srcZ + Math.Cos(Math.Atan(direct)) * repairPos);
             }
 
             return new Pair<float, float>(srcX, srcZ);
@@ -164,7 +171,7 @@ namespace ET.Server
         /// <returns></returns>
         public static bool IsCrit(this Unit self)
         {
-            return self.Scene().GetComponent<FightFormula>().IsCrit(self);
+            return FightFormula.Instance.IsCrit(self);
         }
 
         /// <summary>

@@ -19,8 +19,6 @@ namespace ET.Server
             root.AddComponent<LocationProxyComponent>();
             root.AddComponent<MessageLocationSenderComponent>();
             
-            root.AddComponent<FightFormula>();
-
             await ETTask.CompletedTask;
         }
     }

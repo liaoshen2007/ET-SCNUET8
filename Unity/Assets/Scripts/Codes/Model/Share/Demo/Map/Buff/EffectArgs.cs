@@ -3,11 +3,19 @@ using System.Collections.Generic;
 
 namespace ET
 {
+    [Serializable]
+    public class SubEffectArgs
+    {
+        public string Cmd;
+
+        public List<int> Args;
+    }
+
     /// <summary>
     /// 效果参数
     /// </summary>
     [Serializable]
-    public class EffectArg : ICloneable
+    public class EffectArg: ICloneable
     {
         public string Cmd;
 
@@ -21,22 +29,45 @@ namespace ET
         {
             var effect = new EffectArg()
             {
-                Cmd = Cmd,
-                Args = Args,
-                ViewCmd = ViewCmd,
-                SubList = SubList == null ? null : new List<SubEffectArgs>(SubList)
+                Cmd = Cmd, Args = Args, ViewCmd = ViewCmd, SubList = SubList == null? null : new List<SubEffectArgs>(SubList)
             };
 
             return effect;
         }
     }
 
+    /// <summary>
+    /// 效果参数
+    /// </summary>
     [Serializable]
-    public class SubEffectArgs
+    public class SkillEffectArg: ICloneable
     {
         public string Cmd;
 
+        public int Ms;
+        
+        public int Rate;
+
         public List<int> Args;
+
+        public string ViewCmd;
+
+        public List<SubEffectArgs> SubList;
+
+        public object Clone()
+        {
+            var effect = new SkillEffectArg()
+            {
+                Ms = Ms,
+                Cmd = Cmd,
+                Args = Args,
+                ViewCmd = ViewCmd,
+                Rate = Rate,
+                SubList = SubList == null? null : new List<SubEffectArgs>(SubList)
+            };
+
+            return effect;
+        }
     }
 
     [Serializable]
