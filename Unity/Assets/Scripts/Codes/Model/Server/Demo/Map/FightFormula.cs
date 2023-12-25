@@ -6,8 +6,8 @@
 [Code]
 public class FightFormula: Singleton<FightFormula>, ISingletonAwake
 {
-    public int CirtDamage;
-    public float K;
+    private int CirtDamage;
+    private float K;
 
     public void Awake()
     {

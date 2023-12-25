@@ -14,6 +14,13 @@ namespace ET.Server
 
     public abstract class ASkillEffect
     {
-        public abstract void Run(SkillComponent self, SkillUnit skill, EffectArg effectArg, List<long> RoleList);
+        public SkillEffectArg EffectArg { get; private set; }
+
+        public void SetEffectArg(SkillEffectArg effectArg)
+        {
+            EffectArg = effectArg;
+        }
+
+        public abstract HurtPkg Run(SkillComponent self, SkillUnit skill, List<Unit> RoleList, SkillDyna dyna);
     }
 }

@@ -174,6 +174,22 @@ namespace ET.Server
             return FightFormula.Instance.IsCrit(self);
         }
 
+        public static List<Unit> GetUnitsById(this Unit self, List<long> roleIds)
+        {
+            List<Unit> list = new List<Unit>();
+            var unitComponent = self.Scene().GetComponent<UnitComponent>();
+            foreach (var roleId in roleIds)
+            {
+                Unit unit = unitComponent.Get(roleId);
+                if (unit != null)
+                {
+                    list.Add(unit);
+                }
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// 创建受伤参数
         /// </summary>

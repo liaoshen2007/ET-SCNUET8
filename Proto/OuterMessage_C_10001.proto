@@ -235,29 +235,6 @@ message G2C_Benchmark // ISessionResponse
 {
 }
 
-//受伤信息
-message HurtInfo
-{
-  //受伤者id
-  int64 Id = 1;
-  //伤害值
-  int64 Hurt = 2;
-  //吸血值
-  int64 SuckHp = 3;
-  //反伤
-  int64 BackHurt = 4;
-  //是否暴击
-  bool IsCrit = 5;
-  //是否闪避
-  bool IsMiss = 6;
-  //是否格挡
-  bool IsFender = 7;
-  //是否是加血
-  bool IsAddHp = 8;
-  //是否免疫
-  bool IsImmUnity = 9;
-}
-
 //更新护盾值
 message M2C_UpdateUnitShield // IMessage
 {
@@ -547,4 +524,35 @@ message M2C_BreakSkill //IMessage
 {
   int32 Id = 1;
   int64 RoleId = 2;
+}
+
+//受伤信息
+message HurtInfo
+{
+  //受伤者id
+  int64 Id = 1;
+  //伤害值
+  int64 Hurt = 2;
+  //吸血值
+  int64 SuckHp = 3;
+  //反伤
+  int64 BackHurt = 4;
+  //是否暴击
+  bool IsCrit = 5;
+  //是否闪避
+  bool IsMiss = 6;
+  //是否格挡
+  bool IsFender = 7;
+  //是否是加血
+  bool IsAddHp = 8;
+  //是否免疫
+  bool IsImmUnity = 9;
+}
+
+message M2C_HurtList //IMessage
+{
+  int64 RoleId = 1;
+  int32 Id = 2;
+  repeated HurtInfo HurtList = 3;
+  string ViewCmd = 4;
 }

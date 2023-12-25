@@ -10,6 +10,7 @@ namespace ET.Server
         public BuffUnit Buff { get; set; }
     }
 
+    [FriendOf(typeof(BuffComponent))]
     public static class BuffComponentSystem
     {
         public class BuffComponentUpdateSystem: UpdateSystem<BuffComponent>
@@ -22,13 +23,13 @@ namespace ET.Server
 
         public static BuffUnit GetBuff(this BuffComponent self, long id)
         {
-            self.BuffDict.TryGetValue(id, out BuffUnit buff);
+            self.buffDict.TryGetValue(id, out BuffUnit buff);
             return buff;
         }
 
         public static BuffUnit GetBuff(this BuffComponent self, int idOrMasterId)
         {
-            foreach (var buff in self.BuffDict.Values)
+            foreach (var buff in self.buffDict.Values)
             {
                 if (buff.Id == idOrMasterId || buff.MasterId == idOrMasterId)
                 {
@@ -54,7 +55,7 @@ namespace ET.Server
                     self.BuffHook(buffEvent);
                     break;
                 default:
-                    if (self.ScribeEventMap.ContainsKey((int) buffEvent))
+                    if (self.scribeEventMap.ContainsKey((int) buffEvent))
                     {
                         self.BuffHook(buffEvent);
                     }
@@ -67,17 +68,17 @@ namespace ET.Server
 
         public static void BuffHook(this BuffComponent self, BuffEvent? buffEvent = null)
         {
-            if (self.BuffDict.Count == 0)
+            if (self.buffDict.Count == 0)
             {
                 return;
             }
 
             var list = ObjectPool.Instance.Fetch<List<long>>();
             list.Clear();
-            list.AddRange(self.BuffDict.Keys);
+            list.AddRange(self.buffDict.Keys);
             foreach (long id in list)
             {
-                if (self.BuffDict.TryGetValue(id, out BuffUnit buff))
+                if (self.buffDict.TryGetValue(id, out BuffUnit buff))
                 {
                     if (IsValid(buff))
                     {
@@ -140,7 +141,7 @@ namespace ET.Server
             if (playerBuff == null)
             {
                 var mutexList = new HashSet<long>();
-                foreach (var buff in self.BuffDict.Values)
+                foreach (var buff in self.buffDict.Values)
                 {
                     if (buff.Id != id && IsValid(buff))
                     {
@@ -238,7 +239,7 @@ namespace ET.Server
             }
 
             playerBuff.SkillId = skillId;
-            self.BuffDict[playerBuff.Id] = playerBuff;
+            self.buffDict[playerBuff.Id] = playerBuff;
             if (isNew || playerBuff.Layer > 1)
             {
                 playerBuff.AddRoleId = addRoleId == 0? playerBuff.AddRoleId : addRoleId;
@@ -277,7 +278,7 @@ namespace ET.Server
         /// <param name="id"></param>
         public static void RemoveBuff(this BuffComponent self, long id)
         {
-            if (!self.BuffDict.TryGetValue(id, out var buff))
+            if (!self.buffDict.TryGetValue(id, out var buff))
             {
                 return;
             }
@@ -289,7 +290,7 @@ namespace ET.Server
 
             buff.IsRemove = true;
             self.DoBuff(buff, BuffLife.OnRemove);
-            self.BuffDict.Remove(id);
+            self.buffDict.Remove(id);
             self.CalcBuffClassify();
 
             buff.EffectDict.Clear();
@@ -314,7 +315,7 @@ namespace ET.Server
         {
             var list = ObjectPool.Instance.Fetch<List<long>>();
             list.Clear();
-            foreach (var buff in self.BuffDict.Values)
+            foreach (var buff in self.buffDict.Values)
             {
                 if (buff.Id == id)
                 {
@@ -337,17 +338,17 @@ namespace ET.Server
         /// <param name="classify"></param>
         public static void RemoveBuffByClassify(this BuffComponent self, int classify)
         {
-            if (self.BuffDict.Count == 0)
+            if (self.buffDict.Count == 0)
             {
                 return;
             }
 
             var list = ObjectPool.Instance.Fetch<List<long>>();
             list.Clear();
-            list.AddRange(self.BuffDict.Keys);
+            list.AddRange(self.buffDict.Keys);
             foreach (var id in list)
             {
-                if (self.BuffDict.TryGetValue(id, out var buff))
+                if (self.buffDict.TryGetValue(id, out var buff))
                 {
                     var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
                     if (buffCfg.ClassifyMap.Contains(classify))
@@ -368,7 +369,7 @@ namespace ET.Server
         /// <param name="layer"></param>
         public static void RemoveBuffLayer(this BuffComponent self, long id, int layer = 1)
         {
-            if (self.BuffDict.TryGetValue(id, out var buff))
+            if (self.buffDict.TryGetValue(id, out var buff))
             {
                 buff.Layer -= layer;
                 if (buff.Layer <= 0)
@@ -380,7 +381,7 @@ namespace ET.Server
 
         public static void AddBuffTime(this BuffComponent self, long id, int ms)
         {
-            if (self.BuffDict.TryGetValue(id, out var buff))
+            if (self.buffDict.TryGetValue(id, out var buff))
             {
                 buff.ValidTime += ms;
             }
@@ -393,7 +394,7 @@ namespace ET.Server
         {
             var list = ObjectPool.Instance.Fetch<List<long>>();
             list.Clear();
-            list.AddRange(self.BuffDict.Keys);
+            list.AddRange(self.buffDict.Keys);
             foreach (var id in list)
             {
                 self.RemoveBuff(id);
@@ -404,23 +405,23 @@ namespace ET.Server
 
         public static void SubscribeBuffEvent(this BuffComponent self, int buffEvent)
         {
-            if (!self.ScribeEventMap.TryGetValue(buffEvent, out var v))
+            if (!self.scribeEventMap.TryGetValue(buffEvent, out var v))
             {
-                self.ScribeEventMap.Add(buffEvent, 0);
+                self.scribeEventMap.Add(buffEvent, 0);
             }
 
-            self.ScribeEventMap[buffEvent] = v + 1;
+            self.scribeEventMap[buffEvent] = v + 1;
         }
 
         public static void UnSubscribeBuffEvent(this BuffComponent self, int buffEvent)
         {
-            if (self.ScribeEventMap.TryGetValue(buffEvent, out var v))
+            if (self.scribeEventMap.TryGetValue(buffEvent, out var v))
             {
                 v -= 1;
-                self.ScribeEventMap[buffEvent] = v;
+                self.scribeEventMap[buffEvent] = v;
                 if (v <= 0)
                 {
-                    self.ScribeEventMap.Remove(buffEvent);
+                    self.scribeEventMap.Remove(buffEvent);
                 }
             }
         }
@@ -433,7 +434,7 @@ namespace ET.Server
         /// <returns></returns>
         public static bool ContainsClassify(this BuffComponent self, int classify)
         {
-            return self.EventMap.ContainsKey(classify);
+            return self.eventMap.ContainsKey(classify);
         }
 
         /// <summary>
@@ -446,7 +447,7 @@ namespace ET.Server
         {
             foreach (var classify in classifyList)
             {
-                if (self.EventMap.ContainsKey(classify))
+                if (self.eventMap.ContainsKey(classify))
                 {
                     return true;
                 }
@@ -457,13 +458,13 @@ namespace ET.Server
 
         private static void CalcBuffClassify(this BuffComponent self)
         {
-            self.EventMap.Clear();
-            foreach (var buff in self.BuffDict.Values)
+            self.eventMap.Clear();
+            foreach (var buff in self.buffDict.Values)
             {
                 var buffCfg = BuffConfigCategory.Instance.Get(buff.BuffId);
                 foreach (var c in buffCfg.ClassifyMap)
                 {
-                    self.EventMap[c] = true;
+                    self.eventMap[c] = true;
                 }
             }
         }

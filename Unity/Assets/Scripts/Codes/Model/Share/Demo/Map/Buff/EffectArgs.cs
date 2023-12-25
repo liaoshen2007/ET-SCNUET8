@@ -42,28 +42,45 @@ namespace ET
     [Serializable]
     public class SkillEffectArg: ICloneable
     {
+        public int Dst;
+        public int RangeType;
+        public List<int> RangeArgs;
+
         public string Cmd;
-
         public int Ms;
-        
-        public int Rate;
-
         public List<int> Args;
+        public int Rate;
 
         public string ViewCmd;
 
         public List<SubEffectArgs> SubList;
 
+        public int this[int i]
+        {
+            get
+            {
+                if (i >= this.RangeArgs.Count)
+                {
+                    return 0;
+                }
+
+                return this.RangeArgs[i];
+            }
+        }
+
         public object Clone()
         {
             var effect = new SkillEffectArg()
             {
+                Dst = Dst,
+                Rate = Rate,
                 Ms = Ms,
                 Cmd = Cmd,
                 Args = Args,
                 ViewCmd = ViewCmd,
-                Rate = Rate,
-                SubList = SubList == null? null : new List<SubEffectArgs>(SubList)
+                SubList = SubList == null? null : new List<SubEffectArgs>(SubList),
+                RangeType = RangeType,
+                RangeArgs = RangeArgs,
             };
 
             return effect;

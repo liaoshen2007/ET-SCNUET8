@@ -9,6 +9,12 @@ public struct UseSKill
     public SkillUnit Skill;
 }
 
+public class HurtPkg
+{
+    public List<HurtInfo> HurtInfos = new();
+    public string ViewCmd;
+}
+
 [ComponentOf(typeof (Unit))]
 public class SkillComponent: Entity, IAwake
 {
@@ -17,10 +23,12 @@ public class SkillComponent: Entity, IAwake
     
     
     public int oft;
+    public int lastSkillId;
     public int usingSkillId;
     public long singTimer;
     public long effectTimer;
     public ASkillEffect skillEffect;
+    public SkillDyna dyna;
 
     /// <summary>
     /// 减CD比例(万比)

@@ -11,13 +11,6 @@ public enum OriginMode
     Parent,
 }
 
-[Flags]
-public enum FilterMode
-{
-    IncludeSelf = 1,
-    IncludeInvincible = 2,
-}
-
 public enum SharpType
 {
     /// <summary>
@@ -127,9 +120,9 @@ public static class UnitFilter
 
                 //用0.001 做角度的偏移运算使起始线、未尾线不在坐标轴上
                 double tanB = Math.Tan(Math.Atan(direct - arg2 / 2 + 0.001f));
-                int relB = (int) Math.Ceiling((direct - arg2 / 2 + 0.001f) % 360 / 90);
+                int relB = (int)Math.Ceiling((direct - arg2 / 2 + 0.001f) % 360 / 90);
                 double tanE = Math.Tan(Math.Atan(direct + arg2 / 2 - 0.001f));
-                int relE = (int) Math.Ceiling((direct - arg2 / 2 - 0.001f) % 360 / 90);
+                int relE = (int)Math.Ceiling((direct - arg2 / 2 - 0.001f) % 360 / 90);
                 foreach (var unit in unitList)
                 {
                     float dstX0 = unit.Position.x - srcX;

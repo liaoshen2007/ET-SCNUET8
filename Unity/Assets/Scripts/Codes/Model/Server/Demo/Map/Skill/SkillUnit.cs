@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using Unity.Mathematics;
 
 namespace ET.Server;
 
-public struct SkillDyna
+public class SkillDyna
 {
-    public List<long> LastHurtList;
+    public List<Unit> LastHurtList;
+    public int Direct;
+    public List<long> DstList;
+    public List<float3> DstPosition;
 }
 
 [ChildOf(typeof (SkillComponent))]

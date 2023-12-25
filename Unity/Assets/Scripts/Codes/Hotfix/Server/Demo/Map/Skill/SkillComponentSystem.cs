@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ET.Server;
@@ -21,18 +22,52 @@ public static partial class SkillComponentSystem
             self.ProcessSkill();
         }
     }
-    
+
     [Invoke(TimerInvokeType.SKillEffect)]
     private class SkillEffectTimer: ATimer<SkillComponent>
     {
         protected override void Run(SkillComponent self)
         {
-            
+            self.ProcessSKillEffect();
         }
     }
-    
-    private static void ProcessSKillEffect(this SkillComponent self, ASkillEffect effect)
+
+    private static List<Unit> GetHurtList(this SkillComponent self, SkillUnit skill)
     {
+        var effectCfg = skill.Config.EffectList.Get(self.oft);
+        switch (effectCfg.RangeType)
+        {
+            case 0:
+                return new List<Unit>();
+            case (int)RangeType.UseLast:
+                return self.dyna.LastHurtList;
+            default:
+                return self.GetParent<Unit>().GetAttackList((FocusType)effectCfg.Dst,
+                    (RangeType)effectCfg.RangeType,
+                    self.dyna.Direct,
+                    self.GetParent<Unit>().GetUnitsById(self.dyna.DstList),
+                    self.dyna.DstPosition,
+                    0,
+                    effectCfg[0], effectCfg[1], effectCfg[2], effectCfg[3],
+                    skill.Config.MaxDistance);
+        }
+    }
+
+    private static void ProcessSKillEffect(this SkillComponent self)
+    {
+        if (self.skillEffect == default)
+        {
+            return;
+        }
+
+        var skill = self.skillDict.Get(self.usingSkillId);
+        var unitList = self.GetHurtList(skill);
+        var pkg = self.skillEffect.Run(self, skill, unitList, self.dyna);
+        self.dyna.LastHurtList = unitList;
+        self.GetParent<Unit>().BroadCastHurt((int)skill.Id, pkg);
+
+        self.oft++;
+        self.ProcessSkill();
     }
 
     private static void ProcessSkill(this SkillComponent self)
@@ -47,6 +82,7 @@ public static partial class SkillComponentSystem
         var effectCfg = skill.Config.EffectList.Get(self.oft);
         if (effectCfg == default)
         {
+            self.UseSuccess();
             return;
         }
 
@@ -57,13 +93,14 @@ public static partial class SkillComponentSystem
         }
 
         self.skillEffect = effect;
+        self.skillEffect.SetEffectArg(effectCfg);
         if (effectCfg.Ms > 0)
         {
             self.effectTimer = self.Scene().GetComponent<TimerComponent>().NewOnceTimer(effectCfg.Ms, TimerInvokeType.SKillEffect, self);
             return;
         }
-        
-        self.ProcessSKillEffect(effect);
+
+        self.ProcessSKillEffect();
     }
 
     private static MessageReturn CheckCondition(this SkillComponent self, SkillUnit skill)
@@ -71,7 +108,7 @@ public static partial class SkillComponentSystem
         return MessageReturn.Success();
     }
 
-    public static MessageReturn UseSKill(this SkillComponent self, int id, C2M_UseSkill request)
+    public static MessageReturn UseSKill(this SkillComponent self, int id, SkillDyna dyna)
     {
         var skill = self.skillDict.Get(id);
         if (skill == default)
@@ -88,7 +125,7 @@ public static partial class SkillComponentSystem
         switch (skill.Config.RangeType)
         {
             case (int)RangeType.Single:
-                if (request.DstList.IsNullOrEmpty())
+                if (dyna.DstList.IsNullOrEmpty())
                 {
                     return MessageReturn.Create(ErrorCode.ERR_InputInvaid);
                 }
@@ -96,7 +133,7 @@ public static partial class SkillComponentSystem
                 break;
             case (int)RangeType.SelfLine:
             case (int)RangeType.DstLine:
-                if (request.DstPosition.Count == 0)
+                if (dyna.DstPosition.Count == 0)
                 {
                     return MessageReturn.Create(ErrorCode.ERR_InputInvaid);
                 }
@@ -130,11 +167,20 @@ public static partial class SkillComponentSystem
         useSkill.Id = id;
         useSkill.RoleId = unit.Id;
         useSkill.Position = unit.Position;
-        useSkill.DstList.AddRange(request.DstList);
-        useSkill.DstPosition.AddRange(request.DstPosition);
-        useSkill.Direct = request.Direct;
+        if (dyna.DstList != null)
+        {
+            useSkill.DstList.AddRange(dyna.DstList);
+        }
+
+        if (dyna.DstPosition != null)
+        {
+            useSkill.DstPosition.AddRange(dyna.DstPosition);
+        }
+
+        useSkill.Direct = dyna.Direct;
         MapMessageHelper.Broadcast(unit, useSkill);
 
+        self.dyna = dyna;
         self.oft = 0;
         self.usingSkillId = id;
         self.singTimer = self.Scene().GetComponent<TimerComponent>().NewOnceTimer(skill.Config.SingTime, TimerInvokeType.SkillSing, self);
@@ -168,9 +214,17 @@ public static partial class SkillComponentSystem
             self.Scene().GetComponent<TimerComponent>().Remove(ref self.effectTimer);
             var unit = self.GetParent<Unit>();
             MapMessageHelper.Broadcast(unit, new M2C_BreakSkill() { Id = self.usingSkillId, RoleId = unit.Id });
-            self.usingSkillId = 0;
+            self.UseSuccess();
         }
 
         return false;
+    }
+
+    private static void UseSuccess(this SkillComponent self)
+    {
+        self.lastSkillId = self.usingSkillId;
+        self.usingSkillId = 0;
+        self.skillEffect = null;
+        self.dyna = null;
     }
 }

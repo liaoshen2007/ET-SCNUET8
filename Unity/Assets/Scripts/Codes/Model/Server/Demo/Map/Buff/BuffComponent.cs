@@ -6,10 +6,10 @@ namespace ET.Server
     [EnableMethod]
     public class BuffComponent: Entity, IAwake, IUpdate, ITransfer
     {
-        public Dictionary<int, int> ScribeEventMap { get; } = new();
+        public Dictionary<int, int> scribeEventMap = new();
 
-        public Dictionary<long, BuffUnit> BuffDict { get; } = new();
+        public Dictionary<long, BuffUnit> buffDict = new();
 
-        public Dictionary<int, bool> EventMap { get; } = new();
+        public Dictionary<int, bool> eventMap = new();
     }
 }
