@@ -11,7 +11,7 @@ namespace ET
 	[MemoryPackable]
 	public partial class Main2NetClient_Login: MessageObject, IRequest
 	{
-		public static Main2NetClient_Login Create(bool isFromPool = true) 
+		public static Main2NetClient_Login Create(bool isFromPool = false) 
 		{ 
 			return ObjectPool.Instance.Fetch(typeof(Main2NetClient_Login), isFromPool) as Main2NetClient_Login; 
 		}
@@ -49,7 +49,7 @@ namespace ET
 	[MemoryPackable]
 	public partial class NetClient2Main_Login: MessageObject, IResponse
 	{
-		public static NetClient2Main_Login Create(bool isFromPool = true) 
+		public static NetClient2Main_Login Create(bool isFromPool = false) 
 		{ 
 			return ObjectPool.Instance.Fetch(typeof(NetClient2Main_Login), isFromPool) as NetClient2Main_Login; 
 		}
