@@ -14,36 +14,36 @@ namespace ET
         {
             MemoryPackHelper.Serialize(message, stream);
         }
-		
+
         public static MessageObject Deserialize(Type type, byte[] bytes, int index, int count)
         {
-            object o = ObjectPool.Instance.Fetch(type, false);
+            object o = ObjectPool.Instance.Fetch(type);
             MemoryPackHelper.Deserialize(type, bytes, index, count, ref o);
             return o as MessageObject;
         }
 
         public static MessageObject Deserialize(Type type, MemoryBuffer stream)
         {
-            object o = ObjectPool.Instance.Fetch(type, false);
+            object o = ObjectPool.Instance.Fetch(type);
             MemoryPackHelper.Deserialize(type, stream, ref o);
             return o as MessageObject;
         }
-        
+
         public static ushort MessageToStream(MemoryBuffer stream, MessageObject message, int headOffset = 0)
         {
             ushort opcode = OpcodeType.Instance.GetOpcode(message.GetType());
-            
+
             stream.Seek(headOffset + Packet.OpcodeLength, SeekOrigin.Begin);
             stream.SetLength(headOffset + Packet.OpcodeLength);
-            
+
             stream.GetBuffer().WriteTo(headOffset, opcode);
-            
+
             MessageSerializeHelper.Serialize(message, stream);
-            
+
             stream.Seek(0, SeekOrigin.Begin);
             return opcode;
         }
-        
+
         public static (ushort, MemoryBuffer) ToMemoryBuffer(AService service, ActorId actorId, object message)
         {
             MemoryBuffer memoryBuffer = service.Fetch();
@@ -62,12 +62,12 @@ namespace ET
                     break;
                 }
             }
-            
+
             ((MessageObject)message).Dispose(); // 回收message
-            
+
             return (opcode, memoryBuffer);
         }
-        
+
         public static (ActorId, object) ToMessage(AService service, MemoryBuffer memoryStream)
         {
             object message = null;
@@ -95,9 +95,9 @@ namespace ET
                     break;
                 }
             }
-            
+
             service.Recycle(memoryStream);
-            
+
             return (actorId, message);
         }
     }

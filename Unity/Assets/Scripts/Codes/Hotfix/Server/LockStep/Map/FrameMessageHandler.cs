@@ -8,6 +8,7 @@ namespace ET.Server
     {
         protected override async ETTask Run(Scene root, FrameMessage message)
         {
+            using FrameMessage _ = message;  // 让消息回到池中
             Room room = root.GetComponent<Room>();
             FrameBuffer frameBuffer = room.FrameBuffer;
             if (message.Frame % (1000 / LSConstValue.UpdateInterval) == 0)
