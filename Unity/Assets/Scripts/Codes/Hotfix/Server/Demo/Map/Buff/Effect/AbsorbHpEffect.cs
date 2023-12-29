@@ -14,7 +14,7 @@ public class AbsorbHpEffect: ABuffEffect
         var extra = effect[1];
         var unit = self.GetParent<Unit>();
         var value = (unit.GetAttrValue(NumericType.MaxHp) * rate / 10000 + extra).Ceil() * buff.Layer;
-        if (unit.IsCrit())
+        if (HurtHelper.IsCrit(unit))
         {
             value = (value * effect[2] / 10000f).Ceil();
         }

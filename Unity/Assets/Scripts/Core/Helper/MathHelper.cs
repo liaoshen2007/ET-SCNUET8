@@ -18,6 +18,18 @@ namespace ET
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long Floor(this double value)
+        {
+            return (long)Math.Floor(value);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long Floor(this float value)
+        {
+            return (long)Math.Floor(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long Ceil(this long value)
         {
             return value;

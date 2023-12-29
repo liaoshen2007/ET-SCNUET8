@@ -11,5 +11,5 @@ public class AbilityComponent: Entity, IAwake, ITransfer
     /// <summary>
     /// 能力列表
     /// </summary>
-    public int[] AbilityList { get; } = new int[(int) RoleAbility.End];
+    public int[] abilityList = new int[(int) RoleAbility.End];
 }

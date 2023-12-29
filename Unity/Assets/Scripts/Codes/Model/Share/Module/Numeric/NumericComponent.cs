@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 
@@ -101,6 +102,11 @@ namespace ET
             long result = (long)(((self.GetByKey(bas) + self.GetByKey(add)) * (100 + self.GetAsFloat(pct)) / 100f + self.GetByKey(finalAdd)) *
                 (100 + self.GetAsFloat(finalPct)) / 100f);
             self.Insert(final, result, isPublicEvent);
+        }
+
+        public static Dictionary<int, long> CopyDict(this NumericComponent self)
+        {
+            return new Dictionary<int, long>(self.NumericDic);
         }
     }
     

@@ -68,16 +68,20 @@ namespace ET
 	{
 		/// <summary>ID</summary>
 		public int Id { get; set; }
-		/// <summary>图标</summary>
-		public string Icon { get; set; }
 		/// <summary>初始层数</summary>
 		public int PreLayer { get; set; }
 		/// <summary>最大层数</summary>
 		public int MaxLayer { get; set; }
 		/// <summary>连招顺序</summary>
 		public int Sort { get; set; }
+		/// <summary>仇恨比例</summary>
+		public int HateRate { get; set; }
+		/// <summary>仇恨基础</summary>
+		public int HateBase { get; set; }
 		/// <summary>目标类型</summary>
 		public int DstType { get; set; }
+		/// <summary>范围类型</summary>
+		public int RangeType { get; set; }
 		/// <summary>目标最大距离</summary>
 		public int MaxDistance { get; set; }
 		/// <summary>技能被中断类型</summary>
@@ -97,7 +101,7 @@ namespace ET
 		/// <summary>释放消耗</summary>
 		public int ConsumeList { get; set; }
 		/// <summary>效果列表</summary>
-		public string EffectList { get; set; }
+		public string EffectStr { get; set; }
 
 	}
 }

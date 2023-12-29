@@ -1128,90 +1128,6 @@ namespace ET
 	}
 
 	/// <summary>
-	///受伤信息
-	/// </summary>
-	[Message(OuterMessage.HurtInfo)]
-	[MemoryPackable]
-	public partial class HurtInfo: MessageObject
-	{
-		public static HurtInfo Create(bool isFromPool = true) 
-		{ 
-			return ObjectPool.Instance.Fetch(typeof(HurtInfo), isFromPool) as HurtInfo; 
-		}
-
-	/// <summary>
-	///受伤者id
-	/// </summary>
-		[MemoryPackOrder(0)]
-		public long Id { get; set; }
-
-	/// <summary>
-	///伤害值
-	/// </summary>
-		[MemoryPackOrder(1)]
-		public long Hurt { get; set; }
-
-	/// <summary>
-	///吸血值
-	/// </summary>
-		[MemoryPackOrder(2)]
-		public long SuckHp { get; set; }
-
-	/// <summary>
-	///反伤
-	/// </summary>
-		[MemoryPackOrder(3)]
-		public long BackHurt { get; set; }
-
-	/// <summary>
-	///是否暴击
-	/// </summary>
-		[MemoryPackOrder(4)]
-		public bool IsCrit { get; set; }
-
-	/// <summary>
-	///是否闪避
-	/// </summary>
-		[MemoryPackOrder(5)]
-		public bool IsMiss { get; set; }
-
-	/// <summary>
-	///是否格挡
-	/// </summary>
-		[MemoryPackOrder(6)]
-		public bool IsFender { get; set; }
-
-	/// <summary>
-	///是否是加血
-	/// </summary>
-		[MemoryPackOrder(7)]
-		public bool IsAddHp { get; set; }
-
-	/// <summary>
-	///是否免疫
-	/// </summary>
-		[MemoryPackOrder(8)]
-		public bool IsImmUnity { get; set; }
-
-		public override void Dispose() 
-		{
-			if (!this.IsFromPool) return;
-			this.Id = default;
-			this.Hurt = default;
-			this.SuckHp = default;
-			this.BackHurt = default;
-			this.IsCrit = default;
-			this.IsMiss = default;
-			this.IsFender = default;
-			this.IsAddHp = default;
-			this.IsImmUnity = default;
-			
-			ObjectPool.Instance.Recycle(this); 
-		}
-
-	}
-
-	/// <summary>
 	///更新护盾值
 	/// </summary>
 	[Message(OuterMessage.M2C_UpdateUnitShield)]
@@ -2452,6 +2368,169 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.M2C_UpdateSkill)]
+	[MemoryPackable]
+	public partial class M2C_UpdateSkill: MessageObject, IMessage
+	{
+		public static M2C_UpdateSkill Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UpdateSkill), isFromPool) as M2C_UpdateSkill; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public List<long> CdList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.CdList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_BreakSkill)]
+	[MemoryPackable]
+	public partial class M2C_BreakSkill: MessageObject, IMessage
+	{
+		public static M2C_BreakSkill Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_BreakSkill), isFromPool) as M2C_BreakSkill; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long RoleId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.RoleId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///受伤信息
+	/// </summary>
+	[Message(OuterMessage.HurtInfo)]
+	[MemoryPackable]
+	public partial class HurtInfo: MessageObject
+	{
+		public static HurtInfo Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(HurtInfo), isFromPool) as HurtInfo; 
+		}
+
+	/// <summary>
+	///受伤者id
+	/// </summary>
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+	/// <summary>
+	///伤害值
+	/// </summary>
+		[MemoryPackOrder(1)]
+		public long Hurt { get; set; }
+
+	/// <summary>
+	///吸血值
+	/// </summary>
+		[MemoryPackOrder(2)]
+		public long SuckHp { get; set; }
+
+	/// <summary>
+	///是否暴击
+	/// </summary>
+		[MemoryPackOrder(4)]
+		public bool IsCrit { get; set; }
+
+	/// <summary>
+	///是否直击
+	/// </summary>
+		[MemoryPackOrder(5)]
+		public bool IsDirect { get; set; }
+
+	/// <summary>
+	///是否格挡
+	/// </summary>
+		[MemoryPackOrder(6)]
+		public bool IsFender { get; set; }
+
+	/// <summary>
+	///是否是加血
+	/// </summary>
+		[MemoryPackOrder(7)]
+		public bool IsAddHp { get; set; }
+
+	/// <summary>
+	///是否免疫
+	/// </summary>
+		[MemoryPackOrder(8)]
+		public bool IsImmUnity { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Hurt = default;
+			this.SuckHp = default;
+			this.IsCrit = default;
+			this.IsDirect = default;
+			this.IsFender = default;
+			this.IsAddHp = default;
+			this.IsImmUnity = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_HurtList)]
+	[MemoryPackable]
+	public partial class M2C_HurtList: MessageObject, IMessage
+	{
+		public static M2C_HurtList Create(bool isFromPool = true) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_HurtList), isFromPool) as M2C_HurtList; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long RoleId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(2)]
+		public List<HurtInfo> HurtList { get; set; } = new();
+
+		[MemoryPackOrder(3)]
+		public string ViewCmd { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RoleId = default;
+			this.Id = default;
+			this.HurtList.Clear();
+			this.ViewCmd = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -2490,41 +2569,44 @@ namespace ET
 		 public const ushort M2C_TransferMap = 10035;
 		 public const ushort C2G_Benchmark = 10036;
 		 public const ushort G2C_Benchmark = 10037;
-		 public const ushort HurtInfo = 10038;
-		 public const ushort M2C_UpdateUnitShield = 10039;
-		 public const ushort TaskProto = 10040;
-		 public const ushort M2C_UpdateTask = 10041;
-		 public const ushort M2C_DeleteTask = 10042;
-		 public const ushort C2M_CommitTask = 10043;
-		 public const ushort M2C_CommitTask = 10044;
-		 public const ushort ItemProto = 10045;
-		 public const ushort M2C_UpdateItem = 10046;
-		 public const ushort C2M_UseItem = 10047;
-		 public const ushort M2C_UseItem = 10048;
-		 public const ushort C2M_DeleteItem = 10049;
-		 public const ushort M2C_DeleteItem = 10050;
-		 public const ushort C2M_GetPlayerData = 10051;
-		 public const ushort M2C_GetPlayerData = 10052;
-		 public const ushort RankRoleInfoProto = 10053;
-		 public const ushort RankInfoProto = 10054;
-		 public const ushort C2Rank_GetRankRequest = 10055;
-		 public const ushort Ran2C_GetRankResponse = 10056;
-		 public const ushort HeadProto = 10057;
-		 public const ushort PlayerInfoProto = 10058;
-		 public const ushort ChatMsgProto = 10059;
-		 public const ushort C2Chat_SendRequest = 10060;
-		 public const ushort C2C_SendResponse = 10061;
-		 public const ushort C2C_UpdateChat = 10062;
-		 public const ushort ChatGroupMemberProto = 10063;
-		 public const ushort ChatGroupProto = 10064;
-		 public const ushort C2C_GroupUpdate = 10065;
-		 public const ushort C2C_GroupDel = 10066;
-		 public const ushort ActivityCfgProto = 10067;
-		 public const ushort ActivityProto = 10068;
-		 public const ushort M2C_UpdateActivityList = 10069;
-		 public const ushort M2C_UpdateActivityClose = 10070;
-		 public const ushort M2C_UpdateActivity = 10071;
-		 public const ushort C2M_UseSkill = 10072;
-		 public const ushort M2C_UseSkill = 10073;
+		 public const ushort M2C_UpdateUnitShield = 10038;
+		 public const ushort TaskProto = 10039;
+		 public const ushort M2C_UpdateTask = 10040;
+		 public const ushort M2C_DeleteTask = 10041;
+		 public const ushort C2M_CommitTask = 10042;
+		 public const ushort M2C_CommitTask = 10043;
+		 public const ushort ItemProto = 10044;
+		 public const ushort M2C_UpdateItem = 10045;
+		 public const ushort C2M_UseItem = 10046;
+		 public const ushort M2C_UseItem = 10047;
+		 public const ushort C2M_DeleteItem = 10048;
+		 public const ushort M2C_DeleteItem = 10049;
+		 public const ushort C2M_GetPlayerData = 10050;
+		 public const ushort M2C_GetPlayerData = 10051;
+		 public const ushort RankRoleInfoProto = 10052;
+		 public const ushort RankInfoProto = 10053;
+		 public const ushort C2Rank_GetRankRequest = 10054;
+		 public const ushort Ran2C_GetRankResponse = 10055;
+		 public const ushort HeadProto = 10056;
+		 public const ushort PlayerInfoProto = 10057;
+		 public const ushort ChatMsgProto = 10058;
+		 public const ushort C2Chat_SendRequest = 10059;
+		 public const ushort C2C_SendResponse = 10060;
+		 public const ushort C2C_UpdateChat = 10061;
+		 public const ushort ChatGroupMemberProto = 10062;
+		 public const ushort ChatGroupProto = 10063;
+		 public const ushort C2C_GroupUpdate = 10064;
+		 public const ushort C2C_GroupDel = 10065;
+		 public const ushort ActivityCfgProto = 10066;
+		 public const ushort ActivityProto = 10067;
+		 public const ushort M2C_UpdateActivityList = 10068;
+		 public const ushort M2C_UpdateActivityClose = 10069;
+		 public const ushort M2C_UpdateActivity = 10070;
+		 public const ushort C2M_UseSkill = 10071;
+		 public const ushort M2C_UseSkill = 10072;
+		 public const ushort M2C_UpdateSkill = 10073;
+		 public const ushort M2C_BreakSkill = 10074;
+		 public const ushort HurtInfo = 10075;
+		 public const ushort M2C_HurtList = 10076;
 	}
 }

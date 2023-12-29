@@ -535,12 +535,10 @@ message HurtInfo
   int64 Hurt = 2;
   //吸血值
   int64 SuckHp = 3;
-  //反伤
-  int64 BackHurt = 4;
   //是否暴击
   bool IsCrit = 5;
-  //是否闪避
-  bool IsMiss = 6;
+  //是否直击
+  bool IsDirect = 6;
   //是否格挡
   bool IsFender = 7;
   //是否是加血

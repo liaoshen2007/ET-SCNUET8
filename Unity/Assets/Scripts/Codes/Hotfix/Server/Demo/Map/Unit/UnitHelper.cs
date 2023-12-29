@@ -85,6 +85,42 @@ namespace ET.Server
             return numeric.GetAsLong(NumericType.Hp) > 0;
         }
 
+        public static void AddHp(this Unit self, long hp, long srcId = 0, int id = 0)
+        {
+            if (!self.IsAlive() || hp == 0)
+            {
+                return;
+            }
+
+            srcId = srcId == 0? self.Id : srcId;
+            long oldHp = self.GetAttrValue(NumericType.Hp);
+            long newHp = Math.Max(Math.Min(oldHp + hp, self.GetAttrValue(NumericType.MaxHp)), 0);
+            self.GetComponent<NumericComponent>().Set(NumericType.Hp, newHp);
+            if (oldHp != newHp)
+            {
+                EventSystem.Instance.Publish(self.Scene(), new UnitHpChange() { Unit = self });
+            }
+
+            if (hp < 0 && id > 0)
+            {
+                Unit attacker = self.Scene().GetComponent<UnitComponent>().Get(srcId);
+                EventSystem.Instance.Publish(self.Scene(), new UnitBeHurt() { Unit = self, Attacker = attacker, Id = id, Hurt = oldHp - newHp });
+            }
+
+            if (hp < 0)
+            {
+                if (!self.IsAlive())
+                {
+                    EventSystem.Instance.Publish(self.Scene(), new UnitDead() { Unit = self, Killer = srcId, Id = id });
+                }
+            }
+            else
+            {
+                Unit attacker = self.Scene().GetComponent<UnitComponent>().Get(srcId);
+                EventSystem.Instance.Publish(self.Scene(), new UnitAddHp() { Unit = self, Attacker = attacker, Hp = hp, RealHp = newHp - oldHp });
+            }
+        }
+
         /// <summary>
         /// 获取看见unit的玩家，主要用于广播
         /// </summary>
@@ -164,16 +200,6 @@ namespace ET.Server
             return numeric.GetAsLong(attrType);
         }
 
-        /// <summary>
-        /// 是否暴击
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static bool IsCrit(this Unit self)
-        {
-            return FightFormula.Instance.IsCrit(self);
-        }
-
         public static List<Unit> GetUnitsById(this Unit self, List<long> roleIds)
         {
             List<Unit> list = new List<Unit>();
@@ -188,6 +214,10 @@ namespace ET.Server
             }
 
             return list;
+        }
+
+        public static void AddHate(this Unit self, long roleId, long hate)
+        {
         }
 
         /// <summary>

@@ -64,7 +64,10 @@ public static partial class SkillComponentSystem
         var unitList = self.GetHurtList(skill);
         var pkg = self.skillEffect.Run(self, skill, unitList, self.dyna);
         self.dyna.LastHurtList = unitList;
-        self.GetParent<Unit>().BroadCastHurt((int)skill.Id, pkg);
+        if (pkg != null)
+        {
+            self.GetParent<Unit>().BroadCastHurt(self.usingSkillId, pkg);
+        }
 
         self.oft++;
         self.ProcessSkill();

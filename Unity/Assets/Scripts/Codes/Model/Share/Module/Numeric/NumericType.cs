@@ -58,24 +58,24 @@ namespace ET
 		public const int DefenseFinalPct = Defense * 10 + 5;
 
 		/// <summary>
-		/// 症状
+		/// 破甲
 		/// </summary>
-		public const int Symptom = 1005;
-		public const int SymptomBase = Symptom * 10 + 1;
-		public const int SymptomAdd = Symptom * 10 + 2;
-		public const int SymptomPct = Symptom * 10 + 3;
-		public const int SymptomFinalAdd = Symptom * 10 + 4;
-		public const int SymptomFinalPct = Symptom * 10 + 5;
+		public const int Broken = 1005;
+		public const int BrokenBase = Broken * 10 + 1;
+		public const int BrokenAdd = Broken * 10 + 2;
+		public const int BrokenPct = Broken * 10 + 3;
+		public const int BrokenFinalAdd = Broken * 10 + 4;
+		public const int BrokenFinalPct = Broken * 10 + 5;
 
 		/// <summary>
-		/// 暴击几率
+		/// 暴击
 		/// </summary>
-		public const int CirtRate = 1006;
-		public const int CirtRateBase = CirtRate * 10 + 1;
-		public const int CirtRateAdd = CirtRate * 10 + 2;
-		public const int CirtRatePct = CirtRate * 10 + 3;
-		public const int CirtRateFinalAdd = CirtRate * 10 + 4;
-		public const int CirtRateFinalPct = CirtRate * 10 + 5;
+		public const int Cirt = 1006;
+		public const int CirtBase = Cirt * 10 + 1;
+		public const int CirtAdd = Cirt * 10 + 2;
+		public const int CirtPct = Cirt * 10 + 3;
+		public const int CirtFinalAdd = Cirt * 10 + 4;
+		public const int CirtFinalPct = Cirt * 10 + 5;
 
 		/// <summary>
 		/// 暴击伤害
@@ -148,7 +148,7 @@ namespace ET
 		public const int IceAvoidFinalPct = IceAvoid * 10 + 5;
 
 		/// <summary>
-		/// 伤害增加比例 万比
+		/// 伤害加成比例 万比
 		/// </summary>
 		public const int HurtAddRate = 1014;
 		public const int HurtAddRateBase = HurtAddRate * 10 + 1;
@@ -196,6 +196,56 @@ namespace ET
 		public const int AvoidRatePct = AvoidRate * 10 + 3;
 		public const int AvoidRateFinalAdd = AvoidRate * 10 + 4;
 		public const int AvoidRateFinalPct = AvoidRate * 10 + 5;
+
+		/// <summary>
+		/// 格挡
+		/// </summary>
+		public const int Fender = 1019;
+		public const int FenderBase = Fender * 10 + 1;
+		public const int FenderAdd = Fender * 10 + 2;
+		public const int FenderPct = Fender * 10 + 3;
+		public const int FenderFinalAdd = Fender * 10 + 4;
+		public const int FenderFinalPct = Fender * 10 + 5;
+
+		/// <summary>
+		/// 直击
+		/// </summary>
+		public const int Direct = 1020;
+		public const int DirectBase = Direct * 10 + 1;
+		public const int DirectAdd = Direct * 10 + 2;
+		public const int DirectPct = Direct * 10 + 3;
+		public const int DirectFinalAdd = Direct * 10 + 4;
+		public const int DirectFinalPct = Direct * 10 + 5;
+
+		/// <summary>
+		/// 武器特性系数
+		/// </summary>
+		public const int WpXp = 1021;
+		public const int WpXpBase = WpXp * 10 + 1;
+		public const int WpXpAdd = WpXp * 10 + 2;
+		public const int WpXpPct = WpXp * 10 + 3;
+		public const int WpXpFinalAdd = WpXp * 10 + 4;
+		public const int WpXpFinalPct = WpXp * 10 + 5;
+
+		/// <summary>
+		/// 吸血率
+		/// </summary>
+		public const int Suck = 1022;
+		public const int SuckBase = Suck * 10 + 1;
+		public const int SuckAdd = Suck * 10 + 2;
+		public const int SuckPct = Suck * 10 + 3;
+		public const int SuckFinalAdd = Suck * 10 + 4;
+		public const int SuckFinalPct = Suck * 10 + 5;
+
+		/// <summary>
+		/// 治疗增加
+		/// </summary>
+		public const int HealAdd = 1023;
+		public const int HealAddBase = HealAdd * 10 + 1;
+		public const int HealAddAdd = HealAdd * 10 + 2;
+		public const int HealAddPct = HealAdd * 10 + 3;
+		public const int HealAddFinalAdd = HealAdd * 10 + 4;
+		public const int HealAddFinalPct = HealAdd * 10 + 5;
 
 		/// <summary>
 		/// 力量

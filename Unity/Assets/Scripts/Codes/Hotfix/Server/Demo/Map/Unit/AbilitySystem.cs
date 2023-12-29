@@ -1,17 +1,15 @@
-﻿using System;
-
-namespace ET.Server;
+﻿namespace ET.Server;
 
 [FriendOf(typeof (AbilityComponent))]
 public static class AbilitySystem
 {
     public static void AddAbility(this AbilityComponent self, int ability)
     {
-        self.AbilityList[ability] += 1;
+        self.abilityList[ability] += 1;
         int value = 0;
-        for (var i = 0; i < self.AbilityList.Length; i++)
+        for (var i = 0; i < self.abilityList.Length; i++)
         {
-            var v = self.AbilityList[i];
+            var v = self.abilityList[i];
             if (v != 0)
             {
                 value |= 1 << i;
@@ -23,11 +21,11 @@ public static class AbilitySystem
 
     public static void RemoveAbility(this AbilityComponent self, int ability)
     {
-        self.AbilityList[ability] -= 1;
+        self.abilityList[ability] -= 1;
         int value = self.Value;
-        for (var i = 0; i < self.AbilityList.Length; i++)
+        for (var i = 0; i < self.abilityList.Length; i++)
         {
-            var v = self.AbilityList[i];
+            var v = self.abilityList[i];
             if (v == 0)
             {
                 value &= ~(1 << i);
@@ -44,7 +42,7 @@ public static class AbilitySystem
 
     public static bool HasAbility(this AbilityComponent self, RoleAbility ability)
     {
-        return (self.Value & (int) ability) == 0;
+        return (self.Value & (int)ability) == 0;
     }
 
     /// <summary>
@@ -56,7 +54,17 @@ public static class AbilitySystem
     {
         return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Attack);
     }
-    
+
+    /// <summary>
+    /// 是否无敌
+    /// </summary>
+    /// <param name="self"></param>
+    /// <returns></returns>
+    public static bool IsInvincible(this Unit self)
+    {
+        return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Invincible);
+    }
+
     /// <summary>
     /// 能否使用技能
     /// </summary>
@@ -66,7 +74,7 @@ public static class AbilitySystem
     {
         return self.GetComponent<AbilityComponent>().HasAbility(RoleAbility.Skill);
     }
-    
+
     /// <summary>
     /// 能否移动
     /// </summary>

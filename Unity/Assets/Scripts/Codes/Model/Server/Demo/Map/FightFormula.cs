@@ -1,4 +1,6 @@
-﻿namespace ET.Server;
+﻿using System;
+
+namespace ET.Server;
 
 /// <summary>
 /// 战斗公式
@@ -6,13 +8,27 @@
 [Code]
 public class FightFormula: Singleton<FightFormula>, ISingletonAwake
 {
-    private int CirtDamage;
-    private float K;
+    private int cirtDamage; //初始爆伤
+    private int dmgRateC; //暴击系数C
+    private int dmgArgK; //暴击参数K
+    private int fenderRateC; //格挡系数C
+    private int directP; //直击系数
+    private int directM; //初始直击
+    private int fenderM; //初始格挡减伤
+    private int brokenC; //破甲比例
+    private int brokenP; //破甲系数
 
     public void Awake()
     {
-        this.CirtDamage = 25000;
-        this.K = 0.5f;
+        this.cirtDamage = 15000;
+        this.dmgRateC = 4000;
+        this.dmgArgK = 500;
+        this.fenderRateC = 4500;
+        this.directP = 550;
+        this.directM = 13000;
+        this.fenderM = 8000;
+        this.brokenC = 5000;
+        this.brokenP = 5500;
     }
 
     /// <summary>
@@ -20,67 +36,48 @@ public class FightFormula: Singleton<FightFormula>, ISingletonAwake
     /// </summary>
     /// <returns>返回伤害结果</returns>
     public long CalcHurt(
-    NumericComponent attack,
-    NumericComponent dst,
+    FightUnit attack,
+    FightUnit dst,
     int extraAttack,
     int skillAdjust = 10000,
     int element = 0,
-    int judgment = 0,
+    bool isDirect = false,
     bool isCrit = false,
-    bool isSymptom = false)
+    bool isFender = false)
     {
-        int dmgRate = isCrit? this.CirtDamage : 10000;
-        var att = attack.GetAsLong(NumericType.Attack) + extraAttack;
-        var defense = dst.GetAsLong(NumericType.Defense);
-        var hp = attack.GetAsLong(NumericType.MaxHp);
-        if (defense == 0)
+        long att = attack.numericDic[NumericType.Attack] + extraAttack;
+        long dfs = dst.numericDic[NumericType.Defense];
+        int dmgR = isCrit? this.cirtDamage : 10000;
+        int directR = isDirect? this.directM : 10000;
+        int fenderR = isFender? this.fenderM : 10000;
+        float hurtRate = (1 + attack.numericDic[NumericType.HurtAddRate] / 10000f) * (1 - dst.numericDic[NumericType.HurtReduceRate] / 10000f);
+        float wpXp = attack.numericDic[NumericType.WpXp] / 10000f;
+        long d1 = att - dfs;
+        float d2 = d1 > 0? d1 : 1 + attack.numericDic[NumericType.Broken] * this.brokenC / 10000f;
+        float d3 = d2 * wpXp * directR / 10000f * dmgR / 10000f + attack.numericDic[NumericType.Broken] * this.brokenP / 10000f;
+        if (element <= 0)
         {
-            return 1;
+            return (d3 * fenderR / 10000f * hurtRate * skillAdjust / 10000f + 0.0001f).Ceil();
         }
 
-        float d2;
-        float skillAdj = skillAdjust / 10000f;
-        switch (judgment)
-        {
-            case 1:
-                d2 = att * att * skillAdj / (this.K * defense);
-                break;
-            case 2:
-                d2 = defense * defense * skillAdj * skillAdj / (this.K * defense);
-                break;
-            case 3:
-                d2 = hp * hp * skillAdj * skillAdj / (this.K * defense);
-                break;
-            default:
-                return 0;
-        }
-
-        if (isSymptom)
-        {
-            d2 *= (1 + attack.GetAsLong(NumericType.Symptom) / 200f);
-        }
-
-        var d4 = d2 * dmgRate / 10000;
-        var hurtRate = (1 + attack.GetAsLong(NumericType.HurtAddRate) / 10000f) * (1 - dst.GetAsLong(NumericType.HurtReduceRate) / 10000f);
-
-        return (d4 * hurtRate * this.GetElementRate(attack, dst, element) + 0.0001f).Ceil();
+        float elRate = GetElementRate(attack, dst, element);
+        return (d3 * elRate * hurtRate * skillAdjust / 10000f + 0.0001f).Ceil();
     }
 
     //元素伤害比例
-    private float GetElementRate(NumericComponent attack,
-    NumericComponent dst, int element)
+    private static float GetElementRate(FightUnit attack,
+    FightUnit dst, int element)
     {
-        var el = (ElementType)element;
+        ElementType el = (ElementType)element;
         switch (el)
         {
-            case ElementType.None:
-                return 1;
             case ElementType.Fire:
-                return 1 + (attack.GetAsLong(NumericType.FireAdd) - dst.GetAsLong(NumericType.FireAvoid)) / 200f;
+                return 1 + (attack.numericDic[NumericType.FireAdd] - dst.numericDic[NumericType.FireAvoid]) / 200f;
             case ElementType.Thunder:
-                return 1 + (attack.GetAsLong(NumericType.ThunderAdd) - dst.GetAsLong(NumericType.ThunderAvoid)) / 200f;
+                return 1 + (attack.numericDic[NumericType.ThunderAdd] - dst.numericDic[NumericType.ThunderAvoid]) / 200f;
             case ElementType.Ice:
-                return 1 + (attack.GetAsLong(NumericType.IceAdd) - dst.GetAsLong(NumericType.IceAvoid)) / 200f;
+                return 1 + (attack.numericDic[NumericType.IceAdd] - dst.numericDic[NumericType.IceAvoid]) / 200f;
+            case ElementType.None:
             default:
                 return 1;
         }
@@ -90,41 +87,47 @@ public class FightFormula: Singleton<FightFormula>, ISingletonAwake
     /// 是否暴击
     /// </summary>
     /// <returns></returns>
-    public bool IsCrit(Unit target)
+    public bool IsCrit(FightUnit attack)
     {
-        return target.GetComponent<NumericComponent>().GetAsLong(NumericType.CirtRate).IsHit();
+        long v = attack.numericDic[NumericType.Cirt] * this.dmgRateC / attack.level + this.dmgArgK;
+        return v.IsHit();
     }
 
     /// <summary>
-    /// 是否暴击
+    /// 是否格挡
     /// </summary>
+    /// <param name="attack"></param>
     /// <returns></returns>
-    public bool IsCrit(NumericComponent target)
+    public bool IsFender(FightUnit attack)
     {
-        return target.GetAsLong(NumericType.CirtRate).IsHit();
+        long v = attack.numericDic[NumericType.Fender] * this.fenderRateC / attack.level;
+        return v.IsHit();
     }
 
     /// <summary>
-    /// 是否命中
+    /// 是否直击
     /// </summary>
+    /// <param name="attack"></param>
     /// <returns></returns>
-    public bool IsHit(Unit attack, Unit dst)
+    public bool IsDirect(FightUnit attack)
     {
-        var hitRate = attack.GetComponent<NumericComponent>().GetAsLong(NumericType.HitRate);
-        var avoidRate = dst.GetComponent<NumericComponent>().GetAsLong(NumericType.AvoidRate);
-
-        return (hitRate - avoidRate).IsHit();
+        long v = attack.numericDic[NumericType.Direct] * this.directP / attack.level;
+        return v.IsHit();
     }
 
-    /// <summary>
-    /// 是否命中
-    /// </summary>
-    /// <returns></returns>
-    public bool IsHit(NumericComponent attack, NumericComponent dst)
+    public long SuckHp(FightUnit attack, long v)
     {
-        var hitRate = attack.GetAsLong(NumericType.HitRate);
-        var avoidRate = dst.GetAsLong(NumericType.AvoidRate);
+        return (v * Math.Min(1, Math.Max(0, attack.numericDic[NumericType.Suck] / 10000f))).Ceil();
+    }
 
-        return (hitRate - avoidRate).IsHit();
+    public long AddHp(FightUnit attack, int extraAttack, int skillAdjust)
+    {
+        return ((attack.numericDic[NumericType.Attack] + extraAttack) *
+            skillAdjust / 10000f * (1 + attack.numericDic[NumericType.HealAdd] / 10000f)).Ceil();
+    }
+
+    public long Shield(FightUnit dst, long v, int skillAdjust)
+    {
+        return (v * skillAdjust / 10000f + (1 + dst.numericDic[NumericType.HealAdd] / 10000f)).Ceil();
     }
 }
