@@ -15,7 +15,6 @@ namespace ET
 
         public async ETTask Handle(Entity entity, Address fromAddress, MessageObject actorMessage)
         {
-            using MessageObject _ = actorMessage;
             if (actorMessage is not Message msg)
             {
                 Log.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof (Message).Name}");
@@ -63,7 +62,6 @@ namespace ET
         {
             try
             {
-                using MessageObject _ = actorMessage;
                 Fiber fiber = entity.Fiber();
                 if (actorMessage is not Request request)
                 {
