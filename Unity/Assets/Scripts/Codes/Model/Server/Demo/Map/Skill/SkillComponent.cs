@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
+using Unity.Mathematics;
 
 namespace ET.Server;
 
@@ -15,13 +16,20 @@ public class HurtPkg
     public string ViewCmd;
 }
 
+public class SkillDyna
+{
+    public List<Unit> LastHurtList;
+    public int Direct;
+    public List<long> DstList;
+    public List<float3> DstPosition;
+}
+
 [ComponentOf(typeof (Unit))]
 public class SkillComponent: Entity, IAwake
 {
     [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
     public Dictionary<int, SkillUnit> skillDict = new();
-    
-    
+
     public int oft;
     public int lastSkillId;
     public int usingSkillId;

@@ -76,6 +76,7 @@ Publish/
 
 /Unity/*.csproj
 /Unity/*.vsconfig
+/Unity/Assets/效果图
 WebGL
 Unity/Bundles
 

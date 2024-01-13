@@ -89,13 +89,14 @@ public static partial class SkillComponentSystem
             return;
         }
 
-        if (!SkillEffectSingleton.Instance.SkillEffectDict.TryGetValue(effectCfg.Cmd, out var effect))
+        if (!SkillEffectSingleton.Instance.SkillEffectDict.TryGetValue(effectCfg.Cmd, out var t))
         {
             Log.Error($"获取技能效果失败: {effectCfg.Cmd}");
             return;
         }
 
-        self.skillEffect = effect;
+        //技能效果是顺序执行的, 当前效果执行完才会切换下一个
+        self.skillEffect = Activator.CreateInstance(t) as ASkillEffect;
         self.skillEffect.SetEffectArg(effectCfg);
         if (effectCfg.Ms > 0)
         {
