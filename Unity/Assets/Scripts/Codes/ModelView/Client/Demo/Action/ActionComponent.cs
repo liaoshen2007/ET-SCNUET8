@@ -5,9 +5,9 @@ namespace ET.Client;
 [ComponentOf(typeof (Unit))]
 public class ActionComponent: Entity, IAwake, IUpdate, IDestroy
 {
-    public List<ActionUnit> pushActions = new List<ActionUnit>();
+    public List<long> pushActions = new List<long>();
 
     public EntityRef<ActionUnit> curAction;
 
-    public List<ActionUnit> playActions = new List<ActionUnit>();
+    public List<long> playActions = new List<long>();
 }

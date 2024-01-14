@@ -25,10 +25,10 @@ namespace ET.Client
                     if (action.state == ActionState.Finish)
                     {
                         self.curAction = null;
-                        self.pushActions.Remove(action);
+                        self.pushActions.Remove(action.Id);
                         if (self.pushActions.Count > 0)
                         {
-                            self.curAction = self.pushActions[0];
+                            self.curAction = self.GetChild<ActionUnit>(self.pushActions[0]);
                         }
                     }
                 }
@@ -44,14 +44,20 @@ namespace ET.Client
             }
 
             using var list = ListComponent<long>.Create();
-            foreach (ActionUnit action in self.playActions)
+            foreach (long id in self.playActions)
             {
+                ActionUnit action = self.GetChild<ActionUnit>(id);
+                if (action == null)
+                {
+                    continue;
+                }
+
                 try
                 {
                     action.Update();
                     if (action.state == ActionState.Finish)
                     {
-                        list.Add(action.InstanceId);
+                        list.Add(action.Id);
                     }
                 }
                 catch (Exception e)
@@ -62,8 +68,7 @@ namespace ET.Client
 
             foreach (long l in list)
             {
-                ActionUnit c = self.GetChild<ActionUnit>(l);
-                self.playActions.Remove(c);
+                self.playActions.Remove(l);
                 self.RemoveChild(l);
             }
         }
@@ -77,7 +82,7 @@ namespace ET.Client
         public static long PlayAction(this ActionComponent self, string name)
         {
             ActionUnit action = self.AddChild<ActionUnit, string>(name);
-            self.playActions.Add(action);
+            self.playActions.Add(action.Id);
 
             return action.InstanceId;
         }
@@ -85,14 +90,22 @@ namespace ET.Client
         public static long PushAction(this ActionComponent self, string name)
         {
             ActionUnit action = self.AddChild<ActionUnit, string>(name);
-            self.pushActions.Add(action);
-            self.pushActions.Sort((a, b) => a.config.Priority.CompareTo(b.config.Priority));
+            self.pushActions.Add(action.Id);
+
+            self.pushActions.Sort(Comparison);
             if (self.curAction == null)
             {
-                self.curAction = self.pushActions[0];
+                self.curAction = self.GetChild<ActionUnit>(self.pushActions[0]);
             }
 
             return action.InstanceId;
+
+            int Comparison(long a, long b)
+            {
+                ActionUnit unitA = self.GetChild<ActionUnit>(a);
+                ActionUnit unitB = self.GetChild<ActionUnit>(b);
+                return unitA.config.Priority.CompareTo(unitB.config.Priority);
+            }
         }
 
         public static void StopAllAction(this ActionComponent self)
@@ -106,8 +119,14 @@ namespace ET.Client
             self.curAction = null;
             self.pushActions.Clear();
 
-            foreach (ActionUnit action in self.playActions)
+            foreach (long l in self.playActions)
             {
+                ActionUnit action = self.GetChild<ActionUnit>(l);
+                if (action == null)
+                {
+                    continue;
+                }
+
                 action.Finish();
             }
 
