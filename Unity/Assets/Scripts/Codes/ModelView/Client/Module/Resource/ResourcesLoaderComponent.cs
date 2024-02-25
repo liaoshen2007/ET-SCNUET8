@@ -28,19 +28,19 @@ namespace ET.Client
             {
                 switch (kv.Value)
                 {
-                    case AssetOperationHandle handle:
+                    case AssetHandle handle:
                         handle.Release();
                         break;
-                    case AllAssetsOperationHandle handle:
+                    case AllAssetsHandle handle:
                         handle.Release();
                         break;
-                    case SubAssetsOperationHandle handle:
+                    case SubAssetsHandle handle:
                         handle.Release();
                         break;
-                    case RawFileOperationHandle handle:
+                    case RawFileHandle handle:
                         handle.Release();
                         break;
-                    case SceneOperationHandle handle:
+                    case SceneHandle handle:
                         if (!handle.IsMainScene())
                         {
                             handle.UnloadAsync();
@@ -54,7 +54,7 @@ namespace ET.Client
         {
             using CoroutineLock coroutineLock = await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
             
-            OperationHandleBase handler;
+            HandleBase handler;
             if (!self.handlers.TryGetValue(location, out handler))
             {
                 handler = self.package.LoadAssetAsync<T>(location);
@@ -64,14 +64,14 @@ namespace ET.Client
                 self.handlers.Add(location, handler);
             }
             
-            return (T)((AssetOperationHandle)handler).AssetObject;
+            return (T)((AssetHandle)handler).AssetObject;
         }
         
         public static async ETTask<Dictionary<string, T>> LoadAllAssetsAsync<T>(this ResourcesLoaderComponent self, string location) where T: UnityEngine.Object
         {
             using CoroutineLock coroutineLock = await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
 
-            OperationHandleBase handler;
+            HandleBase handler;
             if (!self.handlers.TryGetValue(location, out handler))
             {
                 handler = self.package.LoadAllAssetsAsync<T>(location);
@@ -81,7 +81,7 @@ namespace ET.Client
             }
 
             Dictionary<string, T> dictionary = new Dictionary<string, T>();
-            foreach(UnityEngine.Object assetObj in ((AllAssetsOperationHandle)handler).AllAssetObjects)
+            foreach(UnityEngine.Object assetObj in ((AllAssetsHandle)handler).AllAssetObjects)
             {    
                 T t = assetObj as T;
                 dictionary.Add(t.name, t);
@@ -93,7 +93,7 @@ namespace ET.Client
         {
             using CoroutineLock coroutineLock = await self.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.ResourcesLoader, location.GetHashCode());
 
-            OperationHandleBase handler;
+            HandleBase handler;
             if (self.handlers.TryGetValue(location, out handler))
             {
                 return;
@@ -105,9 +105,9 @@ namespace ET.Client
             self.handlers.Add(location, handler);
         }
         
-        public static OperationHandleBase LoadScene(this ResourcesLoaderComponent self, string location, LoadSceneMode loadSceneMode)
+        public static HandleBase LoadScene(this ResourcesLoaderComponent self, string location, LoadSceneMode loadSceneMode)
         {
-            OperationHandleBase handler;
+            HandleBase handler;
             if (self.handlers.TryGetValue(location, out handler))
             {
                 return handler;
@@ -126,6 +126,6 @@ namespace ET.Client
     public class ResourcesLoaderComponent: Entity, IAwake, IAwake<string>, IDestroy
     {
         public ResourcePackage package;
-        public Dictionary<string, OperationHandleBase> handlers = new();
+        public Dictionary<string, HandleBase> handlers = new();
     }
 }
