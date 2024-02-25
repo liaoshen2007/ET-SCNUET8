@@ -179,6 +179,7 @@
     <type fullname="ET.StringHashHelper" preserve="all" />
     <type fullname="ET.StringHelper" preserve="all" />
     <type fullname="ET.StructBsonSerialize`1" preserve="all" />
+    <type fullname="ET.Thrower" preserve="all" />
     <type fullname="ET.TimeInfo" preserve="all" />
     <type fullname="ET.TimerComponent" preserve="all" />
     <type fullname="ET.TimerComponentSystem" preserve="all" />
@@ -317,13 +318,13 @@
     <type fullname="UnityEngine.UI.ToggleGroup" preserve="all" />
   </assembly>
   <assembly fullname="YooAsset">
-    <type fullname="YooAsset.AllAssetsOperationHandle" preserve="all" />
-    <type fullname="YooAsset.AssetOperationHandle" preserve="all" />
-    <type fullname="YooAsset.OperationHandleBase" preserve="all" />
-    <type fullname="YooAsset.RawFileOperationHandle" preserve="all" />
+    <type fullname="YooAsset.AllAssetsHandle" preserve="all" />
+    <type fullname="YooAsset.AssetHandle" preserve="all" />
+    <type fullname="YooAsset.HandleBase" preserve="all" />
+    <type fullname="YooAsset.RawFileHandle" preserve="all" />
     <type fullname="YooAsset.ResourcePackage" preserve="all" />
-    <type fullname="YooAsset.SceneOperationHandle" preserve="all" />
-    <type fullname="YooAsset.SubAssetsOperationHandle" preserve="all" />
+    <type fullname="YooAsset.SceneHandle" preserve="all" />
+    <type fullname="YooAsset.SubAssetsHandle" preserve="all" />
     <type fullname="YooAsset.UnloadSceneOperation" preserve="all" />
     <type fullname="YooAsset.YooAssets" preserve="all" />
   </assembly>
@@ -341,6 +342,7 @@
     <type fullname="System.Collections.Generic.Dictionary`2/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection/Enumerator" preserve="all" />
+    <type fullname="System.Collections.Generic.IDictionary`2" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerable`1" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.KeyValuePair`2" preserve="all" />

@@ -99,6 +99,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// ET.IAwakeSystem<object>
 	// ET.LateUpdateSystem<object>
 	// ET.ListComponent<Unity.Mathematics.float3>
+	// ET.ListComponent<long>
 	// ET.ListComponent<object>
 	// ET.Pair<UnityEngine.Color,object>
 	// ET.Singleton<object>
@@ -704,6 +705,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<Unity.Mathematics.quaternion>(Unity.Mathematics.quaternion&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,ET.ActorId>(byte&,ET.ActorId&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,Unity.Mathematics.float3,int>(byte&,Unity.Mathematics.float3&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,Unity.Mathematics.float3>(byte&,int&,Unity.Mathematics.float3&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int,int,int>(byte&,int&,int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int,long,long,long>(byte&,int&,int&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,int,int>(byte&,int&,int&)
@@ -719,12 +721,13 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,int,long>(byte&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,int>(byte&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,int>(byte&,long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,byte,byte,byte,byte,byte>(byte&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,int>(byte&,long&,long&,long&,int&)
-		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long,byte,byte,byte,byte,byte>(byte&,long&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long>(byte&,long&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long>(byte&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,uint>(byte&,uint&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte>(byte&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,Unity.Mathematics.float3>(int&,Unity.Mathematics.float3&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int,int>(int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,int>(int&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<int,long,int>(int&,long&,int&)
@@ -755,6 +758,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<ET.LSInput>(ET.LSInput&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<Unity.Mathematics.quaternion,int>(Unity.Mathematics.quaternion&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<byte,long>(byte&,long&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,Unity.Mathematics.float3>(int&,Unity.Mathematics.float3&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,int,int>(int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,int>(int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanaged<int,long,int>(int&,long&,int&)
@@ -771,6 +775,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedArray<byte>(byte[])
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,ET.ActorId>(byte,byte&,ET.ActorId&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,Unity.Mathematics.float3,int>(byte,byte&,Unity.Mathematics.float3&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,Unity.Mathematics.float3>(byte,byte&,int&,Unity.Mathematics.float3&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int,int,int>(byte,byte&,int&,int&,int&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int,long,long,long>(byte,byte&,int&,int&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,int,int>(byte,byte&,int&,int&)
@@ -786,8 +791,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,int,long>(byte,byte&,long&,int&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,int>(byte,byte&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,int>(byte,byte&,long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,byte,byte,byte,byte,byte>(byte,byte&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,int>(byte,byte&,long&,long&,long&,int&)
-		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long,byte,byte,byte,byte,byte>(byte,byte&,long&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long>(byte,byte&,long&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long>(byte,byte&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,uint>(byte,byte&,uint&)
@@ -865,7 +870,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object[] UnityEngine.GameObject.GetComponentsInChildren<object>(bool)
 		// object UnityEngine.Object.Instantiate<object>(object)
 		// object UnityEngine.Object.Instantiate<object>(object,UnityEngine.Transform,bool)
-		// YooAsset.AllAssetsOperationHandle YooAsset.ResourcePackage.LoadAllAssetsAsync<object>(string)
-		// YooAsset.AssetOperationHandle YooAsset.ResourcePackage.LoadAssetAsync<object>(string)
+		// YooAsset.AllAssetsHandle YooAsset.ResourcePackage.LoadAllAssetsAsync<object>(string,uint)
+		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetAsync<object>(string,uint)
 	}
 }
