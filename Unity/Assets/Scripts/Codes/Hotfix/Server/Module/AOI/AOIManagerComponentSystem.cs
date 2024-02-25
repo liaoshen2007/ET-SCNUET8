@@ -51,12 +51,12 @@ namespace ET.Server
                 return;
             }
 
-            Fiber fiber = self.Fiber();
             // 通知订阅该Cell Leave的Unit
             aoiEntity.Cell.Remove(aoiEntity);
             foreach (KeyValuePair<long, AOIEntity> kv in aoiEntity.Cell.SubsLeaveEntities)
             {
-                kv.Value.LeaveSight(aoiEntity);
+                AOIEntity e = kv.Value;
+                e?.LeaveSight(aoiEntity);
             }
 
             // 通知自己订阅的Enter Cell，清理自己
