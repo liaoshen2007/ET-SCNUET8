@@ -6,6 +6,11 @@ namespace ET.Server
     {
         public Unit Unit;
     }
+    
+    public struct UnitEnterGameOk
+    {
+        public Unit Unit;
+    }
 
     public struct UnitPerHurt
     {

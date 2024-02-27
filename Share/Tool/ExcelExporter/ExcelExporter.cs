@@ -55,12 +55,12 @@ namespace ET
     {
         private static string template;
 
-        private const string ClientClassDir = "../Unity/Assets/Scripts/Codes/Model/Generate/Client/Config";
+        private const string ClientClassDir = "../Unity/Assets/Scripts/Model/Generate/Client/Config";
 
         // 服务端因为机器人的存在必须包含客户端所有配置，所以单独的c字段没有意义,单独的c就表示cs
-        private const string ServerClassDir = "../Unity/Assets/Scripts/Codes/Model/Generate/Server/Config";
+        private const string ServerClassDir = "../Unity/Assets/Scripts/Model/Generate/Server/Config";
 
-        private const string CSClassDir = "../Unity/Assets/Scripts/Codes/Model/Generate/ClientServer/Config";
+        private const string CSClassDir = "../Unity/Assets/Scripts/Model/Generate/ClientServer/Config";
 
         private const string excelDir = "../Excel/";
 
@@ -68,10 +68,10 @@ namespace ET
 
         private const string clientProtoDir = "../Unity/Assets/Bundles/Config";
         private const string serverProtoDir = "../Config/Excel/{0}/{1}";
-        private const string numericPath = "../Unity/Assets/Scripts/Codes/Model/Share/Module/Numeric/NumericType.cs";
-        private const string windowPath = "../Unity/Assets/Scripts/Codes/ModelView/Client/Plugins/EUI/WindowId.cs";
-        private const string constPath = "../Unity/Assets/Scripts/Codes/Hotfix/Share/ConstCfgValue.cs";
-        private const string menuPath = "../Unity/Assets/Scripts/Codes/ModelView/Client/Demo/Menu/SystemMenuType.cs";
+        private const string numericPath = "../Unity/Assets/Scripts/Model/Share/Module/Numeric/NumericType.cs";
+        private const string windowPath = "../Unity/Assets/Scripts/ModelView/Client/Plugins/EUI/WindowId.cs";
+        private const string constPath = "../Unity/Assets/Scripts/Hotfix/Share/ConstCfgValue.cs";
+        private const string menuPath = "../Unity/Assets/Scripts/ModelView/Client/Demo/Menu/SystemMenuType.cs";
         private const string replaceStr = "/{0}/{1}";
         private static Assembly[] configAssemblies = new Assembly[3];
 

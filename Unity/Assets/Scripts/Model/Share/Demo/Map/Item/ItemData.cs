@@ -18,9 +18,17 @@ namespace ET
     [ChildOf]
     public class ItemData: Entity, IAwake, IDestroy
     {
+        /// <summary>
+        /// 道具数量
+        /// </summary>
         public long Count { get; set; }
 
         public long ValidTime { get; set; }
+
+        /// <summary>
+        /// 是否绑定
+        /// </summary>
+        public bool Bind { get; set; }
 
         [BsonIgnore]
         public ItemType ItemType => (ItemType)this.Config.Type;

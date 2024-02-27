@@ -18,11 +18,19 @@ message RouterSync
 message C2G_EnterMap // ISessionRequest
 {
 }
-
 message G2C_EnterMap // ISessionResponse
 {
   // 自己unitId
   int64 MyId = 4;
+}
+
+// 进入地图成功
+//ResponseType M2C_EnterMapOk
+message C2M_EnterMapOk // ILocationRequest
+{
+}
+message M2C_EnterMapOk // ILocationResponse
+{
 }
 
 message MoveInfo

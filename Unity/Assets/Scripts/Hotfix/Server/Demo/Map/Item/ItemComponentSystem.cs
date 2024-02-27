@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace ET.Server
+namespace ET.Server;
+
+[EntitySystemOf(typeof (ItemComponent))]
+[FriendOf(typeof (ItemComponent))]
+public static partial class ItemComponentSystem
 {
-    [EntitySystemOf(typeof (ItemComponent))]
-    [FriendOf(typeof (ItemComponent))]
-    public static partial class ItemComponentSystem
-    {
-        [EntitySystem]
-        private static void Awake(this ItemComponent self)
+    [EntitySystem]
+    private static void Awake(this ItemComponent self)
     {
     }
 
-        [EntitySystem]
-        private static void Destroy(this ItemComponent self)
+    [EntitySystem]
+    private static void Destroy(this ItemComponent self)
     {
     }
 
-        [EntitySystem]
-        private static void Load(this ItemComponent self)
+    [EntitySystem]
+    private static void Load(this ItemComponent self)
     {
     }
 
-        public static List<ItemProto> GetItemList(this ItemComponent self)
+    public static List<ItemProto> GetItemList(this ItemComponent self)
     {
         var list = new List<ItemProto>();
         foreach (var value in self.ItemDict.Values)
@@ -34,7 +33,7 @@ namespace ET.Server
         return list;
     }
 
-        public static void CheckItem(this ItemComponent self)
+    public static void CheckItem(this ItemComponent self)
     {
         //检测默认道具
         var list = new List<ItemArg>();
@@ -74,7 +73,7 @@ namespace ET.Server
         }
     }
 
-        public static long GetItemCount(this ItemComponent self, int itemId)
+    public static long GetItemCount(this ItemComponent self, int itemId)
     {
         if (self.ItemDict.TryGetValue(itemId, out var itemData))
         {
@@ -84,7 +83,7 @@ namespace ET.Server
         return 0;
     }
 
-        private static void UpdateItem(this ItemComponent self, int itemId)
+    private static void UpdateItem(this ItemComponent self, int itemId)
     {
         if (!self.ItemDict.TryGetValue(itemId, out var itemData))
         {
@@ -96,7 +95,7 @@ namespace ET.Server
         self.GetParent<Unit>().GetComponent<PacketComponent>().UpdateItem(proto);
     }
 
-        public static void AddItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
+    public static void AddItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
     {
         if (itemList.IsNullOrEmpty())
         {
@@ -131,7 +130,14 @@ namespace ET.Server
         }
     }
 
-        public static MessageReturn ConsumeItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
+    /// <summary>
+    /// 消耗道具列表
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="itemList"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static MessageReturn ConsumeItemList(this ItemComponent self, List<ItemArg> itemList, AddItemData data)
     {
         var ret = self.ItemEnough(itemList);
         if (ret.Errno != ErrorCode.ERR_Success)
@@ -164,30 +170,25 @@ namespace ET.Server
         return MessageReturn.Success();
     }
 
-        public static void ClearItem(this ItemComponent self, int itemId, int logEvent)
+    /// <summary>
+    /// 清除道具
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="itemId"></param>
+    /// <param name="logEvent"></param>
+    public static void ClearItem(this ItemComponent self, int itemId, int logEvent)
     {
         var count = self.GetItemCount(itemId);
         self.ConsumeItemList(new List<ItemArg>() { new ItemArg() { Id = itemId, Count = count } }, new AddItemData() { LogEvent = logEvent });
     }
 
-        private static List<string> GetItemError(this ItemComponent self, int id)
-    {
-        var itemCfg = ItemConfigCategory.Instance.Get(id);
-        if (itemCfg.LackTip > 0)
-        {
-            return new List<string>() { id.ToString(), itemCfg.LackTip.ToString() };
-        }
-
-        return new List<string>() { id.ToString() };
-    }
-
-        /// <summary>
-        /// 道具数量是否足够
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="itemList"></param>
-        /// <returns></returns>
-        public static MessageReturn ItemEnough(this ItemComponent self, List<ItemArg> itemList)
+    /// <summary>
+    /// 道具数量是否足够
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="itemList"></param>
+    /// <returns></returns>
+    public static MessageReturn ItemEnough(this ItemComponent self, List<ItemArg> itemList)
     {
         if (itemList.IsNullOrEmpty())
         {
@@ -206,139 +207,10 @@ namespace ET.Server
             long owenCount = self.GetItemCount(id);
             if (owenCount < count)
             {
-                return MessageReturn.Create(ErrorCode.ERR_ItemNotEnough, self.GetItemError(id));
+                return MessageReturn.Create(ErrorCode.ERR_ItemNotEnough, MiscHelper.GetItemError(id));
             }
         }
 
         return MessageReturn.Success();
-    }
-
-        public static ReadOnlyCollection<ItemArg> GetDropItemList(this ItemComponent self, int dropId)
-    {
-        var dropCfg = DropConfigCategory.Instance.Get(dropId);
-        if (dropCfg.RandomId.Length == 0)
-        {
-            return dropCfg.ItemList.AsReadOnly();
-        }
-
-        var list = new List<List<ItemArg>>();
-        list.Add(dropCfg.ItemList);
-        foreach (int id in dropCfg.RandomId)
-        {
-            var random = RandomConfigCategory.Instance.Get(id);
-            switch (random.Type)
-            {
-                // 不放回抽奖
-                case 1:
-                    var weightList = random.GetCopyRandomList();
-                    for (int i = 0; i < random.Parameter; i++)
-                    {
-                        var totalWeight = weightList.Sum(w => w.Weight);
-                        List<ItemArg> arg = default;
-                        int index = 0;
-                        if (totalWeight > 1)
-                        {
-                            var randomV = RandomGenerator.RandomNumber(1, totalWeight);
-                            for (int j = 0; j < weightList.Count; j++)
-                            {
-                                if (randomV <= weightList[j].Weight)
-                                {
-                                    arg = weightList[j].ItemList;
-                                    index = j;
-                                    break;
-                                }
-
-                                randomV -= weightList[j].Weight;
-                            }
-                        }
-                        else
-                        {
-                            Log.Error("随机权重出错, 请检查配置");
-                            break;
-                        }
-
-                        if (arg != null)
-                        {
-                            weightList.RemoveAt(index);
-                            list.Add(arg);
-                        }
-
-                        if (weightList.Count == 0)
-                        {
-                            break;
-                        }
-                    }
-
-                    break;
-                // 放回抽奖
-                case 2:
-                    for (int i = 0; i < random.Parameter; i++)
-                    {
-                        var totalWeight = random.RandomList.Sum(itemArg => itemArg.Weight);
-                        List<ItemArg> arg = default;
-                        if (totalWeight > 1)
-                        {
-                            var randomV = RandomGenerator.RandomNumber(1, totalWeight);
-                            for (int j = 0; j < random.RandomList.Count; j++)
-                            {
-                                if (randomV <= random.RandomList[j].Weight)
-                                {
-                                    arg = random.RandomList[j].ItemList;
-                                    break;
-                                }
-
-                                randomV -= random.RandomList[j].Weight;
-                            }
-                        }
-                        else
-                        {
-                            Log.Error("随机权重出错, 请检查配置");
-                            break;
-                        }
-
-                        if (arg != null)
-                        {
-                            list.Add(arg);
-                        }
-                    }
-
-                    break;
-                // 按照其各自的概率独立随机奖品
-                case 3:
-                    foreach (var itemArg in random.RandomList)
-                    {
-                        if (itemArg.Weight.IsHit())
-                        {
-                            list.Add(itemArg.ItemList);
-                        }
-                    }
-
-                    break;
-            }
-        }
-
-        if (list.Count > 0)
-        {
-            var dict = new Dictionary<int, long>();
-            foreach (var ll in list)
-            {
-                foreach (var itemArg in ll)
-                {
-                    if (dict.ContainsKey(itemArg.Id))
-                    {
-                        dict[itemArg.Id] += itemArg.Count;
-                    }
-                    else
-                    {
-                        dict[itemArg.Id] = itemArg.Count;
-                    }
-                }
-            }
-
-            return dict.Select(v => new ItemArg() { Id = v.Key, Count = v.Value, }).ToList().AsReadOnly();
-        }
-
-        return default;
-    }
     }
 }
