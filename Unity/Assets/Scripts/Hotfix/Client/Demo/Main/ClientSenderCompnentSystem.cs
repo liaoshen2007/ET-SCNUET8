@@ -27,6 +27,12 @@
             self.fiberId = 0;
             await FiberManager.Instance.Remove(fiberId);
         }
+        
+        public static async ETTask DisposeClientSender(this ClientSenderCompnent self)
+        {
+            await self.RemoveFiberAsync();
+            self.Dispose();
+        }
 
         public static async ETTask<long> LoginAsync(this ClientSenderCompnent self, string account, string password, long accoutId)
         {
