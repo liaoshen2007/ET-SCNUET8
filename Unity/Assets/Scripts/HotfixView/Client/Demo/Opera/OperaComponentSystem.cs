@@ -24,7 +24,7 @@ namespace ET.Client
                 {
                     C2M_PathfindingResult c2MPathfindingResult = new();
                     c2MPathfindingResult.Position = hit.point;
-                    self.Root().GetComponent<ClientSenderCompnent>().Send(c2MPathfindingResult);
+                    self.Root().GetComponent<ClientSenderComponent>().Send(c2MPathfindingResult);
                 }
             }
 
@@ -37,7 +37,7 @@ namespace ET.Client
             if (Input.GetKeyDown(KeyCode.T))
             {
                 C2M_TransferMap c2MTransferMap = new();
-                self.Root().GetComponent<ClientSenderCompnent>().Send(c2MTransferMap);
+                self.Root().GetComponent<ClientSenderComponent>().Send(c2MTransferMap);
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -108,7 +108,7 @@ namespace ET.Client
             else if (self.moving)
             {
                 self.moving = false;
-                self.Root().GetComponent<ClientSenderCompnent>().Send(new C2M_Stop());
+                self.Root().GetComponent<ClientSenderComponent>().Send(new C2M_Stop());
             }
         }
     }

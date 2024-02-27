@@ -15,10 +15,10 @@ namespace ET.Client
         /// <returns></returns>
         public static async ETTask<int> Login(Scene root, string account, string password, long accountId)
         {
-            var clientSenderComponent = root.GetComponent<ClientSenderCompnent>();
+            var clientSenderComponent = root.GetComponent<ClientSenderComponent>();
             if (clientSenderComponent != null)
                 await clientSenderComponent.DisposeClientSender();
-            clientSenderComponent = root.AddComponent<ClientSenderCompnent>();
+            clientSenderComponent = root.AddComponent<ClientSenderComponent>();
 
             long playerId = await clientSenderComponent.LoginAsync(account, password, accountId);
 

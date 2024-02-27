@@ -98,7 +98,7 @@ namespace ET.Client
                     break;
             }
 
-            self.Root().GetComponent<ClientSenderCompnent>().Send(chat);
+            self.Root().GetComponent<ClientSenderComponent>().Send(chat);
             self.View.E_InputInputField.text = string.Empty;
         }
 
