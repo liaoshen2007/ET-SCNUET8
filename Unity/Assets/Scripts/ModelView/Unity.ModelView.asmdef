@@ -6,7 +6,6 @@
         "Unity.Core",
         "Unity.Mathematics",
         "Unity.Loader",
-        "MemoryPack",
         "Unity.Model",
         "YooAsset"
     ],
@@ -16,7 +15,9 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_COMPILE || UNITY_EDITOR"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

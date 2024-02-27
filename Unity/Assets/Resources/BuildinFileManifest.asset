@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b02dfa7aa9d4545b3417a18477fbee, type: 3}
+  m_Name: BuildinFileManifest
+  m_EditorClassIdentifier: 
+  BuildinFiles:
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_aotdlls_25541adde40d273fcf129b144b56ad31.bundle
+    FileCRC32: cf6a71fc
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_code_25ce92d5f9acfa9417b558213b496176.bundle
+    FileCRC32: a7c9a492
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_config_902321a2043ea3a6ef552d247f648033.bundle
+    FileCRC32: 673f0b42
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_scenes_map1_02f6ae487fd67b62fa1d0d6a22639c6c.bundle
+    FileCRC32: 3c390e99
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_scenes_map2_5df2bf6c9775cbdb73a18747a5708fac.bundle
+    FileCRC32: 79ff8283
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_atlas_arttext_932226848987ef7fd7836defff70b1ae.bundle
+    FileCRC32: 3becbe14
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_atlas_emotion_d5ed5a8385e7dec605c80e1a37d7d526.bundle
+    FileCRC32: 0758fd04
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_atlas_icon_3fbbb756bfde8df79f7a5727b0a169b9.bundle
+    FileCRC32: 89a70773
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_atlas_widget_3e78c5d0fd706ed75cbbba7b6082a669.bundle
+    FileCRC32: 3708c280
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_fonts_jdzy_d3b036a32ec10eb63894c43879d588a4.bundle
+    FileCRC32: de0936f1
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_fonts_kaiti_16a007f29e9781684bae7424734876fe.bundle
+    FileCRC32: 84b66314
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_lockstep_uilslobby_e2da3f801cd92761bbb925bcd2d3e48a.bundle
+    FileCRC32: 62b29b02
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_lockstep_uilslogin_714e6ba8ba7338c9b33bc03f0c425629.bundle
+    FileCRC32: 88e15060
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_lockstep_uilsroom_50a518ad6d9d433d3a1ac83cd3db0412.bundle
+    FileCRC32: f653561b
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_es_otherchatlite_14fba4cc75ca3f57394a7639fc3d2bd7.bundle
+    FileCRC32: e71d3e84
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_es_selfchatlite_5b570d3319a5c15a0677a4e5a69ae96b.bundle
+    FileCRC32: ea009a58
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_chat_2edfccd223eb72adc63c1514c1c43c1e.bundle
+    FileCRC32: 28bc4377
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_emoj_03ed875d9d2b75f0b4ea854a08c55f81.bundle
+    FileCRC32: 97cdf0fa
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_emotionmenu_e93255cff85ef4b5654757a99543de25.bundle
+    FileCRC32: 274ddecf
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_es_otherimage_eb3be384f3a0c594d72f667a2b8d7b01.bundle
+    FileCRC32: 0dbe90c6
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_es_othertext_d225da69f09328261adf7480c2b61154.bundle
+    FileCRC32: 0121fa39
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_es_selfimage_d120ee4569cec4fc647079e316fa73ca.bundle
+    FileCRC32: cb6cc387
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_es_selftext_9cb311b64481329e693d6812d60458de.bundle
+    FileCRC32: 09a5ae87
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_item_es_time_614109a743e1d831c21eaea1c6940cfb.bundle
+    FileCRC32: a941582d
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_chat_uichat_fd8a10ed0c7e619b03c867ada3fc92bf.bundle
+    FileCRC32: 025ecce5
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_esitem_1c95c0d14ac3f9dee0c5de3443a12b64.bundle
+    FileCRC32: 9505a44d
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_espopitem_31cd1313687f3217378e0037e37505b5.bundle
+    FileCRC32: 32316ae3
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_es_playerlite_58f6ac5429443cc8b9025f49884dea79.bundle
+    FileCRC32: dc4d3253
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_item_count_17ebb4f7e9255e2036e913f31735b37f.bundle
+    FileCRC32: 6d78e347
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_item_frame_d6ab37a82f9ae4a28bc7de57acda77b3.bundle
+    FileCRC32: 48b9a802
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_item_icon_31199d157143f67706323e0d82b80884.bundle
+    FileCRC32: 4ada75df
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_item_menu_ec8efa3097c8b1f029944185f5a85f8a.bundle
+    FileCRC32: ee73132f
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_item_name_3125e615ea29b02646af749392eeb055.bundle
+    FileCRC32: b7859192
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_common_reddot_f83f9ae37186aa6967e6915504bde841.bundle
+    FileCRC32: 5333de9f
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_loading_uiloading_bb63ba9bf1cc77c33db6534f0e009cec.bundle
+    FileCRC32: 0aa3540b
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_login_item_server_a616ae413e80fe72dff1a574849beeb9.bundle
+    FileCRC32: 42b6e8a3
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_login_uilogin_dc8cdd63cdeb95899e72aae8d2ad4108.bundle
+    FileCRC32: b0a86ec0
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_login_uiserverlist_a7911d7229ea58ec13479cd8303b7349.bundle
+    FileCRC32: a8f6ffb3
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_main_uimain_397a686f1381ef65e35a88748c912e7e.bundle
+    FileCRC32: bf6e3215
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_window_pop_uipop_517ee379e5093010da8334a5df6bb2aa.bundle
+    FileCRC32: 9104a0ca
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_unit_player_p_001_p_001_0c778413e7dacbc5e50c060280991fcd.bundle
+    FileCRC32: d0e6bd96
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_unit_unit_0a32056d56303c29b9c400c1433e9f7b.bundle
+    FileCRC32: d1802572
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_bg_746c970b75a76d8fe40be24fce71058c.bundle
+    FileCRC32: 753e729c
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_icon_bubble_fcb5ff7d1bbfe69675cea0567bc1fae0.bundle
+    FileCRC32: 2187c994
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_icon_demo_8bc3f6377c83fa14126c9a5a5764286c.bundle
+    FileCRC32: c17c9d47
+  - PackageName: DefaultPackage
+    FileName: "share_assets_artres_atlas_icon_demo_\u767B\u5F55\u754C\u9762\u5207\u56FE_b71eab23bfd578df0095c66dae729911.bundle"
+    FileCRC32: ebdd7671
+  - PackageName: DefaultPackage
+    FileName: "share_assets_artres_atlas_icon_demo_\u80CC\u5305\u754C\u9762\u5207\u56FE_4b9f27193e35ff8a9daa7230f193f841.bundle"
+    FileCRC32: 901a234f
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_icon_frame_18fa5a2f51b926a327e0e100e0c00b6b.bundle
+    FileCRC32: fff1fb37
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_icon_head_a4391dcaa70ec97218cb7da0f59061b3.bundle
+    FileCRC32: 21d45a27
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_atlas_widget_64e39b6ec7634488783dcc18a914e137.bundle
+    FileCRC32: 0836a4f1
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_mat_654a32d92f58a910ef289387412986b3.bundle
+    FileCRC32: 9cb69130
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_unit_player_p_001_0b6bdb8f4843c213e738d6a36ba7bd57.bundle
+    FileCRC32: a468e675
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_unit_player_p_001_ani_25e182298f2c94d5392293a2cb1159ed.bundle
+    FileCRC32: 630f84bd
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_unit_player_p_001_ani_materials_2456ef62d4dfb09ee68e7715aee20563.bundle
+    FileCRC32: a8fe5998
+  - PackageName: DefaultPackage
+    FileName: share_assets_artres_unit_player_p_001_texture_8b3bf80f09ed1fb4d8930ac7c0914ee5.bundle
+    FileCRC32: f482d6f1
+  - PackageName: DefaultPackage
+    FileName: share_assets_resources_anim_ba90eee4a9801e083932a70f8f6acebe.bundle
+    FileCRC32: bd39273c
+  - PackageName: DefaultPackage
+    FileName: share_assets_uitools_5d9386c3be35014d9f6cb91d1afd6db5.bundle
+    FileCRC32: 0b785cba
+  - PackageName: DefaultPackage
+    FileName: unityshaders_57ced70be62ebf3c3f7ca4d74ea7120d.bundle
+    FileCRC32: 853e7c97
