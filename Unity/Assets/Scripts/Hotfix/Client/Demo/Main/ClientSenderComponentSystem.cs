@@ -2,7 +2,7 @@
 {
     [EntitySystemOf(typeof(ClientSenderComponent))]
     [FriendOf(typeof(ClientSenderComponent))]
-    public static partial class ClientSenderCompnentSystem
+    public static partial class ClientSenderComponentSystem
     {
         [EntitySystem]
         private static void Awake(this ClientSenderComponent self)
