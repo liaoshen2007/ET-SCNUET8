@@ -34,16 +34,25 @@
             self.Dispose();
         }
 
-        public static async ETTask<long> LoginAsync(this ClientSenderComponent self, string account, string password, long accoutId)
+        public static async ETTask<(bool, long)> LoginAsync(this ClientSenderComponent self, string account, string password, long accoutId)
         {
             self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
             self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
 
-            NetClient2Main_Login response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, new Main2NetClient_Login()
+            var m = Main2NetClient_Login.Create();
+            m.OwnerFiberId = self.Fiber().Id;
+            m.Account = account;
+            m.Password = password;
+            m.Id = accoutId;
+            NetClient2Main_Login response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, m) as NetClient2Main_Login;
+            
+            EventSystem.Instance.Publish(self.Scene(), new NetError(){ Error = response.Error, Message = response.Message });
+            if (response.Error == ErrorCode.ERR_Success)
             {
-                OwnerFiberId = self.Fiber().Id, Account = account, Password = password, Id = accoutId,
-            }) as NetClient2Main_Login;
-            return response.PlayerId;
+                return (true, response.PlayerId);
+            }
+
+            return (false, response.Error);
         }
 
         public static void Send(this ClientSenderComponent self, IMessage message)
@@ -60,6 +69,7 @@
             using A2NetClient_Response a2NetClientResponse = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, a2NetClientRequest) as A2NetClient_Response;
             IResponse response = a2NetClientResponse.MessageObject;
                         
+            EventSystem.Instance.Publish(self.Scene(), new NetError(){ Error = response.Error, Message = response.Message });
             if (response.Error == ErrorCore.ERR_MessageTimeout)
             {
                 throw new RpcException(response.Error, $"Rpc error: request, 注意Actor消息超时，请注意查看是否死锁或者没有reply: {request}, response: {response}");
@@ -72,6 +82,5 @@
             
             return response;
         }
-
     }
 }

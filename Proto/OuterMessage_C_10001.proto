@@ -417,10 +417,8 @@ message C2Chat_SendRequest // IChatRequest
 	string Message = 3;
 	string GroupId = 4;
 }
-
 message C2C_SendResponse // IChatResponse
 {
-
 }
 
 //收到聊天信息
@@ -502,7 +500,8 @@ message M2C_UpdateActivity //IMessage
 }
 
 //释放技能
-message C2M_UseSkill //ILocationMessage
+//ResponseType M2C_UseSkillResponse
+message C2M_UseSkillRequest //ILocationRequest
 {
   int32 Id = 1;
   //自己的坐标
@@ -510,6 +509,9 @@ message C2M_UseSkill //ILocationMessage
   repeated Unity.Mathematics.float3 DstPosition = 3;
   repeated int64 DstList = 4;
   int32 Direct = 5;
+}
+message M2C_UseSkillResponse //ILocationResponse
+{
 }
 
 message M2C_UseSkill //IMessage
@@ -526,6 +528,11 @@ message M2C_UpdateSkill //IMessage
 {
   int32 Id = 1;
   repeated int64 CdList = 2;
+}
+
+//打断技能
+message C2M_BreakSkill //ILocationMessage
+{
 }
 
 message M2C_BreakSkill //IMessage

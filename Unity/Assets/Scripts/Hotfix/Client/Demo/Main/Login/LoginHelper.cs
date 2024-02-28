@@ -17,12 +17,19 @@ namespace ET.Client
         {
             var clientSenderComponent = root.GetComponent<ClientSenderComponent>();
             if (clientSenderComponent != null)
+            {
                 await clientSenderComponent.DisposeClientSender();
+                await root.GetComponent<TimerComponent>().WaitFrameAsync();
+            }
+            
             clientSenderComponent = root.AddComponent<ClientSenderComponent>();
+            (bool ok, long playerId) r = await clientSenderComponent.LoginAsync(account, password, accountId);
+            if (!r.ok)
+            {
+                return (int)r.playerId;
+            }
 
-            long playerId = await clientSenderComponent.LoginAsync(account, password, accountId);
-
-            root.GetComponent<PlayerComponent>().MyId = playerId;
+            root.GetComponent<PlayerComponent>().MyId = r.playerId;
 
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
 
@@ -49,7 +56,7 @@ namespace ET.Client
                 Log.Error(e);
                 return ErrorCode.ERR_NetWorkError;
             }
-            
+
             HttpAccount httpAcc = MongoHelper.FromJson<HttpAccount>(str);
             if (httpAcc.Error != ErrorCode.ERR_Success)
             {
@@ -65,7 +72,7 @@ namespace ET.Client
             var acc = root.AddChildWithId<Account>(httpAcc.Account.Id);
             acc.AccountName = account;
             acc.Password = password;
-            acc.AccountType = (AccountType) httpAcc.Account.AccountType;
+            acc.AccountType = (AccountType)httpAcc.Account.AccountType;
             acc.CreateTime = httpAcc.Account.CreateTime;
 
             return ErrorCode.ERR_Success;
@@ -90,7 +97,7 @@ namespace ET.Client
                 Log.Error(e);
                 return ErrorCode.ERR_NetWorkError;
             }
-            
+
             HttpServerList httpServer = MongoHelper.FromJson<HttpServerList>(str);
             root.GetComponent<ServerInfoComponent>().Clear();
             foreach (var serverInfoProto in httpServer.ServerList)

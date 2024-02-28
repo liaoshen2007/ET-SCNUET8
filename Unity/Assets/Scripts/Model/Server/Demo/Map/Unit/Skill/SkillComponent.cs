@@ -16,7 +16,7 @@ namespace ET.Server
         public string ViewCmd;
     }
 
-    public class SkillDyna
+    public struct SkillDyna
     {
         public List<Unit> LastHurtList;
         public int Direct;
@@ -25,7 +25,7 @@ namespace ET.Server
     }
 
     [ComponentOf(typeof (Unit))]
-    public class SkillComponent: Entity, IAwake
+    public class SkillComponent: Entity, IAwake, IDestroy
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, SkillUnit> skillDict = new();

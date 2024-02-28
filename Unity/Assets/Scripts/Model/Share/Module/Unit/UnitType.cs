@@ -2,8 +2,9 @@
 {
     public enum UnitType: byte
     {
-        Npc = 0,
-
+        /// <summary>
+        /// 玩家
+        /// </summary>
         Player = 1,
 
         /// <summary>
@@ -35,6 +36,8 @@
         /// 召唤物
         /// </summary>
         Summon = 7,
+        
+        Npc = 8,
 
         /// <summary>
         /// 环境生物

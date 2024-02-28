@@ -225,7 +225,15 @@ namespace ET.Client
             async ETTask clickActionAsync()
             {
                 UIEvent.Instance.SetUIClick(true);
-                await action(id);
+                try
+                {
+                    await action(id);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
+                
                 UIEvent.Instance.SetUIClick(false);
             }
 
@@ -247,12 +255,21 @@ namespace ET.Client
             async ETTask clickActionAsync()
             {
                 UIEvent.Instance.SetUIClick(true);
-                await action();
+                try
+                {
+                    await action();
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
+                
                 UIEvent.Instance.SetUIClick(false);
             }
 
             button.onClick.AddListener(() =>
             {
+                Log.Info(UIEvent.Instance.IsClick);
                 if (UIEvent.Instance.IsClick)
                 {
                     return;

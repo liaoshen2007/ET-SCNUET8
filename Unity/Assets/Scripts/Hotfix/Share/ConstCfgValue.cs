@@ -27,5 +27,10 @@ namespace ET
 		/// 聊天消息单次拉取数量
 		/// </summary>
 		public const int ChatGetCount = 10;
+
+		/// <summary>
+		/// 新手村
+		/// </summary>
+		public const string StartMap = "Map1";
 	}
 }

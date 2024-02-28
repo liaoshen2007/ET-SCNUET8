@@ -72,6 +72,7 @@ namespace ET
         private const string windowPath = "../Unity/Assets/Scripts/ModelView/Client/Plugins/EUI/WindowId.cs";
         private const string constPath = "../Unity/Assets/Scripts/Hotfix/Share/ConstCfgValue.cs";
         private const string menuPath = "../Unity/Assets/Scripts/ModelView/Client/Demo/Menu/SystemMenuType.cs";
+        private const string errorCodePath = "../Unity/Assets/Scripts/Model/Share/Demo/ErrorCode.cs";
         private const string replaceStr = "/{0}/{1}";
         private static Assembly[] configAssemblies = new Assembly[3];
 
@@ -223,7 +224,9 @@ namespace ET
                 ExportConst();
                 Log.Console("Export Const Sucess!");
                 ExportMenuType();
-                Log.Console("Export Menu Sucess!");
+                Log.Console("Export Menu Sucess!");                
+                ExportErrorCode();
+                Log.Console("Export ErrorCode Sucess!");
             }
             catch (Exception e)
             {
@@ -896,6 +899,62 @@ namespace ET
 
             sb.Remove(sb.Length - 3, 3);
             using FileStream txt = new FileStream(menuPath, FileMode.Create);
+            using StreamWriter sw = new StreamWriter(txt);
+            var result = template.Replace("(fields)", sb.ToString());
+            sw.Write(result);
+        }
+        
+        /// <summary>
+        /// 导出错误码
+        /// </summary>
+        private static void ExportErrorCode()
+        {
+            static void AppendDesc(string desc, StringBuilder stringBuilder)
+            {
+                if (!desc.IsNullOrEmpty())
+                {
+                    stringBuilder.Append("\t\t/// <summary>\n");
+                    stringBuilder.AppendFormat($"\t\t/// {desc}\n");
+                    stringBuilder.Append("\t\t/// </summary>\n");
+                }
+            }
+
+            var path = Path.GetFullPath(excelDir + "/ErrorCfg@c.xlsx");
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            ExcelPackage p = GetPackage(Path.GetFullPath(path));
+            template = File.ReadAllText("ErrorCode.txt");
+            var sb = new StringBuilder();
+            const string format = "\t\tpublic const int ERR_{0} = {1};\n";
+            foreach (ExcelWorksheet worksheet in p.Workbook.Worksheets)
+            {
+                if (worksheet.Name.StartsWith("#"))
+                {
+                    continue;
+                }
+
+                for (int row = 6; row <= worksheet.Dimension.End.Row; ++row)
+                {
+                    var key = worksheet.Cells[row, 4].Text.Trim();
+                    if (key.IsNullOrEmpty())
+                    {
+                        continue;
+                    }
+
+                    var id = worksheet.Cells[row, 3].Text.Trim();
+                    var desc = worksheet.Cells[row, 6].Text.Trim();
+                    AppendDesc(desc, sb);
+                    sb.AppendFormat(format, key, id);
+
+                    sb.AppendLine();
+                }
+            }
+
+            sb.Remove(sb.Length - 3, 3);
+            using FileStream txt = new FileStream(errorCodePath, FileMode.Create);
             using StreamWriter sw = new StreamWriter(txt);
             var result = template.Replace("(fields)", sb.ToString());
             sw.Write(result);

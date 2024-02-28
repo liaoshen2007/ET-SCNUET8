@@ -1,6 +1,15 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
-    [ComponentOf(typeof(Scene))]
+    public struct NetError
+    {
+        public int Error;
+
+        public List<string> Message;
+    }
+
+    [ComponentOf(typeof (Scene))]
     public class ClientSenderComponent: Entity, IAwake, IDestroy
     {
         public int fiberId;

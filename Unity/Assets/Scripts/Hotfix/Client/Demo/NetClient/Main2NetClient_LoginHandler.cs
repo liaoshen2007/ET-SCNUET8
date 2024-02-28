@@ -19,7 +19,6 @@ namespace ET.Client
             root.GetComponent<FiberParentComponent>().ParentFiberId = request.OwnerFiberId;
 
             NetComponent netComponent = root.GetComponent<NetComponent>();
-            
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
 
             R2C_Login r2CLogin;
@@ -28,15 +27,28 @@ namespace ET.Client
                 r2CLogin = (R2C_Login)await session.Call(new C2R_Login() { Account = account, Password = password });
             }
 
+            if (r2CLogin.Error != ErrorCode.ERR_Success)
+            {
+                response.Error = r2CLogin.Error;
+                response.Message = r2CLogin.Message;
+                return;
+            }
+
             // 创建一个gate Session,并且保存到SessionComponent中
             Session gateSession = await netComponent.CreateRouterSession(NetworkHelper.ToIPEndPoint(r2CLogin.Address), account, password);
             gateSession.AddComponent<ClientSessionErrorComponent>();
             root.AddComponent<SessionComponent>().Session = gateSession;
             G2C_LoginGate g2CLoginGate = (G2C_LoginGate)await gateSession.Call(new C2G_LoginGate() { Key = r2CLogin.Key, GateId = r2CLogin.GateId, Id = request.Id });
-
-            Log.Debug("登陆gate成功!");
-
+            
+            if (g2CLoginGate.Error != ErrorCode.ERR_Success)
+            {
+                response.Error = g2CLoginGate.Error;
+                response.Message = g2CLoginGate.Message;
+                return;
+            }
+            
             response.PlayerId = g2CLoginGate.PlayerId;
+            Log.Debug("登陆gate成功!");
         }
     }
 }

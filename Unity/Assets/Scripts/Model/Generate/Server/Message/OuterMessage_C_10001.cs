@@ -2337,13 +2337,14 @@ namespace ET
 	/// <summary>
 	///释放技能
 	/// </summary>
-	[Message(OuterMessage.C2M_UseSkill)]
+	[ResponseType(nameof(M2C_UseSkillResponse))]
+	[Message(OuterMessage.C2M_UseSkillRequest)]
 	[MemoryPackable]
-	public partial class C2M_UseSkill: MessageObject, ILocationMessage
+	public partial class C2M_UseSkillRequest: MessageObject, ILocationRequest
 	{
-		public static C2M_UseSkill Create(bool isFromPool = false) 
+		public static C2M_UseSkillRequest Create(bool isFromPool = false) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(C2M_UseSkill), isFromPool) as C2M_UseSkill; 
+			return ObjectPool.Instance.Fetch(typeof(C2M_UseSkillRequest), isFromPool) as C2M_UseSkillRequest; 
 		}
 
 		[MemoryPackOrder(89)]
@@ -2376,6 +2377,36 @@ namespace ET
 			this.DstPosition.Clear();
 			this.DstList.Clear();
 			this.Direct = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.M2C_UseSkillResponse)]
+	[MemoryPackable]
+	public partial class M2C_UseSkillResponse: MessageObject, ILocationResponse
+	{
+		public static M2C_UseSkillResponse Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2C_UseSkillResponse), isFromPool) as M2C_UseSkillResponse; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public List<string> Message { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message.Clear();
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -2444,6 +2475,35 @@ namespace ET
 			if (!this.IsFromPool) return;
 			this.Id = default;
 			this.CdList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	/// <summary>
+	///打断技能
+	/// </summary>
+	[Message(OuterMessage.C2M_BreakSkill)]
+	[MemoryPackable]
+	public partial class C2M_BreakSkill: MessageObject, ILocationMessage
+	{
+		public static C2M_BreakSkill Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2M_BreakSkill), isFromPool) as C2M_BreakSkill; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Id = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -2660,11 +2720,13 @@ namespace ET
 		 public const ushort M2C_UpdateActivityList = 10070;
 		 public const ushort M2C_UpdateActivityClose = 10071;
 		 public const ushort M2C_UpdateActivity = 10072;
-		 public const ushort C2M_UseSkill = 10073;
-		 public const ushort M2C_UseSkill = 10074;
-		 public const ushort M2C_UpdateSkill = 10075;
-		 public const ushort M2C_BreakSkill = 10076;
-		 public const ushort HurtInfo = 10077;
-		 public const ushort M2C_HurtList = 10078;
+		 public const ushort C2M_UseSkillRequest = 10073;
+		 public const ushort M2C_UseSkillResponse = 10074;
+		 public const ushort M2C_UseSkill = 10075;
+		 public const ushort M2C_UpdateSkill = 10076;
+		 public const ushort C2M_BreakSkill = 10077;
+		 public const ushort M2C_BreakSkill = 10078;
+		 public const ushort HurtInfo = 10079;
+		 public const ushort M2C_HurtList = 10080;
 	}
 }
