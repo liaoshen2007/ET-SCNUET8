@@ -16,7 +16,10 @@ namespace ET.Client
 
             GameObject go = UnityEngine.Object.Instantiate(prefab, Global.Instance.Unit, true);
             go.transform.position = unit.Position;
-            unit.AddComponent<GameObjectComponent>().SetGo(go);
+            var com = unit.AddComponent<GameObjectComponent>();
+            com.SetGo(go);
+            scene.GetComponent<CameraComponent>().Lock(com.ChestTrans);
+            
             unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;
         }

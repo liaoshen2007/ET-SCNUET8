@@ -269,7 +269,6 @@ namespace ET.Client
 
             button.onClick.AddListener(() =>
             {
-                Log.Info(UIEvent.Instance.IsClick);
                 if (UIEvent.Instance.IsClick)
                 {
                     return;
