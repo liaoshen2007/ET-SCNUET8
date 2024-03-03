@@ -31,6 +31,12 @@ namespace ET.Client
                 self.Scene().GetComponent<CameraComponent>().Scale(pinchScale - 1);
             }
             
+            //切换视角
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                self.Scene().GetComponent<CameraComponent>().ChangeCfg();
+            }
+            
             if (Input.anyKeyDown)
             {
                 // foreach (KeyCode keyCode in System.Enum.GetValues(typeof (KeyCode)))

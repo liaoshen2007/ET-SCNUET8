@@ -107,6 +107,19 @@ namespace ET.Client
                 self.realFollowTargetTime = time;
             }
         }
+        
+        public static void ChangeCfg(this CameraComponent self)
+        {
+            switch (self.currentfg.Mode)
+            {
+                case CameraMode.Third:
+                    self.ApplyCfg(Global.Instance.CameraConfig.FreeCfg);
+                    break;
+                case CameraMode.Free:
+                    self.ApplyCfg(Global.Instance.CameraConfig.ThirdCfg);
+                    break;
+            }
+        }
 
         private static void ScaleFree(this CameraComponent self, float delta)
         {
