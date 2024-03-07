@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace ET.Server;
-
-public static class MiscHelper
+namespace ET.Server
+{
+    public static class MiscHelper
 {
     public static List<string> GetItemError(int id)
     {
@@ -145,3 +145,5 @@ public static class MiscHelper
         return default;
     }
 }
+}
+

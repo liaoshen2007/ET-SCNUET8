@@ -9,6 +9,7 @@ namespace ET.Server
         {
             Scene root = fiberInit.Fiber.Root;
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
+            //Log.Error("FiberInit_RouterManager:"+$"http://*:{startSceneConfig.Port}/");
             root.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.Port}/");
 
             await ETTask.CompletedTask;

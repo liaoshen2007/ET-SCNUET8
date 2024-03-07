@@ -14,6 +14,7 @@
             root.AddComponent<MessageSender>();
 
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get((int)root.Id);
+            //Log.Error($"http://*:{startSceneConfig.Port}/");
             root.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.Port}/");
             root.AddComponent<ServerInfoComponent>();
             root.AddComponent<RoleInfosComponent>();

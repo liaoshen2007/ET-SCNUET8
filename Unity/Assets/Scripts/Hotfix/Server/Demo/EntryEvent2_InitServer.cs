@@ -22,8 +22,10 @@ namespace ET.Server
 
                     // 根据配置创建纤程
                     var processScenes = StartSceneConfigCategory.Instance.GetByProcess(process);
+                    Log.Debug("processScenes:"+processScenes.Count);
                     foreach (StartSceneConfig startConfig in processScenes)
                     {
+                        Log.Debug("startConfig:"+startConfig);
                         await FiberManager.Instance.Create(SchedulerType.ThreadPool, startConfig.Id, startConfig.Zone, startConfig.Type, startConfig.Name);
                     }
 

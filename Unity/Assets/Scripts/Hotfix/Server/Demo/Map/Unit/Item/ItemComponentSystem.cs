@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ET.Server;
-
-[EntitySystemOf(typeof (ItemComponent))]
+namespace ET.Server
+{
+    [EntitySystemOf(typeof (ItemComponent))]
 [FriendOf(typeof (ItemComponent))]
 public static partial class ItemComponentSystem
 {
@@ -214,3 +214,5 @@ public static partial class ItemComponentSystem
         return MessageReturn.Success();
     }
 }
+}
+

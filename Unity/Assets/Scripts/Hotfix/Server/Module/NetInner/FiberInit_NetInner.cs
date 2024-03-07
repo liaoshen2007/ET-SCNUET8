@@ -13,6 +13,7 @@ namespace ET.Server
             root.AddComponent<CoroutineLockComponent>();
             StartProcessConfig startProcessConfig = StartProcessConfigCategory.Instance.Get(fiberInit.Fiber.Process);
             root.AddComponent<ProcessOuterSender, IPEndPoint>(startProcessConfig.IPEndPoint);
+            Log.Error("startProcessConfig.IPEndPoint:"+startProcessConfig.IPEndPoint);
             root.AddComponent<ProcessInnerSender>();
             // root.AddComponent<InnerPingComponent>();
 

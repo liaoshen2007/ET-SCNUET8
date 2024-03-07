@@ -89,6 +89,7 @@ namespace ET
                     try
                     {
                         // 根据Fiber的SceneType分发Init,必须在Fiber线程中执行
+                        //Log.Error("FiberInit"+sceneType);
                         await EventSystem.Instance.Invoke<FiberInit, ETTask>((long) sceneType, new FiberInit() { Fiber = fiber });
                         tcs.SetResult(true);
                     }

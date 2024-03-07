@@ -131,6 +131,9 @@ namespace ET.Client
         {
             var errno = await LoginHelper.QueryAccount(self.Scene(), self.View.E_AccountInputInputField.text,
                 self.View.E_PasswordInputInputField.text);
+            
+            // var errno=await LoginHelper.Login(self.Scene(), self.View.E_AccountInputInputField.text,
+            //     self.View.E_PasswordInputInputField.text,0);
             if (errno != ErrorCode.ERR_Success)
             {
                 Log.Error($"获取账号失败: {errno}");

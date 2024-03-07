@@ -129,6 +129,7 @@ namespace ET
             {
                 if (this.innerIPPort == null)
                 {
+                    //Log.Error("this.StartProcessConfig.InnerIP:"+this.Port);
                     this.innerIPPort = NetworkHelper.ToIPEndPoint($"{this.StartProcessConfig.InnerIP}:{this.Port}");
                 }
 
@@ -145,6 +146,7 @@ namespace ET
             {
                 if (this.outerIPPort == null)
                 {
+                    //Log.Error("this.StartProcessConfig.OuterIP:"+this.Port);
                     this.outerIPPort = NetworkHelper.ToIPEndPoint($"{this.StartProcessConfig.OuterIP}:{this.Port}");
                 }
 

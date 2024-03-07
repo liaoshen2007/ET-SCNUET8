@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ET.Server;
-
-[EntitySystemOf(typeof (SkillComponent))]
+namespace ET.Server
+{
+    [EntitySystemOf(typeof (SkillComponent))]
 [FriendOf(typeof (SkillComponent))]
 [FriendOf(typeof (SkillUnit))]
 public static partial class SkillComponentSystem
@@ -239,3 +239,5 @@ public static partial class SkillComponentSystem
         self.dyna = default;
     }
 }
+}
+
