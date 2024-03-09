@@ -4,7 +4,7 @@ namespace ET.Client
 {
     public static partial class UnitFactory
     {
-        public static Unit Create(Scene currentScene, UnitInfo unitInfo)
+        public static Unit Create(Scene currentScene, UnitInfo unitInfo,bool isPlayerSelf=false)
         {
 	        UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
 	        Unit unit = unitComponent.AddChildWithId<Unit, int>(unitInfo.UnitId, unitInfo.ConfigId);
@@ -35,6 +35,11 @@ namespace ET.Client
 	        unit.AddComponent<XunLuoPathComponent>();
 	        
 	        EventSystem.Instance.Publish(unit.Scene(), new AfterUnitCreate() {Unit = unit});
+	        if (isPlayerSelf)
+	        {
+		        EventSystem.Instance.Publish(unit.Scene(), new CreatMySelfUnit() {Unit = unit,CurrentScene = currentScene});
+	        }
+	        
             return unit;
         }
     }

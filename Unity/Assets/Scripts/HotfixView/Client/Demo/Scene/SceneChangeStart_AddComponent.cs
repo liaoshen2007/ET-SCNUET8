@@ -28,8 +28,8 @@ namespace ET.Client
                     }
                 }
 
-                currentScene.AddComponent<OperaComponent>();
-                currentScene.AddComponent<CameraComponent>();
+                // currentScene.AddComponent<OperaComponent>();
+                // currentScene.AddComponent<CameraComponent>();
                 switch (Application.platform)
                 {
                     case RuntimePlatform.OSXEditor:

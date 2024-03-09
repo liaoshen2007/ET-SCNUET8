@@ -1,6 +1,4 @@
-﻿using System;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ET.Client
 {
@@ -10,5 +8,7 @@ namespace ET.Client
         public Vector3 ClickPoint;
         
 	    public int mapMask;
+
+	    public GameObject myGo;
     }
 }

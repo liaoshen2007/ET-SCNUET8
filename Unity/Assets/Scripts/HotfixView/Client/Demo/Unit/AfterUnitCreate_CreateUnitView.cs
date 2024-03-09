@@ -18,7 +18,7 @@ namespace ET.Client
             go.transform.position = unit.Position;
             var com = unit.AddComponent<GameObjectComponent>();
             com.SetGo(go);
-            scene.GetComponent<CameraComponent>().Lock(com.ChestTrans);
+            //scene.GetComponent<CameraComponent>().Lock(com.ChestTrans);
             
             unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;

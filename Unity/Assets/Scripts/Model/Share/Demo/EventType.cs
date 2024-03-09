@@ -55,6 +55,12 @@
         public Unit Unit;
     }
 
+    public struct CreatMySelfUnit
+    {
+        public Unit Unit; 
+        public Scene CurrentScene;
+    }
+
     /// <summary>
     /// 战力改变
     /// </summary>

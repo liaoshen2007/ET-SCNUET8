@@ -19,7 +19,8 @@ namespace ET.Client
         {
             var serverCom = self.Scene().GetComponent<ServerInfoComponent>();
             int count = serverCom.ServerInfoList.Count;
-            self.AddUIScrollItems(self.ItemServerDict, count);
+            //Log.Error(" serverCom.ServerInfoList.Count:"+count);
+            self.AddUIScrollItemsWithRef(ref self.ItemServerDict, count);
             self.View.E_ServerListLoopVerticalScrollRect.SetVisible(true, count);
         }
 

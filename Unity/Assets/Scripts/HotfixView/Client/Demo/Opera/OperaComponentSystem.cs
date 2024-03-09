@@ -7,6 +7,12 @@ namespace ET.Client
     [FriendOf(typeof (OperaComponent))]
     public static partial class OperaComponentSystem
     {
+        public static void SetUnit(this OperaComponent self,GameObject gameObject)
+        {
+            self.myGo = gameObject; //UnitHelper.GetMyUnitFromZoneScene(self.DomainScene());
+
+        }
+        
         [EntitySystem]
         private static void Awake(this OperaComponent self)
         {

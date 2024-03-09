@@ -30,6 +30,11 @@ namespace ET.Client
         [EntitySystem]
         private static void LateUpdate(this CameraComponent self)
         {
+            if (self.lockTarget==null)
+            {
+                return;
+            }
+            
             self.FollowTarget();
 
             Vector3 realPos = self.CameraRealPos();
