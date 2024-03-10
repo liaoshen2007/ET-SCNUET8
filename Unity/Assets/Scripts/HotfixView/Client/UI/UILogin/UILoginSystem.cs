@@ -186,7 +186,7 @@ namespace ET.Client
             }
 
             await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
-            UIHelper.PopMsg(self.Root(),"Login Success!");
+            UIHelper.PopMsg(self.Root(),LanguageCategory.Instance.Get(20001).Msg);
             errno = await EnterMapHelper.EnterMapAsync(self.Root());
             if (errno != ErrorCode.ERR_Success)
             {
