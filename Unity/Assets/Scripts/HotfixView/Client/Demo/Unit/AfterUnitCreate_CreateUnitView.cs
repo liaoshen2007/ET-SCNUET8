@@ -21,6 +21,10 @@ namespace ET.Client
             //scene.GetComponent<CameraComponent>().Lock(com.ChestTrans);
             
             unit.AddComponent<AnimatorComponent>();
+            if (args.IsSelf)
+            {
+                EventSystem.Instance.Publish(unit.Scene(), new CreatMySelfUnit() {Unit = unit,CurrentScene = scene});
+            }
             await ETTask.CompletedTask;
         }
     }

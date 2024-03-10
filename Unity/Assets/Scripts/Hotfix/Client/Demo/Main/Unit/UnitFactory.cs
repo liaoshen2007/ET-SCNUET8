@@ -34,11 +34,8 @@ namespace ET.Client
 
 	        unit.AddComponent<XunLuoPathComponent>();
 	        
-	        EventSystem.Instance.Publish(unit.Scene(), new AfterUnitCreate() {Unit = unit});
-	        if (isPlayerSelf)
-	        {
-		        EventSystem.Instance.Publish(unit.Scene(), new CreatMySelfUnit() {Unit = unit,CurrentScene = currentScene});
-	        }
+	        EventSystem.Instance.Publish(unit.Scene(), new AfterUnitCreate() {Unit = unit,IsSelf = isPlayerSelf});
+
 	        
             return unit;
         }
