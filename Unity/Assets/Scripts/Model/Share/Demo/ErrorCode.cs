@@ -107,5 +107,10 @@ namespace ET
 		/// 对象已死亡
 		/// </summary>
 		public const int ERR_UnitDead = 200601;
+
+		/// <summary>
+		/// 找不到目标
+		/// </summary>
+		public const int ERR_UnitNotExit = 200602;
 	}
 }
