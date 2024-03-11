@@ -42,5 +42,10 @@ namespace ET
 		/// 3006
 		/// </summary>
 		Win_UIChat,
+
+		/// <summary>
+		/// 3007
+		/// </summary>
+		Win_UIRoleSelect,
 	}
 }
