@@ -15,6 +15,8 @@ namespace ET.Client
             root.AddComponent<ClientTaskComponent>();
             root.AddComponent<ClientItemComponent>();
             root.AddComponent<ClientChatComponent>();
+            root.AddComponent<AccountInfoComponent>();
+            root.AddComponent<RoleInfoComponent>();
             
             await IconHelper.LoadAtlas(root, AtlasType.Widget);
             

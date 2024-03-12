@@ -13,6 +13,7 @@
                 return;
             }
 
+            Log.Error("C2A_GetRolesHandler");
             using (session.AddComponent<SessionLockingComponent>())
             {
                 using (await session.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))

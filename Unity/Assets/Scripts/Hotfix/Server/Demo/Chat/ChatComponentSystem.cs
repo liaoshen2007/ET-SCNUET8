@@ -132,6 +132,11 @@ namespace ET.Server
         public static void Leave(this ChatComponent self, long playerId)
         {
             var child = self.GetChild<ChatUnit>(playerId);
+            //todo chat error?
+            if (child==null)
+            {
+                return;
+            }
             child.isOnline = false;
             self.RemoveMember(self.worldId, false, new List<long>() { playerId });
             self.Scene().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession).Remove(playerId);

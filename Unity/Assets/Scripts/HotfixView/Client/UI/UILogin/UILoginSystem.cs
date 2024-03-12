@@ -34,7 +34,7 @@ namespace ET.Client
             self.View.E_LoginBtnButton.AddListenerAsync(self.OnLoginClick);
             self.View.E_ServerBtnButton.AddListenerAsync(self.OnServerClick);
             self.View.E_BackBtnButton.AddListener(self.OnBackClick);
-            self.View.E_EnterGameBtnButton.AddListenerAsync(self.OnEnterGameClick);
+            self.View.E_EnterGameBtnButton.AddListenerAsync(self.OnGetRolesSelect);
         }
 
         public static void OnFocus(this UILogin self)
@@ -175,6 +175,29 @@ namespace ET.Client
             self.View.EG_ServerRectTransform.SetActive(false);
         }
 
+        private static async ETTask OnGetRolesSelect(this UILogin self)
+        {
+            var account = self.Scene().GetChild<Account>();
+            var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
+            if (errno != ErrorCode.ERR_Success)
+            {
+                Log.Error($"登录失败: {errno}");
+                return;
+            }
+
+            //todo 接下来就是拉取Roles！
+            errno = await LoginHelper.GetRoles(self.Root());
+            if (errno!=ErrorCode.ERR_Success)
+            {
+                Log.Error(errno.ToString());
+                return;
+            }
+            UIHelper.PopMsg(self.Root(),LanguageCategory.Instance.Get(20001).Msg);
+            await self.Scene().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UIRoleSelect);
+            self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_UILogin);
+            
+        } 
+        
         private static async ETTask OnEnterGameClick(this UILogin self)
         {
             var account = self.Scene().GetChild<Account>();
