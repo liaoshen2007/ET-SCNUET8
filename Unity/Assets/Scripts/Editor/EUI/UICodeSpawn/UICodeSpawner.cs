@@ -72,14 +72,14 @@ namespace ETEditor
         private static void SpawnCodeForDlg(GameObject gameObject)
         {
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UI/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UI/" + strDlgName;
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UI/" + strDlgName + "/" + strDlgName + "System.cs";
+            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UI/" + strDlgName + "/" + strDlgName + "System.cs";
             if (File.Exists(strFilePath))
             {
                 Debug.LogError("已存在 " + strDlgName + "System.cs,将不会再次生成。");
@@ -136,14 +136,14 @@ namespace ETEditor
         private static void SpawnCodeForDlgEventHandle(GameObject gameObject)
         {
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UI/" + strDlgName + "/Event";
+            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UI/" + strDlgName + "/Event";
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UI/" + strDlgName + "/Event/" + strDlgName + "EventHandler.cs";
+            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UI/" + strDlgName + "/Event/" + strDlgName + "EventHandler.cs";
             if (File.Exists(strFilePath))
             {
                 Debug.LogError("已存在 " + strDlgName + ".cs,将不会再次生成。");
@@ -224,14 +224,14 @@ namespace ETEditor
         private static void SpawnCodeForDlgModel(GameObject gameObject)
         {
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UI/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UI/" + strDlgName;
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UI/" + strDlgName + "/" + strDlgName + ".cs";
+            strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UI/" + strDlgName + "/" + strDlgName + ".cs";
             if (File.Exists(strFilePath))
             {
                 return;
@@ -268,14 +268,14 @@ namespace ETEditor
             string strDlgName = gameObject.name;
             string strDlgComponentName = gameObject.name + "ViewComponent";
 
-            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIBehaviour/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIBehaviour/" + strDlgName;
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIBehaviour/" + strDlgName + "/" + strDlgComponentName + "System.cs";
+            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIBehaviour/" + strDlgName + "/" + strDlgComponentName + "System.cs";
 
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
 
@@ -328,7 +328,7 @@ namespace ETEditor
             string strDlgName = gameObject.name;
             string strDlgComponentName = gameObject.name + "ViewComponent";
 
-            string strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIBehaviour/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIBehaviour/" + strDlgName;
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);

@@ -27,14 +27,14 @@ namespace ETEditor
             }
 
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIItemBehaviour";
+            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIItemBehaviour";
 
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIItemBehaviour/" + strDlgName + "ViewSystem.cs";
+            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIItemBehaviour/" + strDlgName + "ViewSystem.cs";
             if (File.Exists(strFilePath))
             {
                 return;
@@ -86,13 +86,13 @@ namespace ETEditor
             }
 
             string strDlgName = gameObject.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIItemBehaviour";
+            string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIItemBehaviour";
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIItemBehaviour/" + strDlgName + ".cs";
+            strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIItemBehaviour/" + strDlgName + ".cs";
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
 
             StringBuilder strBuilder = new StringBuilder();
