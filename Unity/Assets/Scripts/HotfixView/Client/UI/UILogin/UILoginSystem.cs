@@ -20,7 +20,7 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this UILogin self)
         {
-            self.TimerId = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(10 * 1000, TimerInvokeType.ClientServerCheck, self);
+            //self.TimerId = self.Fiber().Root.GetComponent<TimerComponent>().NewRepeatedTimer(10 * 1000, TimerInvokeType.ClientServerCheck, self);
         }
 
         [EntitySystem]

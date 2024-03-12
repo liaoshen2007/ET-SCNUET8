@@ -166,7 +166,7 @@ namespace ET
                 throw new Exception($"Invoke error3, not AInvokeHandler: {type} {typeof(A).FullName}");
             }
             
-            Log.Error("CALL!:"+args.GetType());
+            //Log.Error("CALL!:"+args.GetType());
             aInvokeHandler.Handle(args);
         }
         

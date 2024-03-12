@@ -12,7 +12,7 @@ namespace ET.Server
         
         private async ETTask HandleAsync(NetComponentOnRead args)
         {
-            Log.Error("NetComponentOnReadInvoker_Account?");
+            Log.Debug("NetComponentOnReadInvoker_Account?"+args);
             Session session = args.Session;
             object message = args.Message;
             Scene root = args.Session.Root();
