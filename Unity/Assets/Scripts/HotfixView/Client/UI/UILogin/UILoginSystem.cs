@@ -67,20 +67,20 @@ namespace ET.Client
                 {
                     self.View.E_AccountInputInputField.text = entity.AccountName;
                     self.View.E_PasswordInputInputField.text = entity.Password;
-                    self.QueryAccount().Coroutine();
-
-                    var server = self.Scene().GetComponent<DataSaveComponent>().Get<ServerInfo>("LoginServer");
-                    if (server != null)
-                    {
-                        self.View.E_ServerTxtExtendText.text = server.ServerName;
-                        self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int)server.Id;
-                    }
-
-                    self.QueryServer().Coroutine();
+                    // self.QueryAccount().Coroutine();
+                    //
+                    // var server = self.Scene().GetComponent<DataSaveComponent>().Get<ServerInfo>("LoginServer");
+                    // if (server != null)
+                    // {
+                    //     self.View.E_ServerTxtExtendText.text = server.ServerName;
+                    //     self.Scene().GetComponent<ServerInfoComponent>().CurrentServerId = (int)server.Id;
+                    // }
+                    //
+                    // self.QueryServer().Coroutine();
                 }
 
-                self.View.EG_AccountRectTransform.SetActive(entity == null);
-                self.View.EG_ServerRectTransform.SetActive(entity != null);
+                self.View.EG_AccountRectTransform.SetActive(true);
+                self.View.EG_ServerRectTransform.SetActive(false);
             }
         }
 
@@ -177,16 +177,16 @@ namespace ET.Client
 
         private static async ETTask OnGetRolesSelect(this UILogin self)
         {
-            // var account = self.Scene().GetChild<Account>();
-            // var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
-            // if (errno != ErrorCode.ERR_Success)
-            // {
-            //     Log.Error($"登录失败: {errno}");
-            //     return;
-            // }
+            var account = self.Scene().GetChild<Account>();
+            var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
+            if (errno != ErrorCode.ERR_Success)
+            {
+                Log.Error($"登录失败: {errno}");
+                return;
+            }
 
             //todo 接下来就是拉取Roles！
-            var errno = await LoginHelper.GetRoles(self.Root());
+            errno = await LoginHelper.GetRoles(self.Root());
             if (errno!=ErrorCode.ERR_Success)
             {
                 Log.Error(errno.ToString());

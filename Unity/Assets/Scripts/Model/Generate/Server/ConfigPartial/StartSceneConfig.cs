@@ -91,6 +91,7 @@ namespace ET
                         this.Caches.Add(startSceneConfig.Zone, startSceneConfig);
                         break;
                     case SceneType.Account:
+                        Log.Error("登录Accoun!");
                         this.Account = startSceneConfig;
                         break;
                 }

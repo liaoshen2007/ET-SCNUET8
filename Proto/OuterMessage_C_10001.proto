@@ -184,7 +184,7 @@ message HttpRoleList
 
 //创建角色
 //ResponseType A2C_CreateRole
-message C2A_CreateRole // ISessionRequest
+message C2A_CreateRole // IAccountRequest
 {
 	string Token    = 1;
 	string Account  = 2;
@@ -192,35 +192,35 @@ message C2A_CreateRole // ISessionRequest
 	int32 ServerId  = 4;
 }
 
-message A2C_CreateRole // ISessionResponse
+message A2C_CreateRole // IAccountResponse
 {
 	RoleInfoProto RoleInfo = 1;
 }
 
 //获取角色列表
 //ResponseType A2C_GetRoles
-message C2A_GetRoles // ISessionRequest
+message C2A_GetRoles // IAccountRequest
 {
 	string Token     = 1;
 	string Account   = 2;
 	int32  ServerId  = 3;
 }
 
-message A2C_GetRoles // ISessionResponse
+message A2C_GetRoles // IAccountResponse
 {
 	repeated RoleInfoProto RoleInfo = 1;
 }
 
 //删除角色
 //ResponseType A2C_DeleteRole
-message C2A_DeleteRole // ISessionRequest
+message C2A_DeleteRole // IAccountRequest
 {
 	string Token      = 1;
 	string Account  = 2;
 	int64  RoleInfoId = 3;
 	int32  ServerId   = 4;
 }
-message A2C_DeleteRole // ISessionResponse
+message A2C_DeleteRole // IAccountResponse
 {
 	int64  DeletedRoleInfoId = 1;
 }

@@ -10,7 +10,7 @@ namespace ET.Client
             Session session = args.Session;
             object message = args.Message;
             Fiber fiber = session.Fiber();
-            Log.Debug("NetComponentOnReadInvoker_NetClient"+args);
+            //Log.Debug("NetComponentOnReadInvoker_NetClient"+args);
             // 根据消息接口判断是不是Actor消息，不同的接口做不同的处理,比如需要转发给Chat Scene，可以做一个IChatMessage接口
             switch (message)
             {

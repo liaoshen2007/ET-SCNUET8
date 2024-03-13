@@ -15,7 +15,7 @@ namespace ET.Server
             Session session = args.Session;
             object message = args.Message;
             Scene root = args.Session.Root();
-            Log.Error("NetComponentOnReadInvoker_Gate"+args);
+            //Log.Error("NetComponentOnReadInvoker_Gate"+args);
             // 根据消息接口判断是不是Actor消息，不同的接口做不同的处理,比如需要转发给Chat Scene，可以做一个IChatMessage接口
             switch (message)
             {
@@ -58,6 +58,29 @@ namespace ET.Server
                     {
                         session.Send(iResponse);
                     }
+                    break;
+                }
+                case IAccountRequest accountRequest:
+                {
+                    var id=StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), nameof(SceneType.Account)).ActorId;
+                    int rpcId = accountRequest.RpcId;//这里要保存客户端的RpcId
+                    long instanceId = session.InstanceId;
+                    Log.Error("accountRequest is here!");
+                    IResponse response = await root.GetComponent<MessageSender>().Call(id, accountRequest);
+                    response.RpcId = rpcId;
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Send(response);
+                    }
+                    
+                    //todo 真的那么简单吗？
+                    // MessageSessionDispatcher.Instance.Handle(session, message);
+                    break;
+                }
+                case IAccountMessage accountMessage:
+                {
+                    var id = StartSceneConfigCategory.Instance.Account.ActorId;//GetBySceneName(session.Zone(), nameof(SceneType.Account)).ActorId;
+                    root.GetComponent<MessageSender>().Send(id, accountMessage);
                     break;
                 }
                 case IRankRequest rankRequest:

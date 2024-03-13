@@ -859,7 +859,7 @@ namespace ET
 	[ResponseType(nameof(A2C_CreateRole))]
 	[Message(OuterMessage.C2A_CreateRole)]
 	[MemoryPackable]
-	public partial class C2A_CreateRole: MessageObject, ISessionRequest
+	public partial class C2A_CreateRole: MessageObject, IAccountRequest
 	{
 		public static C2A_CreateRole Create(bool isFromPool = false) 
 		{ 
@@ -897,7 +897,7 @@ namespace ET
 
 	[Message(OuterMessage.A2C_CreateRole)]
 	[MemoryPackable]
-	public partial class A2C_CreateRole: MessageObject, ISessionResponse
+	public partial class A2C_CreateRole: MessageObject, IAccountResponse
 	{
 		public static A2C_CreateRole Create(bool isFromPool = false) 
 		{ 
@@ -935,7 +935,7 @@ namespace ET
 	[ResponseType(nameof(A2C_GetRoles))]
 	[Message(OuterMessage.C2A_GetRoles)]
 	[MemoryPackable]
-	public partial class C2A_GetRoles: MessageObject, ISessionRequest
+	public partial class C2A_GetRoles: MessageObject, IAccountRequest
 	{
 		public static C2A_GetRoles Create(bool isFromPool = false) 
 		{ 
@@ -969,7 +969,7 @@ namespace ET
 
 	[Message(OuterMessage.A2C_GetRoles)]
 	[MemoryPackable]
-	public partial class A2C_GetRoles: MessageObject, ISessionResponse
+	public partial class A2C_GetRoles: MessageObject, IAccountResponse
 	{
 		public static A2C_GetRoles Create(bool isFromPool = false) 
 		{ 
@@ -1007,7 +1007,7 @@ namespace ET
 	[ResponseType(nameof(A2C_DeleteRole))]
 	[Message(OuterMessage.C2A_DeleteRole)]
 	[MemoryPackable]
-	public partial class C2A_DeleteRole: MessageObject, ISessionRequest
+	public partial class C2A_DeleteRole: MessageObject, IAccountRequest
 	{
 		public static C2A_DeleteRole Create(bool isFromPool = false) 
 		{ 
@@ -1045,7 +1045,7 @@ namespace ET
 
 	[Message(OuterMessage.A2C_DeleteRole)]
 	[MemoryPackable]
-	public partial class A2C_DeleteRole: MessageObject, ISessionResponse
+	public partial class A2C_DeleteRole: MessageObject, IAccountResponse
 	{
 		public static A2C_DeleteRole Create(bool isFromPool = false) 
 		{ 
