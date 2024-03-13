@@ -16,6 +16,8 @@
 
             // 发送断线消息
             SendLeaveMsg().Coroutine();
+            
+            Log.Debug("Play leaves:"+self.Player.Account);
 
             async ETTask SendLeaveMsg()
             {
