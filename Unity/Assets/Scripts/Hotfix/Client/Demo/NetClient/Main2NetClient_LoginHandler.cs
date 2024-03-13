@@ -20,7 +20,7 @@ namespace ET.Client
 
             NetComponent netComponent = root.GetComponent<NetComponent>();
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
-
+            Log.Debug("realmAddress:"+realmAddress);
             R2C_Login r2CLogin;
             using (Session session = await netComponent.CreateRouterSession(realmAddress, account, password))
             {

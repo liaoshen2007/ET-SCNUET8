@@ -1,6 +1,6 @@
 ﻿namespace ET.Server
 {
-    [MessageSessionHandler(SceneType.Account)]
+    [MessageSessionHandler(SceneType.Gate)]
     [FriendOf(typeof (RoleInfo))]
     public class C2A_GetRolesHandler: MessageSessionHandler<C2A_GetRoles, A2C_GetRoles>
     {

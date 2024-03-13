@@ -126,7 +126,7 @@ namespace ET.Client
             {
                 a2CGetRoles = (A2C_GetRoles)await clientSenderComponent.Call(new C2A_GetRoles()
                 {
-                    Account = root.GetComponent<AccountInfoComponent>().AccountId.ToString(),
+                    Account = root.GetChild<Account>().AccountName,
                     Token = root.GetComponent<AccountInfoComponent>().Token,
                     ServerId = root.GetComponent<ServerInfoComponent>().CurrentServerId,
                 });
