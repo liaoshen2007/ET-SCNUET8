@@ -1,15 +1,15 @@
 ﻿namespace ET.Server
 {
-    [MessageSessionHandler(SceneType.Account)]
+    [MessageHandler(SceneType.Account)]
     [FriendOf(typeof (RoleInfo))]
-    public class C2A_CreateRoleHandler: MessageSessionHandler<C2A_CreateRole, A2C_CreateRole>
+    public class C2A_CreateRoleHandler: MessageHandler<Scene,C2A_CreateRole, A2C_CreateRole>
     {
-        protected override async ETTask Run(Session session, C2A_CreateRole request, A2C_CreateRole response)
+        protected override async ETTask Run(Scene root, C2A_CreateRole request, A2C_CreateRole response)
         {
-            if (session.GetComponent<SessionLockingComponent>() != null)
+            if (root.GetComponent<SessionLockComponent>() != null)
             {
                 response.Error = ErrorCode.ERR_RequestRepeatedly;
-                session.Disconnect().Coroutine();
+                //root.Disconnect().Coroutine();
                 return;
             }
 
@@ -19,11 +19,12 @@
                 return;
             }
 
-            using (session.AddComponent<SessionLockingComponent>())
+            using (root.AddComponent<SessionLockComponent>())
             {
-                using (await session.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))
+                using (await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))
                 {
-                    var roleInfos = await session.DBComponent().Query<RoleInfo>(d => d.Name == request.Name && d.ServerId == request.ServerId);
+                    DBComponent dbComponent = root.GetComponent<DBManagerComponent>().GetZoneDB(root.Zone());
+                    var roleInfos = await dbComponent.Query<RoleInfo>(d => d.Name == request.Name && d.ServerId == request.ServerId);
 
                     if (roleInfos is { Count: > 0 })
                     {
@@ -31,7 +32,7 @@
                         return;
                     }
 
-                    RoleInfo newRoleInfo = session.AddChildWithId<RoleInfo>(IdGenerater.Instance.GenerateId());
+                    RoleInfo newRoleInfo = root.AddChildWithId<RoleInfo>(IdGenerater.Instance.GenerateId());
                     newRoleInfo.Name = request.Name;
                     newRoleInfo.State = (int) RoleInfoState.Normal;
                     newRoleInfo.ServerId = request.ServerId;
@@ -39,13 +40,12 @@
                     newRoleInfo.CreateTime = TimeInfo.Instance.ServerNow();
                     newRoleInfo.LastLoginTime = 0;
 
-                    await session.DBComponent().Save(newRoleInfo);
+                    await dbComponent.Save(newRoleInfo);
 
                     response.RoleInfo = newRoleInfo.ToMessage();
                     newRoleInfo.Dispose();
                 }
             }
-
             await ETTask.CompletedTask;
         }
     }

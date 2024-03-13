@@ -125,6 +125,23 @@ namespace ET.Client
      		}
      	}
 
+		public InputField E_NewRoleNameInputField
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_NewRoleNameInputField == null )
+     			{
+		    		this.m_E_NewRoleNameInputField = UIFindHelper.FindDeepChild<InputField>(this.uiTransform.gameObject,"Panel/E_NewRoleName");
+     			}
+     			return this.m_E_NewRoleNameInputField;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_TitleExtendText = null;
@@ -134,6 +151,7 @@ namespace ET.Client
 			this.m_E_DeleteRoleButton = null;
 			this.m_E_EnterGameButton = null;
 			this.m_E_CreateRoleButton = null;
+			this.m_E_NewRoleNameInputField = null;
 			uiTransform = null;
 		}
 
@@ -144,6 +162,7 @@ namespace ET.Client
 		private Button m_E_DeleteRoleButton = null;
 		private Button m_E_EnterGameButton = null;
 		private Button m_E_CreateRoleButton = null;
+		private InputField m_E_NewRoleNameInputField = null;
 		public Transform uiTransform = null;
 	}
 }

@@ -69,7 +69,8 @@ namespace ET.Client
             {
                 root.RemoveChild(child.Id);
             }
-
+            Log.Debug("AccountId:"+httpAcc.Account.Id);
+            root.GetComponent<AccountInfoComponent>().AccountId=httpAcc.Account.Id;
             var acc = root.AddChildWithId<Account>(httpAcc.Account.Id);
             acc.AccountName = account;
             acc.Password = password;
@@ -126,7 +127,7 @@ namespace ET.Client
             {
                 a2CGetRoles = (A2C_GetRoles)await clientSenderComponent.Call(new C2A_GetRoles()
                 {
-                    Account = root.GetChild<Account>().AccountName,
+                    Account = root.GetComponent<AccountInfoComponent>().AccountId.ToString(),
                     Token = root.GetComponent<AccountInfoComponent>().Token,
                     ServerId = root.GetComponent<ServerInfoComponent>().CurrentServerId,
                 });
@@ -155,5 +156,88 @@ namespace ET.Client
             await ETTask.CompletedTask;
             return ErrorCode.ERR_Success;
         }
+        
+        public static async ETTask<int> CreatRole(Scene root,string name)
+        {
+            ClientSenderComponent clientSenderComponent = root.GetComponent<ClientSenderComponent>();
+            if (clientSenderComponent == null)
+            {
+                clientSenderComponent = root.AddComponent<ClientSenderComponent>();
+            }
+
+            A2C_CreateRole a2CCreatRole = null;
+            try
+            {
+                //todo ServerId后续要做成选择了服务器列表后的ServerId
+                a2CCreatRole = (A2C_CreateRole) await clientSenderComponent.Call(new C2A_CreateRole()
+                {
+                    Account = root.GetComponent<AccountInfoComponent>().AccountId.ToString(),
+                    Token = root.GetComponent<AccountInfoComponent>().Token,
+                    Name = name,
+                    ServerId = root.GetComponent<ServerInfoComponent>().CurrentServerId,
+                });
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                return ErrorCode.ERR_NetWorkError;
+            }
+
+            if (a2CCreatRole.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(a2CCreatRole.Error.ToString());
+                return a2CCreatRole.Error;
+            }
+
+            RoleInfo newRoleInfo = root.GetComponent<RoleInfoComponent>().AddChild<RoleInfo>();
+            newRoleInfo.FromMessage(a2CCreatRole.RoleInfo);
+            
+            root.GetComponent<RoleInfoComponent>().RoleInfos.Add(newRoleInfo);
+            
+
+            return ErrorCode.ERR_Success;
+
+        }
+
+        public static async ETTask<int> DeleteRole(Scene root)
+        {
+            ClientSenderComponent clientSenderComponent = root.GetComponent<ClientSenderComponent>();
+            if (clientSenderComponent == null)
+            {
+                clientSenderComponent = root.AddComponent<ClientSenderComponent>();
+            }
+            
+            A2C_DeleteRole a2CDeleteRole = null;
+            try
+            {
+                a2CDeleteRole = (A2C_DeleteRole)await clientSenderComponent.Call(new C2A_DeleteRole()
+                {
+                    Account = root.GetComponent<AccountInfoComponent>().AccountId.ToString(),
+                    Token = root.GetComponent<AccountInfoComponent>().Token,
+                    RoleInfoId = root.GetComponent<RoleInfoComponent>().CurrentRoleId,
+                    ServerId = root.GetComponent<ServerInfoComponent>().CurrentServerId
+                });
+
+            }
+            catch (Exception e)
+            {
+                Log.Debug(e.ToString());
+                return a2CDeleteRole.Error;
+            }
+
+            if (a2CDeleteRole.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(a2CDeleteRole.Error.ToString());
+                return a2CDeleteRole.Error;
+            }
+            
+            int deleteIndex=root.GetComponent<RoleInfoComponent>().RoleInfos.FindIndex((info) => { return info.Id == a2CDeleteRole.DeletedRoleInfoId;});
+            root.GetComponent<RoleInfoComponent>().RoleInfos.RemoveAt(deleteIndex);
+            
+            await ETTask.CompletedTask;
+            return ErrorCode.ERR_Success;
+        }
+        
     }
 }

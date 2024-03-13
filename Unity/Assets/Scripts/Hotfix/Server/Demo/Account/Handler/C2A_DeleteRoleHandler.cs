@@ -1,23 +1,24 @@
 ﻿namespace ET.Server
 {
-    [MessageSessionHandler(SceneType.Account)]
+    [MessageHandler(SceneType.Account)]
     [FriendOf(typeof (RoleInfo))]
-    public class C2A_DeleteRoleHandler: MessageSessionHandler<C2A_DeleteRole, A2C_DeleteRole>
+    public class C2A_DeleteRoleHandler: MessageHandler<Scene,C2A_DeleteRole, A2C_DeleteRole>
     {
-        protected override async ETTask Run(Session session, C2A_DeleteRole request, A2C_DeleteRole response)
+        protected override async ETTask Run(Scene root, C2A_DeleteRole request, A2C_DeleteRole response)
         {
-            if (session.GetComponent<SessionLockingComponent>() != null)
+            if (root.GetComponent<SessionLockComponent>() != null)
             {
                 response.Error = ErrorCode.ERR_RequestRepeatedly;
-                session.Disconnect().Coroutine();
+                //session.Disconnect().Coroutine();
                 return;
             }
 
-            using (session.AddComponent<SessionLockingComponent>())
+            using (root.AddComponent<SessionLockComponent>())
             {
-                using (await session.Fiber().Root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.CreateRole, request.Account.HashCode()))
+                using (await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.DeleteRole, request.Account.HashCode()))
                 {
-                    var roleInfos = await session.DBComponent(request.ServerId)
+                    DBComponent dbComponent = root.GetComponent<DBManagerComponent>().GetZoneDB(root.Zone());
+                    var roleInfos = await dbComponent
                             .Query<RoleInfo>(d => d.Id == request.RoleInfoId && d.ServerId == request.ServerId);
 
                     if (roleInfos is not { Count: > 0 })
@@ -28,7 +29,7 @@
 
                     var roleInfo = roleInfos[0];
                     roleInfo.State = (int) RoleInfoState.Delete;
-                    await session.DBComponent(request.ServerId).Save(roleInfo);
+                    await dbComponent.Save(roleInfo);
                     response.DeletedRoleInfoId = roleInfo.Id;
                     roleInfo.Dispose();
                 }

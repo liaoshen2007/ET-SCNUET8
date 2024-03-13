@@ -1,7 +1,9 @@
 ﻿namespace ET.Server
 {
-    [ComponentOf(typeof (Session))]
-    public class SessionLockingComponent: Entity, IAwake
+    [ComponentOf(typeof(Scene))]
+    //[ChildOf(typeof(Scene))]
+    public class SessionLockComponent: Entity, IAwake, IDestroy
     {
+        
     }
 }
