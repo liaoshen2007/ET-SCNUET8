@@ -65,7 +65,7 @@ namespace ET.Server
                     var id=StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), nameof(SceneType.Account)).ActorId;
                     int rpcId = accountRequest.RpcId;//这里要保存客户端的RpcId
                     long instanceId = session.InstanceId;
-                    Log.Error("accountRequest is here!");
+                    //Log.Error("accountRequest is here!");
                     IResponse response = await root.GetComponent<MessageSender>().Call(id, accountRequest);
                     response.RpcId = rpcId;
                     if (session.InstanceId == instanceId)
