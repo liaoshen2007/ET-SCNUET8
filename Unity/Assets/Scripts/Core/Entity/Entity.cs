@@ -987,6 +987,7 @@ namespace ET
         public override void BeginInit()
         {
             EntitySystemSingleton.Instance.Serialize(this);
+            if (!this.IsCreated) return;
             
             this.componentsDB?.Clear();
             if (this.components != null && this.components.Count != 0)
