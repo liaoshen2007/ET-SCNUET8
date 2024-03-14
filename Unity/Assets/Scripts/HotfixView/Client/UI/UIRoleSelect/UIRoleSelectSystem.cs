@@ -13,7 +13,7 @@ namespace ET.Client
         public static void RegisterUIEvent(this UIRoleSelect self)
         {
             self.View.E_CloseBtnButton.AddListenerAsync(self.OnBackClick);
-            self.View.E_RoleListLoopVerticalScrollRect.AddItemRefreshListener(self.OnScrollItemRefreshHandler);
+            self.View.E_RoleListLoopHorizontalScrollRect.AddItemRefreshListener(self.OnScrollItemRefreshHandler);
             self.View.E_EnterGameButton.AddListenerAsync(self.OnEnterGameClickHandler);
             self.View.E_CreateRoleButton.AddListenerAsync(self.OnCreateRoleClickHandler);
             self.View.E_DeleteRoleButton.AddListenerAsync(self.OnDeleteRoleClickHandler);
@@ -34,7 +34,7 @@ namespace ET.Client
             var roleCom = self.Root().GetComponent<RoleInfoComponent>();
             int count = roleCom.RoleInfos.Count;
             self.AddUIScrollItemsWithRef(ref self.ItemRolesDic, count);
-            self.View.E_RoleListLoopVerticalScrollRect.SetVisible(true, count);
+            self.View.E_RoleListLoopHorizontalScrollRect.SetVisible(true, count);
         }
 
         private static async ETTask OnBackClick(this UIRoleSelect self)
@@ -48,21 +48,20 @@ namespace ET.Client
             var roleItem = self.ItemRolesDic[index].BindTrans(transform);
             RoleInfo info = self.Scene().GetComponent<RoleInfoComponent>().RoleInfos[index];
             roleItem.E_NameExtendText.SetText(info.Name);
-            roleItem.E_RoleImgButton.AddListener(() => { self.OnSelectRoleItemHandler(info.Id); });
+            roleItem.E_RoleImgButton.AddListener(() => { self.OnSelectRoleItemHandler(info.RoleId); });
         }
         
         public static void RefreshRoleItems(this UIRoleSelect self)
         {
             int count = self.Root().GetComponent<RoleInfoComponent>().RoleInfos.Count;
             self.AddUIScrollItemsWithRef(ref self.ItemRolesDic,count);
-            self.View.E_RoleListLoopVerticalScrollRect.SetVisible(true,count);
+            self.View.E_RoleListLoopHorizontalScrollRect.SetVisible(true,count);
         }
         
         private static void OnSelectRoleItemHandler(this UIRoleSelect self, long roleId)
         {
-            self.Scene().GetComponent<RoleInfoComponent>().CurrentRoleId = (int) roleId;
+            self.Scene().GetComponent<RoleInfoComponent>().CurrentRoleId = roleId;
             Log.Debug($"当前选择的角色 Id 是:{roleId}");
-            //self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_UIRoleSelect);
         }
         
         public static async ETTask OnEnterGameClickHandler(this UIRoleSelect self)

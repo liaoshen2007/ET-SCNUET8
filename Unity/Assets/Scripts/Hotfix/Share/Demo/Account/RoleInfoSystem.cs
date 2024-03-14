@@ -4,7 +4,7 @@ namespace ET
     {
         public static void FromMessage(this RoleInfo self,RoleInfoProto roleInfoProto)
         {
-            //self.Id = roleInfoProto.Id;
+            self.RoleId = roleInfoProto.Id;
             self.Name = roleInfoProto.Name;
             self.State = roleInfoProto.State;
             self.Account = roleInfoProto.Account;

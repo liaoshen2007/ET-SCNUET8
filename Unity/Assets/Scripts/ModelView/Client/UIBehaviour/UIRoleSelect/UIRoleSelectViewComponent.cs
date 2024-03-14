@@ -23,7 +23,7 @@ namespace ET.Client
      		}
      	}
 
-		public LoopVerticalScrollRect E_RoleListLoopVerticalScrollRect
+		public LoopHorizontalScrollRect E_RoleListLoopHorizontalScrollRect
      	{
      		get
      		{
@@ -32,11 +32,11 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_RoleListLoopVerticalScrollRect == null )
+     			if( this.m_E_RoleListLoopHorizontalScrollRect == null )
      			{
-		    		this.m_E_RoleListLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(this.uiTransform.gameObject,"Panel/E_RoleList");
+		    		this.m_E_RoleListLoopHorizontalScrollRect = UIFindHelper.FindDeepChild<LoopHorizontalScrollRect>(this.uiTransform.gameObject,"Panel/E_RoleList");
      			}
-     			return this.m_E_RoleListLoopVerticalScrollRect;
+     			return this.m_E_RoleListLoopHorizontalScrollRect;
      		}
      	}
 
@@ -145,7 +145,7 @@ namespace ET.Client
 		public void DestroyWidget()
 		{
 			this.m_E_TitleExtendText = null;
-			this.m_E_RoleListLoopVerticalScrollRect = null;
+			this.m_E_RoleListLoopHorizontalScrollRect = null;
 			this.m_E_CloseBtnButton = null;
 			this.m_E_CloseBtnExtendImage = null;
 			this.m_E_DeleteRoleButton = null;
@@ -156,7 +156,7 @@ namespace ET.Client
 		}
 
 		private ExtendText m_E_TitleExtendText = null;
-		private LoopVerticalScrollRect m_E_RoleListLoopVerticalScrollRect = null;
+		private LoopHorizontalScrollRect m_E_RoleListLoopHorizontalScrollRect = null;
 		private Button m_E_CloseBtnButton = null;
 		private ExtendImage m_E_CloseBtnExtendImage = null;
 		private Button m_E_DeleteRoleButton = null;

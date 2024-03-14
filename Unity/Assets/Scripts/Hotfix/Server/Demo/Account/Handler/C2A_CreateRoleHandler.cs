@@ -33,6 +33,7 @@
                     }
 
                     RoleInfo newRoleInfo = root.AddChildWithId<RoleInfo>(IdGenerater.Instance.GenerateId());
+                    //newRoleInfo.RoleId = newRoleInfo.Id;//todo RoleId可以besonIgnore~~
                     newRoleInfo.Name = request.Name;
                     newRoleInfo.State = (int) RoleInfoState.Normal;
                     newRoleInfo.ServerId = request.ServerId;

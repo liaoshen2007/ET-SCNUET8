@@ -9,6 +9,8 @@
     [ChildOf]
     public class RoleInfo: Entity, IAwake
     {
+        public long RoleId { get; set;}
+
         public string Name { get; set; }
 
         public int ServerId { get; set; }

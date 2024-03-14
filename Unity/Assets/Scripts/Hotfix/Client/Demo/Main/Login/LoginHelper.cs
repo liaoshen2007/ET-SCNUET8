@@ -147,7 +147,7 @@ namespace ET.Client
                 root.GetComponent<RoleInfoComponent>().RoleInfos.Add(roleInfo);
             }
 
-            await ETTask.CompletedTask;
+            //await ETTask.CompletedTask;
             return ErrorCode.ERR_Success;
         }
         
@@ -226,7 +226,7 @@ namespace ET.Client
                 return a2CDeleteRole.Error;
             }
             
-            int deleteIndex=root.GetComponent<RoleInfoComponent>().RoleInfos.FindIndex((info) => { return info.Id == a2CDeleteRole.DeletedRoleInfoId;});
+            int deleteIndex=root.GetComponent<RoleInfoComponent>().RoleInfos.FindIndex((info) => info.RoleId == a2CDeleteRole.DeletedRoleInfoId);
             root.GetComponent<RoleInfoComponent>().RoleInfos.RemoveAt(deleteIndex);
             
             await ETTask.CompletedTask;
