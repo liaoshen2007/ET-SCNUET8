@@ -19,7 +19,7 @@ namespace ET.Server
                     return;
                 }
 
-                (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnitWithRoleId(player,request.RoleId);
+                (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
                 await UnitHelper.InitUnit(unit, isNewPlayer);
 
                 // 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
@@ -27,7 +27,7 @@ namespace ET.Server
                 string mapindex ="Map"+ numeric.GetAsInt(NumericType.LocalMap);
                 StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(player.Zone(), mapindex);
                 TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, true).Coroutine();
-                EventSystem.Instance.Publish(player.Scene(), new EnterGame() { Player = player ,RoleId = request.RoleId});
+                EventSystem.Instance.Publish(player.Scene(), new EnterGame() { Player = player });
             }
             catch (Exception e)
             {

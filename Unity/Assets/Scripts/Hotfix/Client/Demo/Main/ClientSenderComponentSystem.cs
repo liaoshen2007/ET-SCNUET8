@@ -54,6 +54,28 @@
 
             return (false, response.Error);
         }
+        
+        public static async ETTask<(bool, long)> LoginGameAsync(this ClientSenderComponent self, string account, string password, long accoutId,long roleId)
+        {
+            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
+
+            var m = Main2NetClient_LoginGame.Create();
+            m.OwnerFiberId = self.Fiber().Id;
+            m.Account = account;
+            m.Password = password;
+            m.Id = accoutId;
+            m.RoleId = roleId;
+            NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, m) as NetClient2Main_LoginGame;
+            
+            EventSystem.Instance.Publish(self.Scene(), new NetError(){ Error = response.Error, Message = response.Message });
+            if (response.Error == ErrorCode.ERR_Success)
+            {
+                return (true, response.PlayerId);
+            }
+
+            return (false, response.Error);
+        }
 
         public static void Send(this ClientSenderComponent self, IMessage message)
         {

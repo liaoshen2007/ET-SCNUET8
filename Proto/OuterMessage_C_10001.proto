@@ -153,6 +153,20 @@ message G2C_LoginGate // ISessionResponse
   int64 PlayerId = 4;
 }
 
+//ResponseType G2C_LoginGameGate
+message C2G_LoginGameGate // ISessionRequest
+{
+  int64 Id = 1;
+  int64 Key = 2;
+  int64 GateId = 3;
+  int64 RoleId = 4;
+}
+
+message G2C_LoginGameGate // ISessionResponse
+{
+  int64 PlayerId = 4;
+}
+
 message AccountProto
 {
   int64 Id = 0;

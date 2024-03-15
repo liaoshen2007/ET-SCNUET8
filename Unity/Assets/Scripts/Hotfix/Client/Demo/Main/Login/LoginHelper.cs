@@ -31,6 +31,24 @@ namespace ET.Client
             return ErrorCode.ERR_Success;
         }
 
+        public static async ETTask<int> LoginGameGate(Scene root, string account, string password, long accountId,long roleId)
+        {
+            root.RemoveComponent<ClientSenderComponent>();
+            ClientSenderComponent clientSenderComponent = root.AddComponent<ClientSenderComponent>();
+            (bool ok, long playerId) r = await clientSenderComponent.LoginGameAsync(account, password, accountId,roleId);
+            if (!r.ok)
+            {
+                return (int)r.playerId;
+            }
+
+            root.GetComponent<PlayerComponent>().MyId = r.playerId;
+
+            await EventSystem.Instance.PublishAsync(root, new LoginFinish());
+
+            return ErrorCode.ERR_Success;
+            
+        }
+
         /// <summary>
         /// 获取账号信息
         /// </summary>

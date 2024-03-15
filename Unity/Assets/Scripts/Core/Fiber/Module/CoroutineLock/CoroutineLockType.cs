@@ -14,6 +14,7 @@ namespace ET
         public const int GetRoles = 8;
         public const int CreateRole = 9; //创建角色
         public const int DeleteRole = 10;
+        public const int LoginGameGate = 11;
         
         public const int LoadUIBaseWindows = 20;
 

@@ -11,7 +11,7 @@
             // 通知聊天服
             var actorId = StartSceneConfigCategory.Instance.GetBySceneName(scene.Zone(), nameof (SceneType.Chat)).ActorId;
             var resp = (Other2G_EnterResponse) await scene.Root().GetComponent<MessageSender>()
-                    .Call(actorId, new G2Other_EnterRequest() { PlayerId = a.RoleId});
+                    .Call(actorId, new G2Other_EnterRequest() { PlayerId = player.Id});
             if (oldId != player.InstanceId)
             {
                 return;

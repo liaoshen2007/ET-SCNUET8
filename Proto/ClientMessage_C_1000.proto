@@ -16,3 +16,18 @@ message NetClient2Main_Login // IResponse
 {
 	int64 PlayerId = 4;
 }
+
+//ResponseType NetClient2Main_LoginGame
+message Main2NetClient_LoginGame // IRequest
+{
+	int32 OwnerFiberId = 2;
+	string Account = 3;
+	string Password = 4;
+	int64 Id = 5; //账号ID
+	int64 RoleId = 6; // 角色Id
+}
+
+message NetClient2Main_LoginGame // IResponse
+{
+	int64 PlayerId = 4;
+}
