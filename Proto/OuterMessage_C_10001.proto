@@ -194,6 +194,18 @@ message HttpRoleList
   repeated RoleInfoProto RoleList = 1;
 }
 
+message HttpCreateRole
+{
+	int32 Error = 91;
+	RoleInfoProto RoleInfo = 1;
+}
+
+message HttpDeleteRole
+{
+	int32 Error = 91;
+	int64  DeletedRoleInfoId = 1;
+}
+
 //创建角色
 //ResponseType A2C_CreateRole
 message C2A_CreateRole // IAccountRequest

@@ -15,6 +15,7 @@ namespace ET.Server
             {
                 if (player.GetComponent<GateMapComponent>() != null)
                 {
+                    Log.Error("player.GetComponent<GateMapComponent>()!= null");
                     return;
                 }
 
@@ -26,11 +27,11 @@ namespace ET.Server
                 string mapindex ="Map"+ numeric.GetAsInt(NumericType.LocalMap);
                 StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(player.Zone(), mapindex);
                 TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, true).Coroutine();
-                EventSystem.Instance.Publish(player.Scene(), new EnterGame() { Player = player });
+                EventSystem.Instance.Publish(player.Scene(), new EnterGame() { Player = player ,RoleId = request.RoleId});
             }
             catch (Exception e)
             {
-                Log.Error($"角色进入游戏服出错 {player.Account} {player.Id} {e}");
+                Log.Error($"角色进入游戏服出错 {player.Account} {request.RoleId} {e}");
                 response.Error = ErrorCode.ERR_EnterGame;
                 session.Disconnect().Coroutine();
             }

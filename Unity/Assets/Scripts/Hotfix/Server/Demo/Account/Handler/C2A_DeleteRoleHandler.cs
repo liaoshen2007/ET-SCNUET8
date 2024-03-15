@@ -13,7 +13,7 @@
                 return;
             }
 
-            Log.Error("RoleId:"+request.RoleInfoId);
+            //Log.Error("RoleId:"+request.RoleInfoId);
             using (root.AddComponent<SessionLockComponent>())
             {
                 using (await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.DeleteRole, request.Account.HashCode()))
@@ -25,12 +25,12 @@
                     if (roleInfos.Count==0)
                     {
                         response.Error = ErrorCode.ERR_RoleNotExist;
-                        roleInfos = await dbComponent.Query<RoleInfo>(d => d.Account == request.Account && d.ServerId == request.ServerId);
-
-                        if (roleInfos.Count>0)
-                        {
-                            Log.Error("roleInfos:"+roleInfos[0]);
-                        }
+                        // roleInfos = await dbComponent.Query<RoleInfo>(d => d.Account == request.Account && d.ServerId == request.ServerId);
+                        //
+                        // if (roleInfos.Count>0)
+                        // {
+                        //     Log.Error("roleInfos:"+roleInfos[0]);
+                        // }
                         
                         return;
                     }

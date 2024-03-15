@@ -106,6 +106,109 @@ namespace ET.Client
             return ErrorCode.ERR_Success;
         }
 
+        /// <summary>
+        /// 获取角色
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static async ETTask<int> GetRoleInfos(Scene root)
+        {
+            string account = root.GetComponent<AccountInfoComponent>().AccountId.ToString();
+            int serverId = root.GetComponent<ServerInfoComponent>().CurrentServerId;
+            string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/role_list?Account={account}&ServerId={serverId}";
+            string str = string.Empty;
+            try
+            {
+                str = await HttpClientHelper.Get(url);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetWorkError;
+            }
+            root.GetComponent<RoleInfoComponent>().RoleInfos.Clear();
+            HttpRoleList httproles = MongoHelper.FromJson<HttpRoleList>(str);
+            foreach (var roleInfoProto in httproles.RoleList)
+            {
+                RoleInfo roleInfo = root.GetComponent<RoleInfoComponent>().AddChild<RoleInfo>();
+                roleInfo.FromMessage(roleInfoProto);
+                root.GetComponent<RoleInfoComponent>().RoleInfos.Add(roleInfo);
+            }
+
+            //await ETTask.CompletedTask;
+            return ErrorCode.ERR_Success;
+
+        }
+
+        public static async ETTask<int> CreateHttpRoles(Scene root,string name)
+        {
+            string account = root.GetComponent<AccountInfoComponent>().AccountId.ToString();
+            int serverId = root.GetComponent<ServerInfoComponent>().CurrentServerId;
+            string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/create_role?Account={account}&ServerId={serverId}&Name={name}";
+            string str = string.Empty;
+            try
+            {
+                str = await HttpClientHelper.Get(url);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetWorkError;
+            }
+            
+            HttpCreateRole httproles = MongoHelper.FromJson<HttpCreateRole>(str);
+            if (httproles.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(httproles.Error.ToString());
+                return httproles.Error;
+            }
+
+            RoleInfo newRoleInfo = root.GetComponent<RoleInfoComponent>().AddChild<RoleInfo>();
+            newRoleInfo.FromMessage(httproles.RoleInfo);
+            
+            root.GetComponent<RoleInfoComponent>().RoleInfos.Add(newRoleInfo);
+            
+            return ErrorCode.ERR_Success;
+            
+        }
+
+        public static async ETTask<int> DeleteHttpRole(Scene root)
+        {
+            string account = root.GetComponent<AccountInfoComponent>().AccountId.ToString();
+            int serverId = root.GetComponent<ServerInfoComponent>().CurrentServerId;
+            long roleId = root.GetComponent<RoleInfoComponent>().CurrentRoleId;
+            string url = $"http://{ConstValue.RouterHttpHost}:{ConstValue.AccoutHttpPort}/delete_role?Account={account}&ServerId={serverId}&RoleId={roleId}";
+            string str = string.Empty;
+            try
+            {
+                str = await HttpClientHelper.Get(url);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetWorkError;
+            }
+            
+            HttpDeleteRole httpDeleteRole = MongoHelper.FromJson<HttpDeleteRole>(str);
+            if (httpDeleteRole.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(httpDeleteRole.Error.ToString());
+                return httpDeleteRole.Error;
+            }
+            if (httpDeleteRole.Error!=ErrorCode.ERR_Success)
+            {
+                Log.Error(httpDeleteRole.Error.ToString());
+                return httpDeleteRole.Error;
+            }
+            
+            int deleteIndex=root.GetComponent<RoleInfoComponent>().RoleInfos.FindIndex((info) => info.RoleId == httpDeleteRole.DeletedRoleInfoId);
+            root.GetComponent<RoleInfoComponent>().RoleInfos.RemoveAt(deleteIndex);
+            
+            await ETTask.CompletedTask;
+            return ErrorCode.ERR_Success;
+            
+        }
+
         public static async ETTask<int> GetRoles(Scene root)
         {
             ClientSenderComponent clientSenderComponent = root.GetComponent<ClientSenderComponent>();

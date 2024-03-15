@@ -29,10 +29,13 @@ namespace ET.Server
         /// <param name="self"></param>
         /// <param name="account"></param>
         /// <returns></returns>
-        public static async ETTask<List<RoleInfo>> GetRoleList(this RoleInfosComponent self, string account)
+        public static async ETTask<List<RoleInfo>> GetRoleList(this RoleInfosComponent self, string account,int serverId)
         {
-            var roles = await self.Scene().GetComponent<DBManagerComponent>().GetDB().Query<RoleInfo>(info => info.Account == account);
+            var roles = await self.Scene().GetComponent<DBManagerComponent>().GetZoneDB(serverId).Query<RoleInfo>(info => info.Account == account&& info.ServerId == serverId && info.State == (int) RoleInfoState.Normal);
             return roles;
         }
+        
+
+
     }
 }

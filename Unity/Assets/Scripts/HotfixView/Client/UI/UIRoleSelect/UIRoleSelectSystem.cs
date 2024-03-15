@@ -90,8 +90,10 @@ namespace ET.Client
                 //     return;
                 // }
 
-                int errcode = await EnterMapHelper.EnterGameMap(self.Root(),currentRoleId);
 
+                //int errcode = await EnterMapHelper.EnterMapAsync(self.Root());
+                await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
+                int errcode = await EnterMapHelper.EnterGameMap(self.Root(),currentRoleId);
                 if (errcode!=ErrorCode.ERR_Success)
                 {
                     Log.Debug(errcode.ToString());
@@ -100,7 +102,7 @@ namespace ET.Client
                 //todo 关掉角色窗口打开游戏主界面
                 //self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_MainView);
                 UIHelper.PopMsg(self.Root(),LanguageCategory.Instance.Get(20001).Msg);
-                await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
+
                 self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_UIRoleSelect);
 
             }
@@ -123,7 +125,7 @@ namespace ET.Client
 
             try
             {
-                int errorcode = await LoginHelper.CreatRole(self.Root(), name);
+                int errorcode = await LoginHelper.CreateHttpRoles(self.Root(), name);
                 if (errorcode!=ErrorCode.ERR_Success)
                 {
                     Log.Error(errorcode.ToString());
@@ -150,7 +152,7 @@ namespace ET.Client
 
             try
             {
-                int errorcode = await LoginHelper.DeleteRole(self.Root());
+                int errorcode = await LoginHelper.DeleteHttpRole(self.Root());
                 if (errorcode!=ErrorCode.ERR_Success)
                 {
                     Log.Error(errorcode.ToString());

@@ -177,16 +177,16 @@ namespace ET.Client
 
         private static async ETTask OnGetRolesSelect(this UILogin self)
         {
-            var account = self.Scene().GetChild<Account>();
-            var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
-            if (errno != ErrorCode.ERR_Success)
-            {
-                Log.Error($"登录失败: {errno}");
-                return;
-            }
+            // var account = self.Scene().GetChild<Account>();
+            // var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
+            // if (errno != ErrorCode.ERR_Success)
+            // {
+            //     Log.Error($"登录失败: {errno}");
+            //     return;
+            // }
 
             //todo 接下来就是拉取Roles！
-            errno = await LoginHelper.GetRoles(self.Root());
+            var errno = await LoginHelper.GetRoleInfos(self.Root());
             if (errno!=ErrorCode.ERR_Success)
             {
                 Log.Error(errno.ToString());
