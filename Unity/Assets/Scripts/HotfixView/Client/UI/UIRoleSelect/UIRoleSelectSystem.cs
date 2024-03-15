@@ -66,7 +66,8 @@ namespace ET.Client
         
         public static async ETTask OnEnterGameClickHandler(this UIRoleSelect self)
         {
-            if (self.Root().GetComponent<RoleInfoComponent>().CurrentRoleId==0)
+            var currentRoleId = self.Root().GetComponent<RoleInfoComponent>().CurrentRoleId;
+            if (currentRoleId==0)
             {
                 Log.Error("未选择角色");
                 return;
@@ -89,7 +90,8 @@ namespace ET.Client
                 //     return;
                 // }
 
-                int errcode = await EnterMapHelper.EnterMapAsync(self.Root());
+                int errcode = await EnterMapHelper.EnterGameMap(self.Root(),currentRoleId);
+
                 if (errcode!=ErrorCode.ERR_Success)
                 {
                     Log.Debug(errcode.ToString());
@@ -97,6 +99,8 @@ namespace ET.Client
                 }
                 //todo 关掉角色窗口打开游戏主界面
                 //self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_MainView);
+                UIHelper.PopMsg(self.Root(),LanguageCategory.Instance.Get(20001).Msg);
+                await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
                 self.Scene().GetComponent<UIComponent>().HideWindow(WindowID.Win_UIRoleSelect);
 
             }

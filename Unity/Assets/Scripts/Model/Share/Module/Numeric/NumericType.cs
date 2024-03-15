@@ -286,5 +286,10 @@ namespace ET
 		/// 血量
 		/// </summary>
 		public const int Hp = 3008;
+
+		/// <summary>
+		/// 所在地图
+		/// </summary>
+		public const int LocalMap = 3009;
 	}
 }

@@ -24,6 +24,18 @@ message G2C_EnterMap // ISessionResponse
   int64 MyId = 4;
 }
 
+//ResponseType G2C_EnterGameMap
+message C2G_EnterGameMap // ISessionRequest
+{
+	int64 RoleId = 2;
+}
+
+message G2C_EnterGameMap // ISessionResponse
+{
+	// 自己unitId
+	int64 MyId = 4;
+}
+
 // 进入地图成功
 //ResponseType M2C_EnterMapOk
 message C2M_EnterMapOk // ILocationRequest

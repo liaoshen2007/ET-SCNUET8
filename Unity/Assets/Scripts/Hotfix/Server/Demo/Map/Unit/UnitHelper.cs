@@ -19,6 +19,18 @@ namespace ET.Server
 
             return (isNewPlayer, unit);
         }
+        
+        public static async ETTask<(bool, Unit)> LoadUnitWithRoleId(Player player,long RoleId)
+        {
+            Unit unit = await CacheHelper.GetCache(player.Scene(), RoleId);
+            bool isNewPlayer = unit == null;
+            if (isNewPlayer)
+            {
+                unit = UnitFactory.Create(player.Scene(), RoleId, UnitType.Player);
+            }
+
+            return (isNewPlayer, unit);
+        }
 
         public static async ETTask InitUnit(Unit unit, bool isNewPlayer)
         {

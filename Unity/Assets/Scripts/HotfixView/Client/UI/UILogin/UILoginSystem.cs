@@ -198,23 +198,6 @@ namespace ET.Client
             
         } 
         
-        private static async ETTask OnEnterGameClick(this UILogin self)
-        {
-            var account = self.Scene().GetChild<Account>();
-            var errno = await LoginHelper.Login(self.Scene(), account.AccountName, account.Password, account.Id);
-            if (errno != ErrorCode.ERR_Success)
-            {
-                Log.Error($"登录失败: {errno}");
-                return;
-            }
 
-            await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.Win_UILoading);
-            UIHelper.PopMsg(self.Root(),LanguageCategory.Instance.Get(20001).Msg);
-            errno = await EnterMapHelper.EnterMapAsync(self.Root());
-            if (errno != ErrorCode.ERR_Success)
-            {
-                self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.Win_UILoading);
-            }
-        }
     }
 }
