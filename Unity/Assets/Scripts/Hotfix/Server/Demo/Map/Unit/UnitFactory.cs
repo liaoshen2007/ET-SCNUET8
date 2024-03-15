@@ -18,8 +18,13 @@ namespace ET.Server
                     unit.Position = new float3(-10, 0, -10);
 
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
-                    numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
-                    numericComponent.Set(NumericType.AOI, 15000); // 视野15米
+                    // numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
+                    // numericComponent.Set(NumericType.AOI, 15000); // 视野15米
+                    var baseNumericValue = NumericCategory.Instance.GetAll();
+                    foreach (var numericType in baseNumericValue.Keys)
+                    {
+                        numericComponent.Set(numericType,baseNumericValue[numericType].BaseValue);
+                    }
 
                     unitComponent.Add(unit);
 
