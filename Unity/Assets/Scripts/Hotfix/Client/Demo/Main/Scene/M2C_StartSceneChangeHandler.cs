@@ -22,6 +22,13 @@
 
             await root.GetComponent<TimerComponent>().WaitAsync(500);
             EventSystem.Instance.Publish(root, new LoadingProgress() { Progress = 1 });
+
+            if (unit.Id<100000)
+            {
+                Log.Error("RobotId:"+unit.Id);
+                return;
+            }
+            
             await EventSystem.Instance.PublishAsync(root, new SceneChangeFinish());
             // 通知等待场景切换的协程
             root.GetComponent<ObjectWait>().Notify(new Wait_SceneChangeFinish());

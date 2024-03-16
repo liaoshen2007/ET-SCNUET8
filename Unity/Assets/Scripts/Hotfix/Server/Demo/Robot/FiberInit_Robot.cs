@@ -15,13 +15,13 @@
             root.AddComponent<ObjectWait>();
             
             root.SceneType = SceneType.Client;
-
+            Log.Error("Robot enter?!!");
             await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
             
-            await LoginHelper.Login(root, root.Name, "", 0);
+            await LoginHelper.Login(root, root.Name, "", 1);
             
             await EnterMapHelper.EnterMapAsync(root);
-            
+
             root.AddComponent<AIComponent, int>(1);
         }
     }

@@ -220,6 +220,11 @@ message HttpDeleteRole
 	int64  DeletedRoleInfoId = 1;
 }
 
+message HttpRobot
+{
+	int32 Error = 91;
+}
+
 //创建角色
 //ResponseType A2C_CreateRole
 message C2A_CreateRole // IAccountRequest

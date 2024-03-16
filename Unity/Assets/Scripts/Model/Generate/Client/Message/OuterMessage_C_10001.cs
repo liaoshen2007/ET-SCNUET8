@@ -1042,6 +1042,28 @@ namespace ET
 
 	}
 
+	[Message(OuterMessage.HttpRobot)]
+	[MemoryPackable]
+	public partial class HttpRobot: MessageObject
+	{
+		public static HttpRobot Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(HttpRobot), isFromPool) as HttpRobot; 
+		}
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Error = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	/// <summary>
 	///创建角色
 	/// </summary>
@@ -2868,56 +2890,57 @@ namespace ET
 		 public const ushort HttpRoleList = 10033;
 		 public const ushort HttpCreateRole = 10034;
 		 public const ushort HttpDeleteRole = 10035;
-		 public const ushort C2A_CreateRole = 10036;
-		 public const ushort A2C_CreateRole = 10037;
-		 public const ushort C2A_GetRoles = 10038;
-		 public const ushort A2C_GetRoles = 10039;
-		 public const ushort C2A_DeleteRole = 10040;
-		 public const ushort A2C_DeleteRole = 10041;
-		 public const ushort C2M_TransferMap = 10042;
-		 public const ushort M2C_TransferMap = 10043;
-		 public const ushort C2G_Benchmark = 10044;
-		 public const ushort G2C_Benchmark = 10045;
-		 public const ushort M2C_UpdateUnitShield = 10046;
-		 public const ushort TaskProto = 10047;
-		 public const ushort M2C_UpdateTask = 10048;
-		 public const ushort M2C_DeleteTask = 10049;
-		 public const ushort C2M_CommitTask = 10050;
-		 public const ushort M2C_CommitTask = 10051;
-		 public const ushort ItemProto = 10052;
-		 public const ushort M2C_UpdateItem = 10053;
-		 public const ushort C2M_UseItem = 10054;
-		 public const ushort M2C_UseItem = 10055;
-		 public const ushort C2M_DeleteItem = 10056;
-		 public const ushort M2C_DeleteItem = 10057;
-		 public const ushort C2M_GetPlayerData = 10058;
-		 public const ushort M2C_GetPlayerData = 10059;
-		 public const ushort RankRoleInfoProto = 10060;
-		 public const ushort RankInfoProto = 10061;
-		 public const ushort C2Rank_GetRankRequest = 10062;
-		 public const ushort Ran2C_GetRankResponse = 10063;
-		 public const ushort HeadProto = 10064;
-		 public const ushort PlayerInfoProto = 10065;
-		 public const ushort ChatMsgProto = 10066;
-		 public const ushort C2Chat_SendRequest = 10067;
-		 public const ushort C2C_SendResponse = 10068;
-		 public const ushort C2C_UpdateChat = 10069;
-		 public const ushort ChatGroupMemberProto = 10070;
-		 public const ushort ChatGroupProto = 10071;
-		 public const ushort C2C_GroupUpdate = 10072;
-		 public const ushort C2C_GroupDel = 10073;
-		 public const ushort ActivityCfgProto = 10074;
-		 public const ushort ActivityProto = 10075;
-		 public const ushort M2C_UpdateActivityList = 10076;
-		 public const ushort M2C_UpdateActivityClose = 10077;
-		 public const ushort M2C_UpdateActivity = 10078;
-		 public const ushort C2M_UseSkillRequest = 10079;
-		 public const ushort M2C_UseSkillResponse = 10080;
-		 public const ushort M2C_UseSkill = 10081;
-		 public const ushort M2C_UpdateSkill = 10082;
-		 public const ushort C2M_BreakSkill = 10083;
-		 public const ushort M2C_BreakSkill = 10084;
-		 public const ushort HurtInfo = 10085;
-		 public const ushort M2C_HurtList = 10086;
+		 public const ushort HttpRobot = 10036;
+		 public const ushort C2A_CreateRole = 10037;
+		 public const ushort A2C_CreateRole = 10038;
+		 public const ushort C2A_GetRoles = 10039;
+		 public const ushort A2C_GetRoles = 10040;
+		 public const ushort C2A_DeleteRole = 10041;
+		 public const ushort A2C_DeleteRole = 10042;
+		 public const ushort C2M_TransferMap = 10043;
+		 public const ushort M2C_TransferMap = 10044;
+		 public const ushort C2G_Benchmark = 10045;
+		 public const ushort G2C_Benchmark = 10046;
+		 public const ushort M2C_UpdateUnitShield = 10047;
+		 public const ushort TaskProto = 10048;
+		 public const ushort M2C_UpdateTask = 10049;
+		 public const ushort M2C_DeleteTask = 10050;
+		 public const ushort C2M_CommitTask = 10051;
+		 public const ushort M2C_CommitTask = 10052;
+		 public const ushort ItemProto = 10053;
+		 public const ushort M2C_UpdateItem = 10054;
+		 public const ushort C2M_UseItem = 10055;
+		 public const ushort M2C_UseItem = 10056;
+		 public const ushort C2M_DeleteItem = 10057;
+		 public const ushort M2C_DeleteItem = 10058;
+		 public const ushort C2M_GetPlayerData = 10059;
+		 public const ushort M2C_GetPlayerData = 10060;
+		 public const ushort RankRoleInfoProto = 10061;
+		 public const ushort RankInfoProto = 10062;
+		 public const ushort C2Rank_GetRankRequest = 10063;
+		 public const ushort Ran2C_GetRankResponse = 10064;
+		 public const ushort HeadProto = 10065;
+		 public const ushort PlayerInfoProto = 10066;
+		 public const ushort ChatMsgProto = 10067;
+		 public const ushort C2Chat_SendRequest = 10068;
+		 public const ushort C2C_SendResponse = 10069;
+		 public const ushort C2C_UpdateChat = 10070;
+		 public const ushort ChatGroupMemberProto = 10071;
+		 public const ushort ChatGroupProto = 10072;
+		 public const ushort C2C_GroupUpdate = 10073;
+		 public const ushort C2C_GroupDel = 10074;
+		 public const ushort ActivityCfgProto = 10075;
+		 public const ushort ActivityProto = 10076;
+		 public const ushort M2C_UpdateActivityList = 10077;
+		 public const ushort M2C_UpdateActivityClose = 10078;
+		 public const ushort M2C_UpdateActivity = 10079;
+		 public const ushort C2M_UseSkillRequest = 10080;
+		 public const ushort M2C_UseSkillResponse = 10081;
+		 public const ushort M2C_UseSkill = 10082;
+		 public const ushort M2C_UpdateSkill = 10083;
+		 public const ushort C2M_BreakSkill = 10084;
+		 public const ushort M2C_BreakSkill = 10085;
+		 public const ushort HurtInfo = 10086;
+		 public const ushort M2C_HurtList = 10087;
 	}
 }
