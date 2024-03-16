@@ -3221,7 +3221,6 @@ GameObject:
   - component: {fileID: 95022724313553566}
   - component: {fileID: 54442241023219352}
   - component: {fileID: 136035153776657194}
-  - component: {fileID: 6498386293381220322}
   m_Layer: 0
   m_Name: Masa_schooluniform
   m_TagString: Untagged
@@ -3265,7 +3264,7 @@ Animator:
   m_Controller: {fileID: 22100000, guid: 6dd47e29a8449ff47883267a966f8291, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3323,26 +3322,6 @@ CapsuleCollider:
   m_Height: 1.58
   m_Direction: 1
   m_Center: {x: 0, y: 0.79, z: 0}
---- !u!114 &6498386293381220322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414857265988832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9001bcbd91e76437cb0f52f12764f2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animSpeed: 1.5
-  lookSmoother: 3
-  useCurves: 1
-  useCurvesHeight: 0.5
-  forwardSpeed: 5
-  backwardSpeed: 2
-  rotateSpeed: 2
-  jumpPower: 2
 --- !u!1 &1420346177080368
 GameObject:
   m_ObjectHideFlags: 0

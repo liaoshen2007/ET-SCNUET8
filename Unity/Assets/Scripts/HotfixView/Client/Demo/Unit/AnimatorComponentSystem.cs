@@ -23,16 +23,19 @@ namespace ET.Client
 
 			if (animator == null)
 			{
+				Log.Error("animator == null");
 				return;
 			}
 
 			if (animator.runtimeAnimatorController == null)
 			{
+				Log.Error("animator.runtimeAnimatorController == null");
 				return;
 			}
 
 			if (animator.runtimeAnimatorController.animationClips == null)
 			{
+				Log.Error("animator.runtimeAnimatorController.animationClips == null");
 				return;
 			}
 			
@@ -166,6 +169,7 @@ namespace ET.Client
 		{
 			if (!self.HasParameter(name))
 			{
+				Log.Error("self.HasParameter(name):"+name);
 				return;
 			}
 

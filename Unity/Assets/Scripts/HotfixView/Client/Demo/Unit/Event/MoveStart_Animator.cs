@@ -7,6 +7,7 @@
         {
             var anim = a.Unit.GetComponent<AnimatorComponent>();
             var speed = a.Unit.GetComponent<NumericComponent>().GetAsFloat(NumericType.Speed);
+            //Log.Error("Speed:"+speed);
             anim.SetFloatValue("Speed", speed);
             await ETTask.CompletedTask;
         }
