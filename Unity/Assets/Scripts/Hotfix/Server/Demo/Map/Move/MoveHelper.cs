@@ -47,7 +47,7 @@ namespace ET.Server
         // error: 0表示协程走完正常停止
         public static void SendStop(this Unit unit, int error)
         {
-            Log.Error("SendStop:"+error);
+            //Log.Error("SendStop:"+error);
             MapMessageHelper.Broadcast(unit, new M2C_Stop()
             {
                 Error = error,
