@@ -22,7 +22,13 @@
                     request.Entitys.Add(entity.ToBson());
                 }
             }
-
+            
+            //bugfix 会导致传送至副本时寻路出问题~~
+            var aoiEntity=unit.GetComponent<AOIEntity>();
+            if (aoiEntity!=null)
+            {
+                unit.RemoveComponent<AOIEntity>();
+            }
             unit.Dispose();
 
             await root.GetComponent<LocationProxyComponent>().Lock(LocationType.Unit, unitId, request.OldActorId);

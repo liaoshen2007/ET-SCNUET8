@@ -23,7 +23,22 @@ namespace ET.Server
                     var baseNumericValue = NumericCategory.Instance.GetAll();
                     foreach (var numericType in baseNumericValue.Keys)
                     {
-                        numericComponent.Set(numericType,baseNumericValue[numericType].BaseValue);
+                        //Log.Console(numericType+" "+baseNumericValue[numericType].BaseValue);
+                        switch (numericType)
+                        {
+                            case NumericType.Speed:
+                                //Log.Error("NumericType.Speed:"+baseNumericValue[numericType].BaseValue);
+                                numericComponent.Set(numericType,(float)baseNumericValue[numericType].BaseValue);
+                                break;
+                            case NumericType.AOI:
+                                numericComponent.Set(numericType,baseNumericValue[numericType].BaseValue);
+                                break;
+                            default:
+                                numericComponent.Set(numericType,baseNumericValue[numericType].BaseValue);
+                                break;
+                        }
+                        
+
                     }
 
                     unitComponent.Add(unit);

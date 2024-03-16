@@ -11,6 +11,7 @@ namespace ET.Server
             float speed = unit.GetComponent<NumericComponent>().GetAsFloat(NumericType.Speed);
             if (speed < 0.01)
             {
+                //Log.Error("Speed:"+speed);
                 unit.SendStop(2);
                 return;
             }
@@ -46,6 +47,7 @@ namespace ET.Server
         // error: 0表示协程走完正常停止
         public static void SendStop(this Unit unit, int error)
         {
+            Log.Error("SendStop:"+error);
             MapMessageHelper.Broadcast(unit, new M2C_Stop()
             {
                 Error = error,

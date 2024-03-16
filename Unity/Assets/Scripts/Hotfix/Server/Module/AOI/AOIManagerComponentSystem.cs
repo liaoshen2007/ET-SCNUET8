@@ -22,8 +22,12 @@ namespace ET.Server
             // 遍历EnterCell
             foreach (long cellId in aoiEntity.SubEnterCells)
             {
-                Cell cell = self.GetCell(cellId);
-                aoiEntity.SubEnter(cell);
+                Cell cell = self?.GetCell(cellId);
+                if (cell!=null)
+                {
+                    aoiEntity.SubEnter(cell);
+                }
+
             }
 
             // 遍历LeaveCell

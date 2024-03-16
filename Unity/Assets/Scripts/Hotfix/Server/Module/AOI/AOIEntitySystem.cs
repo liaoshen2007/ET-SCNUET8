@@ -11,7 +11,7 @@ namespace ET.Server
         private static void Awake(this AOIEntity self, int distance, float3 pos)
         {
             self.ViewDistance = distance;
-            self.Scene().GetComponent<AOIManagerComponent>().Add(self, pos.x, pos.z);
+            self.Scene().GetComponent<AOIManagerComponent>()?.Add(self, pos.x, pos.z);
         }
         
         [EntitySystem]
