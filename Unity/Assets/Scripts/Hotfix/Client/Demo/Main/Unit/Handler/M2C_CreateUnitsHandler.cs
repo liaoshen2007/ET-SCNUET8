@@ -16,6 +16,7 @@
                 }
 
                 Unit unit = UnitFactory.Create(currentScene, unitInfo);
+                Log.Error("New Unit:"+unit.Id);
             }
 
             await ETTask.CompletedTask;

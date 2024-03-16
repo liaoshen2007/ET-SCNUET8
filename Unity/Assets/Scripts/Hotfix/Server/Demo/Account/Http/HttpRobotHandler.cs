@@ -25,7 +25,7 @@ namespace ET.Server
             }
             
             var num=Convert.ToInt32(context.Request.QueryString["Num"]);
-            Log.Error("RobotName:"+num);
+            Log.Error("RobotNum:"+num);
             RobotManagerComponent robotManagerComponent =
                     root.GetComponent<RobotManagerComponent>() ?? root.AddComponent<RobotManagerComponent>();
             // 创建机器人

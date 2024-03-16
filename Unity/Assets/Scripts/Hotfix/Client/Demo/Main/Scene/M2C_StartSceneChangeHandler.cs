@@ -5,7 +5,7 @@
     {
         protected override async ETTask Run(Scene root, M2C_StartSceneChange message)
         {
-            root.RemoveComponent<AIComponent>();
+            //root.RemoveComponent<AIComponent>();
             CurrentScenesComponent currentScenesComponent = root.GetComponent<CurrentScenesComponent>();
             currentScenesComponent.Scene?.Dispose(); // 删除之前的CurrentScene，创建新的
             Scene currentScene = CurrentSceneFactory.Create(message.SceneInstanceId, message.SceneName, currentScenesComponent);
@@ -26,10 +26,9 @@
             if (unit.Id<100000)
             {
                 Log.Error("RobotId:"+unit.Id);
-                return;
             }
             
-            await EventSystem.Instance.PublishAsync(root, new SceneChangeFinish());
+            await EventSystem.Instance.PublishAsync(root, new SceneChangeFinish(){UnitId = unit.Id});
             // 通知等待场景切换的协程
             root.GetComponent<ObjectWait>().Notify(new Wait_SceneChangeFinish());
         }

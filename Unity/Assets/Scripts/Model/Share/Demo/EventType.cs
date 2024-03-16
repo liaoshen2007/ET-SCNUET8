@@ -17,6 +17,7 @@
     /// </summary>
     public struct SceneChangeFinish
     {
+        public long UnitId;
     }
 
     /// <summary>
