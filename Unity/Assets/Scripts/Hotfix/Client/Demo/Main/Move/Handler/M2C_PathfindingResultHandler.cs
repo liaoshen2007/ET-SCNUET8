@@ -10,7 +10,7 @@
 			float speed = 6000f;
 			if (unit == null)
 			{
-				Log.Error("robot is here!!:"+message.Id);
+				Log.Info("robot is here!!:"+message.Id);
 			}
 			else
 			{

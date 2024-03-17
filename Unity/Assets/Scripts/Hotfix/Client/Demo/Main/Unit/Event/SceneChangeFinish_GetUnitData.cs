@@ -7,7 +7,7 @@
         {
             if (a.UnitId<10000)
             {
-                Log.Error("I am robot,so i need to stop"+a.UnitId);
+                Log.Info("I am robot,so i need to stop"+a.UnitId);
                 return;
             }
             

@@ -25,7 +25,7 @@
 
             if (unit.Id<100000)
             {
-                Log.Error("RobotId:"+unit.Id);
+                Log.Info("RobotId:"+unit.Id);
             }
             
             await EventSystem.Instance.PublishAsync(root, new SceneChangeFinish(){UnitId = unit.Id});

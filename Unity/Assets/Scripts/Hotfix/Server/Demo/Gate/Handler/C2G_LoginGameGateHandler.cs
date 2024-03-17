@@ -14,6 +14,7 @@ namespace ET.Server
             if (root.GetComponent<SessionLockComponent>() != null)
             {
                 response.Error = ErrorCode.ERR_RequestRepeatedly;
+                session.Disconnect().Coroutine();
                 return;
             }
             
@@ -26,11 +27,18 @@ namespace ET.Server
                 return;
             }
 
+            long instanceId = session.InstanceId;
+            
             session.RemoveComponent<SessionAcceptTimeoutComponent>();
             using (root.AddComponent<SessionLockComponent>())
             {
                 using (await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoginGameGate, request.RoleId.GetHashCode()))
                 {
+                    if (instanceId!=session.InstanceId)
+                    {
+                        Log.Error("instanceId!=session.InstanceId!!!!!:"+request.RoleId);
+                        return;
+                    }
                     
                     //todo 通知登录中心服 记录本次登录的服务器Zone
                     // StartSceneConfig loginCenterConfig = StartSceneConfigCategory.Instance.LoginCenterConfig;
@@ -49,6 +57,7 @@ namespace ET.Server
                             player = playerComponent.AddChildWithId<Player,string>(request.RoleId,account);
                         }
                         playerComponent.Add(player);
+                        
                         PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
                         playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
                         await playerSessionComponent.AddLocation(LocationType.GateSession);
