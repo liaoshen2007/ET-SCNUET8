@@ -34,6 +34,11 @@ namespace ET.Client
 
         private static void SetMsgType(this Scroll_Item_Chat self, ClientChatUnit unit)
         {
+            if (unit.RoleInfo==null)
+            {
+                Log.Error("unit.RoleInfo==null");
+                return;
+            }
             if (unit.RoleInfo.Id.ToString() == ConstValue.ChatSendId)
             {
                 self.msgType = ChatMsgType.System;

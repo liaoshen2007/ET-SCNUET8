@@ -20,6 +20,8 @@
             Log.Debug("Play leaves:"+self.Player.Account);
         }
 
+        //bug 几个问题：下线的时候没有报错到数据库，不能主动下线或者不能检测到幽灵session后下线~~
+        //todo 有空还是直接回去运行游戏看看ET6的下线怎么处理主动下线的~~
         private static async ETTask SendLeaveMsg(this SessionPlayerComponent self)
         {
             Scene root = self.Root();
