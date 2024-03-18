@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lean.Touch;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace ET.Client
@@ -17,6 +19,10 @@ namespace ET.Client
             self.AddHotKey("Alpha4", KeyCode.Alpha4);
             self.AddHotKey("Alpha5", KeyCode.Alpha5);
             self.AddHotKey("Alpha6", KeyCode.Alpha6);
+            Unit myunit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+            self.Mytran=myunit.GetComponent<GameObjectComponent>().Transform;
+            self.MyAnimator = myunit.GetComponent<GameObjectComponent>().Animator;
+            self.MySpeed = myunit.GetComponent<NumericComponent>().GetAsFloat(NumericType.Speed);
         }
 
         [EntitySystem]
@@ -110,16 +116,57 @@ namespace ET.Client
             {
                 self.moving = true;
                 Vector3 dir = AxisToSceneDir(h, v);
-                Unit myUnit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+
+                self.Mytran.position+=dir * (5 * Time.smoothDeltaTime);
+                self.Mytran.rotation=Quaternion.LookRotation(dir);
+                self.Mytran.TransformDirection(dir);
+                //GameObjectComponent myGo = myUnit.GetComponent<GameObjectComponent>();
+                self.MyAnimator.SetFloat ("Speed", self.MySpeed);							// Animator側で設定している"Speed"パラメタにvを渡す
+                // if (self.trunRate<=10f)//Math.Abs(self.trunRate - h) > 0.01f
+                // {
+                //     self.MyAnimator.SetFloat ("Direction", h); 						// Animator側で設定している"Direction"パラメタにhを渡す
+                //     self.trunRate += 10 * Time.smoothDeltaTime; //= h;
+                // }
+                // else
+                // {
+                //     self.MyAnimator.SetFloat ("Direction", 0f);
+                //     //self.trunRate = 0;
+                //     Debug.LogError("self.trunRate = 0");
+                // }
+
+                if (Math.Abs(self.trunRate - h) > 0.1f)
+                {
+                    if (h>0)
+                    {
+                        self.trunRate += Time.smoothDeltaTime;
+                        self.MyAnimator.SetFloat ("Direction", h-self.trunRate); 	
+                    }
+                    else
+                    {
+                        self.trunRate -= Time.smoothDeltaTime;
+                        self.MyAnimator.SetFloat ("Direction", self.trunRate-h); 	
+                    }
+                }
+                // else
+                // {
+                //     //self.MyAnimator.SetFloat ("Direction", 0f);
+                //     //self.trunRate = 0;
+                //     Debug.LogError("self.trunRate = 0");
+                // }
+                
                 // C2M_PathfindingResult c2MPathfindingResult = C2M_PathfindingResult.Create(true);
                 // c2MPathfindingResult.Position = myUnit.Position + new float3(dir * (5 * Time.smoothDeltaTime));
                 // self.Root().GetComponent<ClientSenderCompnent>().Send(c2MPathfindingResult);
-                Log.Info(dir);
+                //Log.Info(dir);
             }
             else if (self.moving)
             {
                 self.moving = false;
-                self.Root().GetComponent<ClientSenderComponent>().Send(new C2M_Stop());
+                self.MyAnimator.SetFloat ("Speed", 0f);	
+                self.MyAnimator.SetFloat ("Direction", 0f);
+                self.trunRate = 0f;
+                UnitHelper.GetMyUnitFromClientScene(self.Root()).GetComponent<GameObjectComponent>().Transform.position = self.Mytran.position;
+                //self.Root().GetComponent<ClientSenderComponent>().Send(new C2M_Stop());
             }
         }
     }

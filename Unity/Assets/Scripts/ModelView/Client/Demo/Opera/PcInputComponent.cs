@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lean.Touch;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace ET.Client
 {
@@ -54,5 +55,14 @@ namespace ET.Client
         
         public bool moving;
         public Dictionary<string, HotKey> hotKeyDict = new Dictionary<string, HotKey>();
+
+        public Transform Mytran;
+
+        public Animator MyAnimator;
+
+        public float MySpeed;
+
+        public float trunRate;
+
     }
 }
