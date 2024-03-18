@@ -13,6 +13,10 @@ namespace ET.Client
         
         public Animator Animator {get; private set;}
 
+        public CapsuleCollider CapsuleCollider { get; private set;}
+
+        public Rigidbody Rigidbody {get; private set; }
+
         public Transform Transform { get; private set; }
 
         public Transform ChestTrans { get; private set; }
@@ -29,6 +33,8 @@ namespace ET.Client
             this.Transform = go.transform;
             this.AudioSource = go.transform.Find("AudioSource").GetComponent<AudioSource>();
             this.Animator = go.GetComponentInChildren<Animator>();
+            this.CapsuleCollider = go.GetComponent<CapsuleCollider>();
+            this.Rigidbody = go.GetComponent<Rigidbody>();
             
             var child = go.transform.Find("Bones");
             this.ChestTrans = child.Find("Chest");

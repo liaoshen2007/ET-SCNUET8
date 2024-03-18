@@ -63,6 +63,26 @@ namespace ET.Client
         public float MySpeed;
 
         public float trunRate;
+        
+        public bool useCurves = true;				// Mecanimでカーブ調整を使うか設定する
+        // このスイッチが入っていないとカーブは使われない
+        public float useCurvesHeight = 0.5f;		// カーブ補正の有効高さ（地面をすり抜けやすい時には大きくする）
+        
+        public Vector3 velocity;
+        public float orgColHight;
+        public Vector3 orgVectColCenter;
+        public AnimatorStateInfo currentBaseState;			// base layerで使われる、アニメーターの現在の状態の参照
+        
+        public float jumpPower = 3.0f; 
+        
+        public int idleState = Animator.StringToHash ("Base Layer.Idle");
+        public int locoState = Animator.StringToHash ("Base Layer.Locomotion");
+        public int jumpState = Animator.StringToHash ("Base Layer.Jump");
+        public int restState = Animator.StringToHash ("Base Layer.Rest");
+
+        public Rigidbody MyRigidbody;
+
+        public CapsuleCollider MyCapsuleCollider;
 
     }
 }
