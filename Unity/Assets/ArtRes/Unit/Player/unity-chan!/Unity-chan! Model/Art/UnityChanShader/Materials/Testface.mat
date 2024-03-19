@@ -8,23 +8,24 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Testface
-  m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3bb35f7f86ffc45c2aa6fc4291f787fc,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _SHADING_STYLE_SKIN_AND_TEXTILES
+  m_InvalidKeywords:
   - _EMISSIVE_SIMPLE
   - _IS_ANGELRING_OFF
   - _IS_CLIPPING_OFF
   - _IS_OUTLINE_CLIPPING_NO
   - _OUTLINE_NML
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
     IgnoreProjection: False
-    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -55,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3cf2e516b5353d5499c41818747b4155, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -79,6 +80,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -194,6 +199,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _1st2nd_Shades_Feather: 0.0001
@@ -209,6 +226,7 @@ Material:
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
     - _Add_Antipodean_RimLight: 0
+    - _AdditionalLightCutoffPoint: 0.531
     - _AlbedoAffectEmissive: 0
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
@@ -282,6 +300,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
+    - _ExtraBandThickness: 0.3
     - _FalloffPower: 1
     - _Farthest_Distance: 100
     - _FirstShadeOverridden: 0
@@ -351,12 +370,16 @@ Material:
     - _Offset_Z: 0
     - _OutlineOverridden: 0
     - _OutlineVisible: 1
-    - _Outline_Width: 0
+    - _Outline_Width: 1
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _PaintbrushStrokesAngle: 112
+    - _PaintbrushStrokesSize: 2.03
+    - _QueueControl: -1
+    - _QueueOffset: 0
     - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _RimLight: 1
@@ -368,6 +391,7 @@ Material:
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
+    - _SHADING_STYLE: 0
     - _SPRDefaultUnlitColorMask: 15
     - _SRPDefaultUnlitColMode: 1
     - _SSRefractionProjectionModel: 0
@@ -377,11 +401,13 @@ Material:
     - _SecondShadeVisible: 1
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0
-    - _Smoothness: 0.5
+    - _ShadowsFloor: 0.251
+    - _Smoothness: 0.525
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
+    - _SpecularNoiseSize: 1
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilComp: 0
@@ -400,6 +426,7 @@ Material:
     - _StencilWriteMaskGBuffer: 3
     - _StencilWriteMaskMV: 128
     - _StepOffset: 0
+    - _StrongRimStrength: 0.587
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
@@ -407,6 +434,7 @@ Material:
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
     - _ThicknessMultiplier: 1
+    - _ToonCutoffPoint: 0.01
     - _TransmissionEnable: 1
     - _TransmissionMask: 1
     - _TransparentBackfaceEnable: 0
@@ -431,6 +459,7 @@ Material:
     - _UVDetail: 0
     - _UVEmissive: 0
     - _Unlit_Intensity: 0
+    - _UseEmission: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
     - _Use_1stAs2nd: 0
@@ -447,14 +476,14 @@ Material:
     - _utsTechnique: 0
     - _utsVersionX: 0
     - _utsVersionY: 9
-    - _utsVersionZ: 4
+    - _utsVersionZ: 6
     m_Colors:
     - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9716981, g: 0.85711104, b: 0.85711104, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
