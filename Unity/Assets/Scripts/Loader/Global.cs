@@ -54,6 +54,11 @@ namespace ET
             CameraRoot = collector.Get<Transform>("Camera");
             UICamera = collector.Get<Camera>("UICamera");
             MainCamera = collector.Get<Camera>("MainCamera");
+            if (this.MainCamera==null)
+            {
+                Log.Error("this.MainCamera==null");
+                MainCamera = Camera.main;
+            }
 
             NormalRoot = this.UI.Find("NormalRoot").transform;
             PopUpRoot = this.UI.Find("PopUpRoot").transform;

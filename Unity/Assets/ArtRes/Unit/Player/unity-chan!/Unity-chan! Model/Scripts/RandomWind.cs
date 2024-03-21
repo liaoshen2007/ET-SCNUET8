@@ -15,7 +15,11 @@ namespace UnityChan
 	{
 		private SpringBone[] springBones;
 		public bool isWindActive = true;
+		public float windStrength = 0.5f;
+		public Vector3 windDirection = new Vector3(1.0f, 0.0f, 0.0f);
 
+		private float windStrengthMagnifier = 0.01f;
+		
 		// Use this for initialization
 		void Start ()
 		{
@@ -26,8 +30,14 @@ namespace UnityChan
 		void Update ()
 		{
 			Vector3 force = Vector3.zero;
-			if (isWindActive) {
-				force = new Vector3 (Mathf.PerlinNoise (Time.time, 0.0f) * 0.005f, 0, 0);
+			if (isWindActive)
+			{
+				var normalizedDirection = windDirection.normalized;
+				
+				force = new Vector3 (
+					Mathf.PerlinNoise (Time.time, 0.0f) * windStrength * normalizedDirection.x * windStrengthMagnifier,
+					normalizedDirection.y * windStrengthMagnifier, 
+					normalizedDirection.z) * windStrengthMagnifier;
 			}
 
 			for (int i = 0; i < springBones.Length; i++) {

@@ -16,6 +16,12 @@ namespace ET.Client
             self.updateMode = CameraUpdateMode.Immediate;
 
             self.mainCamera = Global.Instance.MainCamera;
+            if (self.mainCamera==null)
+            {
+                Log.Error("self.mainCamera==null");
+            }
+            self.mainCamera=Camera.main;
+            
             self.mainCamera.backgroundColor = RenderSettings.fogColor;
             self.cameraRoot = Global.Instance.CameraRoot;
             var collector = self.cameraRoot.GetComponent<ReferenceCollector>();

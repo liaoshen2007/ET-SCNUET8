@@ -567,8 +567,15 @@ namespace ETEditor
             string[] strTags = UnityEditorInternal.InternalEditorUtility.tags;
             foreach (string tag in strTags)
             {
+                Debug.LogWarning(tag);
+                if (tag=="NavMesh")
+                {
+                    Debug.LogWarning("Fuck navmesh!");
+                }
+                
                 if (tag == NAVMESH_TAG)
                 {
+                    Debug.LogError("Fuck again");
                     bFindTag = true;
                     break;
                 }

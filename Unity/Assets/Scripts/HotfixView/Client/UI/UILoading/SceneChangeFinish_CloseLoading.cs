@@ -11,7 +11,7 @@
                 return;
             }
             
-            scene.GetComponent<UIComponent>().CloseWindow(WindowID.Win_UILoading);
+            //scene.GetComponent<UIComponent>().CloseWindow(WindowID.Win_UILoading);
             await ETTask.CompletedTask;
         }
     }
