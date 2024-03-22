@@ -248,22 +248,22 @@ namespace ET
 		public const int HealAddFinalPct = HealAdd * 10 + 5;
 
 		/// <summary>
-		/// 力量
+		/// 体质
 		/// </summary>
 		public const int Strength = 3001;
 
 		/// <summary>
-		/// 体力
+		/// 优美
 		/// </summary>
 		public const int Energy = 3002;
 
 		/// <summary>
-		/// 敏捷
+		/// 品德
 		/// </summary>
 		public const int Agility = 3003;
 
 		/// <summary>
-		/// 精神
+		/// 智力
 		/// </summary>
 		public const int Mind = 3004;
 
@@ -291,5 +291,15 @@ namespace ET
 		/// 所在地图
 		/// </summary>
 		public const int LocalMap = 3009;
+
+		/// <summary>
+		/// 战力值
+		/// </summary>
+		public const int CombatEffectiveness = 3010;
+
+		/// <summary>
+		/// 法力值
+		/// </summary>
+		public const int Mana = 3011;
 	}
 }

@@ -584,6 +584,9 @@ namespace ETEditor
             strBuilder.AppendLine("     	}\n");
         }
 
+        /// <summary>
+        /// 注意！！！Text一定要换成ExtendText才能使用！！不然不能读取text!强制让你多语言~~
+        /// </summary>
         static UICodeSpawner()
         {
             WidgetInterfaceList = new List<string>();

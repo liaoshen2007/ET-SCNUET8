@@ -40,6 +40,40 @@ namespace ET.Client
      		}
      	}
 
+		public ExtendText ELabel_NickNameExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_NickNameExtendText == null )
+     			{
+		    		this.m_ELabel_NickNameExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/NickNameBg/ELabel_NickName");
+     			}
+     			return this.m_ELabel_NickNameExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_LevelExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_LevelExtendText == null )
+     			{
+		    		this.m_ELabel_LevelExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/LevelBg/ELabel_Level");
+     			}
+     			return this.m_ELabel_LevelExtendText;
+     		}
+     	}
+
 		public ES_EquipItem ES_EquipItem_Head
      	{
      		get
@@ -165,6 +199,23 @@ namespace ET.Client
      		}
      	}
 
+		public ExtendText ELabel_QuestExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_QuestExtendText == null )
+     			{
+		    		this.m_ELabel_QuestExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/TransferBtn/EButton_Quest/ELabel_Quest");
+     			}
+     			return this.m_ELabel_QuestExtendText;
+     		}
+     	}
+
 		public Button EButton_InventoryButton
      	{
      		get
@@ -182,6 +233,23 @@ namespace ET.Client
      		}
      	}
 
+		public ExtendText ELabel_InventoryExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_InventoryExtendText == null )
+     			{
+		    		this.m_ELabel_InventoryExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/TransferBtn/EButton_Inventory/ELabel_Inventory");
+     			}
+     			return this.m_ELabel_InventoryExtendText;
+     		}
+     	}
+
 		public Button EButton_MapButton
      	{
      		get
@@ -196,6 +264,108 @@ namespace ET.Client
 		    		this.m_EButton_MapButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/TransferBtn/EButton_Map");
      			}
      			return this.m_EButton_MapButton;
+     		}
+     	}
+
+		public ExtendText ELabel_MapExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_MapExtendText == null )
+     			{
+		    		this.m_ELabel_MapExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/TransferBtn/EButton_Map/ELabel_Map");
+     			}
+     			return this.m_ELabel_MapExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_DamageExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_DamageExtendText == null )
+     			{
+		    		this.m_ELabel_DamageExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_Damage");
+     			}
+     			return this.m_ELabel_DamageExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_HealthExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_HealthExtendText == null )
+     			{
+		    		this.m_ELabel_HealthExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_Health");
+     			}
+     			return this.m_ELabel_HealthExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_ManaExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_ManaExtendText == null )
+     			{
+		    		this.m_ELabel_ManaExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_Mana");
+     			}
+     			return this.m_ELabel_ManaExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_ArmorExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_ArmorExtendText == null )
+     			{
+		    		this.m_ELabel_ArmorExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_Armor");
+     			}
+     			return this.m_ELabel_ArmorExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_CriticalChanceExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_CriticalChanceExtendText == null )
+     			{
+		    		this.m_ELabel_CriticalChanceExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_CriticalChance");
+     			}
+     			return this.m_ELabel_CriticalChanceExtendText;
      		}
      	}
 
@@ -335,6 +505,40 @@ namespace ET.Client
      		}
      	}
 
+		public ExtendText ELabel_ArmorChangeExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_ArmorChangeExtendText == null )
+     			{
+		    		this.m_ELabel_ArmorChangeExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_ArmorChange");
+     			}
+     			return this.m_ELabel_ArmorChangeExtendText;
+     		}
+     	}
+
+		public ExtendText ELabel_PointExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_PointExtendText == null )
+     			{
+		    		this.m_ELabel_PointExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/PropertiesInfo/Bg/ELabel_Point");
+     			}
+     			return this.m_ELabel_PointExtendText;
+     		}
+     	}
+
 		public ESAddPoint ESAddPoint
      	{
      		get
@@ -424,10 +628,29 @@ namespace ET.Client
      		}
      	}
 
+		public ExtendText ELabel_UpLevelExtendText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELabel_UpLevelExtendText == null )
+     			{
+		    		this.m_ELabel_UpLevelExtendText = UIFindHelper.FindDeepChild<ExtendText>(this.uiTransform.gameObject,"EGBackGround/PropertiesBg/EButton_UpLevel/ELabel_UpLevel");
+     			}
+     			return this.m_ELabel_UpLevelExtendText;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_EGBackGroundRectTransform = null;
 			this.m_EButton_CloseButton = null;
+			this.m_ELabel_NickNameExtendText = null;
+			this.m_ELabel_LevelExtendText = null;
 			this.m_es_equipitem_head = null;
 			this.m_es_equipitem_cloths = null;
 			this.m_es_equipitem_ring = null;
@@ -435,8 +658,16 @@ namespace ET.Client
 			this.m_es_equipitem_weapon = null;
 			this.m_es_equipitem_shield = null;
 			this.m_EButton_QuestButton = null;
+			this.m_ELabel_QuestExtendText = null;
 			this.m_EButton_InventoryButton = null;
+			this.m_ELabel_InventoryExtendText = null;
 			this.m_EButton_MapButton = null;
+			this.m_ELabel_MapExtendText = null;
+			this.m_ELabel_DamageExtendText = null;
+			this.m_ELabel_HealthExtendText = null;
+			this.m_ELabel_ManaExtendText = null;
+			this.m_ELabel_ArmorExtendText = null;
+			this.m_ELabel_CriticalChanceExtendText = null;
 			this.m_EButton_AddStrengthButton = null;
 			this.m_EButton_ReduceStrengthButton = null;
 			this.m_EButton_AddAgilityButton = null;
@@ -445,16 +676,21 @@ namespace ET.Client
 			this.m_EButton_ReduceIntelligenceButton = null;
 			this.m_EButton_AddWillButton = null;
 			this.m_EButton_ReduceWillButton = null;
+			this.m_ELabel_ArmorChangeExtendText = null;
+			this.m_ELabel_PointExtendText = null;
 			this.m_esaddpoint = null;
 			this.m_esaddpoint1 = null;
 			this.m_esaddpoint2 = null;
 			this.m_esaddpoint3 = null;
 			this.m_EButton_UpLevelButton = null;
+			this.m_ELabel_UpLevelExtendText = null;
 			uiTransform = null;
 		}
 
 		private RectTransform m_EGBackGroundRectTransform = null;
 		private Button m_EButton_CloseButton = null;
+		private ExtendText m_ELabel_NickNameExtendText = null;
+		private ExtendText m_ELabel_LevelExtendText = null;
 		private EntityRef<ES_EquipItem> m_es_equipitem_head = null;
 		private EntityRef<ES_EquipItem> m_es_equipitem_cloths = null;
 		private EntityRef<ES_EquipItem> m_es_equipitem_ring = null;
@@ -462,8 +698,16 @@ namespace ET.Client
 		private EntityRef<ES_EquipItem> m_es_equipitem_weapon = null;
 		private EntityRef<ES_EquipItem> m_es_equipitem_shield = null;
 		private Button m_EButton_QuestButton = null;
+		private ExtendText m_ELabel_QuestExtendText = null;
 		private Button m_EButton_InventoryButton = null;
+		private ExtendText m_ELabel_InventoryExtendText = null;
 		private Button m_EButton_MapButton = null;
+		private ExtendText m_ELabel_MapExtendText = null;
+		private ExtendText m_ELabel_DamageExtendText = null;
+		private ExtendText m_ELabel_HealthExtendText = null;
+		private ExtendText m_ELabel_ManaExtendText = null;
+		private ExtendText m_ELabel_ArmorExtendText = null;
+		private ExtendText m_ELabel_CriticalChanceExtendText = null;
 		private Button m_EButton_AddStrengthButton = null;
 		private Button m_EButton_ReduceStrengthButton = null;
 		private Button m_EButton_AddAgilityButton = null;
@@ -472,11 +716,14 @@ namespace ET.Client
 		private Button m_EButton_ReduceIntelligenceButton = null;
 		private Button m_EButton_AddWillButton = null;
 		private Button m_EButton_ReduceWillButton = null;
+		private ExtendText m_ELabel_ArmorChangeExtendText = null;
+		private ExtendText m_ELabel_PointExtendText = null;
 		private EntityRef<ESAddPoint> m_esaddpoint = null;
 		private EntityRef<ESAddPoint> m_esaddpoint1 = null;
 		private EntityRef<ESAddPoint> m_esaddpoint2 = null;
 		private EntityRef<ESAddPoint> m_esaddpoint3 = null;
 		private Button m_EButton_UpLevelButton = null;
+		private ExtendText m_ELabel_UpLevelExtendText = null;
 		public Transform uiTransform = null;
 	}
 }

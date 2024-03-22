@@ -17,7 +17,7 @@ namespace ET.Client
      			}
      			if( this.m_E_ChatButton == null )
      			{
-		    		this.m_E_ChatButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Chat");
+		    		this.m_E_ChatButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"IconGroup/E_Chat");
      			}
      			return this.m_E_ChatButton;
      		}
@@ -34,9 +34,43 @@ namespace ET.Client
      			}
      			if( this.m_E_ChatExtendImage == null )
      			{
-		    		this.m_E_ChatExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"E_Chat");
+		    		this.m_E_ChatExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"IconGroup/E_Chat");
      			}
      			return this.m_E_ChatExtendImage;
+     		}
+     	}
+
+		public Button E_RoleInfoButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_RoleInfoButton == null )
+     			{
+		    		this.m_E_RoleInfoButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"IconGroup/E_RoleInfo");
+     			}
+     			return this.m_E_RoleInfoButton;
+     		}
+     	}
+
+		public ExtendImage E_RoleInfoExtendImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_RoleInfoExtendImage == null )
+     			{
+		    		this.m_E_RoleInfoExtendImage = UIFindHelper.FindDeepChild<ExtendImage>(this.uiTransform.gameObject,"IconGroup/E_RoleInfo");
+     			}
+     			return this.m_E_RoleInfoExtendImage;
      		}
      	}
 
@@ -44,11 +78,15 @@ namespace ET.Client
 		{
 			this.m_E_ChatButton = null;
 			this.m_E_ChatExtendImage = null;
+			this.m_E_RoleInfoButton = null;
+			this.m_E_RoleInfoExtendImage = null;
 			uiTransform = null;
 		}
 
 		private Button m_E_ChatButton = null;
 		private ExtendImage m_E_ChatExtendImage = null;
+		private Button m_E_RoleInfoButton = null;
+		private ExtendImage m_E_RoleInfoExtendImage = null;
 		public Transform uiTransform = null;
 	}
 }
