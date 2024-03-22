@@ -47,5 +47,10 @@ namespace ET
 		/// 3007
 		/// </summary>
 		Win_UIRoleSelect,
+
+		/// <summary>
+		/// 3008
+		/// </summary>
+		Win_UIRoleProperties,
 	}
 }

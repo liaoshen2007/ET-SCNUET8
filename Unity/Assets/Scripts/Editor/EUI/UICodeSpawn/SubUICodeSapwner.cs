@@ -28,13 +28,13 @@ namespace ETEditor
 
             string strDlgName = objPanel.name;
 
-            string strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIBehaviour/CommonUI/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIBehaviour/CommonUI/" + strDlgName;
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/HotfixView/Client/UIBehaviour/CommonUI/" + strDlgName + "ViewSystem.cs";
+            strFilePath = Application.dataPath + "/Scripts/HotfixView/Client/UIBehaviour/CommonUI/" + strDlgName + "ViewSystem.cs";
             if (File.Exists(strFilePath))
             {
                 return;
@@ -81,13 +81,13 @@ namespace ETEditor
             }
 
             string strDlgName = objPanel.name;
-            string strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIBehaviour/CommonUI/" + strDlgName;
+            string strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIBehaviour/CommonUI/" + strDlgName;
             if (!Directory.Exists(strFilePath))
             {
                 Directory.CreateDirectory(strFilePath);
             }
 
-            strFilePath = Application.dataPath + "/Scripts/Codes/ModelView/Client/UIBehaviour/CommonUI/" + strDlgName + ".cs";
+            strFilePath = Application.dataPath + "/Scripts/ModelView/Client/UIBehaviour/CommonUI/" + strDlgName + ".cs";
 
             StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
             StringBuilder strBuilder = new StringBuilder();
