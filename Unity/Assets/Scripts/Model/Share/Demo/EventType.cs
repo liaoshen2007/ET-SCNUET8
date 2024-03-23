@@ -13,6 +13,14 @@
     }
 
     /// <summary>
+    /// 更新Roleinfo界面
+    /// </summary>
+    public struct RefreshRoleInfo
+    {
+        
+    }
+
+    /// <summary>
     /// 场景切换结束
     /// </summary>
     public struct SceneChangeFinish

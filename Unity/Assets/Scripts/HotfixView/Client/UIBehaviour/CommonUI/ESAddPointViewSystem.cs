@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ET.Client
@@ -51,20 +52,21 @@ namespace ET.Client
 
 		public static async ETTask RequestAddPoint(this ESAddPoint self,int numerictype)
 		{
-			// try
-			// {
-			// 	int errorcode = await NumericHelper.RequestAddAttributePoint(self.ZoneScene(), numerictype);
-			// 	if (errorcode!=ErrorCode.ERR_Success)
-			// 	{
-			// 		return;
-			// 	}
-			// 	Log.Debug("加点成功");
-			// 	self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgRoleUnitProperties>()?.Refresh();
-			// }
-			// catch (Exception e)
-			// {
-			// 	Log.Debug(e.ToString());
-			// }
+			try
+			{
+				int errorcode = await NumericHelper.RequestAddAttributePoint(self.Root(), numerictype);
+				if (errorcode!=ErrorCode.ERR_Success)
+				{
+					return;
+				}
+				Log.Debug("加点成功");
+				//self.Root().GetComponent<UIComponent>().GetDlgLogic<UIRoleProperties>()?.Refresh();
+				EventSystem.Instance.Publish(self.Root(), new RefreshRoleInfo() );
+			}
+			catch (Exception e)
+			{
+				Log.Debug(e.ToString());
+			}
 
 			await ETTask.CompletedTask;
 		}

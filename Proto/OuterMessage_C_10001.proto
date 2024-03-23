@@ -612,3 +612,43 @@ message M2C_HurtList //IMessage
   repeated HurtInfo HurtList = 3;
   string ViewCmd = 4;
 }
+
+message M2C_NoticeUnitNumerice // IMessage
+{
+	int64 UnitId = 1;
+	int32 NumericType = 2;
+	int64 NewValue = 4;
+}
+
+//ResponseType M2C_TestUnitNumeric
+message C2M_TestUnitNumeric // ILocationRequest
+{
+
+}
+
+message M2C_TestUnitNumeric // ILocationResponse
+{
+
+}
+
+//ResponseType M2C_AddAttributePoint
+message C2M_AddAttributePoint // ILocationRequest
+{
+	int32 NumericType = 2;
+}
+
+message M2C_AddAttributePoint // ILocationResponse
+{
+
+}
+
+//ResponseType M2C_UpRoleLevel
+message C2M_UpRoleLevel // ILocationRequest
+{
+
+}
+
+message M2C_UpRoleLevel // ILocationResponse
+{
+
+}

@@ -46,23 +46,23 @@ namespace ET.Client
 
             //todo 下面最好做成一个通用接口！！
             var curRoleInfo = self.Root().GetComponent<RoleInfoComponent>().RoleInfos.Find(x => x.Id == unit.Id);
-            // self.View.e.SetText(curRoleInfo.Name);
+            self.View.ELabel_NickNameExtendText.SetText(curRoleInfo.Name);
         }
 
         public static async ETTask OnUpRoleLevelHandler(this UIRoleProperties self)
         {
-            // try
-            // {
-            // 	int errorcode = await NumericHelper.RequestRoleLevel(self.ZoneScene());
-            // 	if (errorcode!=ErrorCode.ERR_Success)
-            // 	{
-            // 		return;
-            // 	}
-            // }
-            // catch (Exception e)
-            // {
-            // 	Log.Error(e.ToString());
-            // }
+            try
+            {
+            	int errorcode = await NumericHelper.RequestRoleLevel(self.Root());
+            	if (errorcode!=ErrorCode.ERR_Success)
+            	{
+            		return;
+            	}
+            }
+            catch (Exception e)
+            {
+            	Log.Error(e.ToString());
+            }
 
         }
 

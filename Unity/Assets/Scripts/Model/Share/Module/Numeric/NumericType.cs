@@ -301,5 +301,10 @@ namespace ET
 		/// 法力值
 		/// </summary>
 		public const int Mana = 3011;
+
+		/// <summary>
+		/// 经验
+		/// </summary>
+		public const int Exp = 3012;
 	}
 }
