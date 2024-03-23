@@ -14,6 +14,7 @@ namespace ET.Server
             numericComponent.Set(NumericType.Exp,newExp);
             numericComponent.Set(NumericType.Level,level);
             
+            //Log.Error("numericComponent SET SUCCESS!");
             // numericComponent[NumericType.IronStone] += 3600;
             // numericComponent[NumericType.Fur]       += 3600;
             

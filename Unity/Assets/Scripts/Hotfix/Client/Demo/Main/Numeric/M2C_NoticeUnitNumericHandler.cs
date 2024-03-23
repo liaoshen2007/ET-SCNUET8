@@ -5,8 +5,10 @@ namespace ET.Client
     {
         protected override async ETTask Run(Scene root, M2C_NoticeUnitNumerice message)
         {
-            root.CurrentScene().GetComponent<UnitComponent>()?.Get(message.UnitId)?.
-                    GetComponent<NumericComponent>()?.Set(message.NumericType,message.NewValue);
+            UnitComponent unitComponent=root.CurrentScene().GetComponent<UnitComponent>();
+            NumericComponent numeric=unitComponent.Get(message.UnitId).GetComponent<NumericComponent>();
+            numeric.Set(message.NumericType,message.NewValue);
+            Log.Error("M2C_NoticeUnitNumerice:"+message.NumericType);
             await ETTask.CompletedTask;
         }
     }

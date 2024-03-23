@@ -31,10 +31,21 @@ namespace ET.Server
             }
         }
         
+        /// <summary>
+        /// 注意！！！！！！！这条函数使用的Message一定要new过来的，不然多线程会缓存然后客户端会收到错误的消息！！！！
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="message"></param>
         public static void SendToClient(this Unit unit, IMessage message)
         {
             unit.Root().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession).Send(unit.Id, message);
         }
+        
+        // public static void SendNumericToClient(this Unit unit, IMessage message)
+        // {
+        //     Log.Error("SendNumericToClient:"+message);
+        //     unit.Root().GetComponent<MessageLocationSenderComponent>().Get(LocationType.GateSession).Send(unit.Id, message);
+        // }
         
         /// <summary>
         /// 发送协议给Actor
