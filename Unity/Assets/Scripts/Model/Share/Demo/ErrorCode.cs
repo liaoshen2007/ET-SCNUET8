@@ -112,5 +112,30 @@ namespace ET
 		/// 找不到目标
 		/// </summary>
 		public const int ERR_UnitNotExit = 200602;
+
+		/// <summary>
+		/// 数值类型不存在
+		/// </summary>
+		public const int ERR_NumericTypeNotExist = 200701;
+
+		/// <summary>
+		/// 数值类型不为可加点
+		/// </summary>
+		public const int ERR_NumericTypeNotAddpoint = 200702;
+
+		/// <summary>
+		/// 可加点数不足
+		/// </summary>
+		public const int ERR_AddpointNotEnough = 200703;
+
+		/// <summary>
+		/// 经验值不足
+		/// </summary>
+		public const int ERR_ExpNotEnough = 200704;
+
+		/// <summary>
+		/// 经验值错误
+		/// </summary>
+		public const int ERR_ExpNumError = 200705;
 	}
 }

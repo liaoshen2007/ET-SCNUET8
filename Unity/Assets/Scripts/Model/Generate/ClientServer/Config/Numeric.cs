@@ -68,6 +68,8 @@ namespace ET
 	{
 		/// <summary>Id</summary>
 		public int Id { get; set; }
+		/// <summary>是否用于加成点</summary>
+		public int IsAddPoint { get; set; }
 		/// <summary>是否有加成属性</summary>
 		public int Addition { get; set; }
 		/// <summary>基础值</summary>

@@ -7,28 +7,28 @@ using System.ComponentModel;
 namespace ET
 {
     [Config]
-    public partial class NumericCategory : Singleton<NumericCategory>, IMerge, IConfigCategory
+    public partial class PlayerLevelConfigCategory : Singleton<PlayerLevelConfigCategory>, IMerge, IConfigCategory
     {
         [BsonElement]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        private Dictionary<int, Numeric> dict = new();
+        private Dictionary<int, PlayerLevelConfig> dict = new();
 		
         public void Merge(object o)
         {
-            NumericCategory s = o as NumericCategory;
+            PlayerLevelConfigCategory s = o as PlayerLevelConfigCategory;
             foreach (var kv in s.dict)
             {
                 this.dict.Add(kv.Key, kv.Value);
             }
         }
 		
-        public Numeric Get(int id)
+        public PlayerLevelConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out Numeric item);
+            this.dict.TryGetValue(id, out PlayerLevelConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (Numeric)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (PlayerLevelConfig)}，配置id: {id}");
             }
 
             return item;
@@ -44,7 +44,7 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, Numeric> GetAll()
+        public Dictionary<int, PlayerLevelConfig> GetAll()
         {
             return this.dict;
         }
@@ -54,7 +54,7 @@ namespace ET
             return this.dict.Values;
         }
 
-        public Numeric GetOne()
+        public PlayerLevelConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -64,18 +64,12 @@ namespace ET
         }
     }
 
-	public partial class Numeric: ProtoObject, IConfig
+	public partial class PlayerLevelConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		public int Id { get; set; }
-		/// <summary>是否用于加成点</summary>
-		public int IsAddPoint { get; set; }
-		/// <summary>是否有加成属性</summary>
-		public int Addition { get; set; }
-		/// <summary>基础值</summary>
-		public int BaseValue { get; set; }
-		/// <summary>战力</summary>
-		public long Fight { get; set; }
+		/// <summary>所需经验值</summary>
+		public long NeedExp { get; set; }
 
 	}
 }
