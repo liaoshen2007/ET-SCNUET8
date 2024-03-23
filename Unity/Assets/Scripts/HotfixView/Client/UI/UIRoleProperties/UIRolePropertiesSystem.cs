@@ -46,7 +46,8 @@ namespace ET.Client
 
             //todo 下面最好做成一个通用接口！！
             var curRoleInfo = self.Root().GetComponent<RoleInfoComponent>().RoleInfos.Find(x => x.Id == unit.Id);
-            self.View.ELabel_NickNameExtendText.SetText(curRoleInfo.Name);
+            Log.Error("curRoleInfo:"+curRoleInfo);
+            self.View.ELabel_NickNameExtendText.SetText(curRoleInfo?.Name);
         }
 
         public static async ETTask OnUpRoleLevelHandler(this UIRoleProperties self)

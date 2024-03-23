@@ -9,7 +9,7 @@ namespace ET.Client
             M2C_TestUnitNumeric m2CTestUnitNumeric = null;
             try
             {
-                m2CTestUnitNumeric = (M2C_TestUnitNumeric)await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2M_TestUnitNumeric() { });
+                m2CTestUnitNumeric = (M2C_TestUnitNumeric)await zoneScene.GetComponent<ClientSenderComponent>().Call(new C2M_TestUnitNumeric() { });
 
             }
             catch (Exception e)
@@ -33,7 +33,7 @@ namespace ET.Client
             M2C_AddAttributePoint m2CAddAttributePoint = null;
             try
             {
-                m2CAddAttributePoint = (M2C_AddAttributePoint)await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2M_AddAttributePoint() {NumericType = numeric});
+                m2CAddAttributePoint = (M2C_AddAttributePoint)await zoneScene.GetComponent<ClientSenderComponent>().Call(new C2M_AddAttributePoint() {NumericType = numeric});
             }
             catch (Exception e)
             {
@@ -55,7 +55,7 @@ namespace ET.Client
             M2C_UpRoleLevel m2CUpRoleLevel = null;
             try
             {
-                m2CUpRoleLevel =(M2C_UpRoleLevel) await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2M_UpRoleLevel() { });
+                m2CUpRoleLevel =(M2C_UpRoleLevel) await zoneScene.GetComponent<ClientSenderComponent>().Call(new C2M_UpRoleLevel() { });
             }
             catch (Exception e)
             {
