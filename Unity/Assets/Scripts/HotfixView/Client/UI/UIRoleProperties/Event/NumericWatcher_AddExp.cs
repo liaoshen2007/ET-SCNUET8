@@ -1,6 +1,6 @@
 namespace ET.Client
 {
-    [NumericWatcher(SceneType.Client,NumericType.Exp)]
+    [NumericWatcher(SceneType.All,NumericType.Exp)]
     public class NumericWatcher_AddExp:INumericWatcher
     {
         public void Run(Unit unit, NumbericChange args)
@@ -30,7 +30,7 @@ namespace ET.Client
         }
     }
     
-    [NumericWatcher(SceneType.Client,NumericType.AttrPoint)]
+    [NumericWatcher(SceneType.All,NumericType.AttrPoint)]
     public class NumericWatcher_AttrPoint:INumericWatcher
     {
         public void Run(Unit unit, NumbericChange args)
