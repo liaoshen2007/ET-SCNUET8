@@ -156,12 +156,12 @@ namespace ET.Client
                     if (h>0)
                     {
                         self.trunRate += Time.smoothDeltaTime;
-                        self.MyAnimator.SetFloat ("Direction", h-self.trunRate); 	
+                        //self.MyAnimator.SetFloat ("Direction", h-self.trunRate); 	
                     }
                     else
                     {
                         self.trunRate -= Time.smoothDeltaTime;
-                        self.MyAnimator.SetFloat ("Direction", self.trunRate-h); 	
+                        //self.MyAnimator.SetFloat ("Direction", self.trunRate-h); 	
                     }
                 }
                 // else

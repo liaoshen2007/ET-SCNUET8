@@ -54,7 +54,7 @@ namespace ET.Client
 		{
 			try
 			{
-				Log.Debug("ESAddPoint:"+numerictype);
+				//Log.Debug("ESAddPoint:"+numerictype);
 				int errorcode = await NumericHelper.RequestAddAttributePoint(self.Root(), numerictype);
 				if (errorcode!=ErrorCode.ERR_Success)
 				{

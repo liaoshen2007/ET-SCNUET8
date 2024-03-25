@@ -53,6 +53,7 @@ namespace ET.Server
                         var numeric = unit.GetComponent<NumericComponent>();
                         string mapindex ="Map"+ numeric.GetAsInt(NumericType.LocalMap);
                         StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(player.Zone(), mapindex);
+                        Log.Error(mapindex);
                         TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, true).Coroutine();
                         EventSystem.Instance.Publish(player.Scene(), new EnterGame() { Player = player });
                     }

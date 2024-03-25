@@ -6,7 +6,7 @@ namespace ET.Client
         public void Run(Unit unit, NumbericChange args)
         {
             unit.Root().GetComponent<UIComponent>().GetDlgLogic<UIRoleProperties>()?.Refresh();
-            Log.Error("NumericType.Level"+args);
+            //Log.Error("NumericType.Level"+args);
         }
     }
     
@@ -16,7 +16,7 @@ namespace ET.Client
         public void Run(Unit unit, NumbericChange args)
         {
             unit.Root().GetComponent<UIComponent>().GetDlgLogic<UIRoleProperties>()?.Refresh();
-            Log.Error("NumericType.Coin"+args);
+            //Log.Error("NumericType.Coin"+args);
         }
     }
     
@@ -26,7 +26,7 @@ namespace ET.Client
         public void Run(Unit unit, NumbericChange args)
         {
             unit.Root().GetComponent<UIComponent>().GetDlgLogic<UIRoleProperties>()?.Refresh();
-            Log.Error("NumericType.Exp"+args);
+            //Log.Error("NumericType.Exp"+args);
         }
     }
 }

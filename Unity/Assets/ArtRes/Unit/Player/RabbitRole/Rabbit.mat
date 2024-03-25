@@ -182,7 +182,7 @@ Material:
     - _is_Face: 0
     m_Colors:
     - _Ambient: {r: 0.25471696, g: 0.25471696, b: 0.25471696, a: 0}
-    - _BaseColor: {r: 0.91823894, g: 0.8255312, b: 0.47066957, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapTiling: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

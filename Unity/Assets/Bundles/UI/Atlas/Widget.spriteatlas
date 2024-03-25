@@ -87,9 +87,12 @@ SpriteAtlas:
     - f354ca856cd148a45bb417c1ceb01dfc: 21300000
     - 6cb87fb5ea951cc42aa04a775188a069: 21300000
     - 90ce1096b5398364e8565e298ea8f544: 21300000
+    - 7e5c89d6f4dce19499be6a4e0ae3c193: 21300000
+    - 37e24757180868b438fac500d9671ae5: 21300000
     - 845e98570720402498d379fe6d4a5029: 21300000
     - c2956f57a4b2cfa469c5dfac9fe2ba9a: 21300000
     - 7a8cba77677bc3944b539a6a0f60f5d2: 21300000
+    - 987de0974da24ac4f8defa60f032c887: 21300000
     - bd24c5976c4d7aa4783ef5838d3b25bd: 21300000
     - 553c95a748af570498ebdbf8b9623567: 21300000
     - f58043b7dbbd1b648ba7a8aa874b9153: 21300000
@@ -109,6 +112,8 @@ SpriteAtlas:
     - 84c0f8f92830a5d49b430e2f984ae7e6: 21300000
     - 1d94088a7b328f04388b7f13bce10fc1: 21300000
     - c332cc8aeb80e1f429ea2302e5493e50: 21300000
+    - 00d7effafec0e7f458ceacf1f4698367: 21300000
+    - fef2621b457fe534e93148fcc227c896: 21300000
     - 6744a81b6c202044faa765ab66d7db33: 21300000
     - bcecd74bbebe9fa4b8df9e9986a97a7b: 21300000
     - bbb1cabb285726849ae2ec8a5917dc81: 21300000
@@ -158,9 +163,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f354ca856cd148a45bb417c1ceb01dfc, type: 3}
   - {fileID: 21300000, guid: 6cb87fb5ea951cc42aa04a775188a069, type: 3}
   - {fileID: 21300000, guid: 90ce1096b5398364e8565e298ea8f544, type: 3}
+  - {fileID: 21300000, guid: 7e5c89d6f4dce19499be6a4e0ae3c193, type: 3}
+  - {fileID: 21300000, guid: 37e24757180868b438fac500d9671ae5, type: 3}
   - {fileID: 21300000, guid: 845e98570720402498d379fe6d4a5029, type: 3}
   - {fileID: 21300000, guid: c2956f57a4b2cfa469c5dfac9fe2ba9a, type: 3}
   - {fileID: 21300000, guid: 7a8cba77677bc3944b539a6a0f60f5d2, type: 3}
+  - {fileID: 21300000, guid: 987de0974da24ac4f8defa60f032c887, type: 3}
   - {fileID: 21300000, guid: bd24c5976c4d7aa4783ef5838d3b25bd, type: 3}
   - {fileID: 21300000, guid: 553c95a748af570498ebdbf8b9623567, type: 3}
   - {fileID: 21300000, guid: f58043b7dbbd1b648ba7a8aa874b9153, type: 3}
@@ -180,6 +188,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 84c0f8f92830a5d49b430e2f984ae7e6, type: 3}
   - {fileID: 21300000, guid: 1d94088a7b328f04388b7f13bce10fc1, type: 3}
   - {fileID: 21300000, guid: c332cc8aeb80e1f429ea2302e5493e50, type: 3}
+  - {fileID: 21300000, guid: 00d7effafec0e7f458ceacf1f4698367, type: 3}
+  - {fileID: 21300000, guid: fef2621b457fe534e93148fcc227c896, type: 3}
   - {fileID: 21300000, guid: 6744a81b6c202044faa765ab66d7db33, type: 3}
   - {fileID: 21300000, guid: bcecd74bbebe9fa4b8df9e9986a97a7b, type: 3}
   - {fileID: 21300000, guid: bbb1cabb285726849ae2ec8a5917dc81, type: 3}
@@ -228,9 +238,12 @@ SpriteAtlas:
   - wg_pnl_anc21
   - wg_pnl_gwxtd
   - wg_btn_fhkj
+  - "forgot password\uFF0822-25\uFF09"
+  - "Quick login\uFF0827-27\uFF09"
   - wg_pnl_ltbqk02
   - wg_pnl_anc08
   - wg_pnl_xttsk01
+  - "Account Text Box\uFF08600-90\uFF09"
   - wg_btn_ty01
   - wg_tp_djk04
   - bg_ptk
@@ -250,6 +263,8 @@ SpriteAtlas:
   - wg_pnl_xt01
   - wg_tp_djk01
   - bg_cqk
+  - "Login button\uFF08270-80\uFF09"
+  - "Registration icon\uFF0820-20\uFF09"
   - wg_pnl_anc14
   - wg_btn-hua_hu
   - wg_pnl_anc15
