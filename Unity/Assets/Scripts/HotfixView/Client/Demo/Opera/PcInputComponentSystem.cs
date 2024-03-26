@@ -19,16 +19,31 @@ namespace ET.Client
             self.AddHotKey("Alpha4", KeyCode.Alpha4);
             self.AddHotKey("Alpha5", KeyCode.Alpha5);
             self.AddHotKey("Alpha6", KeyCode.Alpha6);
+
+        }
+
+        public static void InitComponent(this PcInputComponent self)
+        {
             Unit myunit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            self.Mytran=myunit.GetComponent<GameObjectComponent>().Transform;
-            self.MyAnimator = myunit.GetComponent<GameObjectComponent>().Animator;
+            if (myunit == null)
+            {
+                return;
+            }
             self.MySpeed = myunit.GetComponent<NumericComponent>().GetAsFloat(NumericType.Speed);
-            self.MyCapsuleCollider = myunit.GetComponent<GameObjectComponent>().CapsuleCollider;
+            
+            GameObjectComponent mygo = myunit.GetComponent<GameObjectComponent>();
+            if (mygo == null)
+            {
+                return;
+            }
+
+            self.Mytran=mygo.Transform;
+            self.MyAnimator = mygo.Animator;
+            self.MyAnimator.speed = 1.5f;
+            self.MyCapsuleCollider = mygo.CapsuleCollider;
             self.orgColHight = self.MyCapsuleCollider .height;
             self.orgVectColCenter = self.MyCapsuleCollider .center;
-            self.MyRigidbody = myunit.GetComponent<GameObjectComponent>().Rigidbody;
-
-            self.MyAnimator.speed = 1.5f;
+            self.MyRigidbody = mygo.Rigidbody;
         }
 
         [EntitySystem]
@@ -189,6 +204,11 @@ namespace ET.Client
 
         private static void TestJump(this PcInputComponent self)
         {
+            if (self==null||self.MyAnimator==null)
+            {
+                self.InitComponent();
+                return;
+            }
             self.currentBaseState = self.MyAnimator.GetCurrentAnimatorStateInfo (0);	// 参照用のステート変数にBase Layer (0)の現在のステートを設定する
             self.MyRigidbody.useGravity = true;//ジャンプ中に重力を切るので、それ以外は重力の影響を受けるようにする
             

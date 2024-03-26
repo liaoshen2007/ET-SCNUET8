@@ -92,6 +92,7 @@ namespace ET
             Debug.Log("start build exe");
 
             string[] levels = { "Assets/Scenes/Init.unity" };
+            Log.Error("buildTarget:"+buildTarget);
             BuildReport report = BuildPipeline.BuildPlayer(levels, $"{relativeDirPrefix}/{exeName}", buildTarget, buildOptions);
             if (report.summary.result != BuildResult.Succeeded)
             {

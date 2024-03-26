@@ -28,6 +28,7 @@ namespace ET.Client
         public static async ETTask LoadAtlas(Entity entity, AtlasType atlasType)
         {
             var path = entity.Scene().GetComponent<UIComponent>().GetAtlasPath(atlasType);
+            Log.Error("LoadAssetAsync<SpriteAtlas>(path):"+path);
             await entity.Scene().GetComponent<ResourcesLoaderComponent>().LoadAssetAsync<SpriteAtlas>(path);
         }
 

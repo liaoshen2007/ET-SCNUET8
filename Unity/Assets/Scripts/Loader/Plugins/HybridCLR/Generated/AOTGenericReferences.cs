@@ -23,6 +23,36 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// }} 
 
 	// {{ AOT generic types
+	// ET.AEvent.<Handle>d__3<object,ET.AddItem>
+	// ET.AEvent.<Handle>d__3<object,ET.AddUpdateTask>
+	// ET.AEvent.<Handle>d__3<object,ET.AfterCreateCurrentScene>
+	// ET.AEvent.<Handle>d__3<object,ET.AfterUnitCreate>
+	// ET.AEvent.<Handle>d__3<object,ET.AppStartInitFinish>
+	// ET.AEvent.<Handle>d__3<object,ET.ChangePosition>
+	// ET.AEvent.<Handle>d__3<object,ET.ChangeRotation>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.DelGroup>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.HotKeyEvent>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.InitTask>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.LSSceneChangeStart>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.LSSceneInitFinish>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.MenuSelectEvent>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.NetError>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.UpdateGroup>
+	// ET.AEvent.<Handle>d__3<object,ET.Client.UpdateMsg>
+	// ET.AEvent.<Handle>d__3<object,ET.CreatMySelfUnit>
+	// ET.AEvent.<Handle>d__3<object,ET.DeleteTask>
+	// ET.AEvent.<Handle>d__3<object,ET.EnterMapFinish>
+	// ET.AEvent.<Handle>d__3<object,ET.EntryEvent1>
+	// ET.AEvent.<Handle>d__3<object,ET.EntryEvent2>
+	// ET.AEvent.<Handle>d__3<object,ET.EntryEvent3>
+	// ET.AEvent.<Handle>d__3<object,ET.LoadingProgress>
+	// ET.AEvent.<Handle>d__3<object,ET.LoginFinish>
+	// ET.AEvent.<Handle>d__3<object,ET.MoveStart>
+	// ET.AEvent.<Handle>d__3<object,ET.MoveStop>
+	// ET.AEvent.<Handle>d__3<object,ET.NumbericChange>
+	// ET.AEvent.<Handle>d__3<object,ET.RefreshRoleInfo>
+	// ET.AEvent.<Handle>d__3<object,ET.SceneChangeFinish>
+	// ET.AEvent.<Handle>d__3<object,ET.SceneChangeStart>
 	// ET.AEvent<object,ET.AddItem>
 	// ET.AEvent<object,ET.AddUpdateTask>
 	// ET.AEvent<object,ET.AfterCreateCurrentScene>
@@ -31,21 +61,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// ET.AEvent<object,ET.ChangePosition>
 	// ET.AEvent<object,ET.ChangeRotation>
 	// ET.AEvent<object,ET.Client.DelGroup>
+	// ET.AEvent<object,ET.Client.HotKeyEvent>
 	// ET.AEvent<object,ET.Client.InitTask>
 	// ET.AEvent<object,ET.Client.LSSceneChangeStart>
 	// ET.AEvent<object,ET.Client.LSSceneInitFinish>
 	// ET.AEvent<object,ET.Client.MenuSelectEvent>
+	// ET.AEvent<object,ET.Client.NetError>
 	// ET.AEvent<object,ET.Client.UpdateGroup>
 	// ET.AEvent<object,ET.Client.UpdateMsg>
+	// ET.AEvent<object,ET.CreatMySelfUnit>
 	// ET.AEvent<object,ET.DeleteTask>
 	// ET.AEvent<object,ET.EnterMapFinish>
 	// ET.AEvent<object,ET.EntryEvent1>
+	// ET.AEvent<object,ET.EntryEvent2>
 	// ET.AEvent<object,ET.EntryEvent3>
 	// ET.AEvent<object,ET.LoadingProgress>
 	// ET.AEvent<object,ET.LoginFinish>
 	// ET.AEvent<object,ET.MoveStart>
 	// ET.AEvent<object,ET.MoveStop>
 	// ET.AEvent<object,ET.NumbericChange>
+	// ET.AEvent<object,ET.RefreshRoleInfo>
 	// ET.AEvent<object,ET.SceneChangeFinish>
 	// ET.AEvent<object,ET.SceneChangeStart>
 	// ET.AInvokeHandler<ET.FiberInit,object>
@@ -66,23 +101,41 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_CreateMyUnit>
 	// ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_SceneChangeFinish>
 	// ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_UnitStop>
+	// ET.ETAsyncTaskMethodBuilder<System.ValueTuple<byte,long>>
 	// ET.ETAsyncTaskMethodBuilder<System.ValueTuple<uint,object>>
 	// ET.ETAsyncTaskMethodBuilder<byte>
 	// ET.ETAsyncTaskMethodBuilder<int>
-	// ET.ETAsyncTaskMethodBuilder<long>
 	// ET.ETAsyncTaskMethodBuilder<object>
 	// ET.ETAsyncTaskMethodBuilder<uint>
+	// ET.ETTask.<InnerCoroutine>d__8<ET.Client.WaitType.Wait_Room2C_Start>
+	// ET.ETTask.<InnerCoroutine>d__8<ET.Client.Wait_CreateMyUnit>
+	// ET.ETTask.<InnerCoroutine>d__8<ET.Client.Wait_SceneChangeFinish>
+	// ET.ETTask.<InnerCoroutine>d__8<ET.Client.Wait_UnitStop>
+	// ET.ETTask.<InnerCoroutine>d__8<System.ValueTuple<byte,long>>
+	// ET.ETTask.<InnerCoroutine>d__8<System.ValueTuple<uint,object>>
+	// ET.ETTask.<InnerCoroutine>d__8<byte>
+	// ET.ETTask.<InnerCoroutine>d__8<int>
+	// ET.ETTask.<InnerCoroutine>d__8<object>
+	// ET.ETTask.<InnerCoroutine>d__8<uint>
 	// ET.ETTask<ET.Client.WaitType.Wait_Room2C_Start>
 	// ET.ETTask<ET.Client.Wait_CreateMyUnit>
 	// ET.ETTask<ET.Client.Wait_SceneChangeFinish>
 	// ET.ETTask<ET.Client.Wait_UnitStop>
+	// ET.ETTask<System.ValueTuple<byte,long>>
 	// ET.ETTask<System.ValueTuple<uint,object>>
 	// ET.ETTask<byte>
 	// ET.ETTask<int>
-	// ET.ETTask<long>
 	// ET.ETTask<object>
 	// ET.ETTask<uint>
 	// ET.EntityRef<object>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.AppStartInitFinish>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LSSceneChangeStart>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.EnterMapFinish>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent1>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent2>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent3>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.LoginFinish>
+	// ET.EventSystem.<PublishAsync>d__4<object,ET.SceneChangeFinish>
 	// ET.IAwake<byte>
 	// ET.IAwake<int,int>
 	// ET.IAwake<int>
@@ -204,6 +257,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.Comparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.Comparer<Unity.Mathematics.float3>
+	// System.Collections.Generic.Comparer<byte>
 	// System.Collections.Generic.Comparer<int>
 	// System.Collections.Generic.Comparer<long>
 	// System.Collections.Generic.Comparer<object>
@@ -217,6 +271,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ComparisonComparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.ComparisonComparer<Unity.Mathematics.float3>
+	// System.Collections.Generic.ComparisonComparer<byte>
 	// System.Collections.Generic.ComparisonComparer<int>
 	// System.Collections.Generic.ComparisonComparer<long>
 	// System.Collections.Generic.ComparisonComparer<object>
@@ -228,6 +283,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.Enumerator<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary.Enumerator<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.Enumerator<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.Enumerator<object,object>
@@ -238,6 +294,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,object>
@@ -248,6 +305,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.KeyCollection<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary.KeyCollection<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary.KeyCollection<long,object>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,int>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,long>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,object>
@@ -258,6 +316,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,long>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,object>
@@ -268,6 +327,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary.ValueCollection<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary.ValueCollection<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary.ValueCollection<long,object>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,int>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,long>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,object>
@@ -278,16 +338,19 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Dictionary<long,ET.EntityRef<object>>
 	// System.Collections.Generic.Dictionary<long,ET.LSInput>
 	// System.Collections.Generic.Dictionary<long,object>
+	// System.Collections.Generic.Dictionary<object,ET.Client.HotKey>
 	// System.Collections.Generic.Dictionary<object,int>
 	// System.Collections.Generic.Dictionary<object,long>
 	// System.Collections.Generic.Dictionary<object,object>
 	// System.Collections.Generic.Dictionary<ushort,object>
 	// System.Collections.Generic.EqualityComparer<ET.ActorId>
+	// System.Collections.Generic.EqualityComparer<ET.Client.HotKey>
 	// System.Collections.Generic.EqualityComparer<ET.EntityRef<object>>
 	// System.Collections.Generic.EqualityComparer<ET.LSInput>
 	// System.Collections.Generic.EqualityComparer<ET.RpcInfo>
 	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.EqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.EqualityComparer<byte>
 	// System.Collections.Generic.EqualityComparer<int>
 	// System.Collections.Generic.EqualityComparer<long>
 	// System.Collections.Generic.EqualityComparer<object>
@@ -310,6 +373,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,ET.EntityRef<object>>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,ET.LSInput>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,ET.Client.HotKey>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,long>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,object>>
@@ -341,6 +405,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,ET.EntityRef<object>>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,ET.LSInput>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,ET.Client.HotKey>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,long>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>
@@ -361,6 +426,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,ET.EntityRef<object>>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,ET.LSInput>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,ET.Client.HotKey>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,int>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,long>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,object>>
@@ -392,6 +458,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.KeyValuePair<long,ET.EntityRef<object>>
 	// System.Collections.Generic.KeyValuePair<long,ET.LSInput>
 	// System.Collections.Generic.KeyValuePair<long,object>
+	// System.Collections.Generic.KeyValuePair<object,ET.Client.HotKey>
 	// System.Collections.Generic.KeyValuePair<object,int>
 	// System.Collections.Generic.KeyValuePair<object,long>
 	// System.Collections.Generic.KeyValuePair<object,object>
@@ -424,17 +491,20 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ObjectComparer<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Collections.Generic.ObjectComparer<Unity.Mathematics.float3>
+	// System.Collections.Generic.ObjectComparer<byte>
 	// System.Collections.Generic.ObjectComparer<int>
 	// System.Collections.Generic.ObjectComparer<long>
 	// System.Collections.Generic.ObjectComparer<object>
 	// System.Collections.Generic.ObjectComparer<uint>
 	// System.Collections.Generic.ObjectComparer<ushort>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.ActorId>
+	// System.Collections.Generic.ObjectEqualityComparer<ET.Client.HotKey>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.EntityRef<object>>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.LSInput>
 	// System.Collections.Generic.ObjectEqualityComparer<ET.RpcInfo>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ObjectEqualityComparer<System.Collections.Generic.KeyValuePair<long,object>>
+	// System.Collections.Generic.ObjectEqualityComparer<byte>
 	// System.Collections.Generic.ObjectEqualityComparer<int>
 	// System.Collections.Generic.ObjectEqualityComparer<long>
 	// System.Collections.Generic.ObjectEqualityComparer<object>
@@ -514,6 +584,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Comparison<System.Collections.Generic.KeyValuePair<long,object>>
 	// System.Comparison<Unity.Mathematics.float3>
+	// System.Comparison<byte>
 	// System.Comparison<int>
 	// System.Comparison<long>
 	// System.Comparison<object>
@@ -564,6 +635,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.TaskFactory.<>c__DisplayClass35_0<object>
 	// System.Threading.Tasks.TaskFactory<object>
 	// System.ValueTuple<ET.ActorId,object>
+	// System.ValueTuple<byte,long>
 	// System.ValueTuple<int,object>
 	// System.ValueTuple<uint,object>
 	// System.ValueTuple<uint,uint>
@@ -584,32 +656,24 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,object>(System.Runtime.CompilerServices.TaskAwaiter&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,object>(System.Runtime.CompilerServices.TaskAwaiter<object>&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.AwaitUnsafeOnCompleted<object,object>(object&,object&)
+		// System.Void ET.ETAsyncTaskMethodBuilder<System.ValueTuple<byte,long>>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<System.ValueTuple<uint,object>>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<byte>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<int>.AwaitUnsafeOnCompleted<ET.ETTaskCompleted,object>(ET.ETTaskCompleted&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<int>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
-		// System.Void ET.ETAsyncTaskMethodBuilder<long>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter,object>(System.Runtime.CompilerServices.TaskAwaiter&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<System.Runtime.CompilerServices.TaskAwaiter<object>,object>(System.Runtime.CompilerServices.TaskAwaiter<object>&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<uint>.AwaitUnsafeOnCompleted<object,object>(object&,object&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.AppStartInitFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.AppStartInitFinish>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LSSceneChangeStart>>(ET.EventSystem.<PublishAsync>d__4<object,ET.Client.LSSceneChangeStart>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EnterMapFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EnterMapFinish>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent1>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent1>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent2>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent2>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent3>>(ET.EventSystem.<PublishAsync>d__4<object,ET.EntryEvent3>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.LoginFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.LoginFinish>&)
-		// System.Void ET.ETAsyncTaskMethodBuilder.Start<ET.EventSystem.<PublishAsync>d__4<object,ET.SceneChangeFinish>>(ET.EventSystem.<PublishAsync>d__4<object,ET.SceneChangeFinish>&)
 		// System.Void ET.ETAsyncTaskMethodBuilder.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.WaitType.Wait_Room2C_Start>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_CreateMyUnit>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_SceneChangeFinish>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<ET.Client.Wait_UnitStop>.Start<object>(object&)
+		// System.Void ET.ETAsyncTaskMethodBuilder<System.ValueTuple<byte,long>>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<System.ValueTuple<uint,object>>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<byte>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<int>.Start<object>(object&)
-		// System.Void ET.ETAsyncTaskMethodBuilder<long>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<object>.Start<object>(object&)
 		// System.Void ET.ETAsyncTaskMethodBuilder<uint>.Start<object>(object&)
 		// object ET.Entity.AddChild<object,int>(int,bool)
@@ -653,15 +717,19 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void ET.EventSystem.Publish<object,ET.ChangePosition>(object,ET.ChangePosition)
 		// System.Void ET.EventSystem.Publish<object,ET.ChangeRotation>(object,ET.ChangeRotation)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.DelGroup>(object,ET.Client.DelGroup)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.HotKeyEvent>(object,ET.Client.HotKeyEvent)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.LSSceneInitFinish>(object,ET.Client.LSSceneInitFinish)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.MenuSelectEvent>(object,ET.Client.MenuSelectEvent)
+		// System.Void ET.EventSystem.Publish<object,ET.Client.NetError>(object,ET.Client.NetError)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.UpdateGroup>(object,ET.Client.UpdateGroup)
 		// System.Void ET.EventSystem.Publish<object,ET.Client.UpdateMsg>(object,ET.Client.UpdateMsg)
+		// System.Void ET.EventSystem.Publish<object,ET.CreatMySelfUnit>(object,ET.CreatMySelfUnit)
 		// System.Void ET.EventSystem.Publish<object,ET.DeleteTask>(object,ET.DeleteTask)
 		// System.Void ET.EventSystem.Publish<object,ET.LoadingProgress>(object,ET.LoadingProgress)
 		// System.Void ET.EventSystem.Publish<object,ET.MoveStart>(object,ET.MoveStart)
 		// System.Void ET.EventSystem.Publish<object,ET.MoveStop>(object,ET.MoveStop)
 		// System.Void ET.EventSystem.Publish<object,ET.NumbericChange>(object,ET.NumbericChange)
+		// System.Void ET.EventSystem.Publish<object,ET.RefreshRoleInfo>(object,ET.RefreshRoleInfo)
 		// System.Void ET.EventSystem.Publish<object,ET.SceneChangeStart>(object,ET.SceneChangeStart)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.AppStartInitFinish>(object,ET.AppStartInitFinish)
 		// ET.ETTask ET.EventSystem.PublishAsync<object,ET.Client.LSSceneChangeStart>(object,ET.Client.LSSceneChangeStart)
@@ -723,6 +791,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,int>(byte&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,byte,byte,byte,byte,byte>(byte&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,int>(byte&,long&,long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long,int>(byte&,long&,long&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long,long,long,long>(byte&,long&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,long>(byte&,long&)
 		// System.Void MemoryPack.MemoryPackReader.ReadUnmanaged<byte,uint>(byte&,uint&)
@@ -793,6 +862,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,int>(byte,byte&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,byte,byte,byte,byte,byte>(byte,byte&,long&,long&,long&,byte&,byte&,byte&,byte&,byte&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,int>(byte,byte&,long&,long&,long&,int&)
+		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long,int>(byte,byte&,long&,long&,long&,long&,int&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long,long,long,long>(byte,byte&,long&,long&,long&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,long>(byte,byte&,long&)
 		// System.Void MemoryPack.MemoryPackWriter.WriteUnmanagedWithObjectHeader<byte,uint>(byte,byte&,uint&)
